@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İstiklal | GİRİŞ YAP</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       LOGIN V3 — ZOZZO-FUSION SPLIT SCREEN
+       Cisco Networking Academy Inspired
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', 'Syne', sans-serif;
+      background: #050510;
+      color: #e2e2e8;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* â•â•â• SPLIT LAYOUT â•â•â• */
+    .split-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* ── LEFT PANEL: BRANDING ── */
+    .brand-panel {
+      flex: 1;
+      position: relative;
+      background: linear-gradient(160deg, #050510 0%, #0a0d2c 35%, #12062e 65%, #080520 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 60px;
+      overflow: hidden;
+    }
+
+    /* Grid overlay on brand panel */
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(139, 92, 246, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* Particle Canvas */
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Ambient Glow Orbs */
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-orb.orb-1 {
+      width: 450px;
+      height: 450px;
+      top: 10%;
+      left: -120px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+
+    .ambient-orb.orb-2 {
+      width: 380px;
+      height: 380px;
+      bottom: 5%;
+      right: -100px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.07), transparent 70%);
+      animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+
+    .ambient-orb.orb-3 {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      left: 40%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.04), transparent 70%);
+      animation: orbFloat 12s ease-in-out infinite;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(20px, -15px);
+      }
+    }
+
+    /* Floating Decorative Shapes */
+    .floating-shapes {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      animation: shapeFloat ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 80px;
+      height: 80px;
+      top: 12%;
+      left: 15%;
+      background: linear-gradient(135deg, #EC4899, #F472B6);
+      border-radius: 20%;
+      transform: rotate(15deg);
+      animation-duration: 7s;
+      opacity: 0.85;
+    }
+
+    .shape-2 {
+      width: 18px;
+      height: 18px;
+      top: 22%;
+      left: 40%;
+      background: #3B82F6;
+      animation-duration: 5s;
+      animation-delay: 1s;
+      opacity: 0.9;
+    }
+
+    .shape-3 {
+      width: 14px;
+      height: 14px;
+      top: 55%;
+      left: 8%;
+      background: #8B5CF6;
+      border-radius: 3px;
+      transform: rotate(45deg);
+      animation-duration: 9s;
+      animation-delay: 0.5s;
+      opacity: 0.6;
+    }
+
+    .shape-4 {
+      width: 60px;
+      height: 60px;
+      bottom: 22%;
+      left: 25%;
+      background: transparent;
+      border: 3px solid rgba(139, 92, 246, 0.4);
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      animation-duration: 11s;
+      animation-delay: 2s;
+      opacity: 0.65;
+    }
+
+    .shape-5 {
+      width: 50px;
+      height: 50px;
+      bottom: 35%;
+      right: 15%;
+      background: #60A5FA;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      animation-duration: 8s;
+      animation-delay: 1.5s;
+      opacity: 0.35;
+    }
+
+    .shape-6 {
+      width: 90px;
+      height: 90px;
+      bottom: 10%;
+      left: 5%;
+      background: linear-gradient(135deg, #F59E0B, #FBBF24);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      animation-duration: 10s;
+      animation-delay: 0.8s;
+      opacity: 0.75;
+    }
+
+    @keyframes shapeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      25% {
+        transform: translateY(-12px) rotate(3deg);
+      }
+
+      50% {
+        transform: translateY(-6px) rotate(-2deg);
+      }
+
+      75% {
+        transform: translateY(-18px) rotate(1deg);
+      }
+    }
+
+    /* Brand Content */
+    .brand-content {
+      position: relative;
+      z-index: 10;
+      max-width: 480px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .brand-logo .material-symbols-outlined {
+      font-size: 40px;
+      color: #8B5CF6;
+      font-variation-settings: 'FILL' 1;
+    }
+
+    .brand-logo span:last-child {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+      letter-spacing: -1px;
+      color: #8B5CF6;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #ffffff;
+      margin-bottom: 24px;
+      text-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
+    }
+
+    .brand-title .highlight {
+      color: #8B5CF6;
+      text-shadow: 0 0 25px rgba(139, 92, 246, 0.25);
+    }
+
+    .brand-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(226, 226, 232, 0.55);
+      max-width: 460px;
+      position: relative;
+      min-height: 60px;
+    }
+
+    .brand-desc .rotating-text {
+      display: inline;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .brand-desc .rotating-text.active {
+      opacity: 1;
+    }
+
+    .brand-desc strong {
+      color: rgba(226, 226, 232, 0.8);
+    }
+
+    /* ── RIGHT PANEL: FORM ── */
+    .form-panel {
+      width: 780px;
+      min-width: 780px;
+      background: rgba(8, 10, 30, 0.97);
+      border-left: 1px solid rgba(139, 92, 246, 0.06);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    .form-scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 48px;
+      min-height: 100vh;
+    }
+
+    /* Language Selector Hint (top-right, shifted left to avoid overlap with TR/EN pills) */
+    .lang-hint {
+      position: absolute;
+      top: 28px;
+      right: 155px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: rgba(132, 148, 149, 0.4);
+      z-index: 5;
+    }
+
+    .lang-hint .material-symbols-outlined {
+      font-size: 16px;
+    }
+
+    /* Go Back */
+    .go-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: rgba(132, 148, 149, 0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-bottom: 32px;
+      cursor: pointer;
+    }
+
+    .go-back:hover {
+      color: #8B5CF6;
+    }
+
+    .go-back .material-symbols-outlined {
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .go-back:hover .material-symbols-outlined {
+      transform: translateX(-3px);
+    }
+
+    /* Welcome Header */
+    .welcome-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .welcome-header p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: rgba(132, 148, 149, 0.6);
+      margin-bottom: 32px;
+    }
+
+    /* â•â•â• MODERN INPUT FIELDS â•â•â• */
+    .input-group {
+      position: relative;
+      margin-bottom: 4px;
+    }
+
+    .input-group .input-icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: rgba(132, 148, 149, 0.5);
+      transition: all 0.3s ease;
+      font-variation-settings: 'FILL' 0, 'wght' 300;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid rgba(58, 73, 75, 0.4);
+      color: #e2e2e8;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      padding: 14px 40px 14px 34px;
+      outline: none;
+      transition: all 0.35s ease;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(132, 148, 149, 0.35);
+      font-weight: 400;
+    }
+
+    .input-group input:focus {
+      border-bottom-color: #3B82F6;
+      box-shadow: 0 4px 15px -6px rgba(59, 130, 246, 0.3);
+    }
+
+    .input-group:focus-within .input-icon {
+      color: #3B82F6;
+
+    }
+
+    /* Toggle password button */
+    .pw-toggle {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(132, 148, 149, 0.4);
+      font-size: 20px;
+      transition: color 0.3s;
+      font-variation-settings: 'FILL' 0, 'wght' 300;
+    }
+
+    .pw-toggle:hover {
+      color: #e2e2e8;
+    }
+
+    /* Field labels */
+    .field-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(139, 92, 246, 0.5);
+      margin-bottom: 2px;
+    }
+
+    /* Forgot password link */
+    .forgot-link {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(132, 148, 149, 0.5);
+      text-decoration: none;
+      transition: all 0.3s;
+      letter-spacing: 0.3px;
+    }
+
+    .forgot-link:hover {
+      color: #3B82F6;
+      text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    }
+
+    /* â•â•â• GAMER LOGIN BUTTON â•â•â• */
+    .gamer-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(45deg, #3B82F6, #2563EB);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow:
+        0 4px 20px rgba(59, 130, 246, 0.3),
+        0 0 40px rgba(59, 130, 246, 0.1);
+    }
+
+    .gamer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 30px rgba(59, 130, 246, 0.4),
+        0 0 60px rgba(59, 130, 246, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .gamer-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .gamer-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .gamer-btn:hover::after {
+      left: 100%;
+    }
+
+    /* â•â•â• DIVIDER â•â•â• */
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(58, 73, 75, 0.4), transparent);
+    }
+
+    .login-divider span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(132, 148, 149, 0.4);
+      white-space: nowrap;
+    }
+
+    /* â•â•â• SOCIAL LOGIN BUTTONS (Glassmorphism) â•â•â• */
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: rgba(226, 226, 232, 0.7);
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: #e2e2e8;
+      transform: translateY(-1px);
+    }
+
+    .social-btn .icon-wrap {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+
+    /* Error message */
+    #login-error {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: #ff6b6b;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* Footer link */
+    .register-footer {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: rgba(185, 202, 203, 0.6);
+      padding: 20px 0;
+      border-top: 1px solid rgba(58, 73, 75, 0.2);
+    }
+
+    .register-footer a {
+      color: #8B5CF6;
+      font-weight: 700;
+      text-decoration: none;
+      margin-left: 4px;
+      transition: all 0.3s;
+    }
+
+    .register-footer a:hover {
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+    }
+
+    /* â•â•â• GUEST ACCESS BUTTON â•â•â• */
+    .guest-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px;
+      border-radius: 14px;
+      background: rgba(139, 92, 246, 0.04);
+      border: 1.5px solid rgba(139, 92, 246, 0.2);
+      color: rgba(139, 92, 246, 0.7);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s ease;
+    }
+
+    .guest-btn:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.45);
+      color: #8B5CF6;
+      box-shadow: 0 0 30px rgba(139, 92, 246, 0.12), 0 4px 20px rgba(139, 92, 246, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .guest-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* â•â•â• LEGAL MODAL â•â•â• */
+    .legal-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .legal-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .legal-modal-card {
+      background: rgba(15, 17, 30, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 24px;
+      padding: 32px;
+      width: 90%;
+      max-width: 520px;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 0 60px rgba(139, 92, 246, 0.08), 0 24px 48px rgba(0, 0, 0, 0.5);
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .legal-modal-overlay.active .legal-modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .legal-modal-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #8B5CF6;
+      margin-bottom: 16px;
+    }
+
+    .legal-modal-card .legal-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(226, 226, 232, 0.75);
+    }
+
+    .legal-modal-card .legal-body strong {
+      color: #e2e2e8;
+    }
+
+    .legal-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: rgba(132, 148, 149, 0.5);
+      cursor: pointer;
+      font-size: 22px;
+      transition: color 0.2s;
+    }
+
+    .legal-modal-close:hover {
+      color: #ff6b6b;
+    }
+
+    /* â•â• Entry fade â•â• */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeInUp 0.7s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* â•â•â• PAGE FOOTER (inside form panel) â•â•â• */
+    .page-footer {
+      background: rgba(6, 7, 24, 0.6);
+      border-top: 1px solid rgba(139, 92, 246, 0.06);
+      padding: 14px 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 4px 12px;
+      margin-bottom: 6px;
+    }
+
+    .footer-links a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(185, 202, 203, 0.35);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-links a:hover {
+      color: #8B5CF6;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px;
+      color: rgba(132, 148, 149, 0.25);
+    }
+
+    .footer-divider {
+      color: rgba(58, 73, 75, 0.3);
+      font-size: 7px;
+      user-select: none;
+    }
+
+    /* â•â•â• MOBILE BOTTOM NAV â•â•â• */
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(5, 5, 16, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(139, 92, 246, 0.08);
+      padding: 10px 0 22px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .mobile-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .mobile-nav .nav-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* â•â•â• RESPONSIVE â•â•â• */
+    @media (max-width: 1024px) {
+      .brand-panel {
+        padding: 40px 40px;
+      }
+
+      .brand-title {
+        font-size: 34px;
+      }
+
+      .form-panel {
+        width: 700px;
+        min-width: 700px;
+      }
+
+      .form-scroll-area {
+        padding: 40px 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .split-container {
+        flex-direction: column;
+      }
+
+      .brand-panel {
+        display: none;
+      }
+
+      .form-panel {
+        width: 100%;
+        min-width: 100%;
+        border-left: none;
+        background: linear-gradient(160deg, #050510 0%, #0a0d2c 40%, #12062e 70%, #080520 100%);
+      }
+
+      .form-scroll-area {
+        padding: 24px 20px;
+        padding-top: 80px;
+        padding-bottom: 100px;
+        min-height: auto;
+      }
+
+      .go-back {
+        margin-bottom: 24px;
+      }
+
+      .welcome-header h1 {
+        font-size: 24px;
+      }
+
+      .lang-hint {
+        top: 18px;
+        right: 18px;
+      }
+    }
+
+    /* ── Turkish Flag Animation ── */
+    @keyframes istiFlagWave {
+      0% {
+        transform: rotate(0deg) scaleX(1);
+      }
+
+      15% {
+        transform: rotate(2.5deg) scaleX(1.04);
+      }
+
+      30% {
+        transform: rotate(-1.5deg) scaleX(0.97);
+      }
+
+      50% {
+        transform: rotate(2deg) scaleX(1.03);
+      }
+
+      70% {
+        transform: rotate(-1deg) scaleX(0.99);
+      }
+
+      85% {
+        transform: rotate(1.5deg) scaleX(1.02);
+      }
+
+      100% {
+        transform: rotate(0deg) scaleX(1);
+      }
+    }
+
+    @keyframes istiPoleShine {
+
+      0%,
+      100% {
+        opacity: 0.6;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .istiklal-flag-wrap {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .istiklal-fpole {
+      width: 2px;
+      height: 18px;
+      background: linear-gradient(180deg, #FFD700, #C8A832, #FFD700);
+      border-radius: 1px;
+      flex-shrink: 0;
+      animation: istiPoleShine 3s ease-in-out infinite;
+      box-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+      position: relative;
+    }
+
+    .istiklal-fpole::before {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: #FFD700;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      left: -1px;
+      box-shadow: 0 0 5px rgba(255, 215, 0, 0.6);
+    }
+
+    .istiklal-fsvg {
+      animation: istiFlagWave 4s ease-in-out infinite;
+      transform-origin: left center;
+
+    }
+
+    .istiklal-flag-wrap:hover .istiklal-fsvg {
+      animation-duration: 1.5s;
+    }
+
+    /* ââ€â‚¬ââ€â‚¬ Giant Background Flag ââ€â‚¬ââ€â‚¬ */
+    .giant-bg-flag {
+      position: absolute;
+      top: 4%;
+      left: 50%;
+      width: 380px;
+      transform: translateX(-50%);
+      opacity: 0.50;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .waving-bg-flag-svg {
+      width: 100%;
+      height: auto;
+      animation: giantFlagWave 5s ease-in-out infinite;
+      transform-origin: center left;
+      border-radius: 12px;
+    }
+
+    @keyframes giantFlagWave {
+
+      0%,
+      100% {
+        transform: perspective(800px) rotateY(0deg) skewY(0deg);
+        border-radius: 12px;
+      }
+
+      25% {
+        transform: perspective(800px) rotateY(4deg) skewY(1.5deg);
+        border-radius: 12px 24px 12px 18px;
+      }
+
+      50% {
+        transform: perspective(800px) rotateY(-2deg) skewY(-1deg);
+        border-radius: 12px 10px 12px 24px;
+      }
+
+      75% {
+        transform: perspective(800px) rotateY(2deg) skewY(0.5deg);
+        border-radius: 12px 18px 12px 14px;
+      }
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-lowest": "#0c0e12",
+            "error": "#ffb4ab",
+            "tertiary": "#fff4f9",
+            "inverse-surface": "#e2e2e8",
+            "surface-tint": "#7C3AED",
+            "secondary-fixed": "#ffddb4",
+            "on-primary-container": "#006a71",
+            "surface-dim": "#0A0B1E",
+            "on-secondary-container": "#694300",
+            "surface-container": "#1e2024",
+            "on-tertiary": "#5b005b",
+            "on-surface": "#e2e2e8",
+            "surface-bright": "#37393e",
+            "surface-container-low": "#1a1c20",
+            "secondary-container": "#ffaa00",
+            "primary-fixed": "#74f5ff",
+            "background": "#0A0B1E",
+            "inverse-on-surface": "#2f3035",
+            "surface": "#0A0B1E",
+            "surface-container-high": "#282a2e",
+            "on-error": "#690005",
+            "error-container": "#93000a",
+            "surface-container-highest": "#333539",
+            "on-secondary-fixed-variant": "#633f00",
+            "outline": "#849495",
+            "on-surface-variant": "#b9cacb",
+            "tertiary-fixed": "#ffd7f5",
+            "surface-variant": "#333539",
+            "on-tertiary-container": "#ab00aa",
+            "on-primary-fixed": "#002022",
+            "on-background": "#e2e2e8",
+            "on-primary": "#1E0A4B",
+            "on-tertiary-fixed": "#380038",
+            "tertiary-container": "#ffcbf4",
+            "on-primary-fixed-variant": "#004f54",
+            "tertiary-fixed-dim": "#ffabf3",
+            "primary": "#e1fdff",
+            "on-error-container": "#ffdad6",
+            "secondary-fixed-dim": "#ffb952",
+            "primary-fixed-dim": "#7C3AED",
+            "on-tertiary-fixed-variant": "#810081",
+            "on-secondary": "#452b00",
+            "inverse-primary": "#00696f",
+            "primary-container": "#8B5CF6",
+            "secondary": "#ffcf90",
+            "outline-variant": "#3a494b",
+            "on-secondary-fixed": "#291800"
+          },
+          fontFamily: {
+            "headline": ["Outfit"],
+            "body": ["Poppins"],
+            "label": ["Poppins"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+</head>
+
+<body>
+
+  <!-- â•â•â• SPLIT CONTAINER â•â•â• -->
+  <div class="split-container">
+
+    <!-- â•â•â• LEFT PANEL: BRANDING â•â•â• -->
+    <div class="brand-panel">
+      <canvas id="particle-canvas"></canvas>
+      <div class="ambient-orb orb-1"></div>
+      <div class="ambient-orb orb-2"></div>
+      <div class="ambient-orb orb-3"></div>
+
+      <!-- Floating Decorative Shapes -->
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+
+        <!-- Giant Waving Background Flag -->
+        <div class="giant-bg-flag">
+          <svg class="waving-bg-flag-svg" viewBox="0 0 1200 800">
+            <rect width="1200" height="800" fill="#E30A17" rx="40" />
+            <circle cx="400" cy="400" r="200" fill="#fff" />
+            <circle cx="450" cy="400" r="160" fill="#E30A17" />
+            <polygon fill="#fff" fill-rule="nonzero"
+              points="566.6,400 747.5,341.2 635.7,495.1 635.7,304.9 747.5,458.8" />
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- Brand Content -->
+      <div class="brand-content fade-in-up">
+        <div class="brand-logo">
+          <span class="material-symbols-outlined">sports_esports</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;">İSTİKLAL<span class="istiklal-flag-wrap"
+              title=""><span class="istiklal-fpole" style="height:28px;"></span><svg class="istiklal-fsvg"
+                width="36" height="24" viewBox="0 0 1200 800">
+                <rect width="1200" height="800" fill="#E30A17" />
+                <circle cx="400" cy="400" r="200" fill="#fff" />
+                <circle cx="450" cy="400" r="160" fill="#E30A17" />
+                <polygon fill="#fff" fill-rule="nonzero"
+                  points="566.6,400 747.5,341.2 635.7,495.1 635.7,304.9 747.5,458.8" />
+              </svg></span></span>
+        </div>
+        <h2 class="brand-title">
+          <span data-i18n="brand_login_title_1">Yeteneklerini</span><br><span
+            data-i18n="brand_login_title_2">Geliştir,</span><br><span class="highlight"
+            data-i18n="brand_login_highlight">İstiklal</span> <span data-i18n="brand_login_title_3">ile</span>
+        </h2>
+        <p class="brand-desc" id="rotating-desc">
+          <span class="rotating-text active" data-i18n="brand_login_desc">Uzman oyuncularla eşleş, takım arkadaşlarını
+            bul ve <strong>rekabetçi oyun deneyimini</strong> bir üst seviyeye taşı.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- â•â•â• RIGHT PANEL: FORM â•â•â• -->
+    <div class="form-panel">
+
+      <!-- Language hint -->
+      <div class="lang-hint">
+        <span class="material-symbols-outlined">language</span>
+        <span data-i18n="lang_hint_text">Türkçe (Turkish)</span>
+      </div>
+
+      <div class="form-scroll-area">
+
+        <!-- Go Back -->
+        <a class="go-back fade-in-up" style="animation-delay:0.1s" href="../splash_screen_g_ncellendi/code.html">
+          <span class="material-symbols-outlined">arrow_back</span>
+          <span data-i18n="go_back">Geri Dön</span>
+        </a>
+
+        <!-- Welcome Header -->
+        <div class="welcome-header fade-in-up" style="animation-delay:0.2s">
+          <h1 data-i18n="login_welcome">Hoş Geldin!</h1>
+          <p data-i18n="login_welcome_sub">Hesabına giriş yap ve oyun dünyasına adım at.</p>
+        </div>
+
+        <!-- Email / Username Field -->
+        <div class="mb-6 fade-in-up" style="animation-delay:0.3s">
+          <label class="field-label" data-i18n="email_or_username_label">E-posta veya kullanıcı adı</label>
+          <div class="input-group">
+            <span class="material-symbols-outlined input-icon">person</span>
+            <input id="email-input" type="text" data-i18n-ph="ph_email_or_username"
+              placeholder="E-posta veya kullanıcı adı" />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-2 fade-in-up" style="animation-delay:0.35s">
+          <div class="flex justify-between items-center mb-1">
+            <label class="field-label" data-i18n="password_label">Şifre</label>
+          </div>
+          <div class="input-group">
+            <span class="material-symbols-outlined input-icon">lock</span>
+            <input id="password-input" type="password" placeholder="••••••••" />
+            <button type="button" id="toggle-password" class="pw-toggle material-symbols-outlined">visibility</button>
+          </div>
+        </div>
+
+        <!-- Forgot password -->
+        <div class="flex justify-end mb-8 fade-in-up" style="animation-delay:0.35s">
+          <a class="forgot-link" href="../sifremi_unuttum/code.html" data-i18n="forgot_password_setup">Şifre Ayarla veya
+            Sıfırla</a>
+        </div>
+
+        <!-- İstiklal Shield CAPTCHA -->
+        <div class="fade-in-up" style="animation-delay:0.38s;margin-bottom:16px;">
+          <div id="login-captcha-container"></div>
+        </div>
+
+        <!-- Login Button -->
+        <div class="fade-in-up" style="animation-delay:0.4s">
+          <button id="login-btn" type="button" class="gamer-btn" data-i18n="login_btn">
+            GİRİŞ YAP
+          </button>
+          <p id="login-error" class="hidden"></p>
+        </div>
+
+        <!-- Divider -->
+        <div class="login-divider my-6 fade-in-up" style="animation-delay:0.45s">
+          <span data-i18n="login_or_continue">Veya şununla devam et</span>
+        </div>
+
+        <!-- Social Login -->
+        <div class="fade-in-up" style="animation-delay:0.5s">
+          <button id="google-login-btn" type="button" class="social-btn w-full mb-3">
+            <div class="icon-wrap">
+              <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24">
+                <path
+                  d="M12.48 10.92v3.28h7.84c-.24 1.84-.92 3.32-2.08 4.44-1.28 1.28-3.32 2.68-6.92 2.68-5.56 0-9.92-4.44-9.92-9.96s4.36-9.96 9.92-9.96c3.12 0 5.4 1.2 7.08 2.84l2.32-2.32C18.44 1.8 15.8 0 12.48 0 6.12 0 0 5.12 0 11.48S6.12 22.96 12.48 22.96c3.48 0 6.12-1.16 8.2-3.32 2.12-2.12 2.8-5.12 2.8-7.56 0-.72-.08-1.44-.2-2.16H12.48z"
+                  fill="#EA4335"></path>
+              </svg>
+            </div>
+            <span>Google</span>
+          </button>
+        </div>
+
+        <!-- Register Footer -->
+        <div class="register-footer fade-in-up" style="animation-delay:0.55s">
+          <span data-i18n="login_no_account">Henüz hesabın yok mu?</span>
+          <a href="../kay_t_ol_register/code.html" data-i18n="login_register_link">Kayıt Ol</a>
+        </div>
+
+        <!-- Guest Access Divider -->
+        <div class="login-divider my-4 fade-in-up" style="animation-delay:0.6s">
+          <span data-i18n="login_or_guest">veya</span>
+        </div>
+
+        <!-- Guest Access Button -->
+        <div class="fade-in-up" style="animation-delay:0.65s">
+          <button id="guest-access-btn" type="button" class="guest-btn"
+            onclick="localStorage.removeItem('loggedInUser'); window.location.href='../duo_finder_dashboard_yeni/code.html';">
+            <span class="material-symbols-outlined"
+              style="font-size:18px; font-variation-settings:'FILL' 1;">visibility</span>
+            <span data-i18n="guest_access_btn">Misafir Olarak Devam Et</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Footer inside form panel -->
+      <footer class="page-footer">
+        <div class="footer-links">
+          <a href="javascript:void(0)" onclick="openFAQModal()" data-i18n="footer_faq">SSS</a>
+          <span class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('gizlilik')" data-i18n="footer_privacy">Gizlilik</a>
+          <span class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kosullar')" data-i18n="footer_terms">Koşullar</a>
+          <span class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('cerez')" data-i18n="footer_cookie">Çerez</a>
+          <span class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kvkk')" data-i18n="footer_kvkk">KVKK</a>
+          <span class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openSupportModal()" data-i18n="footer_contact">İletişim</a>
+        </div>
+        <div class="footer-bottom" data-i18n="footer_copyright">
+          © 2026 İstiklal. Tüm hakları saklıdır.
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- â•â•â• LEGAL MODAL â•â•â• -->
+  <div id="legal-modal-overlay" class="legal-modal-overlay" onclick="if(event.target===this)closeLegalModal()">
+    <div class="legal-modal-card" style="position:relative;">
+      <button class="legal-modal-close material-symbols-outlined" onclick="closeLegalModal()">close</button>
+      <h3 id="legal-modal-title"></h3>
+      <div id="legal-modal-content" class="legal-body"></div>
+    </div>
+  </div>
+
+  <!-- â•â•â• MOBILE BOTTOM NAV â•â•â• -->
+  <nav class="mobile-nav md:hidden">
+    <a href="#" class="text-[#8B5CF6]">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">login</span>
+      <span class="nav-label" data-i18n="nav_login">Giriş</span>
+    </a>
+    <a href="../kay_t_ol_register/code.html" class="text-[#e2e2e8]/30 hover:text-[#8B5CF6]/60">
+      <span class="material-symbols-outlined">person_add</span>
+      <span class="nav-label" data-i18n="nav_register">Kayıt</span>
+    </a>
+    <a href="javascript:void(0)" onclick="openSupportModal()" class="text-[#e2e2e8]/30 hover:text-[#8B5CF6]/60">
+      <span class="material-symbols-outlined">help_outline</span>
+      <span class="nav-label" data-i18n="nav_support">Destek</span>
+    </a>
+  </nav>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       SCRIPTS — All code strictly within tags
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <script src="../../js/core/nexus-captcha.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+
+  <!-- Particle System (only runs inside brand panel) -->
+  <script>
+      (function () {
+        var canvas = document.getElementById('particle-canvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var panel = canvas.parentElement;
+        var particles = [];
+        var PARTICLE_COUNT = 50;
+        var colors = [
+          'rgba(139, 92, 246,',
+          'rgba(139,92,246,',
+          'rgba(255,255,255,',
+          'rgba(96,165,250,',
+        ];
+
+        function resize() {
+          canvas.width = panel.offsetWidth;
+          canvas.height = panel.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function createParticle() {
+          var colorBase = colors[Math.floor(Math.random() * colors.length)];
+          return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 1.8 + 0.4,
+            speedY: -(Math.random() * 0.25 + 0.08),
+            speedX: (Math.random() - 0.5) * 0.12,
+            opacity: Math.random() * 0.4 + 0.08,
+            opacityDir: (Math.random() - 0.5) * 0.004,
+            color: colorBase
+          };
+        }
+
+        for (var i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push(createParticle());
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.opacity += p.opacityDir;
+            if (p.opacity <= 0.04 || p.opacity >= 0.5) p.opacityDir *= -1;
+            if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+            if (p.x < -10) p.x = canvas.width + 10;
+            if (p.x > canvas.width + 10) p.x = -10;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color + p.opacity + ')';
+            ctx.fill();
+          }
+          requestAnimationFrame(animate);
+        }
+        animate();
+      })();
+  </script>
+
+  <!-- Login Logic -->
+  <script>
+    (function () {
+      var DASHBOARD = '../duo_finder_dashboard_yeni/code.html';
+      var emailInput = document.getElementById('email-input');
+      var passwordInput = document.getElementById('password-input');
+      var loginBtn = document.getElementById('login-btn');
+      var errorMsg = document.getElementById('login-error');
+      var togglePw = document.getElementById('toggle-password');
+
+      // Password visibility toggle
+      togglePw.addEventListener('click', function () {
+        var isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        togglePw.textContent = isPassword ? 'visibility_off' : 'visibility';
+      });
+
+      // Init CAPTCHA
+      var loginCaptcha = window.NexusCaptcha ? window.NexusCaptcha.create('login-captcha-container') : null;
+
+      // Login validation
+      loginBtn.addEventListener('click', function () {
+        var identifier = emailInput.value.trim();
+        var password = passwordInput.value.trim();
+
+        if (!identifier && !password) {
+          showError(t('login_err_both'));
+          shake(emailInput);
+          shake(passwordInput);
+          return;
+        }
+        if (!identifier) {
+          showError(t('login_err_email'));
+          shake(emailInput);
+          return;
+        }
+        if (!password) {
+          showError(t('login_err_pw'));
+          shake(passwordInput);
+          return;
+        }
+
+        // CAPTCHA check
+        if (loginCaptcha && !loginCaptcha.isVerified()) {
+          showError(t('login_err_captcha'));
+          var captchaEl = document.getElementById('login-captcha-container');
+          if (captchaEl) { captchaEl.style.animation = 'none'; captchaEl.offsetHeight; captchaEl.style.animation = 'codeShake 0.4s'; }
+          return;
+        }
+
+        // Helper: match by email OR username
+        var identifierLower = identifier.toLowerCase();
+        function matchesUser(user) {
+          if (user.email && user.email.toLowerCase() === identifierLower) return true;
+          if (user.username && user.username.toLowerCase() === identifierLower) return true;
+          return false;
+        }
+
+        // 1. Check MASTER_USERS (database.js) first
+        var foundUser = null;
+        var masterList = window.MASTER_USERS || [];
+        for (var m = 0; m < masterList.length; m++) {
+          if (matchesUser(masterList[m])) { foundUser = masterList[m]; break; }
+        }
+
+        // 2. If not in master list, check localStorage
+        if (!foundUser) {
+          var users = [];
+          try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { users = []; }
+          for (var i = 0; i < users.length; i++) {
+            if (matchesUser(users[i])) { foundUser = users[i]; break; }
+          }
+        }
+
+        if (!foundUser) {
+          showError(t('login_err_not_found'));
+          return;
+        }
+
+        // 3. Validate password first
+        if (foundUser.password !== password) {
+          showError(t('login_err_invalid'));
+          shake(passwordInput);
+          return;
+        }
+
+        // 4. Check if user is banned
+        var bannedUsers = [];
+        try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch (e) { }
+        if (bannedUsers.indexOf(foundUser.email) > -1 || (foundUser.username && bannedUsers.indexOf(foundUser.username) > -1)) {
+          showError('Hesabınız sistem kuralları ihlali sebebiyle kalıcı olarak uzaklaştırılmıştır.');
+          shake(emailInput);
+          shake(passwordInput);
+          return;
+        }
+
+        // Credentials valid
+        localStorage.setItem('loggedInUser', foundUser.email);
+        errorMsg.classList.add('hidden');
+        loginBtn.textContent = t('login_logging_in');
+        loginBtn.disabled = true;
+        loginBtn.style.opacity = '0.7';
+        setTimeout(function () {
+          window.location.href = DASHBOARD;
+        }, 600);
+      });
+
+      // Allow Enter key to submit
+      [emailInput, passwordInput].forEach(function (input) {
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') loginBtn.click();
+        });
+      });
+
+      function showError(msg) {
+        errorMsg.textContent = msg;
+        errorMsg.classList.remove('hidden');
+      }
+
+      function shake(el) {
+        if (!el) return;
+        el.style.transition = 'transform 0.08s';
+        el.style.transform = 'translateX(-6px)';
+        setTimeout(function () { el.style.transform = 'translateX(6px)'; }, 80);
+        setTimeout(function () { el.style.transform = 'translateX(-4px)'; }, 160);
+        setTimeout(function () { el.style.transform = 'translateX(4px)'; }, 240);
+        setTimeout(function () { el.style.transform = 'translateX(0)'; }, 320);
+      }
+    })();
+  </script>
+
+  <!-- Legal Modal Script -->
+  <script>
+    (function () {
+      var legalOverlay = document.getElementById('legal-modal-overlay');
+      var legalTitle = document.getElementById('legal-modal-title');
+      var legalContent = document.getElementById('legal-modal-content');
+
+      window.openLegalModal = function (policyId) {
+        var modalData = {
+          gizlilik: {
+            title: t('legal_privacy_title'),
+            content: '<p><strong>' + t('accord_privacy_body_title') + '</strong></p><p class="mt-2">' + t('accord_privacy_body_date') + '</p><p class="mt-4">' + t('accord_privacy_body_p1') + '</p><p class="mt-4">' + t('accord_privacy_body_p2') + '</p>'
+          },
+          kosullar: {
+            title: t('legal_terms_title'),
+            content: '<p><strong>' + t('accord_terms_body_title') + '</strong></p><p class="mt-4">' + t('accord_terms_body_intro') + '</p><ul class="list-disc pl-5 mt-4 space-y-2"><li>' + t('accord_terms_rule_1') + '</li><li>' + t('accord_terms_rule_2') + '</li><li>' + t('accord_terms_rule_3') + '</li></ul><p class="mt-4">' + t('accord_terms_body_footer') + '</p>'
+          },
+          cerez: {
+            title: t('legal_cookie_title'),
+            content: '<p><strong>' + t('accord_cookie_body_title') + '</strong></p><p class="mt-4">' + t('accord_cookie_body_p1') + '</p><p class="mt-4">' + t('accord_cookie_body_p2') + '</p>'
+          },
+          kvkk: {
+            title: t('legal_kvkk_title'),
+            content: '<p><strong>' + t('accord_kvkk_body_title') + '</strong></p><p class="mt-4">' + t('accord_kvkk_body_p1') + '</p><p class="mt-4">' + t('accord_kvkk_body_p2') + '</p>'
+          }
+        };
+
+        if (modalData[policyId]) {
+          legalTitle.textContent = modalData[policyId].title;
+          legalContent.innerHTML = modalData[policyId].content;
+          legalOverlay.classList.add('active');
+        }
+      };
+
+      window.closeLegalModal = function () {
+        legalOverlay.classList.remove('active');
+      };
+    })();
+  </script>
+
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+
+  <!-- Rotating Description Text -->
+  <script>
+    (function () {
+      function getPhrases() {
+        return [
+          window.t ? window.t('brand_login_desc') : 'Uzman oyuncularla eşleş, takım arkadaşlarını bul ve <strong>rekabetçi oyun deneyimini</strong> bir üst seviyeye taşı.',
+          window.t ? window.t('brand_rotating_1') : 'Seviyene uygun <strong>duo partnerini</strong> saniyeler içinde bul, birlikte zirveye çık.',
+          window.t ? window.t('brand_rotating_2') : 'Rankını yükselt, <strong>stratejik takım arkadaşlarınla</strong> sahaya hükmet.',
+          window.t ? window.t('brand_rotating_3') : '<strong>Güvenilir oyuncularla</strong> anında eşleş, toksik ortamlardan kurtul.',
+          window.t ? window.t('brand_rotating_4') : 'Oyun tarzına uygun <strong>mükemmel takım arkadaşını</strong> keşfet, birlikte kazan.'
+        ];
+      }
+      var container = document.getElementById('rotating-desc');
+      if (!container) return;
+      var currentIndex = 0;
+      var span = container.querySelector('.rotating-text');
+
+      function cycleText() {
+        span.classList.remove('active');
+        setTimeout(function () {
+          var phrases = getPhrases();
+          currentIndex = (currentIndex + 1) % phrases.length;
+          span.innerHTML = phrases[currentIndex];
+          span.classList.add('active');
+        }, 600);
+      }
+
+      setInterval(cycleText, 3000);
+    })();
+  </script>
+  <!-- Firebase Auth for Google Sign-In -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+    // TODO: Firebase Console'dan aldığınız config bilgilerini buraya yapıştırın.
+    const firebaseConfig = {
+      apiKey: "AIzaSyBSMofiW6wvM1V5J3dRyAZ7AIKNcWxLBCs",
+      authDomain: "istiklal-7ec99.firebaseapp.com",
+      projectId: "istiklal-7ec99",
+      storageBucket: "istiklal-7ec99.firebasestorage.app",
+      messagingSenderId: "80493250675",
+      appId: "1:80493250675:web:6388f80d1072a93f4fc206",
+      measurementId: "G-R257WK2H9K"
+    };
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      const googleBtn = document.getElementById('google-login-btn');
+      if (googleBtn) {
+        googleBtn.addEventListener('click', () => {
+          // Eğer API key değiştirilmemişse uyarı verip varsayılan yönlendirmeyi yapalım (Test amaçlı)
+          if (firebaseConfig.apiKey === "API_KEY_BURAYA") {
+            console.warn("Firebase Config bilgileri girilmemiş. Mockup olarak yönlendiriliyor.");
+            window.location.href = '../duo_finder_dashboard_yeni/code.html';
+            return;
+          }
+
+          signInWithPopup(auth, provider)
+            .then((result) => {
+              const user = result.user;
+              
+              // Var olan kullanıcıları al
+              let users = [];
+              try { users = JSON.parse(localStorage.getItem('users')) || []; } catch(e) {}
+              
+              // Kullanıcı var mı kontrol et
+              let existingUser = users.find(u => u.email === user.email);
+              
+              if (!existingUser) {
+                // Yoksa sisteme yeni kullanıcı olarak kaydet
+                existingUser = {
+                  username: user.displayName || user.email.split('@')[0],
+                  email: user.email,
+                  password: 'google_auth', // Google girişleri için rastgele/placeholder
+                  game: 'lol',
+                  rank: 'unranked',
+                  role: 'fill',
+                  language: 'tr',
+                  date: new Date().toISOString(),
+                  profileImage: user.photoURL,
+                  verified: true,
+                  xp: 0
+                };
+                users.push(existingUser);
+                localStorage.setItem('users', JSON.stringify(users));
+              } else if (user.photoURL && !existingUser.profileImage) {
+                 // Varsa ama resmi yoksa resmi ekle
+                 existingUser.profileImage = user.photoURL;
+                 localStorage.setItem('users', JSON.stringify(users));
+              }
+
+              // Profil fotoğrafını her yere sync etmek için (profile-sync.js kullanıyor)
+              if(user.photoURL) {
+                  localStorage.setItem('user_profile_image', user.photoURL);
+              }
+              
+              // SADECE emaili loggedInUser olarak kaydedelim ki sistem hata vermesin
+              localStorage.setItem('loggedInUser', user.email);
+              
+              window.location.href = '../duo_finder_dashboard_yeni/code.html';
+            }).catch((error) => {
+              console.error("Google Sign In Error", error);
+              if (error.code === 'auth/invalid-api-key') {
+                alert("Lütfen kaynak koddaki Firebase 'apiKey' bilgisini güncelleyin!");
+              } else {
+                alert("Giriş yapılırken bir hata oluştu: " + error.message);
+              }
+            });
+        });
+      }
+    } catch(e) {
+      console.warn("Firebase başlatılamadı. Lütfen config ayarlarını kontrol edin.", e);
+    }
+  </script>
+</body>
+
+</html>

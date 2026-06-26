@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | REKABET</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-on-surface": "#2f3035",
+            "secondary-fixed-dim": "#ffb952",
+            "surface-container-low": "#1a1c20",
+            "secondary": "#ffcf90",
+            "surface-tint": "#7C3AED",
+            "tertiary-fixed": "#ffd7f5",
+            "on-secondary-fixed-variant": "#633f00",
+            "on-tertiary-fixed": "#380038",
+            "surface-container-high": "#282a2e",
+            "on-tertiary-fixed-variant": "#810081",
+            "surface-variant": "#333539",
+            "error-container": "#93000a",
+            "primary-fixed": "#74f5ff",
+            "on-tertiary": "#5b005b",
+            "inverse-primary": "#00696f",
+            "on-error": "#690005",
+            "on-secondary-fixed": "#291800",
+            "on-surface-variant": "#b9cacb",
+            "on-error-container": "#ffdad6",
+            "surface-container-lowest": "#0c0e12",
+            "secondary-fixed": "#ffddb4",
+            "background": "#0A0B1E",
+            "tertiary-fixed-dim": "#ffabf3",
+            "surface-container-highest": "#333539",
+            "on-surface": "#e2e2e8",
+            "outline-variant": "#3a494b",
+            "on-secondary": "#452b00",
+            "on-primary-fixed-variant": "#004f54",
+            "on-background": "#e2e2e8",
+            "surface-dim": "#0A0B1E",
+            "secondary-container": "#ffaa00",
+            "on-primary-fixed": "#002022",
+            "primary-fixed-dim": "#7C3AED",
+            "surface-container": "#1e2024",
+            "outline": "#849495",
+            "tertiary-container": "#ffcbf4",
+            "primary": "#e1fdff",
+            "on-primary": "#1E0A4B",
+            "on-primary-container": "#006a71",
+            "surface": "#0A0B1E",
+            "tertiary": "#fff4f9",
+            "surface-bright": "#37393e",
+            "on-tertiary-container": "#ab00aa",
+            "inverse-surface": "#e2e2e8",
+            "primary-container": "#8B5CF6",
+            "on-secondary-container": "#694300",
+            "error": "#ffb4ab"
+          },
+          fontFamily: {
+            "headline": ["Outfit"],
+            "body": ["Poppins"],
+            "label": ["Poppins"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-card {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── Animated Arena Gradient ── */
+    @keyframes arenaGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      25% {
+        background-position: 100% 50%;
+      }
+
+      50% {
+        background-position: 100% 0%;
+      }
+
+      75% {
+        background-position: 0% 100%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .arena-hero {
+      min-height: 60vh;
+      background: linear-gradient(-45deg, #0a0e17, #001a1f, #0d001a, #001a0d, #0A0B1E);
+      background-size: 400% 400%;
+      animation: arenaGradient 12s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .arena-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 170, 0, 0.06) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .arena-hero>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .arena-countdown {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 900;
+      color: #00ff88;
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.6), 0 0 60px rgba(0, 255, 136, 0.3), 0 0 100px rgba(0, 255, 136, 0.15);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Neon Green Glow ── */
+    .neon-green-glow {
+      color: #00ff88 !important;
+      text-shadow: 0 0 8px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.3);
+    }
+
+    #score-indicator {
+      border-color: rgba(0, 255, 136, 0.4) !important;
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #score-indicator .material-symbols-outlined {
+      color: #00ff88 !important;
+    }
+
+    #score-indicator span:last-child {
+      color: #00ff88 !important;
+      text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+    }
+
+    @keyframes scorePop {
+      0% {
+        transform: scale(1)
+      }
+
+      40% {
+        transform: scale(1.18)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .score-pop {
+      animation: scorePop 0.4s cubic-bezier(.17, .67, .83, .67);
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.4) !important;
+    }
+
+    /* ── Daily Quests — Glassmorphism ── */
+    .daily-quests .dc-card {
+      background: rgba(30, 20, 60, 0.25) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s ease;
+    }
+
+    .daily-quests .dc-card:hover {
+      border-color: rgba(139, 92, 246, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .dc-card.completed {
+      border-color: #00ff88 !important;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.25) !important;
+    }
+
+    .dc-card.completed .dc-progress-fill {
+      background: #00ff88 !important;
+    }
+
+    .dc-progress-fill {
+      transition: width 0.5s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .dc-reward-tooltip {
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      padding: 6px 12px;
+      background: rgba(17, 19, 24, 0.95);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 8px;
+      font-size: 10px;
+      color: #b9cacb;
+      z-index: 10;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .dc-reward-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .dc-reward:hover .dc-reward-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* ── Weekly Reward Unlock Animation ── */
+    @keyframes rewardUnlock {
+      0% {
+        transform: scale(1);
+      }
+
+      30% {
+        transform: scale(1.15);
+      }
+
+      50% {
+        transform: scale(0.95);
+      }
+
+      70% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .wr-unlocked {
+      animation: rewardUnlock 0.6s ease-out;
+    }
+
+    /* ── Claim Button ── */
+    .wr-claim-btn {
+      margin-top: 6px;
+      padding: 5px 14px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #0A0B1E;
+      background: linear-gradient(135deg, #8B5CF6, #EC4899);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .wr-claim-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+
+    .wr-claim-btn:active {
+      transform: scale(0.95);
+    }
+
+    .wr-claimed-badge {
+      margin-top: 6px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #00ff88;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    @keyframes claimPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 12px rgba(0, 255, 136, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+      }
+    }
+
+    .wr-claim-success {
+      animation: claimPulse 0.8s ease-out;
+    }
+
+    /* ── Hall of Fame — Crown Animations ── */
+    @keyframes crownFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-3deg);
+      }
+
+      50% {
+        transform: translateY(-6px) rotate(3deg);
+      }
+    }
+
+    @keyframes crownShine {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.4));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8));
+      }
+    }
+
+    .crown-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      animation: crownFloat 3s ease-in-out infinite, crownShine 2s ease-in-out infinite;
+      margin-right: 4px;
+    }
+
+    .crown-badge.rank-1 {
+      animation-delay: 0s;
+    }
+
+    .crown-badge.rank-2 {
+      animation-delay: 0.5s;
+    }
+
+    .crown-badge.rank-3 {
+      animation-delay: 1s;
+    }
+
+    .hall-of-fame .lb-user-row {
+      border-color: #00ff88 !important;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    }
+
+    /* ── Zozzo-Standard Nav ── */
+    .nav-link-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link-left:hover {
+      color: #8B5CF6;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-link-left .material-symbols-outlined {
+      font-size: 18px;
+      color: #849495;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-left:hover .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .nav-link-left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #8B5CF6;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link-left:hover::after {
+      width: 80%;
+    }
+
+    .header-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26, 28, 32, 0.8);
+      border: 1px solid rgba(58, 73, 75, 0.3);
+      border-radius: 12px;
+      padding: 6px 12px;
+      transition: all 0.25s ease;
+    }
+
+    .header-search:focus-within {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: rgba(26, 28, 32, 0.95);
+    }
+
+    .header-search input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #e2e2e8;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      width: 120px;
+    }
+
+    .header-search input::placeholder {
+      color: #849495;
+    }
+
+    .header-search .material-symbols-outlined {
+      color: #849495;
+      font-size: 18px;
+    }
+
+    .profile-direct-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .profile-direct-link:hover .profile-avatar-ring {
+      transform: scale(1.05);
+      border-color: #8B5CF6 !important;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.35) !important;
+    }
+
+    .header-logout-btn {
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .header-logout-btn:hover {
+      background: rgba(255, 68, 68, 0.2) !important;
+      border-color: rgba(255, 68, 68, 0.6) !important;
+      box-shadow: 0 0 18px rgba(255, 68, 68, 0.3), 0 0 40px rgba(255, 68, 68, 0.1) !important;
+    }
+
+    .header-logout-btn:hover .material-symbols-outlined {
+      color: #ff4444 !important;
+      filter: drop-shadow(0 0 6px rgba(255, 68, 68, 0.6));
+    }
+
+    /* ── Nav Drawer ── */
+    #nav-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #nav-drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #nav-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1000;
+      width: 300px;
+      max-width: 85vw;
+      background: rgba(17, 19, 24, 0.97);
+      backdrop-filter: blur(24px);
+      border-right: 1px solid rgba(139, 92, 246, 0.1);
+      box-shadow: 8px 0 40px rgba(0, 0, 0, 0.5);
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+    }
+
+    #nav-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      color: #b9cacb;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .drawer-item:hover {
+      background: rgba(139, 92, 246, 0.08);
+      color: #8B5CF6;
+    }
+
+    .drawer-item .material-symbols-outlined {
+      font-size: 22px;
+    }
+
+    .drawer-divider {
+      height: 1px;
+      background: rgba(58, 73, 75, 0.3);
+      margin: 8px 16px;
+    }
+
+    .drawer-item.danger {
+      color: #ff6b6b;
+    }
+
+    .drawer-item.danger:hover {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen pb-24">
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <!-- Auth Guard -->
+  <script>
+      (function () {
+        var loggedInEmail = localStorage.getItem('loggedInUser');
+        if (!loggedInEmail) { window.location.href = '../giri_yap_login/code.html'; return; }
+        
+        var settings = {};
+        try { settings = JSON.parse(localStorage.getItem('PLATFORM_SETTINGS')) || {}; } catch(e){}
+        var isFounder = (loggedInEmail === 'akuzumy1905@gmail.com');
+        if (settings.tournaments === false && !isFounder) {
+          document.addEventListener('DOMContentLoaded', function () {
+            var overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;inset:0;background:#0A0B1E;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:Outfit,sans-serif;padding:2rem;text-align:center;';
+            overlay.innerHTML = '<span class="material-symbols-outlined" style="font-size:64px;color:#ffaa00;margin-bottom:1.5rem;font-variation-settings:\'FILL\' 1;">lock</span>'
+              + '<h1 style="font-size:28px;font-weight:800;color:#e2e2e8;margin-bottom:1rem;">Turnuvalar Devre Dışı</h1>'
+              + '<p style="font-size:14px;color:#849495;max-width:400px;line-height:1.6;margin-bottom:2rem;">Platform turnuva modülü şu anda yönetici kararıyla geçici olarak kapatılmıştır. Lütfen daha sonra tekrar deneyiniz.</p>'
+              + '<a href="../duo_finder_dashboard_yeni/code.html" style="padding:10px 24px;background:linear-gradient(90deg,#8B5CF6,#EC4899);color:#fff;border-radius:12px;font-size:12px;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:1px;box-shadow:0 0 15px rgba(139,92,246,0.4);">Panele Geri Dön</a>';
+            document.body.appendChild(overlay);
+          });
+        }
+      })();
+  </script>
+
+  <!-- â•â•â• Zozzo-Standard TopAppBar â•â•â• -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/60 backdrop-blur-2xl flex items-center justify-between px-4 md:px-6 h-20 shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 border-b border-[#8B5CF6]/10">
+    <!-- NAV-LEFT -->
+    <div class="flex items-center gap-4 lg:gap-6">
+      <a href="../duo_finder_dashboard_yeni/code.html" class="flex items-center gap-2 group shrink-0">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-3xl group-hover:scale-110 transition-transform"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span
+          class=" font-black text-4xl tracking-tighter text-[#8B5CF6] drop-shadow-[0_0_12px_rgba(139, 92, 246,0.6)] hidden sm:inline">İSTİKLAL</span>
+      </a>
+      <div id="clock-btn"
+        class="hidden md:flex bg-[#1a1c20]/80 rounded-full px-4 py-1.5 border border-[#3a494b]/50 items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-sm">schedule</span>
+        <span id="live-clock" class=" font-medium text-xs tracking-wide text-[#8B5CF6]/70">00:00:00</span>
+      </div>
+      <div class="hidden lg:flex items-center gap-5">
+        <a href="../duo_e_le_melerim/code.html" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">handshake</span><span
+            data-i18n="nav_matches">Eşleşmeler</span></a>
+        <a href="./code.html" class="nav-link-left" style="color:#8B5CF6;"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;color:#8B5CF6;">trophy</span><span
+            data-i18n="nav_compete">Rekabet</span></a>
+
+        <button onclick="openSupportModal()" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">support_agent</span><span
+            data-i18n="nav_support">Destek</span></button>
+      </div>
+    </div>
+    <!-- NAV-RIGHT -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- Score Indicator -->
+      <div id="score-indicator"
+        class="hidden sm:flex items-center justify-center gap-2 px-4 h-10 bg-[#1a1c20] border border-[#8B5CF6]/30 rounded-full shadow-[0_0_15px_rgba(139, 92, 246,0.1)] transition-transform duration-300">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-lg">star</span>
+        <span class=" font-bold text-sm text-[#8B5CF6] tracking-widest whitespace-nowrap">SCORE: <span
+            id="xp-counter">0</span> XP</span>
+      </div>
+      <!-- Search Bar -->
+      <div class="header-search hidden md:flex">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Oyuncu Bul..." />
+      </div>
+      <!-- Notification Bell -->
+      <div class="relative" id="notif-wrapper">
+        <button id="notif-btn"
+          class="relative material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-95 duration-200">notifications
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 bg-[#ff4444] rounded-full text-[8px] text-white font-bold flex items-center justify-center shadow-[0_0_8px_#ff4444]"
+            id="notif-badge">2</span>
+        </button>
+        <div id="notif-dropdown"
+          class="hidden absolute right-0 top-12 w-80 bg-[#1e2024]/95 backdrop-blur-xl border border-[#8B5CF6]/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden z-[60]">
+          <div class="px-4 py-3 border-b border-[#3a494b]/30 flex items-center justify-between">
+            <span class=" font-bold text-xs uppercase tracking-widest text-[#8B5CF6]"
+              data-i18n="notif_title">Bildirimler</span>
+            <span id="notif-count-label" class="text-[10px] text-[#849495]"></span>
+          </div>
+          <div class="max-h-64 overflow-y-auto" id="notif-list"></div>
+          <div class="px-4 py-3 bg-[#0A0B1E]/80 border-t border-[#3a494b]/30 flex justify-between gap-3">
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#e2e2e8] border border-[#8B5CF6]/30 rounded-lg hover:bg-[#8B5CF6]/10 hover:border-[#8B5CF6] transition-all"
+              onclick="clearNotifications()" data-i18n="notif_clear_all">Tümünü Sil</button>
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6] border border-[#8B5CF6]/50 rounded-lg hover:bg-[#8B5CF6]/20 shadow-[0_0_10px_rgba(139, 92, 246,0.2)] transition-all"
+              onclick="markNotificationsRead()" data-i18n="notif_mark_read">Okundu İşaretle</button>
+          </div>
+        </div>
+      </div>
+      <!-- Profile Direct Link -->
+      <a href="../oyuncu_profili/code.html" class="profile-direct-link group" title="Profil">
+        <div
+          class="profile-avatar-ring w-10 h-10 rounded-full border-2 border-[#3a494b] p-0.5 overflow-hidden shadow-[0_0_15px_rgba(139, 92, 246,0.15)] flex items-center justify-center bg-[#1a1c20]">
+          <span class="material-symbols-outlined text-[#849495] text-xl transition-all"
+            style="font-variation-settings: 'FILL' 1;">person</span>
+        </div>
+      </a>
+      <!-- Logout -->
+      <button id="header-logout-btn"
+        class="header-logout-btn hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#ff4444]/5 border border-[#ff4444]/10 transition-all group"
+        title="Çıkış Yap">
+        <span class="material-symbols-outlined text-[#ffb4ab]/80 text-xl transition-all">logout</span>
+      </button>
+      <!-- Hamburger -->
+      <button id="mobile-menu-btn"
+        class="lg:hidden material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors text-3xl">menu</button>
+    </div>
+  </header>
+
+  <!-- â•â•â• NAV DRAWER â•â•â• -->
+  <div id="nav-drawer-overlay"></div>
+  <div id="nav-drawer">
+    <div class="px-6 py-6 flex items-center justify-between border-b border-[#3a494b]/30">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-2xl"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span class=" font-black text-2xl tracking-tighter text-[#8B5CF6]">İSTİKLAL</span>
+      </div>
+      <button id="drawer-close-btn"
+        class="material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] text-2xl transition-colors cursor-pointer">close</button>
+    </div>
+    <nav class="py-3">
+      <a href="../duo_finder_dashboard_yeni/code.html" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">dashboard</span><span data-i18n="nav_panel">Panel</span></a>
+      <a href="../oyuncu_profili/code.html" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">person</span><span data-i18n="nav_profile">Profil</span></a>
+      <button onclick="openSettingsModal(); closeDrawer();" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">settings</span><span
+          data-i18n="nav_settings">Ayarlar</span></button>
+      <button onclick="openReportModal(); closeDrawer();" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">flag</span><span data-i18n="nav_report">Rapor
+          Bildir</span></button>
+      <button onclick="openFAQModal(); closeDrawer();" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">help</span><span data-i18n="nav_faq">SSS</span></button>
+      <button onclick="openRulesModal(); closeDrawer();" class="drawer-item"><span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1;">gavel</span><span data-i18n="nav_rules">Kurallar</span></button>
+      <div class="drawer-divider"></div>
+      <button id="drawer-logout-btn" class="drawer-item danger"><span
+          class="material-symbols-outlined">logout</span><span data-i18n="nav_logout">Çıkış Yap</span></button>
+    </nav>
+  </div>
+
+  <!-- â•â•â• MAIN CONTENT — 3 Full-Width Sections â•â•â• -->
+  <main class="pt-28 px-5 space-y-10 max-w-[1400px] mx-auto pb-28">
+
+    <!-- â–¬â–¬â–¬ SECTION 1: ARENA HERO â–¬â–¬â–¬ -->
+    <section class="arena-hero">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-[#ffaa00] text-4xl"
+          style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+        <h2
+          class=" font-black text-sm tracking-[0.2em] uppercase text-[#ffaa00] drop-shadow-[0_0_12px_rgba(255,170,0,0.5)]"
+          data-i18n="comp_daily_live">GÜNLÜK CANLI YARIŞMA</h2>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-black text-center text-[#e2e2e8] leading-tight mb-2 drop-shadow-md"><span
+          data-i18n="comp_grand_prize">BÜYÜK ÖDÜLÜ</span><br /><span
+          class="text-[#8B5CF6] drop-shadow-[0_0_16px_rgba(139, 92, 246,0.5)]" data-i18n="comp_ready_to_win">KAZANMAYA
+          HAZIR MISIN?</span></h1>
+      <div class="flex flex-col items-center gap-2 mt-6">
+        <span class="text-xs font-semibold text-[#e2e2e8]/50 uppercase tracking-[0.2em] "
+          data-i18n="comp_time_left">KALAN SÜRE</span>
+        <div class="flex items-center gap-3">
+          <span id="countdown-timer" class="arena-countdown tabular-nums">00:00:00</span>
+          <div class="w-3 h-3 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_12px_rgba(0,255,136,0.6)]"></div>
+        </div>
+      </div>
+      <button id="join-btn"
+        class="mt-8 px-12 py-4 bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] text-[#0A0B1E] font-black text-lg rounded-full shadow-[0_0_30px_rgba(139, 92, 246,0.5)] hover:scale-105 hover:shadow-[0_0_50px_rgba(139, 92, 246,0.6)] active:scale-95 transition-all  tracking-widest uppercase"
+        data-i18n="comp_join_battle">
+        ⚔️ SAVAŞA KATIL
+      </button>
+    </section>
+
+    <!-- ——— SECTION 2: DAILY QUESTS ——— -->
+    <section class="daily-quests space-y-6">
+      <div class="flex justify-between items-end px-1">
+        <h3 class="text-xl font-black text-[#e2e2e8] flex items-center gap-3  tracking-tight">
+          <span class="material-symbols-outlined text-[#ffaa00] text-2xl"
+            style="font-variation-settings: 'FILL' 1;">bolt</span>
+          <span data-i18n="comp_daily_challenges">DAILY CHALLENGES</span>
+        </h3>
+        <span class="text-[10px] font-bold text-[#849495] uppercase tracking-widest "
+          data-i18n="comp_today">Bugün</span>
+      </div>
+      <div id="dc-cards-container" class="grid grid-cols-1 lg:grid-cols-3 gap-5"></div>
+      <!-- THIS WEEK'S REWARDS -->
+      <div class="glass-card rounded-2xl p-5 border border-white/5 space-y-4" style="backdrop-filter: blur(20px);">
+        <h4 class=" font-bold text-xs text-[#849495] uppercase tracking-[0.15em]">THIS WEEK'S REWARDS 🎁
+        </h4>
+        <div class="grid grid-cols-3 gap-3">
+          <div id="wr-neon-frame"
+            class="dc-reward relative flex flex-col items-center gap-2 p-3 bg-[#1a1c20]/60 rounded-xl border border-[#3a494b]/20 hover:border-[#8B5CF6]/30 transition-all cursor-default">
+            <div class="dc-reward-tooltip" id="wr-neon-frame-tip">5,000 XP ile açılır</div>
+            <div id="wr-neon-frame-icon" class="w-10 h-10 bg-[#333539] rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-[#849495]"
+                style="font-variation-settings:'FILL' 1;">lock</span>
+            </div>
+            <span id="wr-neon-frame-label" class="text-[10px] text-[#b9cacb] font-semibold text-center leading-tight"
+              data-i18n="comp_neon_frame">Neon Profil Çerçevesi</span>
+            <div id="wr-neon-frame-action"></div>
+          </div>
+          <div id="wr-legendary-badge"
+            class="dc-reward relative flex flex-col items-center gap-2 p-3 bg-[#1a1c20]/60 rounded-xl border border-[#3a494b]/20 hover:border-[#ffaa00]/30 transition-all cursor-default">
+            <div class="dc-reward-tooltip" id="wr-legendary-badge-tip">10,000 XP ile açılır</div>
+            <div id="wr-legendary-badge-icon"
+              class="w-10 h-10 bg-[#333539] rounded-lg flex items-center justify-center"><span
+                class="material-symbols-outlined text-[#849495]" style="font-variation-settings:'FILL' 1;">lock</span>
+            </div>
+            <span id="wr-legendary-badge-label"
+              class="text-[10px] text-[#b9cacb] font-semibold text-center leading-tight"
+              data-i18n="comp_legendary_badge">Legendary Rozet</span>
+            <div id="wr-legendary-badge-action"></div>
+          </div>
+          <div id="wr-bonus-xp"
+            class="dc-reward relative flex flex-col items-center gap-2 p-3 bg-[#1a1c20]/60 rounded-xl border border-[#3a494b]/20 hover:border-[#00ff88]/30 transition-all cursor-default">
+            <div class="dc-reward-tooltip" id="wr-bonus-xp-tip">15,000 XP ile açılır</div>
+            <div id="wr-bonus-xp-icon" class="w-10 h-10 bg-[#333539] rounded-lg flex items-center justify-center"><span
+                class="material-symbols-outlined text-[#849495]" style="font-variation-settings:'FILL' 1;">lock</span>
+            </div>
+            <span id="wr-bonus-xp-label"
+              class="text-[10px] text-[#b9cacb] font-semibold text-center leading-tight">+1000 Bonus XP</span>
+            <div id="wr-bonus-xp-action"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ——— SECTION 3: HALL OF FAME ——— -->
+    <section class="hall-of-fame space-y-5">
+      <h3 class="text-xl font-black text-[#e2e2e8] flex items-center gap-3  tracking-tight px-1">
+        <span class="material-symbols-outlined text-[#ffaa00] text-2xl"
+          style="font-variation-settings: 'FILL' 1;">military_tech</span>
+        <span data-i18n="comp_leaderboard">LİDERLİK TABLOSU</span>
+      </h3>
+      <div id="leaderboard-list" class="space-y-3"></div>
+    </section>
+
+  </main>
+
+  <!-- Competition Modal -->
+  <div id="comp-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-md" id="comp-backdrop"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <!-- Quiz Container -->
+      <div id="quiz-container"
+        class="w-full max-w-lg bg-[#0A0B1E]/90 backdrop-blur-xl border border-[#8B5CF6]/30 rounded-3xl shadow-[0_0_40px_rgba(139, 92, 246,0.15)] overflow-hidden flex flex-col transform transition-all duration-300 scale-95 opacity-0">
+        <!-- Header -->
+        <div class="px-6 py-4 border-b border-[#3a494b]/30 flex justify-between items-center bg-[#1a1c20]/50">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#8B5CF6] animate-pulse">sports_esports</span>
+            <span class=" font-bold text-[#8B5CF6] tracking-widest" data-i18n="comp_trivia_arena">TRIVIA
+              ARENA</span>
+          </div>
+          <button id="comp-close-btn"
+            class="material-symbols-outlined text-[#849495] hover:text-[#ffb4ab] transition-colors active:scale-90 text-xl z-50">close</button>
+        </div>
+
+        <!-- Question Area -->
+        <div id="quiz-area" class="p-8 flex flex-col items-center text-center space-y-8">
+          <!-- Timer -->
+          <div class="w-full space-y-2">
+            <div class="flex justify-between text-xs font-bold text-[#b9cacb]  tracking-widest uppercase">
+              <span data-i18n="comp_time_label">Süre</span>
+              <span id="timer-text" class="text-[#8B5CF6]">10s</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#333539] rounded-full overflow-hidden">
+              <div id="timer-bar"
+                class="h-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] w-full transition-all duration-1000 ease-linear">
+              </div>
+            </div>
+          </div>
+
+          <!-- Question -->
+          <div class="min-h-[80px] flex items-center justify-center w-full">
+            <h2 id="question-text" class="text-lg  font-bold text-[#e2e2e8] leading-relaxed"
+              data-i18n="comp_question_loading">Soru Yükleniyor...</h2>
+          </div>
+
+          <!-- Options -->
+          <div id="options-grid" class="grid grid-cols-1 w-full gap-3">
+            <!-- Buttons injected by JS -->
+          </div>
+
+          <!-- Feedback -->
+          <div id="feedback-message"
+            class="h-6  font-bold tracking-widest uppercase text-sm opacity-0 transition-opacity duration-300">
+          </div>
+        </div>
+
+        <!-- Celebration Area -->
+        <div id="celebration-area"
+          class="p-10 flex flex-col items-center text-center space-y-6 hidden relative overflow-hidden">
+          <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+          <div
+            class="w-24 h-24 bg-[#8B5CF6]/20 rounded-full flex items-center justify-center border-2 border-[#8B5CF6] shadow-[0_0_30px_rgba(139, 92, 246,0.4)] animate-bounce z-10">
+            <span class="material-symbols-outlined text-5xl text-[#8B5CF6]"
+              style="font-variation-settings:'FILL' 1;">trophy</span>
+          </div>
+          <div class="z-10">
+            <h2 class="text-2xl font-black  text-[#8B5CF6] mb-2 drop-shadow-[0_0_10px_rgba(139, 92, 246,0.5)]"
+              data-i18n="comp_won_grand_prize">BÜYÜK ÖDÜLÜ KAZANDIN!</h2>
+            <p class="text-[#b9cacb] text-sm" data-i18n="comp_total_earnings">Toplam Kazanç:</p>
+            <p class="text-5xl font-black  text-[#8B5CF6] mt-3 drop-shadow-[0_0_15px_rgba(139, 92, 246,0.6)]">
+              +<span id="final-score">0</span> XP</p>
+          </div>
+          <button id="collect-reward-btn"
+            class="w-full py-4 mt-6 bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] rounded-xl text-[#0A0B1E] font-bold text-lg  uppercase tracking-widest shadow-[0_0_20px_rgba(139, 92, 246,0.3)] hover:scale-105 active:scale-95 transition-all z-10"
+            data-i18n="comp_collect_reward">Ödülü Al & Çık</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BottomNavBar -->
+  <nav
+    class="nexus-bottom-nav fixed bottom-0 w-full z-50 rounded-t-2xl bg-[#0A0B1E]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(139, 92, 246,0.08)] flex justify-around items-center h-20 px-4 pb-safe border-t border-[#8B5CF6]/20">
+    <!-- Panel Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_dashboard_yeni/code.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_panel">PANEL</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+    <!-- Eşleşmeler Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_e_le_melerim/code.html">
+      <span class="material-symbols-outlined">bolt</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_matches">EŞLEŞMELER</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+    <!-- Active Rekabet Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#8B5CF6] drop-shadow-[0_0_10px_rgba(139, 92, 246,0.6)] bg-[#8B5CF6]/10 rounded-xl px-4 py-1 transition-all active:scale-90 duration-150"
+      href="./code.html">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_compete">REKABET</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-[#8B5CF6] shadow-[0_0_8px_rgba(139, 92, 246,0.8)]"></span>
+    </a>
+
+    <!-- Destek Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group cursor-pointer"
+      href="javascript:void(0)" onclick="openSupportModal()">
+      <span class="material-symbols-outlined">support_agent</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="mega_support">DESTEK</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+  </nav>
+
+  <script>
+    (function () {
+      // ─── 1. Notification Dropdown ─── (handled by notifications.js)
+
+      // ─── 2. Nav Drawer Toggle ───
+      var drawerOverlay = document.getElementById('nav-drawer-overlay');
+      var drawer = document.getElementById('nav-drawer');
+      var drawerCloseBtn = document.getElementById('drawer-close-btn');
+      var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+      function openDrawer() { drawer.classList.add('open'); drawerOverlay.classList.add('open'); }
+      function closeDrawer() { drawer.classList.remove('open'); drawerOverlay.classList.remove('open'); }
+      window.closeDrawer = closeDrawer;
+      if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+      if (drawerCloseBtn) drawerCloseBtn.addEventListener('click', closeDrawer);
+      if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+      // ─── 2b. GLOBAL LOGOUT ───
+      function doLogout() {
+        localStorage.removeItem('loggedInUser');
+        window.location.href = '../duo_finder_dashboard_yeni/code.html';
+      }
+      var headerLogoutBtn = document.getElementById('header-logout-btn');
+      var drawerLogoutBtn = document.getElementById('drawer-logout-btn');
+      if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+      if (drawerLogoutBtn) drawerLogoutBtn.addEventListener('click', doLogout);
+
+
+      // (Eski zamanlayıcı kodu çakışmayı önlemek için kaldırıldı)
+
+      // ————————————————————————————————————————————————
+      // 4. USER-SPECIFIC PERSISTENT SCORE
+      // ————————————————————————————————————————————————
+      function getUserKey() {
+        try {
+          var user = localStorage.getItem('loggedInUser') || 'guest';
+          return 'df_score_' + user.replace(/[^a-zA-Z0-9]/g, '_');
+        } catch (e) { return 'df_score_guest'; }
+      }
+
+      function loadScore() {
+        return parseInt(localStorage.getItem(getUserKey()) || '0', 10);
+      }
+
+      function saveScore(val) {
+        localStorage.setItem(getUserKey(), String(val));
+      }
+
+      var totalXP = loadScore();
+      var scoreIndicator = document.getElementById('score-indicator');
+      var xpCounter = document.getElementById('xp-counter');
+      xpCounter.innerText = totalXP.toLocaleString();
+
+      // ————————————————————————————————————————————————
+      // WEEKLY REWARDS — DYNAMIC UNLOCK + CLAIM SYSTEM
+      // ————————————————————————————————————————————————
+      var WEEKLY_REWARDS = [
+        { id: 'neon-frame', threshold: 5000, icon: 'auto_awesome', color: '#8B5CF6', glowColor: 'rgba(139, 92, 246,0.4)', unlockedTip: '✅ Neon Profil Çerçevesi açıldı!', claimedTip: '🟢 Aktif — Profilde görünüyor' },
+        { id: 'legendary-badge', threshold: 10000, icon: 'workspace_premium', color: '#ffaa00', glowColor: 'rgba(255,170,0,0.4)', unlockedTip: '✅ Legendary Rozet açıldı!', claimedTip: '🟢 Alındı — Profilde aktif' },
+        { id: 'bonus-xp', threshold: 15000, icon: 'diamond', color: '#00ff88', glowColor: 'rgba(0,255,136,0.4)', unlockedTip: '✅ +1000 Bonus XP açıldı!', claimedTip: '🟢 +1000 XP hesabına eklendi' }
+      ];
+
+      // Claimed rewards persistence
+      function getClaimedRewardsKey() { return 'df_claimed_rewards_' + getUserKey().replace('df_score_', ''); }
+      function loadClaimedRewards() {
+        try { return JSON.parse(localStorage.getItem(getClaimedRewardsKey()) || '[]'); } catch (e) { return []; }
+      }
+      function saveClaimedReward(rewardId) {
+        var claimed = loadClaimedRewards();
+        if (claimed.indexOf(rewardId) === -1) {
+          claimed.push(rewardId);
+          localStorage.setItem(getClaimedRewardsKey(), JSON.stringify(claimed));
+        }
+      }
+      function isRewardClaimed(rewardId) {
+        return loadClaimedRewards().indexOf(rewardId) !== -1;
+      }
+
+      // Claim handler
+      function claimReward(rewardId) {
+        if (isRewardClaimed(rewardId)) return;
+        saveClaimedReward(rewardId);
+
+        // Special logic per reward type
+        if (rewardId === 'bonus-xp') {
+          totalXP += 1000;
+          saveScore(totalXP);
+          updateScorePopAnimation();
+          renderLeaderboard();
+        }
+        if (rewardId === 'neon-frame') {
+          localStorage.setItem('df_active_frame', 'neon-frame');
+        }
+        if (rewardId === 'legendary-badge') {
+          localStorage.setItem('df_active_badge', 'legendary');
+        }
+
+        // Animate the card
+        var card = document.getElementById('wr-' + rewardId);
+        if (card) {
+          card.classList.add('wr-claim-success');
+          setTimeout(function () { card.classList.remove('wr-claim-success'); }, 900);
+        }
+
+        // Re-sync profile if available
+        if (window.syncProfileImage) window.syncProfileImage();
+        if (window.applyNeonFrame) window.applyNeonFrame();
+
+        updateWeeklyRewards();
+      }
+
+      function updateWeeklyRewards() {
+        var claimed = loadClaimedRewards();
+        WEEKLY_REWARDS.forEach(function (reward) {
+          var card = document.getElementById('wr-' + reward.id);
+          var iconEl = document.getElementById('wr-' + reward.id + '-icon');
+          var tipEl = document.getElementById('wr-' + reward.id + '-tip');
+          var labelEl = document.getElementById('wr-' + reward.id + '-label');
+          if (!card || !iconEl) return;
+
+          var isClaimed = claimed.indexOf(reward.id) !== -1;
+          var isUnlocked = totalXP >= reward.threshold;
+
+          // Remove any previous claim button
+          var oldBtn = card.querySelector('.wr-claim-btn');
+          if (oldBtn) oldBtn.remove();
+          var oldBadge = card.querySelector('.wr-claimed-badge');
+          if (oldBadge) oldBadge.remove();
+
+          if (isClaimed) {
+            // ── CLAIMED state ──
+            iconEl.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1; color:' + reward.color + '; filter: drop-shadow(0 0 8px ' + reward.glowColor + ');">' + reward.icon + '</span>';
+            iconEl.style.background = reward.color + '1a';
+            iconEl.style.boxShadow = '0 0 15px ' + reward.glowColor;
+            card.style.borderColor = reward.color;
+            card.style.boxShadow = '0 0 20px ' + reward.glowColor;
+            if (tipEl) tipEl.textContent = '✅ Talep edildi!';
+            if (labelEl) {
+              labelEl.style.color = reward.color;
+              labelEl.style.textShadow = '0 0 8px ' + reward.glowColor;
+            }
+            // Add "Alındı" badge
+            var badge = document.createElement('span');
+            badge.className = 'wr-claimed-badge';
+            badge.textContent = 'Alındı ✅';
+            card.appendChild(badge);
+          } else if (isUnlocked) {
+            // ── UNLOCKED but NOT CLAIMED ──
+            iconEl.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1; color:' + reward.color + '; filter: drop-shadow(0 0 8px ' + reward.glowColor + ');">' + reward.icon + '</span>';
+            iconEl.style.background = reward.color + '1a';
+            iconEl.style.boxShadow = '0 0 15px ' + reward.glowColor;
+            card.style.borderColor = reward.color;
+            card.style.boxShadow = '0 0 20px ' + reward.glowColor;
+            if (tipEl) tipEl.textContent = reward.unlockedTip;
+            if (labelEl) {
+              labelEl.style.color = reward.color;
+              labelEl.style.textShadow = '0 0 8px ' + reward.glowColor;
+            }
+            // Add "Talep Et" button
+            var btn = document.createElement('button');
+            btn.className = 'wr-claim-btn';
+            btn.textContent = '🎁 Talep Et';
+            btn.onclick = function () { claimReward(reward.id); };
+            card.appendChild(btn);
+          } else {
+            // ── LOCKED state ──
+            iconEl.innerHTML = '<span class="material-symbols-outlined text-[#849495]" style="font-variation-settings:\'FILL\' 1;">lock</span>';
+            iconEl.style.background = '#333539';
+            iconEl.style.boxShadow = 'none';
+            card.style.borderColor = '';
+            card.style.boxShadow = '';
+            if (tipEl) tipEl.textContent = reward.threshold.toLocaleString() + ' XP ile açılır';
+            if (labelEl) {
+              labelEl.style.color = '';
+              labelEl.style.textShadow = '';
+            }
+            if (actionEl) actionEl.innerHTML = '';
+          }
+        });
+      }
+
+      // Initial check on page load
+      updateWeeklyRewards();
+
+      // ————————————————————————————————————————————————
+      // 5. LEADERBOARD WITH LIVE USER INSERTION
+      // ————————————————————————————————————————————————
+      var leaderboardData = [
+        { name: 'DarkKnight', xp: 3450, streak: 12, verified: true, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC8I6EmVwS2w0WClk4QkvZNpSW5nvGHoqvKf5yhy5MXU7DEWg8xbprmvg67AGtQ5T-leRqXaVlXEQPNjQTnXbKYfRuRadKBvyD3ox57eIgc8VsnOiD3Fsnmtw-qSHY4jECbcoI1nJu6D0U_hn606AdEw0A1jwd1trArmd2RUdGq7BnpGzE9Nii4lg0Cm1GVf2_JNFLJyvcP1JnyCusY98aCjoMZ1N1Ce2Oi0h1B-JKEC5kWtBONyOHTMQYApvx9JNgWFRXLfIsd5a9g' },
+        { name: 'StarGazer', xp: 3120, streak: 8, verified: false, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBpK2cymHyyoJuoAj9DJKsV-2LUELD_fBvWa3aLnvfLW8MXwrQTAgVGzDAEcHzx1GaJxgezRmTMPG758ajrI4nxiokxpkiPUuz3okYzv2XyITnoDe-Cqqz27mLDtHGLlO93nMb7pB1S2RdF-3lR2EpByNdks92-NiwTvY61QLhxTEiEytlO7Nd5N7f0od3pxMAxeoF4MtRoRaCtLvAJ2CwIM_fY5nn4_4ukyG1yYYAhIx4CpTSi06jWxJmS5Tbok9byoyclLFZOIJXB' },
+        { name: 'ZenMaster', xp: 2980, streak: 5, verified: false, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCSZ1j8lkZmkcPPaPRzod4cZlpweH5NFMcK1ZCXKaOn5Y5eg-4r8A3a5mF3EZ82hRZfDNK10mjo_JeYQQ-RAaePhC_ORWUuoVANmXb1YO9fpT1eLthAUYUIdR4mQ-OUhcCp0KdIlCbSCOmMdFAEpcCLGXdf2NfPle4aRaS_BccWnZHc3Mbd2_BXB6A_B7EkaabBY1jqeXv4pzC758z0xSjcRcl0CjQzE5gs_WXHiDguQlgy3V6GpwgP2eBMWeLu1l7Xm04l7TJmWzWl' },
+        { name: 'RogueWave', xp: 2750, streak: 3, verified: false, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA4nVJkY-vgM5SE9ln3uFWMPe2oK_6QeBqvs_C2Fa5_ZWdy_csqWcJNwapm3rzkjd_P7SQoKgNSSyUn92ufmrveZ9Ougl0zgvq8zNLD65EjzTKwtNWhKGigj06R9ygYDv3qAQcJRqPNuFKnTuV1kQc0ACZpSdRFKceGIQDCOuWgqVAz9qD_CUHsph43wCrpMuf7e1Vk0OldhdCY1uvDih3NX4_MmA5_jkCGrW6A712pcOngwEpPfO94dQF9bfhBlDS7-lZfk8qeFb14' }
+      ];
+
+      function getUserDisplayName() {
+        try {
+          var users = JSON.parse(localStorage.getItem('users') || '[]');
+          var email = localStorage.getItem('loggedInUser');
+          for (var i = 0; i < users.length; i++) {
+            if (users[i].email === email) return users[i].username || 'Sen';
+          }
+        } catch (e) { }
+        return 'Sen';
+      }
+
+      function renderLeaderboard() {
+        var list = document.getElementById('leaderboard-list');
+        var crowns = ['👑', '🥈', '🥉'];
+        // Build merged array with user
+        var userName = getUserDisplayName();
+        var entries = leaderboardData.map(function (e) { return { name: e.name, xp: e.xp, streak: e.streak, verified: e.verified, img: e.img, isUser: false }; });
+        // Add user
+        entries.push({ name: userName, xp: totalXP, streak: '-', verified: false, img: '', isUser: true });
+        // Sort descending
+        entries.sort(function (a, b) { return b.xp - a.xp; });
+        // Only show top 5
+        entries = entries.slice(0, 5);
+
+        list.innerHTML = '';
+        entries.forEach(function (entry, idx) {
+          var rank = idx + 1;
+          var isTop3 = rank <= 3;
+          var div = document.createElement('div');
+          div.className = 'bg-[#1a1c20]/60 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between border transition-all duration-500 ' +
+            (rank === 1 ? 'border-[#ffd700]/30 shadow-[0_0_20px_rgba(255,215,0,0.15)]' : 'border-white/5');
+
+          if (entry.isUser) {
+            div.classList.add('lb-user-row');
+            div.style.borderColor = '#00ff88';
+            div.style.boxShadow = '0 0 20px #00ff88';
+          }
+
+          var userProfileImg = null;
+          try {
+            userProfileImg = localStorage.getItem('user_profile_image');
+            if (!userProfileImg) {
+              var leaderEmail = localStorage.getItem('loggedInUser');
+              if (leaderEmail && window.MASTER_USERS) {
+                for (var mu = 0; mu < window.MASTER_USERS.length; mu++) {
+                  if (window.MASTER_USERS[mu].email === leaderEmail && window.MASTER_USERS[mu].profileImage) {
+                    userProfileImg = window.MASTER_USERS[mu].profileImage; break;
+                  }
+                }
+              }
+            }
+          } catch (e) { }
+
+          var avatarHtml;
+          if (entry.isUser && userProfileImg) {
+            avatarHtml = '<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#00ff88] shadow-[0_0_12px_rgba(0,255,136,0.3)]"><img alt="' + entry.name + '" class="w-full h-full object-cover rounded-full" src="' + userProfileImg + '"/></div>';
+          } else if (entry.isUser) {
+            avatarHtml = '<div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#00ff88] to-[#7C3AED] flex items-center justify-center border-2 border-[#00ff88] shadow-[0_0_12px_rgba(0,255,136,0.3)]"><span class="material-symbols-outlined text-[#0A0B1E] text-lg" style="font-variation-settings:\'FILL\' 1;">person</span></div>';
+          } else {
+            avatarHtml = '<div class="w-10 h-10 rounded-lg overflow-hidden"><img alt="' + entry.name + '" class="w-full h-full object-cover" src="' + entry.img + '"/></div>';
+          }
+          var verifiedHtml = entry.verified ? ' <span class="material-symbols-outlined text-sm text-secondary-container" style="font-variation-settings: \'FILL\' 1;">verified</span>' : '';
+          var crownHtml = isTop3 ? '<span class="crown-badge rank-' + rank + '">' + crowns[rank - 1] + '</span>' : '<span class="text-xl font-black text-[#e2e2e8]/30 w-6">' + rank + '</span>';
+
+          div.innerHTML =
+            '<div class="flex items-center gap-4">' +
+            crownHtml +
+            avatarHtml +
+            '<div class="flex flex-col">' +
+            '<span class="font-bold text-on-surface flex items-center gap-1">' + entry.name + (entry.isUser ? ' <span class="text-[10px] text-[#00ff88] font-bold">(SEN)</span>' : '') + verifiedHtml + '</span>' +
+            '<span class="text-xs text-on-surface/60">' + entry.xp.toLocaleString() + ' XP</span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="flex items-center gap-1 ' + (rank === 1 ? 'text-[#ffd700] bg-[#ffd700]/10' : 'text-secondary-container/60 bg-white/5') + ' px-2 py-1 rounded-lg">' +
+            '<span class="text-xs font-bold">' + entry.streak + '</span>' +
+            '<span class="material-symbols-outlined text-sm" style="font-variation-settings: \'FILL\' 1;">light</span>' +
+            '</div>';
+
+          list.appendChild(div);
+        });
+      }
+      renderLeaderboard();
+
+      // ————————————————————————————————————————————————
+      // 6. QUESTION BANK (20 Questions)
+      // ————————————————————————————————————————————————
+      var QUESTION_BANK = [
+        { q: "Valorant'ta hangi ajanın Ultimate'i ölen takım arkadaşını canlandırır?", opts: ["Sage", "Reyna", "Omen", "Cypher"], ans: 0 },
+        { q: "League of Legends'ta oyunu kazanmak için hangi yapıyı yıkmanız gerekir?", opts: ["Inhibitör", "Kule", "Nexus", "Baron"], ans: 2 },
+        { q: "Minecraft'ta Obsidyen bloğu hangi iki sıvının birleşmesiyle oluşur?", opts: ["Su - Süt", "Su - Lav", "Lav - İksir", "Su - Asit"], ans: 1 },
+        { q: "CS2'de Teröristlerin en meşhur silahı hangisidir?", opts: ["M4A4", "AWP", "AK-47", "Desert Eagle"], ans: 2 },
+        { q: "Valorant'ın geliştiricisi olan şirket hangisidir?", opts: ["Valve", "Epic Games", "Ubisoft", "Riot Games"], ans: 3 },
+        { q: "Minecraft'ta Ender Dragon hangi boyutta bulunur?", opts: ["Nether", "Overworld", "The End", "Deep Dark"], ans: 2 },
+        { q: "League of Legends'ta kaç şampiyon ile başlarsınız?", opts: ["5", "10", "15", "20"], ans: 3 },
+        { q: "CS2'de 'Ace' ne anlama gelir?", opts: ["5 kişiyi tek başına öldürmek", "Bomba dikmek", "MVP olmak", "Headshot serisi"], ans: 0 },
+        { q: "Valorant'ta kaç farklı harita bulunur (2024 itibarıyla)?", opts: ["5", "7", "9", "11"], ans: 2 },
+        { q: "Minecraft'ta elmas hangi derinlikte en çok bulunur?", opts: ["Y:64", "Y:32", "Y:-59", "Y:16"], ans: 2 },
+        { q: "League of Legends'ta 'Baron Nashor' öldürüldüğünde ne verir?", opts: ["Altın", "Baron Buff", "Ejderha Ruhu", "Void Gate"], ans: 1 },
+        { q: "CS2'de AWP silahının gövdeye verdiği hasar nedir?", opts: ["75", "100", "115", "150"], ans: 2 },
+        { q: "Fortnite hangi şirket tarafından geliştirilmiştir?", opts: ["Riot Games", "Epic Games", "Valve", "Blizzard"], ans: 1 },
+        { q: "Valorant'ta 'Sheriff' silahı kaç krediye mal olur?", opts: ["500", "600", "800", "900"], ans: 2 },
+        { q: "League of Legends 'Challenger' sıralaması kaçıncı tier'dır?", opts: ["En yüksek", "İkinci", "Üçüncü", "Dördüncü"], ans: 0 },
+        { q: "Minecraft'ta bir Enchanting Table için kaç kitap gerekir?", opts: ["0", "1", "3", "5"], ans: 1 },
+        { q: "CS2'de 'Smoke' grenadi kaç saniye kalır?", opts: ["10", "15", "18", "20"], ans: 2 },
+        { q: "Valorant'ta 'Spike' defuse süresi kaç saniyedir?", opts: ["3.5", "5", "7", "10"], ans: 2 },
+        { q: "League of Legends'ta 'Summoner's Rift' haritasında kaç kulvar (lane) vardır?", opts: ["2", "3", "4", "5"], ans: 1 },
+        { q: "Minecraft'ta Wither Boss'u çağırmak için kaç Wither Skeleton Skull gerekir?", opts: ["1", "2", "3", "4"], ans: 2 }
+      ];
+
+      var lastUsedIndexes = [];
+
+      function pickRandomQuestions() {
+        var available = [];
+        for (var i = 0; i < QUESTION_BANK.length; i++) {
+          if (lastUsedIndexes.indexOf(i) === -1) available.push(i);
+        }
+        // If not enough non-recent, use all
+        if (available.length < 5) {
+          available = [];
+          for (var j = 0; j < QUESTION_BANK.length; j++) available.push(j);
+        }
+        // Shuffle
+        available.sort(function () { return Math.random() - 0.5; });
+        var chosen = available.slice(0, 5);
+        lastUsedIndexes = chosen;
+        return chosen.map(function (idx) { return QUESTION_BANK[idx]; });
+      }
+
+      // ————————————————————————————————————————————————
+      // 7. COMPETITION ENGINE (upgraded)
+      // ————————————————————————————————————————————————
+      var joinBtn = document.getElementById('join-btn');
+      var compModal = document.getElementById('comp-modal');
+      var compCloseBtn = document.getElementById('comp-close-btn');
+      var quizContainer = document.getElementById('quiz-container');
+      var quizArea = document.getElementById('quiz-area');
+      var celebrationArea = document.getElementById('celebration-area');
+
+      var questionText = document.getElementById('question-text');
+      var optionsGrid = document.getElementById('options-grid');
+      var timerBar = document.getElementById('timer-bar');
+      var timerText = document.getElementById('timer-text');
+      var feedbackMsg = document.getElementById('feedback-message');
+      var finalScore = document.getElementById('final-score');
+      var collectBtn = document.getElementById('collect-reward-btn');
+
+      var sessionQuestions = [];
+      var currentQ = 0;
+      var sessionScore = 0;
+      var timerInt;
+      var timeLeft = 10;
+      var canAnswer = false;
+
+      function openModal() {
+        compModal.classList.remove('hidden');
+        quizArea.classList.remove('hidden');
+        celebrationArea.classList.add('hidden');
+        currentQ = 0;
+        sessionScore = 0;
+        sessionQuestions = pickRandomQuestions();
+        setTimeout(function () {
+          quizContainer.classList.remove('scale-95', 'opacity-0');
+          quizContainer.classList.add('scale-100', 'opacity-100');
+          loadQuestion();
+        }, 50);
+      }
+
+      function closeModal() {
+        quizContainer.classList.remove('scale-100', 'opacity-100');
+        quizContainer.classList.add('scale-95', 'opacity-0');
+        setTimeout(function () {
+          compModal.classList.add('hidden');
+          clearInterval(timerInt);
+        }, 300);
+      }
+
+      function loadQuestion() {
+        if (currentQ >= sessionQuestions.length) {
+          showCelebration();
+          return;
+        }
+        canAnswer = true;
+        var q = sessionQuestions[currentQ];
+        questionText.innerText = q.q;
+        optionsGrid.innerHTML = '';
+        feedbackMsg.style.opacity = '0';
+
+        q.opts.forEach(function (opt, idx) {
+          var btn = document.createElement('button');
+          btn.className = "w-full py-3 px-4 bg-[#1a1c20] border border-[#3a494b]/50 rounded-xl text-sm font-bold text-[#b9cacb] hover:border-[#8B5CF6]/50 hover:bg-[#8B5CF6]/10 hover:text-[#8B5CF6] transition-all text-left group";
+          btn.innerHTML = "<span class='inline-block w-6 text-[#849495] group-hover:text-[#8B5CF6]'>" + String.fromCharCode(65 + idx) + "</span> " + opt;
+          btn.onclick = function () { handleAnswer(idx === q.ans, btn); };
+          optionsGrid.appendChild(btn);
+        });
+
+        timeLeft = 10;
+        timerText.innerText = timeLeft + 's';
+        timerBar.style.width = '100%';
+        timerBar.className = 'h-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] w-full transition-all duration-1000 ease-linear';
+
+        clearInterval(timerInt);
+        timerInt = setInterval(function () {
+          timeLeft--;
+          timerText.innerText = timeLeft + 's';
+          timerBar.style.width = (timeLeft * 10) + '%';
+          if (timeLeft <= 3) timerBar.className = 'h-full bg-[#ff4444] w-full transition-all duration-1000 ease-linear';
+          if (timeLeft <= 0) {
+            clearInterval(timerInt);
+            handleAnswer(false, null);
+          }
+        }, 1000);
+      }
+
+      function handleAnswer(isCorrect, btnEl) {
+        if (!canAnswer) return;
+        canAnswer = false;
+        clearInterval(timerInt);
+
+        var btns = optionsGrid.querySelectorAll('button');
+        btns.forEach(function (b) { b.classList.add('opacity-50', 'pointer-events-none'); });
+
+        if (btnEl) {
+          btnEl.classList.remove('opacity-50', 'border-[#3a494b]/50', 'bg-[#1a1c20]');
+          if (isCorrect) {
+            btnEl.classList.add('border-[#00ff88]', 'bg-[#00ff88]/20', 'text-[#00ff88]');
+            feedbackMsg.innerText = 'TEBRİKLER! +500 XP';
+            feedbackMsg.className = 'h-6  font-bold tracking-widest uppercase text-sm opacity-100 text-[#00ff88] transition-opacity duration-300 drop-shadow-[0_0_8px_#00ff88]';
+            sessionScore += 500;
+            totalXP += 500;
+            saveScore(totalXP);
+            updateScorePopAnimation();
+            renderLeaderboard();
+            // Daily challenge tracking
+            trackDailyChallenge('trivia');
+            currentStreak++;
+            if (currentStreak >= 3) trackDailyChallenge('streak');
+          } else {
+            btnEl.classList.add('border-[#ff4444]', 'bg-[#ff4444]/20', 'text-[#ff4444]');
+            feedbackMsg.innerText = 'MAALESEF! 0 XP';
+            feedbackMsg.className = 'h-6  font-bold tracking-widest uppercase text-sm opacity-100 text-[#ff4444] transition-opacity duration-300 drop-shadow-[0_0_8px_#ff4444]';
+            currentStreak = 0;
+          }
+        } else {
+          feedbackMsg.innerText = 'SÜRE DOLDU! 0 XP';
+          feedbackMsg.className = 'h-6  font-bold tracking-widest uppercase text-sm opacity-100 text-[#ffaa00] transition-opacity duration-300 drop-shadow-[0_0_8px_#ffaa00]';
+        }
+
+        setTimeout(function () {
+          currentQ++;
+          loadQuestion();
+        }, 2000);
+      }
+
+      function updateScorePopAnimation() {
+        xpCounter.innerText = totalXP.toLocaleString();
+        scoreIndicator.classList.add('score-pop');
+        setTimeout(function () { scoreIndicator.classList.remove('score-pop'); }, 500);
+        updateWeeklyRewards();
+      }
+
+      // Simple Confetti
+      function runConfetti() {
+        var canvas = document.getElementById('confetti-canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = celebrationArea.clientWidth;
+        canvas.height = celebrationArea.clientHeight;
+        var pieces = [];
+        var colors = ['#8B5CF6', '#00ff88', '#ffaa00', '#ff4444', '#b9cacb'];
+        for (var i = 0; i < 60; i++) {
+          pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            w: Math.random() * 8 + 4,
+            h: Math.random() * 8 + 4,
+            dy: Math.random() * 2 + 1,
+            dx: Math.random() * 2 - 1,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rot: Math.random() * 360,
+            dRot: Math.random() * 5 - 2.5
+          });
+        }
+        function draw() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          pieces.forEach(function (p) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+            p.y += p.dy;
+            p.x += p.dx;
+            p.rot += p.dRot;
+            if (p.y > canvas.height) p.y = -20;
+          });
+          requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      // ————————————————————————————————————————————————
+      // 7.5. WEEKLY TIMER & WEDNESDAY RESTRICTION
+      // ————————————————————————————————————————————————
+      var isWednesdayActive = false;
+      var countdownTimerEl = document.getElementById('countdown-timer');
+      // joinBtn is defined globally in the IIFE at line ~1299
+
+      function getNextWednesday() {
+        var now = new Date();
+        var day = now.getDay();
+        var daysUntilWed = (3 - day + 7) % 7;
+        if (daysUntilWed === 0) daysUntilWed = 7;
+        var nextWed = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilWed);
+        nextWed.setHours(0, 0, 0, 0);
+        return nextWed;
+      }
+
+      function getEndOfToday() {
+        var now = new Date();
+        var end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        end.setHours(0, 0, 0, 0);
+        return end;
+      }
+
+      function updateWeeklyTimer() {
+        if (!countdownTimerEl || !joinBtn) return; // Prevent errors if DOM elements are missing
+
+        var now = new Date();
+        var day = now.getDay();
+
+        if (day === 3) {
+          isWednesdayActive = true;
+          var endOfToday = getEndOfToday();
+          var diff = endOfToday - now;
+          if (diff < 0) diff = 0;
+
+          var h = Math.floor(diff / (1000 * 60 * 60));
+          var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+          h = String(h).padStart(2, '0');
+          m = String(m).padStart(2, '0');
+          s = String(s).padStart(2, '0');
+
+          countdownTimerEl.innerHTML = '<span class="text-white">AKTİF</span> <span class="text-2xl text-[#849495] ml-2">| Kalan: ' + h + ':' + m + ':' + s + '</span>';
+          countdownTimerEl.style.fontSize = 'clamp(1.5rem, 4vw, 2.5rem)';
+          countdownTimerEl.style.color = '#00ff88';
+          countdownTimerEl.style.textShadow = '0 0 10px rgba(0,255,136,0.5)';
+
+          joinBtn.classList.remove('opacity-50', 'grayscale', 'cursor-not-allowed', 'pointer-events-none');
+          joinBtn.classList.add('hover:scale-105', 'active:scale-95');
+          joinBtn.innerHTML = '⚔️ SAVAŞA KATIL';
+          joinBtn.style.background = 'linear-gradient(to bottom right, #8B5CF6, #EC4899)';
+          joinBtn.style.color = '#0A0B1E';
+
+        } else {
+          isWednesdayActive = false;
+          var nextWed = getNextWednesday();
+          var diff = nextWed - now;
+          if (diff < 0) diff = 0;
+
+          var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+          d = String(d).padStart(2, '0');
+          h = String(h).padStart(2, '0');
+          m = String(m).padStart(2, '0');
+          s = String(s).padStart(2, '0');
+
+          countdownTimerEl.innerHTML = d + ':' + h + ':' + m + ':' + s;
+          countdownTimerEl.style.fontSize = 'clamp(3rem, 8vw, 5rem)';
+          countdownTimerEl.style.color = '#ffaa00';
+          countdownTimerEl.style.textShadow = '0 0 10px rgba(255,170,0,0.5)';
+
+          joinBtn.classList.add('opacity-50', 'grayscale', 'cursor-not-allowed', 'pointer-events-none');
+          joinBtn.classList.remove('hover:scale-105', 'active:scale-95');
+          joinBtn.innerHTML = '⏳ ÇARŞAMBAYI BEKLE';
+          joinBtn.style.background = '#333539';
+          joinBtn.style.color = '#849495';
+        }
+      }
+
+      setInterval(updateWeeklyTimer, 1000);
+      updateWeeklyTimer();
+
+      joinBtn.addEventListener('click', function () {
+        if (!isWednesdayActive) return;
+        openModal();
+      });
+      compCloseBtn.addEventListener('click', closeModal);
+      collectBtn.addEventListener('click', closeModal);
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 8. DAILY CHALLENGE — ROTATING POOL SYSTEM
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var currentStreak = 0;
+
+      // Challenge pool (8 templates)
+      var CHALLENGE_POOL = [
+        { id: 'trivia', title: 'Trivia Master', desc: 'Günlük 10 doğru cevap ver', icon: 'emoji_events', bgIcon: 'emoji_events', color: '#8B5CF6', gradFrom: '#7C3AED', gradTo: '#8B5CF6', max: 10 },
+        { id: 'social', title: 'Social Butterfly', desc: '3 farklı kişiye Duo isteği gönder', icon: 'group_add', bgIcon: 'star', color: '#ffaa00', gradFrom: '#ff8800', gradTo: '#ffaa00', max: 3 },
+        { id: 'streak', title: 'Streak Winner', desc: 'Arka arkaya 3 doğru cevap', icon: 'local_fire_department', bgIcon: 'bolt', color: '#ff4444', gradFrom: '#cc3333', gradTo: '#ff4444', max: 3 },
+        { id: 'explorer', title: 'Explorer', desc: '5 farklı oyuncu profilini ziyaret et', icon: 'explore', bgIcon: 'travel_explore', color: '#a855f7', gradFrom: '#7c3aed', gradTo: '#a855f7', max: 5 },
+        { id: 'chatpro', title: 'Chat Pro', desc: '10 mesaj gönder', icon: 'forum', bgIcon: 'chat', color: '#06b6d4', gradFrom: '#0891b2', gradTo: '#06b6d4', max: 10 },
+        { id: 'sniper', title: 'Quick Sniper', desc: '5 soruyu 5 saniyeden önce cevapla', icon: 'timer', bgIcon: 'speed', color: '#f59e0b', gradFrom: '#d97706', gradTo: '#f59e0b', max: 5 },
+        { id: 'perfect', title: 'Perfect Round', desc: 'Bir quizde tüm soruları doğru cevapla', icon: 'verified', bgIcon: 'workspace_premium', color: '#10b981', gradFrom: '#059669', gradTo: '#10b981', max: 1 },
+        { id: 'warrior', title: 'Warrior Mode', desc: '3 kez yarışmaya katıl', icon: 'swords', bgIcon: 'shield', color: '#ef4444', gradFrom: '#dc2626', gradTo: '#ef4444', max: 3 }
+      ];
+
+      function getTodayStr() { return new Date().toISOString().slice(0, 10); }
+      function getUserPrefix() { return (localStorage.getItem('loggedInUser') || 'guest').replace(/[^a-zA-Z0-9]/g, '_'); }
+
+      function loadTodayChallenges() {
+        var prefix = getUserPrefix();
+        var lastDate = localStorage.getItem('last_challenge_date_' + prefix);
+        var today = getTodayStr();
+
+        if (lastDate === today) {
+          // Same day — load saved selection
+          try {
+            var saved = JSON.parse(localStorage.getItem('daily_challenges_selection_' + prefix));
+            if (saved && saved.length === 3) return saved;
+          } catch (e) { }
+        }
+
+        // New day (or no data) — pick 3 random challenges
+        var indices = [];
+        for (var i = 0; i < CHALLENGE_POOL.length; i++) indices.push(i);
+        // Shuffle
+        for (var j = indices.length - 1; j > 0; j--) {
+          var k = Math.floor(Math.random() * (j + 1));
+          var tmp = indices[j]; indices[j] = indices[k]; indices[k] = tmp;
+        }
+        var selected = [CHALLENGE_POOL[indices[0]], CHALLENGE_POOL[indices[1]], CHALLENGE_POOL[indices[2]]];
+        localStorage.setItem('daily_challenges_selection_' + prefix, JSON.stringify(selected));
+        localStorage.setItem('last_challenge_date_' + prefix, today);
+        // Clear old progress
+        localStorage.removeItem('df_dc_' + prefix + '_' + (lastDate || ''));
+        return selected;
+      }
+
+      var todayChallenges = loadTodayChallenges();
+
+      function getDailyChallengeKey() {
+        return 'df_dc_' + getUserPrefix() + '_' + getTodayStr();
+      }
+
+      function loadDailyChallenges() {
+        try { return JSON.parse(localStorage.getItem(getDailyChallengeKey()) || '{}'); } catch (e) { return {}; }
+      }
+
+      function saveDailyChallenges(data) {
+        localStorage.setItem(getDailyChallengeKey(), JSON.stringify(data));
+      }
+
+      // Render challenge cards dynamically
+      function buildChallengeCards() {
+        var container = document.getElementById('dc-cards-container');
+        container.innerHTML = '';
+        todayChallenges.forEach(function (ch) {
+          var card = document.createElement('div');
+          card.id = 'dc-' + ch.id;
+          card.className = 'dc-card glass-card rounded-2xl p-5 border space-y-3 relative overflow-hidden group transition-all';
+          card.style.borderColor = ch.color.replace(')', ',0.15)').replace('rgb', 'rgba').replace('#', '');
+          card.style.cssText += 'border: 1px solid ' + ch.color + '26;';
+          card.innerHTML =
+            '<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">' +
+            '<span class="material-symbols-outlined text-5xl" style="color:' + ch.color + ';">' + ch.bgIcon + '</span>' +
+            '</div>' +
+            '<div class="flex items-center gap-3">' +
+            '<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:' + ch.color + '1a;">' +
+            '<span class="material-symbols-outlined" style="color:' + ch.color + ';font-variation-settings:\'FILL\' 1;">' + ch.icon + '</span>' +
+            '</div>' +
+            '<div>' +
+            '<h4 class="font-bold text-on-surface text-sm">' + ch.title + '</h4>' +
+            '<p class="text-[10px] text-[#849495]">' + ch.desc + '</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="space-y-1.5">' +
+            '<div class="flex justify-between items-center">' +
+            '<span id="dc-' + ch.id + '-count" class="text-[10px] font-bold font-[\'Outfit\'] tracking-wider" style="color:' + ch.color + ';">0 / ' + ch.max + '</span>' +
+            '<span id="dc-' + ch.id + '-stamp" class="hidden text-[10px] font-bold text-[#00ff88] font-[\'Outfit\'] tracking-wider">COMPLETED ✅</span>' +
+            '</div>' +
+            '<div class="w-full h-2 bg-[#333539] rounded-full overflow-hidden">' +
+            '<div id="dc-' + ch.id + '-bar" class="dc-progress-fill h-full rounded-full" style="width:0%;background:linear-gradient(to right,' + ch.gradFrom + ',' + ch.gradTo + ');"></div>' +
+            '</div>' +
+            '</div>';
+          container.appendChild(card);
+        });
+      }
+      buildChallengeCards();
+
+      function trackDailyChallenge(type) {
+        var dc = loadDailyChallenges();
+        // Find the matching challenge from today's selection
+        var ch = todayChallenges.find(function (c) { return c.id === type; });
+        if (!ch) return; // this challenge not active today
+        if (!dc[type]) dc[type] = 0;
+        if (dc[type] >= ch.max) return;
+        dc[type]++;
+        saveDailyChallenges(dc);
+        renderDailyChallenges(dc);
+      }
+
+      function renderDailyChallenges(dc) {
+        if (!dc) dc = loadDailyChallenges();
+        todayChallenges.forEach(function (ch) {
+          var val = Math.min(dc[ch.id] || 0, ch.max);
+          var pct = (val / ch.max) * 100;
+          var bar = document.getElementById('dc-' + ch.id + '-bar');
+          var count = document.getElementById('dc-' + ch.id + '-count');
+          var stamp = document.getElementById('dc-' + ch.id + '-stamp');
+          var card = document.getElementById('dc-' + ch.id);
+          if (bar) bar.style.width = pct + '%';
+          if (count) count.textContent = val + ' / ' + ch.max;
+          if (val >= ch.max) {
+            if (card) card.classList.add('completed');
+            if (stamp) stamp.classList.remove('hidden');
+            if (count) count.classList.add('hidden');
+          } else {
+            if (card) card.classList.remove('completed');
+            if (stamp) stamp.classList.add('hidden');
+            if (count) count.classList.remove('hidden');
+          }
+        });
+      }
+
+      // Expose for other pages
+      window.DFChallenges = { track: trackDailyChallenge };
+
+      // Initialize on load
+      renderDailyChallenges();
+
+    })();
+  </script>
+  <script src="../../js/modules/notifications.js"></script>
+  <script src="../../js/core/duo-state.js"></script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/settings-modal.js"></script>
+  <script src="../../js/modals/feedback-modal.js"></script>
+  <script src="../../js/modules/detail-polish.js"></script>
+  <script src="../../js/modules/theme-switcher.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+  <script src="../../js/modules/header-enhancements.js"></script>
+  <script src="../../js/modules/profile-sync.js"></script>
+  <script src="../../js/modals/report-modal.js"></script>
+  <script src="../../js/modules/mobile-nav.js"></script>
+  <script src="../../js/core/nexus-ai-core.js"></script>
+  <script src="../../js/core/nexus-ai.js"></script>
+</body>
+
+</html>

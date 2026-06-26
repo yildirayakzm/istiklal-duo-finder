@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#0A0B1E", "background": "#0A0B1E",
+            "on-surface": "#e2e2e8", "on-background": "#e2e2e8",
+            "primary-container": "#8B5CF6", "outline": "#849495",
+            "outline-variant": "#2D2E4A", "surface-container": "#141530",
+            "surface-container-high": "#1A1B3A"
+          },
+          fontFamily: { "headline": ["Outfit"], "body": ["Poppins"] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', 'Outfit', sans-serif;
+      background: #0A0B1E;
+      color: #e2e2e8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-headline {
+      font-family: 'Syne', sans-serif;
+    }
+
+    .glass-panel {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .admin-card {
+      background: rgba(20, 21, 48, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(139, 92, 246, 0.12);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .admin-card:hover {
+      border-color: rgba(139, 92, 246, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .stat-card {
+      background: rgba(20, 21, 48, 0.5);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      background: var(--accent, linear-gradient(90deg, #8B5CF6, #EC4899));
+    }
+
+    .stat-card:hover {
+      border-color: rgba(139, 92, 246, 0.2);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .admin-sidebar {
+      position: fixed;
+      left: 0;
+      top: 80px;
+      bottom: 0;
+      width: 260px;
+      background: rgba(10, 11, 30, 0.95);
+      backdrop-filter: blur(24px);
+      border-right: 1px solid rgba(139, 92, 246, 0.1);
+      z-index: 40;
+      overflow-y: auto;
+      padding: 1.5rem 0;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-sidebar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .admin-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: 4px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      position: relative;
+    }
+
+    .sidebar-link:hover {
+      color: #b9cacb;
+      background: rgba(139, 92, 246, 0.04);
+    }
+
+    .sidebar-link.active {
+      color: #e2e2e8;
+      background: rgba(139, 92, 246, 0.08);
+    }
+
+    .sidebar-link.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 60%;
+      border-radius: 0 3px 3px 0;
+      background: linear-gradient(180deg, #8B5CF6, #EC4899);
+    }
+
+    .sidebar-link .material-symbols-outlined {
+      font-size: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .sidebar-link.active .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .admin-main {
+      margin-left: 260px;
+      padding: 100px 2rem 2rem;
+      min-height: 100vh;
+    }
+
+    .section-panel {
+      display: none;
+      animation: panelFadeIn 0.35s ease forwards;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    @keyframes panelFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .user-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .user-table th {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #8B5CF6;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .user-table td {
+      font-size: 13px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(45, 46, 74, 0.3);
+      color: #b9cacb;
+    }
+
+    .user-table tr:hover td {
+      background: rgba(139, 92, 246, 0.03);
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-founder {
+      background: rgba(255, 215, 0, 0.1);
+      color: #FFD700;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .badge-user {
+      background: rgba(139, 92, 246, 0.08);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .badge-banned {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+      border: 1px solid rgba(255, 68, 68, 0.2);
+    }
+
+    .badge-online {
+      background: rgba(0, 255, 136, 0.08);
+      color: #00ff88;
+      border: 1px solid rgba(0, 255, 136, 0.15);
+    }
+
+    .badge-offline {
+      background: rgba(132, 148, 149, 0.08);
+      color: #849495;
+      border: 1px solid rgba(132, 148, 149, 0.15);
+    }
+
+    .admin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .admin-btn-primary {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+    }
+
+    .admin-btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .admin-btn-danger {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+      border: 1px solid rgba(255, 68, 68, 0.2);
+    }
+
+    .admin-btn-danger:hover {
+      background: rgba(255, 68, 68, 0.2);
+      border-color: rgba(255, 68, 68, 0.4);
+    }
+
+    .admin-btn-ghost {
+      background: rgba(139, 92, 246, 0.06);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .admin-btn-ghost:hover {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: rgba(139, 92, 246, 0.3);
+    }
+
+    .chart-bar {
+      height: 100%;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .announce-card {
+      background: rgba(20, 21, 48, 0.4);
+      border: 1px solid rgba(139, 92, 246, 0.08);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .announce-card:hover {
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: rgba(45, 46, 74, 0.5);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-switch.on {
+      background: rgba(139, 92, 246, 0.4);
+    }
+
+    .toggle-switch .knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #e2e2e8;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-switch.on .knob {
+      left: 23px;
+      background: #8B5CF6;
+      box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+    }
+
+    .neon-input {
+      background: rgba(17, 19, 24, 0.8) !important;
+      border: 1px solid rgba(58, 73, 75, 0.4) !important;
+      border-radius: 0.75rem !important;
+      color: #e2e2e8 !important;
+      padding: 10px 14px !important;
+      font-size: 13px;
+      outline: none;
+      transition: all 0.25s ease;
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .neon-input:focus {
+      border-color: rgba(139, 92, 246, 0.6) !important;
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.15) !important;
+    }
+
+    .neon-input::placeholder {
+      color: rgba(132, 148, 149, 0.5);
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(139, 92, 246, 0.2)
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.4)
+      }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    .denied-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(10, 11, 30, 0.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .denied-box {
+      text-align: center;
+      max-width: 420px;
+      padding: 3rem;
+    }
+
+    .denied-box .material-symbols-outlined {
+      font-size: 64px;
+      color: #ff4444;
+      filter: drop-shadow(0 0 20px rgba(255, 68, 68, 0.5));
+      margin-bottom: 1.5rem;
+    }
+
+    .log-entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(45, 46, 74, 0.2);
+    }
+
+    .log-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    @media(max-width:1023px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+        z-index: 100;
+      }
+
+      .admin-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .admin-main {
+        margin-left: 0;
+        padding: 100px 1rem 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen">
+  <script src="../../js/core/database.js"></script>
+
+  <!-- AUTH GUARD — Founder Only (Triple-Layer Security) -->
+  <script>
+      (function () {
+        // ── LAYER 1: Must be logged in ──
+        var email = localStorage.getItem('loggedInUser');
+        if (!email) { window.location.href = '../giri_yap_login/code.html'; return; }
+
+        // ── LAYER 2: Must be a founder in MASTER_USERS database ──
+        var master = window.MASTER_USERS || [];
+        var isFounderInDB = false;
+        for (var i = 0; i < master.length; i++) {
+          if (master[i].email === email && master[i].role === 'founder') { isFounderInDB = true; break; }
+        }
+
+        // ── LAYER 3: Must match the EXACT hardcoded founder email ──
+        // This prevents any localStorage manipulation or injection attacks
+        var FOUNDER_EMAIL = 'akuzumy1905@gmail.com';
+        var isAuthorized = isFounderInDB && (email === FOUNDER_EMAIL);
+
+        if (!isAuthorized) {
+          // Block access immediately — hide admin content before DOM renders
+          document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('access-denied').style.display = 'flex';
+            document.getElementById('admin-app').style.display = 'none';
+          });
+          // Log unauthorized access attempt
+          console.warn('[NEXUS SECURITY] Unauthorized admin panel access attempt by: ' + email);
+        } else {
+          window.ADMIN_USER_EMAIL = email;
+          window.ADMIN_IS_FOUNDER = true;
+          // Reveal admin app after DOM loads
+          document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('admin-app').style.display = '';
+          });
+        }
+      })();
+  </script>
+
+  <!-- ACCESS DENIED OVERLAY -->
+  <div id="access-denied" class="denied-overlay" style="display:none;">
+    <div class="denied-box">
+      <span class="material-symbols-outlined">gpp_bad</span>
+      <h2 style="font-family:'Outfit';font-size:28px;font-weight:800;color:#e2e2e8;margin-bottom:12px;">Erişim
+        Reddedildi</h2>
+      <p style="font-family:'Poppins';font-size:14px;color:#849495;line-height:1.7;margin-bottom:2rem;">Bu panel
+        yalnızca platform kurucusu için ayrılmıştır. Yetkisiz erişim girişimleri kayıt altına alınır.</p>
+      <a href="../duo_finder_dashboard_yeni/code.html" class="admin-btn admin-btn-primary"
+        style="text-decoration:none;">
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span> Dashboard'a Dön
+      </a>
+    </div>
+  </div>
+
+  <!-- ADMIN APP (hidden by default — auth guard reveals it) -->
+  <div id="admin-app" style="display:none;">
+    <!-- TOP HEADER -->
+    <header class="fixed top-0 w-full z-50 h-20 flex items-center justify-between px-4 md:px-6"
+      style="background:rgba(10,11,30,0.85);backdrop-filter:blur(24px);border-bottom:1px solid rgba(139,92,246,0.1);">
+      <div class="flex items-center gap-3">
+        <button id="sidebar-toggle-btn"
+          class="lg:hidden material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] transition-colors text-2xl cursor-pointer">menu</button>
+        <a href="../duo_finder_dashboard_yeni/code.html" class="flex items-center gap-2 group shrink-0"
+          style="text-decoration:none;">
+          <span class="material-symbols-outlined text-[#8B5CF6] text-3xl group-hover:scale-110 transition-transform"
+            style="font-variation-settings:'FILL' 1;">sports_esports</span>
+          <span
+            class=" font-black text-4xl tracking-tighter bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent hidden sm:inline">İSTİKLAL</span>
+        </a>
+        <div style="width:1px;height:28px;background:rgba(139,92,246,0.15);margin:0 8px;" class="hidden sm:block"></div>
+        <div class="hidden sm:flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#FFD700] text-lg"
+            style="font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 8px rgba(255,215,0,0.4));">shield</span>
+          <span class=" font-bold text-xs tracking-widest text-[#FFD700] uppercase"
+            style="text-shadow:0 0 10px rgba(255,215,0,0.3);">Founder Panel</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl"
+          style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);">
+          <div
+            style="width:8px;height:8px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px rgba(0,255,136,0.5);">
+          </div>
+          <span class=" font-bold text-[11px] text-[#00ff88] tracking-wider">SİSTEM AKTİF</span>
+        </div>
+        <a href="../duo_finder_dashboard_yeni/code.html" class="admin-btn admin-btn-ghost"
+          style="text-decoration:none;font-size:11px;">
+          <span class="material-symbols-outlined" style="font-size:16px;">arrow_back</span> Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div style="padding:0 24px 20px;border-bottom:1px solid rgba(139,92,246,0.08);margin-bottom:12px;">
+        <div class="flex items-center gap-3">
+          <div
+            style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(139,92,246,0.1));border:2px solid rgba(255,215,0,0.3);display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined"
+              style="color:#FFD700;font-size:22px;font-variation-settings:'FILL' 1;">shield_person</span>
+          </div>
+          <div>
+            <div class=" font-bold text-sm text-[#e2e2e8]" id="admin-name">yildirayakzm</div>
+            <div class=" font-bold text-[10px] tracking-widest text-[#FFD700] uppercase">FOUNDER</div>
+          </div>
+        </div>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <button class="sidebar-link active" data-section="command-center">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">dashboard</span>
+          <span data-i18n="admin_command_center">Komuta Merkezi</span>
+        </button>
+        <button class="sidebar-link" data-section="user-mgmt">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">group</span>
+          <span data-i18n="admin_user_mgmt">Kullanıcı Yönetimi</span>
+        </button>
+        <button class="sidebar-link" data-section="analytics">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">monitoring</span>
+          <span data-i18n="admin_analytics">Platform Analitik</span>
+        </button>
+        <button class="sidebar-link" data-section="lobby-mgmt">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">sports_esports</span>
+          <span data-i18n="admin_lobby_mgmt">Lobi Yönetimi</span>
+        </button>
+        <button class="sidebar-link" data-section="reports">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">flag</span>
+          <span data-i18n="admin_reports">Raporlar & Moderasyon</span>
+        </button>
+        <button class="sidebar-link" data-section="announcements">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">campaign</span>
+          <span data-i18n="admin_announcements">Duyurular</span>
+        </button>
+        <button class="sidebar-link" data-section="settings">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">manufacturing</span>
+          <span data-i18n="admin_platform_settings">Platform Ayarları</span>
+        </button>
+        <div style="height:1px;background:rgba(139,92,246,0.08);margin:12px 16px;"></div>
+        <button class="sidebar-link" data-section="audit-log">
+          <span class="material-symbols-outlined">history</span>
+          <span data-i18n="admin_audit_log">Denetim Kaydı</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- â•â• SECTION 1: COMMAND CENTER â•â• -->
+      <div class="section-panel active" id="panel-command-center">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Komuta Merkezi</h1>
+          <p class=" text-sm text-[#849495] mt-1">Platform durumunu tek bakışta gör</p>
+        </div>
+        <!-- Stat Cards Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#8B5CF6,#a78bfa);">
+            <div class="flex items-center justify-between mb-3">
+              <span class="material-symbols-outlined text-[#8B5CF6]"
+                style="font-size:28px;font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 8px rgba(139,92,246,0.4));">group</span>
+              <span class="badge badge-online" id="stat-growth-badge"></span>
+            </div>
+            <div class=" font-black text-3xl text-[#e2e2e8]" id="stat-total-users">0</div>
+            <div class=" text-xs text-[#849495] mt-1 tracking-wide">Toplam Kullanıcı</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#00ff88,#00cc6a);">
+            <div class="flex items-center justify-between mb-3">
+              <span class="material-symbols-outlined text-[#00ff88]"
+                style="font-size:28px;font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 8px rgba(0,255,136,0.4));">wifi</span>
+              <span class="badge badge-online" data-i18n="badge_live">CANLI</span>
+            </div>
+            <div class=" font-black text-3xl text-[#e2e2e8]" id="stat-online">0</div>
+            <div class=" text-xs text-[#849495] mt-1 tracking-wide">Çevrimiçi</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#EC4899,#f472b6);">
+            <div class="flex items-center justify-between mb-3">
+              <span class="material-symbols-outlined text-[#EC4899]"
+                style="font-size:28px;font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 8px rgba(236,72,153,0.4));">handshake</span>
+            </div>
+            <div class=" font-black text-3xl text-[#e2e2e8]" id="stat-matches">0</div>
+            <div class=" text-xs text-[#849495] mt-1 tracking-wide">Toplam Eşleşme</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#ffaa00,#ffd700);">
+            <div class="flex items-center justify-between mb-3">
+              <span class="material-symbols-outlined text-[#ffaa00]"
+                style="font-size:28px;font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 8px rgba(255,170,0,0.4));">groups</span>
+            </div>
+            <div class=" font-black text-3xl text-[#e2e2e8]" id="stat-lobbies">0</div>
+            <div class=" text-xs text-[#849495] mt-1 tracking-wide">Aktif Lobi</div>
+          </div>
+        </div>
+        <!-- Quick Actions & System Health -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+          <div class="admin-card lg:col-span-2">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Hızlı İşlemler
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button class="admin-btn admin-btn-ghost flex-col gap-2 py-4 w-full justify-center"
+                onclick="switchSection('announcements')">
+                <span class="material-symbols-outlined" style="font-size:24px;color:#EC4899;">campaign</span>
+                <span style="font-size:11px;">Duyuru Yayınla</span>
+              </button>
+              <button class="admin-btn admin-btn-ghost flex-col gap-2 py-4 w-full justify-center"
+                onclick="switchSection('user-mgmt')">
+                <span class="material-symbols-outlined" style="font-size:24px;color:#00ff88;">person_add</span>
+                <span style="font-size:11px;">Kullanıcılar</span>
+              </button>
+              <button class="admin-btn admin-btn-ghost flex-col gap-2 py-4 w-full justify-center"
+                onclick="switchSection('reports')">
+                <span class="material-symbols-outlined" style="font-size:24px;color:#ff4444;">flag</span>
+                <span style="font-size:11px;">Raporlar</span>
+              </button>
+              <button class="admin-btn admin-btn-ghost flex-col gap-2 py-4 w-full justify-center"
+                onclick="switchSection('settings')">
+                <span class="material-symbols-outlined" style="font-size:24px;color:#ffaa00;">manufacturing</span>
+                <span style="font-size:11px;">Ayarlar</span>
+              </button>
+            </div>
+          </div>
+          <div class="admin-card">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Sistem Durumu
+            </h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class=" text-xs text-[#b9cacb]">Sunucu</span>
+                <div class="flex items-center gap-2">
+                  <div
+                    style="width:8px;height:8px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px rgba(0,255,136,0.5);">
+                  </div><span class=" text-xs text-[#00ff88] font-bold">Çalışıyor</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class=" text-xs text-[#b9cacb]">Veritabanı</span>
+                <div class="flex items-center gap-2">
+                  <div
+                    style="width:8px;height:8px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px rgba(0,255,136,0.5);">
+                  </div><span class=" text-xs text-[#00ff88] font-bold">Sağlıklı</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class=" text-xs text-[#b9cacb]">API</span>
+                <div class="flex items-center gap-2">
+                  <div
+                    style="width:8px;height:8px;border-radius:50%;background:#00ff88;box-shadow:0 0 6px rgba(0,255,136,0.5);">
+                  </div><span class=" text-xs text-[#00ff88] font-bold">v2.4.1</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class=" text-xs text-[#b9cacb]">Uptime</span>
+                <span class=" text-xs text-[#e2e2e8] font-bold">99.97%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Activity -->
+        <div class="admin-card">
+          <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Son Aktiviteler
+          </h3>
+          <div id="recent-activity" class="space-y-1">
+            <div class="log-entry">
+              <div class="log-dot" style="background:#00ff88;"></div>
+              <div>
+                <div class=" text-xs text-[#e2e2e8]">Sistem başlatıldı</div>
+                <div class=" text-[10px] text-[#849495]">Az önce</div>
+              </div>
+            </div>
+            <div class="log-entry">
+              <div class="log-dot" style="background:#8B5CF6;"></div>
+              <div>
+                <div class=" text-xs text-[#e2e2e8]">Founder girişi yapıldı</div>
+                <div class=" text-[10px] text-[#849495]">Az önce</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- â•â• SECTION 2: USER MANAGEMENT â•â• -->
+      <div class="section-panel" id="panel-user-mgmt">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <div>
+            <h1 class=" text-3xl font-bold tracking-tight"
+              style="background:linear-gradient(135deg,#e2e2e8,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+              Kullanıcı Yönetimi</h1>
+            <p class=" text-sm text-[#849495] mt-1">Tüm kayıtlı kullanıcıları yönet</p>
+          </div>
+          <div class="flex gap-2">
+            <div style="position:relative;">
+              <input type="text" class="neon-input" placeholder="Kullanıcı ara..." id="user-search"
+                style="padding-left:36px;width:220px;">
+              <span class="material-symbols-outlined"
+                style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:#849495;">search</span>
+            </div>
+          </div>
+        </div>
+        <div class="admin-card" style="padding:0;overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table class="user-table" id="users-table">
+              <thead>
+                <tr>
+                  <th>Kullanıcı</th>
+                  <th>E-posta</th>
+                  <th>Rol</th>
+                  <th>Bölge</th>
+                  <th>Durum</th>
+                  <th>İşlem</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+          <div
+            style="padding:12px 16px;border-top:1px solid rgba(45,46,74,0.3);display:flex;align-items:center;justify-content:between;"
+            id="user-table-footer">
+            <span class=" text-[11px] text-[#849495]" id="user-count-label">0 kullanıcı</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- â•â• SECTION 3: ANALYTICS â•â• -->
+      <div class="section-panel" id="panel-analytics">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Platform Analitik</h1>
+          <p class=" text-sm text-[#849495] mt-1">Büyüme metrikleri ve istatistikler</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          <!-- Game Popularity Chart (Dynamic) -->
+          <div class="admin-card">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Oyun Popülerliği
+            </h3>
+            <div id="game-popularity-chart" style="display:flex;align-items:flex-end;gap:12px;height:180px;padding-top:20px;">
+              <!-- Dynamically populated from real user data -->
+            </div>
+          </div>
+          <!-- Region Distribution -->
+          <div class="admin-card">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Bölge Dağılımı
+            </h3>
+            <div class="space-y-3" id="region-distribution-bars">
+              <!-- Dynamically populated from real user data -->
+            </div>
+          </div>
+        </div>
+        <!-- Growth Metrics (Dynamic) -->
+        <div class="admin-card">
+          <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Haftalık Kayıt
+            Trendi</h3>
+          <div id="weekly-trend-chart" style="display:flex;align-items:flex-end;gap:6px;height:120px;">
+            <!-- Dynamically populated from real user data -->
+          </div>
+        </div>
+      </div>
+
+      <!-- â•â• SECTION 4: LOBBY MANAGEMENT â•â• -->
+      <div class="section-panel" id="panel-lobby-mgmt">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Lobi Yönetimi</h1>
+          <p class=" text-sm text-[#849495] mt-1">Aktif lobileri izle ve yönet</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#8B5CF6,#a78bfa);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="lobby-val-count">0</div>
+            <div class=" text-xs text-[#849495] mt-1">Valorant Lobisi</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#ffaa00,#ffd700);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="lobby-cs-count">0</div>
+            <div class=" text-xs text-[#849495] mt-1">CS2 Lobisi</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#00ff88,#00cc6a);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="lobby-lol-count">0</div>
+            <div class=" text-xs text-[#849495] mt-1">LoL Lobisi</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Aktif Lobiler</h3>
+          <div id="active-lobbies-list" class="space-y-3">
+            <div style="text-align:center;padding:2rem;"><span class="material-symbols-outlined text-[#849495]"
+                style="font-size:40px;">sports_esports</span>
+              <p class=" text-sm text-[#849495] mt-2">Aktif lobi bulunamadı</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- â•â• SECTION 5: REPORTS & MODERATION â•â• -->
+      <div class="section-panel" id="panel-reports">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#ff4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Raporlar & Moderasyon</h1>
+          <p class=" text-sm text-[#849495] mt-1">Oyuncu raporlarını incele ve işlem yap</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#ff4444,#ff6b6b);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="report-pending">0</div>
+            <div class=" text-xs text-[#849495] mt-1">Bekleyen Rapor</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#ffaa00,#ffd700);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="report-resolved">0</div>
+            <div class=" text-xs text-[#849495] mt-1">Çözülen</div>
+          </div>
+          <div class="stat-card" style="--accent:linear-gradient(90deg,#ff4444,#ff0000);">
+            <div class=" font-black text-2xl text-[#e2e2e8]" id="banned-count">0</div>
+            <div class=" text-xs text-[#849495] mt-1">Banlanan</div>
+          </div>
+        </div>
+        <div class="admin-card mb-6">
+          <h3 class=" font-bold text-sm tracking-widest text-[#ff4444] uppercase mb-4">Bekleyen Raporlar
+          </h3>
+          <div id="reports-list" class="space-y-3">
+            <div style="text-align:center;padding:2rem;"><span class="material-symbols-outlined text-[#849495]"
+                style="font-size:40px;">verified_user</span>
+              <p class=" text-sm text-[#849495] mt-2">Bekleyen rapor yok — temiz!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="admin-card">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class=" font-bold text-sm tracking-widest text-[#ffaa00] uppercase">Çözülen Raporlar</h3>
+              <button class="admin-btn admin-btn-ghost" style="padding:3px 8px;font-size:9px;" onclick="clearResolvedReports()">Tümünü Sıfırla</button>
+            </div>
+            <div id="resolved-reports-list" class="space-y-3">
+              <div style="text-align:center;padding:1.5rem;"><p class=" text-xs text-[#849495]">Çözülen rapor bulunmuyor.</p></div>
+            </div>
+          </div>
+          
+          <div class="admin-card">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class=" font-bold text-sm tracking-widest text-[#ff4444] uppercase">Yasaklı Kullanıcılar</h3>
+              <button class="admin-btn admin-btn-ghost" style="padding:3px 8px;font-size:9px;" onclick="clearAllBans()">Tümünü Sıfırla</button>
+            </div>
+            <div id="banned-users-list" class="space-y-3">
+              <div style="text-align:center;padding:1.5rem;"><p class=" text-xs text-[#849495]">Yasaklı kullanıcı bulunmuyor.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- â•â• SECTION 6: ANNOUNCEMENTS â•â• -->
+      <div class="section-panel" id="panel-announcements">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#EC4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Duyurular</h1>
+          <p class=" text-sm text-[#849495] mt-1">Platform duyuruları ve bildirimler</p>
+        </div>
+        <div class="admin-card mb-6">
+          <h3 class=" font-bold text-sm tracking-widest text-[#EC4899] uppercase mb-4">Yeni Duyuru
+            Oluştur</h3>
+          <div class="space-y-4">
+            <input type="text" class="neon-input" placeholder="Duyuru başlığı..." id="announce-title">
+            <textarea class="neon-input" placeholder="Duyuru metni yazın..." id="announce-body" rows="4"
+              style="resize:vertical;"></textarea>
+            <div class="flex items-center gap-3 flex-wrap">
+              <select class="neon-input" id="announce-type" style="width:auto;min-width:160px;">
+                <option value="info">ℹ️ Bilgilendirme</option>
+                <option value="update">🚀 Güncelleme</option>
+                <option value="event">🎉 Etkinlik</option>
+                <option value="warning">⚠️ Uyarı</option>
+                <option value="maintenance">🔧 Bakım</option>
+              </select>
+              <button class="admin-btn admin-btn-primary" onclick="publishAnnouncement()">
+                <span class="material-symbols-outlined" style="font-size:16px;">send</span> Yayınla
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-4">Geçmiş Duyurular
+          </h3>
+          <div id="announcements-history" class="space-y-3">
+            <!-- Dynamically loaded from localStorage -->
+          </div>
+        </div>
+      </div>
+
+      <!-- â•â• SECTION 7: PLATFORM SETTINGS â•â• -->
+      <div class="section-panel" id="panel-settings">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Platform Ayarları</h1>
+          <p class=" text-sm text-[#849495] mt-1">Genel platform yapılandırması</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="admin-card">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-5">Özellik
+              Anahtarları</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class=" text-sm text-[#e2e2e8] font-bold">Kayıt Sistemi</div>
+                  <div class=" text-[11px] text-[#849495]">Yeni kullanıcı kayıtlarını aç/kapat</div>
+                </div>
+                <div class="toggle-switch on" data-toggle="registration" onclick="toggleSwitch(this)">
+                  <div class="knob"></div>
+                </div>
+              </div>
+              <div style="height:1px;background:rgba(45,46,74,0.3);"></div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class=" text-sm text-[#e2e2e8] font-bold">Lobi Oluşturma</div>
+                  <div class=" text-[11px] text-[#849495]">Kullanıcıların lobi açmasına izin ver</div>
+                </div>
+                <div class="toggle-switch on" data-toggle="lobbies" onclick="toggleSwitch(this)">
+                  <div class="knob"></div>
+                </div>
+              </div>
+              <div style="height:1px;background:rgba(45,46,74,0.3);"></div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class=" text-sm text-[#e2e2e8] font-bold">Nexus AI Eşleşme</div>
+                  <div class=" text-[11px] text-[#849495]">AI destekli duo eşleştirme motoru</div>
+                </div>
+                <div class="toggle-switch on" data-toggle="ai-match" onclick="toggleSwitch(this)">
+                  <div class="knob"></div>
+                </div>
+              </div>
+              <div style="height:1px;background:rgba(45,46,74,0.3);"></div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class=" text-sm text-[#e2e2e8] font-bold">Turnuva Modülü</div>
+                  <div class=" text-[11px] text-[#849495]">Turnuva sistemini aktif et</div>
+                </div>
+                <div class="toggle-switch" data-toggle="tournaments" onclick="toggleSwitch(this)">
+                  <div class="knob"></div>
+                </div>
+              </div>
+              <div style="height:1px;background:rgba(45,46,74,0.3);"></div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class=" text-sm text-[#e2e2e8] font-bold">Bakım Modu</div>
+                  <div class=" text-[11px] text-[#849495]">Platformu bakım moduna al</div>
+                </div>
+                <div class="toggle-switch" data-toggle="maintenance" onclick="toggleSwitch(this)">
+                  <div class="knob"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-card">
+            <h3 class=" font-bold text-sm tracking-widest text-[#8B5CF6] uppercase mb-5">Ticker Mesajları
+            </h3>
+            <p class=" text-xs text-[#849495] mb-4">Dashboard ticker bandında görünen mesajlar</p>
+            <div class="space-y-3" id="ticker-messages-list">
+              <!-- Dynamically loaded from localStorage -->
+            </div>
+            <div class="flex gap-2 mt-4">
+              <input type="text" class="neon-input" placeholder="Yeni ticker mesajı..." id="new-ticker-msg"
+                style="flex:1;">
+              <button class="admin-btn admin-btn-primary" onclick="addTickerMsg()">Ekle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- â•â• SECTION 8: AUDIT LOG â•â• -->
+      <div class="section-panel" id="panel-audit-log">
+        <div style="margin-bottom:2rem;">
+          <h1 class=" text-3xl font-bold tracking-tight"
+            style="background:linear-gradient(135deg,#e2e2e8,#849495);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            Denetim Kaydı</h1>
+          <p class=" text-sm text-[#849495] mt-1">Tüm admin işlemlerinin kronolojik kaydı</p>
+        </div>
+        <div class="admin-card">
+          <div id="audit-log-entries" class="space-y-1">
+            <div class="log-entry">
+              <div class="log-dot" style="background:#FFD700;"></div>
+              <div>
+                <div class=" text-xs text-[#e2e2e8]"><strong style="color:#FFD700;">yildirayakzm</strong>
+                  admin paneline giriş yaptı</div>
+                <div class=" text-[10px] text-[#849495]">Şimdi</div>
+              </div>
+            </div>
+            <div class="log-entry">
+              <div class="log-dot" style="background:#00ff88;"></div>
+              <div>
+                <div class=" text-xs text-[#e2e2e8]">Platform <strong style="color:#00ff88;">başarıyla
+                    başlatıldı</strong></div>
+                <div class=" text-[10px] text-[#849495]">2 dakika önce</div>
+              </div>
+            </div>
+            <div class="log-entry">
+              <div class="log-dot" style="background:#8B5CF6;"></div>
+              <div>
+                <div class=" text-xs text-[#e2e2e8]">Veritabanı senkronizasyonu <strong
+                    style="color:#8B5CF6;">tamamlandı</strong></div>
+                <div class=" text-[10px] text-[#849495]">5 dakika önce</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main><!-- /admin-main -->
+  </div><!-- /admin-app -->
+
+
+  <!-- •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+       ADMIN PANEL JAVASCRIPT
+       ••••••••••••••••••••••••••••••••••••••••••••••••••••••••••• -->
+  <script>
+    // ── Section Navigation ──
+    function switchSection(sectionId) {
+      document.querySelectorAll('.section-panel').forEach(function (p) { p.classList.remove('active'); });
+      document.querySelectorAll('.sidebar-link').forEach(function (l) { l.classList.remove('active'); });
+      var panel = document.getElementById('panel-' + sectionId);
+      if (panel) panel.classList.add('active');
+      var link = document.querySelector('[data-section="' + sectionId + '"]');
+      if (link) link.classList.add('active');
+      // Close mobile sidebar
+      document.getElementById('admin-sidebar').classList.remove('open');
+    }
+
+    document.querySelectorAll('.sidebar-link[data-section]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        switchSection(this.getAttribute('data-section'));
+      });
+    });
+
+    // ── Mobile Sidebar Toggle ──
+    var sidebarToggle = document.getElementById('sidebar-toggle-btn');
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', function () {
+        document.getElementById('admin-sidebar').classList.toggle('open');
+      });
+    }
+
+    // ── Check if a user is currently online ──
+    function isUserOnline(email) {
+      // A user is online if they are the currently logged-in user on this browser
+      var loggedIn = localStorage.getItem('loggedInUser');
+      return loggedIn === email;
+    }
+
+    // ── Load Users into Table ──
+    function loadUsersTable() {
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+      var master = window.MASTER_USERS || [];
+      var tbody = document.getElementById('users-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      var count = users.length;
+
+      var bannedUsers = [];
+      try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { }
+
+      for (var i = 0; i < users.length; i++) {
+        var u = users[i];
+        var isMaster = false;
+        var role = 'user';
+        for (var m = 0; m < master.length; m++) {
+          if (master[m].email === u.email) { isMaster = true; role = master[m].role || 'user'; break; }
+        }
+        var roleBadge = role === 'founder' ? '<span class="badge badge-founder">FOUNDER</span>' : '<span class="badge badge-user">USER</span>';
+
+        // Real online status/banned check
+        var isBanned = (bannedUsers.indexOf(u.email) > -1) || (u.isBanned === true);
+        var statusBadge = '';
+        if (isBanned) {
+          statusBadge = '<span class="badge badge-offline" style="background:rgba(255,68,68,0.1);color:#ff4444;border-color:rgba(255,68,68,0.2);">Yasaklı</span>';
+        } else {
+          var online = isUserOnline(u.email);
+          statusBadge = online
+            ? '<span class="badge badge-online">Çevrimiçi</span>'
+            : '<span class="badge badge-offline">Çevrimdışı</span>';
+        }
+
+        var region = u.region || '—';
+        var actions = '';
+        if (role === 'founder') {
+          actions = '<span class="font-[\'Outfit\'] text-[10px] text-[#849495]">Korumalı</span>';
+        } else if (isBanned) {
+          actions = '<button class="admin-btn admin-btn-ghost" style="padding:3px 10px;font-size:10px;border-color:rgba(0,255,136,0.3);color:#00ff88;" onclick="unbanUser(\'' + u.email + '\')">Ban Kaldır</button>';
+        } else {
+          actions = '<button class="admin-btn admin-btn-danger" style="padding:3px 10px;font-size:10px;" onclick="banUser(\'' + u.email + '\')">Ban</button>';
+        }
+
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><div class="flex items-center gap-2"><div style="width:32px;height:32px;border-radius:50%;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.15);display:flex;align-items:center;justify-content:center;"><span class="material-symbols-outlined" style="font-size:16px;color:#8B5CF6;font-variation-settings:\'FILL\' 1;">person</span></div><span class="font-[\'Outfit\'] font-bold text-xs">' + (u.username || '—') + '</span></div></td>'
+          + '<td class="font-[\'Outfit\'] text-xs">' + (u.email || '—') + '</td>'
+          + '<td>' + roleBadge + '</td>'
+          + '<td class="font-[\'Outfit\'] text-xs">' + region + '</td>'
+          + '<td>' + statusBadge + '</td>'
+          + '<td>' + actions + '</td>';
+        tbody.appendChild(tr);
+      }
+      var label = document.getElementById('user-count-label');
+      if (label) label.textContent = count + ' kullanıcı';
+      // Update stat
+      var statEl = document.getElementById('stat-total-users');
+      if (statEl) statEl.textContent = count;
+    }
+
+    // ── Ban User ──
+    window.banUser = function (email) {
+      if (!confirm('Bu kullanıcıyı banlamak istediğinize emin misiniz?\n' + email)) return;
+      
+      // 1. Add to permanent banned list
+      var bannedUsers = [];
+      try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { bannedUsers = []; }
+      if (bannedUsers.indexOf(email) === -1) {
+        bannedUsers.push(email);
+        localStorage.setItem('banned_users', JSON.stringify(bannedUsers));
+      }
+
+      // 2. Mark as banned in localStorage.users (optional but good for data integrity)
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === email || users[i].username === email) {
+          users[i].isBanned = true;
+        }
+      }
+      localStorage.setItem('users', JSON.stringify(users));
+
+      addAuditLog('Kullanıcı <strong style="color:#ff4444;">banlandi</strong>: ' + email, '#ff4444');
+      loadUsersTable();
+      if (typeof loadReports === 'function') loadReports();
+    };
+
+    // ── Unban User ──
+    window.unbanUser = function (email) {
+      if (!confirm('Bu kullanıcının banını kaldırmak istediğinize emin misiniz?\n' + email)) return;
+      
+      // 1. Remove from permanent banned list
+      var bannedUsers = [];
+      try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { bannedUsers = []; }
+      bannedUsers = bannedUsers.filter(function(e) { return e !== email; });
+      localStorage.setItem('banned_users', JSON.stringify(bannedUsers));
+
+      // 2. Mark as not banned in localStorage.users
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === email || users[i].username === email) {
+          users[i].isBanned = false;
+        }
+      }
+      localStorage.setItem('users', JSON.stringify(users));
+
+      addAuditLog('Ban kaldırıldı: <strong style="color:#00ff88;">' + email + '</strong>', '#00ff88');
+      loadUsersTable();
+      if (typeof loadReports === 'function') loadReports();
+    };
+
+    // ── Persistent Reports ──
+    function loadReports() {
+      var list = document.getElementById('reports-list');
+      if (!list) return;
+      list.innerHTML = '';
+
+      var reports = [];
+      try { reports = JSON.parse(localStorage.getItem('submitted_reports')) || []; } catch (e) { }
+
+      var pendingEl = document.getElementById('report-pending');
+      if (pendingEl) pendingEl.textContent = reports.length;
+
+      if (reports.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:2rem;"><span class="material-symbols-outlined text-[#849495]" style="font-size:40px;">verified_user</span><p class="font-[\'Outfit\'] text-sm text-[#849495] mt-2">Bekleyen rapor yok — temiz!</p></div>';
+      } else {
+        reports.sort(function (a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
+
+        var categoryNames = {
+          'cheat': '🎮 Hile',
+          'harassment': '💬 Hakaret',
+          'inappropriate': '👤 Uygunsuz',
+          'spam': '📨 Spam',
+          'other': '📋 Diğer'
+        };
+
+        for (var i = 0; i < reports.length; i++) {
+          var r = reports[i];
+          var catName = categoryNames[r.category] || r.category;
+          var dateStr = 'Tarih Yok';
+          try { dateStr = new Date(r.timestamp).toLocaleString('tr-TR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { }
+          var card = document.createElement('div');
+          card.className = 'announce-card';
+          card.innerHTML = '<div class="flex items-center gap-2 mb-2">'
+            + '<span class="font-[\'Outfit\'] font-bold text-xs text-[#ff4444]">Şikayet Edilen: ' + r.username + '</span>'
+            + '<span class="badge badge-offline" style="margin-left:auto;">' + catName + '</span></div>'
+            + '<p class="font-[\'Poppins\'] text-xs text-[#e2e2e8] mb-2">"' + r.description + '"</p>'
+            + '<div class="flex items-center justify-between mt-3 pt-3 border-t border-[#3a494b]/30">'
+            + '<div class="font-[\'Outfit\'] text-[10px] text-[#849495]">Bildiren: ' + r.reporter + ' • ' + dateStr + '</div>'
+            + '<div class="flex gap-2">'
+            + '<button class="admin-btn admin-btn-ghost" style="padding:4px 8px;font-size:10px;border-color:rgba(0,255,136,0.3);color:#00ff88;" onclick="replyToReport(' + i + ', \'' + r.reporter + '\')">Cevapla</button>'
+            + '<button class="admin-btn admin-btn-danger" style="padding:4px 8px;font-size:10px;" onclick="resolveReport(' + i + ', true, \'' + r.username + '\')">Banla</button>'
+            + '<button class="admin-btn admin-btn-ghost" style="padding:4px 8px;font-size:10px;" onclick="resolveReport(' + i + ', false)">Kapat</button>'
+            + '</div></div>';
+          list.appendChild(card);
+        }
+      }
+
+      // 2. Resolved Reports List
+      var resolvedList = document.getElementById('resolved-reports-list');
+      var resolvedReports = [];
+      try { resolvedReports = JSON.parse(localStorage.getItem('resolved_reports')) || []; } catch (e) { }
+
+      var resolvedEl = document.getElementById('report-resolved');
+      if (resolvedEl) resolvedEl.textContent = resolvedReports.length;
+
+      if (resolvedList) {
+        resolvedList.innerHTML = '';
+        if (resolvedReports.length === 0) {
+          resolvedList.innerHTML = '<div style="text-align:center;padding:1.5rem;"><p class="font-[\'Outfit\'] text-xs text-[#849495]">Çözülen rapor bulunmuyor.</p></div>';
+        } else {
+          resolvedReports.sort(function (a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
+          var rCategoryNames = {
+            'cheat': '🎮 Hile',
+            'harassment': '💬 Hakaret',
+            'inappropriate': '👤 Uygunsuz',
+            'spam': '📨 Spam',
+            'other': '📋 Diğer'
+          };
+          for (var j = 0; j < Math.min(resolvedReports.length, 5); j++) {
+            var rr = resolvedReports[j];
+            var rCatName = rCategoryNames[rr.category] || rr.category;
+            var rDateStr = 'Tarih Yok';
+            try { rDateStr = new Date(rr.timestamp).toLocaleString('tr-TR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { }
+            var rCard = document.createElement('div');
+            rCard.className = 'announce-card';
+            rCard.style.borderColor = 'rgba(0, 255, 136, 0.15)';
+            rCard.innerHTML = '<div class="flex items-center gap-2 mb-2">'
+              + '<span class="font-[\'Outfit\'] font-bold text-xs text-[#00ff88]">Kapatıldı: ' + rr.username + '</span>'
+              + '<span class="badge badge-online" style="margin-left:auto;background:rgba(0,255,136,0.1);color:#00ff88;border-color:rgba(0,255,136,0.2);">' + rCatName + '</span></div>'
+              + '<p class="font-[\'Poppins\'] text-xs text-[#849495] mb-2">"' + rr.description + '"</p>'
+              + '<div class="font-[\'Outfit\'] text-[10px] text-[#849495]">Bildiren: ' + rr.reporter + ' • ' + rDateStr + '</div>';
+            resolvedList.appendChild(rCard);
+          }
+        }
+      }
+
+      // 3. Banned Users List
+      var bannedList = document.getElementById('banned-users-list');
+      var bannedUsers = [];
+      try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { }
+
+      var bannedEl = document.getElementById('banned-count');
+      if (bannedEl) bannedEl.textContent = bannedUsers.length;
+
+      if (bannedList) {
+        bannedList.innerHTML = '';
+        if (bannedUsers.length === 0) {
+          bannedList.innerHTML = '<div style="text-align:center;padding:1.5rem;"><p class="font-[\'Outfit\'] text-xs text-[#849495]">Yasaklı kullanıcı bulunmuyor.</p></div>';
+        } else {
+          for (var k = 0; k < bannedUsers.length; k++) {
+            var email = bannedUsers[k];
+            var bCard = document.createElement('div');
+            bCard.className = 'announce-card flex items-center justify-between';
+            bCard.style.borderColor = 'rgba(255, 68, 68, 0.15)';
+            bCard.innerHTML = '<div>'
+              + '<div class="font-[\'Outfit\'] font-bold text-xs text-[#ff4444]">' + email + '</div>'
+              + '<div class="font-[\'Outfit\'] text-[9px] text-[#849495] mt-1">Durum: Kalıcı Yasaklı</div>'
+              + '</div>'
+              + '<button class="admin-btn admin-btn-ghost" style="padding:4px 8px;font-size:10px;border-color:rgba(0,255,136,0.3);color:#00ff88;" onclick="unbanUser(\'' + email + '\')">Ban Kaldır</button>';
+            bannedList.appendChild(bCard);
+          }
+        }
+      }
+    }
+
+    window.resolveReport = function (index, ban, targetUsername) {
+      var reports = [];
+      try { reports = JSON.parse(localStorage.getItem('submitted_reports')) || []; } catch (e) { }
+      reports.sort(function (a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
+
+      if (ban && targetUsername) {
+        window.banUser(targetUsername);
+      }
+
+      // Remove report & add to resolved
+      var originalReport = reports[index];
+      
+      var resolvedReports = [];
+      try { resolvedReports = JSON.parse(localStorage.getItem('resolved_reports')) || []; } catch (e) { }
+      resolvedReports.unshift(originalReport);
+      localStorage.setItem('resolved_reports', JSON.stringify(resolvedReports));
+
+      var rawReports = [];
+      try { rawReports = JSON.parse(localStorage.getItem('submitted_reports')) || []; } catch (e) { }
+      rawReports = rawReports.filter(function (r) {
+        return !(r.timestamp === originalReport.timestamp && r.reporter === originalReport.reporter);
+      });
+      localStorage.setItem('submitted_reports', JSON.stringify(rawReports));
+
+      addAuditLog('Bir rapor çözümlendi', '#ffaa00');
+      loadReports();
+    };
+
+    window.replyToReport = function(index, reporterName) {
+      var msg = prompt('"' + reporterName + '" adlı oyuncuya gönderilecek cevabı yazın:');
+      if (!msg) return;
+      
+      var stored = localStorage.getItem('globalNotifications');
+      var notifications = stored ? JSON.parse(stored) : [];
+      var now = new Date();
+      var timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+      var newNotif = {
+        id: 'n' + Date.now(),
+        icon: 'mail',
+        iconColor: '#00ff88',
+        bgColor: 'rgba(0,255,136,0.1)',
+        borderColor: '#00ff88',
+        text: 'Destek Ekibi: ' + msg,
+        time: timeStr,
+        isRead: false
+      };
+      notifications.unshift(newNotif);
+      localStorage.setItem('globalNotifications', JSON.stringify(notifications));
+      
+      addAuditLog('<strong style="color:#00ff88;">' + reporterName + '</strong> kullanıcısının raporu cevaplandı.', '#00ff88');
+      
+      if (confirm('Cevap oyuncunun bildirim paneline iletildi. Bu rapor çözüldü olarak kapatılsın mı?')) {
+        resolveReport(index, false);
+      }
+    };
+
+    // ── Load Active Lobbies ──
+    function loadLobbies() {
+      var list = document.getElementById('active-lobbies-list');
+      if (!list) return;
+      list.innerHTML = '';
+      
+      var lobbies = [];
+      try { lobbies = JSON.parse(localStorage.getItem('nexus_lfg_lobbies')) || []; } catch (e) { }
+      
+      if (lobbies.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:2rem;"><span class="material-symbols-outlined text-[#849495]" style="font-size:40px;">sports_esports</span><p class="font-[\'Outfit\'] text-sm text-[#849495] mt-2">Aktif lobi bulunamadı</p></div>';
+        return;
+      }
+      
+      // Sort newest first
+      lobbies.sort(function(a, b) { return new Date(b.createdAt || 0) - new Date(a.createdAt || 0); });
+      
+      for (var i = 0; i < lobbies.length; i++) {
+        var l = lobbies[i];
+        var gameColors = {
+          'valorant': '#8B5CF6',
+          'cs2': '#ffaa00',
+          'lol': '#00ff88',
+          'league of legends': '#00ff88',
+          'fortnite': '#EC4899',
+          'minecraft': '#5dba3b'
+        };
+        var color = gameColors[(l.game || '').toLowerCase()] || '#849495';
+        
+        var playerCount = l.players ? l.players.length : 1;
+        var maxPlayers = l.maxSlots || 5;
+        var hostName = l.players && l.players[0] ? l.players[0] : 'Bilinmiyor';
+
+        var card = document.createElement('div');
+        card.className = 'announce-card';
+        card.innerHTML = '<div class="flex items-center justify-between mb-2">'
+          + '<div class="flex items-center gap-2">'
+          + '<span class="font-[\'Outfit\'] font-bold text-xs" style="color:' + color + ';">' + (l.game || 'Oyun Yok').toUpperCase() + '</span>'
+          + '<span class="badge badge-online">' + playerCount + '/' + maxPlayers + '</span>'
+          + '</div>'
+          + '<button class="admin-btn admin-btn-danger" style="padding:2px 6px;font-size:10px;" onclick="deleteLobby(\'' + l.id + '\')">Sil</button>'
+          + '</div>'
+          + '<p class="font-[\'Poppins\'] text-xs text-[#e2e2e8]">' + (l.title || 'İsimsiz Lobi') + '</p>'
+          + '<div class="font-[\'Outfit\'] text-[10px] text-[#849495] mt-2">Kurucu: ' + hostName + '</div>';
+        list.appendChild(card);
+      }
+    }
+    
+    window.deleteLobby = function(id) {
+      if (!confirm('Bu lobiyi silmek istediğinize emin misiniz?')) return;
+      var lobbies = [];
+      try { lobbies = JSON.parse(localStorage.getItem('nexus_lfg_lobbies')) || []; } catch (e) { }
+      lobbies = lobbies.filter(function(l) { return l.id !== id; });
+      localStorage.setItem('nexus_lfg_lobbies', JSON.stringify(lobbies));
+      
+      loadLobbies();
+      initStats(); // update counters
+      addAuditLog('Lobi silindi: <strong style="color:#ff4444;">' + id + '</strong>', '#ff4444');
+    };
+
+    // ── User Search ──
+    var searchInput = document.getElementById('user-search');
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        var q = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#users-tbody tr');
+        rows.forEach(function (row) {
+          var text = row.textContent.toLowerCase();
+          row.style.display = text.indexOf(q) > -1 ? '' : 'none';
+        });
+      });
+    }
+
+    // ── Platform Settings ──
+    function getSettings() {
+      var s = { registration: true, lobbies: true, 'ai-match': true, tournaments: false, maintenance: false };
+      try { var ls = JSON.parse(localStorage.getItem('PLATFORM_SETTINGS')); if (ls) Object.assign(s, ls); } catch (e) { }
+      return s;
+    }
+    function saveSettings(s) {
+      localStorage.setItem('PLATFORM_SETTINGS', JSON.stringify(s));
+    }
+    function initSettings() {
+      var s = getSettings();
+      document.querySelectorAll('.toggle-switch').forEach(function (el) {
+        var key = el.getAttribute('data-toggle');
+        if (s[key] === true || (s[key] !== false && el.classList.contains('on') && typeof s[key] === 'undefined')) {
+          el.classList.add('on');
+          s[key] = true; // ensure default is saved if needed
+        } else {
+          el.classList.remove('on');
+          s[key] = false;
+        }
+      });
+      saveSettings(s); // Persist initial/default states
+    }
+
+    // ── Toggle Switch ──
+    function toggleSwitch(el) {
+      el.classList.toggle('on');
+      var key = el.getAttribute('data-toggle');
+      var isNowOn = el.classList.contains('on');
+
+      // Save to localStorage
+      var s = getSettings();
+      s[key] = isNowOn;
+      saveSettings(s);
+
+      var state = isNowOn ? 'açıldı' : 'kapatıldı';
+      addAuditLog('Özellik <strong style="color:#8B5CF6;">' + key + '</strong> ' + state, '#8B5CF6');
+    }
+
+    // ── Persistent Announcements ──
+    window.loadAnnouncements = function () {
+      var list = document.getElementById('announcements-history');
+      if (!list) return;
+      list.innerHTML = '';
+
+      var announcements = [];
+      try { announcements = JSON.parse(localStorage.getItem('platform_announcements')) || []; } catch (e) { }
+
+      if (announcements.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:2rem;"><span class="material-symbols-outlined text-[#849495]" style="font-size:40px;">campaign</span><p class="font-[\'Outfit\'] text-sm text-[#849495] mt-2">Henüz duyuru yok</p></div>';
+        return;
+      }
+
+      for (var i = 0; i < announcements.length; i++) {
+        var a = announcements[i];
+        var card = document.createElement('div');
+        card.className = 'announce-card';
+        card.innerHTML = '<div class="flex items-center gap-2 mb-2"><span style="font-size:14px;">' + a.icon + '</span><span class="font-[\'Outfit\'] font-bold text-xs text-[#e2e2e8]">' + a.title + '</span>'
+          + '<button class="admin-btn admin-btn-danger" style="padding:2px 6px;font-size:10px;margin-left:auto;" onclick="deleteAnnouncement(\'' + a.id + '\')">Sil</button></div>'
+          + '<p class="font-[\'Poppins\'] text-xs text-[#849495]">' + a.body + '</p>'
+          + '<div class="font-[\'Outfit\'] text-[10px] text-[#849495] mt-2">' + a.dateStr + ' • ' + a.typeStr + '</div>';
+        list.appendChild(card);
+      }
+    }
+
+    window.deleteAnnouncement = function (id) {
+      if (!confirm('Bu duyuruyu silmek istediğinize emin misiniz?')) return;
+      var announcements = [];
+      try { announcements = JSON.parse(localStorage.getItem('platform_announcements')) || []; } catch (e) { }
+      announcements = announcements.filter(function (a) { return a.id.toString() !== id.toString(); });
+      localStorage.setItem('platform_announcements', JSON.stringify(announcements));
+      loadAnnouncements();
+      addAuditLog('Duyuru silindi', '#ff4444');
+    }
+
+    window.publishAnnouncement = function () {
+      var title = document.getElementById('announce-title').value.trim();
+      var body = document.getElementById('announce-body').value.trim();
+      var type = document.getElementById('announce-type').value;
+      if (!title || !body) { alert('Başlık ve metin gereklidir!'); return; }
+
+      var icons = { info: 'ℹ️', update: '🚀', event: '🎉', warning: '⚠️', maintenance: '🔧' };
+      var icon = icons[type] || 'ℹ️';
+      var now = new Date();
+      var dateStr = now.getDate() + ' ' + ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'][now.getMonth()] + ' ' + now.getFullYear();
+
+      var newAnnounce = {
+        id: Date.now(),
+        title: title,
+        body: body,
+        type: type,
+        icon: icon,
+        typeStr: document.querySelector('#announce-type option:checked').text.replace(/^[\s\S]*?\s/, '').trim(),
+        dateStr: dateStr,
+        timestamp: Date.now()
+      };
+
+      var announcements = [];
+      try { announcements = JSON.parse(localStorage.getItem('platform_announcements')) || []; } catch (e) { }
+      announcements.unshift(newAnnounce); // Add to beginning
+      localStorage.setItem('platform_announcements', JSON.stringify(announcements));
+
+      document.getElementById('announce-title').value = '';
+      document.getElementById('announce-body').value = '';
+      addAuditLog('Duyuru yayınlandı: <strong style="color:#EC4899;">' + title + '</strong>', '#EC4899');
+
+      loadAnnouncements();
+    }
+
+    // ── Persistent Ticker Messages ──
+    function loadTickerMessages() {
+      var list = document.getElementById('ticker-messages-list');
+      if (!list) return;
+      list.innerHTML = '';
+
+      var tickers = [];
+      try { tickers = JSON.parse(localStorage.getItem('platform_tickers')) || []; } catch (e) { }
+
+      // Load default if empty
+      if (tickers.length === 0) {
+        tickers = [
+          { id: 1, text: "🔥 Valorant turnuvası yakında!" },
+          { id: 2, text: "⚡ Nexus AI eşleşme motoru aktif" }
+        ];
+        localStorage.setItem('platform_tickers', JSON.stringify(tickers));
+      }
+
+      for (var i = 0; i < tickers.length; i++) {
+        var t = tickers[i];
+        var card = document.createElement('div');
+        card.className = 'announce-card flex items-center gap-3';
+        card.innerHTML = '<span class="font-[\'Outfit\'] text-xs text-[#b9cacb] flex-1">' + t.text + '</span><button class="admin-btn admin-btn-danger" style="padding:4px 8px;font-size:10px;" onclick="deleteTickerMsg(' + t.id + ')">Sil</button>';
+        list.appendChild(card);
+      }
+    }
+
+    window.deleteTickerMsg = function (id) {
+      var tickers = [];
+      try { tickers = JSON.parse(localStorage.getItem('platform_tickers')) || []; } catch (e) { }
+      tickers = tickers.filter(function (t) { return t.id !== id; });
+      localStorage.setItem('platform_tickers', JSON.stringify(tickers));
+      loadTickerMessages();
+      addAuditLog('Ticker mesajı silindi', '#ff4444');
+    };
+
+    function addTickerMsg() {
+      var input = document.getElementById('new-ticker-msg');
+      var msg = input.value.trim();
+      if (!msg) return;
+
+      var tickers = [];
+      try { tickers = JSON.parse(localStorage.getItem('platform_tickers')) || []; } catch (e) { }
+      tickers.push({ id: Date.now(), text: msg });
+      localStorage.setItem('platform_tickers', JSON.stringify(tickers));
+
+      input.value = '';
+      addAuditLog('Ticker mesajı eklendi', '#ffaa00');
+      loadTickerMessages();
+    }
+
+    // ── Audit Log ──
+    function addAuditLog(message, color) {
+      var log = document.getElementById('audit-log-entries');
+      if (!log) return;
+      var entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.style.animation = 'panelFadeIn 0.3s ease forwards';
+      entry.innerHTML = '<div class="log-dot" style="background:' + color + ';"></div><div><div class="font-[\'Outfit\'] text-xs text-[#e2e2e8]">' + message + '</div><div class="font-[\'Outfit\'] text-[10px] text-[#849495]">Şimdi</div></div>';
+      log.insertBefore(entry, log.firstChild);
+      // Also add to recent activity
+      var recent = document.getElementById('recent-activity');
+      if (recent) {
+        var clone = entry.cloneNode(true);
+        recent.insertBefore(clone, recent.firstChild);
+        while (recent.children.length > 10) recent.removeChild(recent.lastChild);
+      }
+    }
+
+    // ── Init Stats (All Real Data) ──
+    function initStats() {
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+
+      // ── Total Users (real count) ──
+      var el = document.getElementById('stat-total-users');
+      if (el) el.textContent = users.length;
+
+      // ── Online Users (real — only currently logged-in user counts) ──
+      var loggedIn = localStorage.getItem('loggedInUser');
+      var onlineCount = 0;
+      for (var i = 0; i < users.length; i++) {
+        if (isUserOnline(users[i].email)) onlineCount++;
+      }
+      var onlineEl = document.getElementById('stat-online');
+      if (onlineEl) onlineEl.textContent = onlineCount;
+
+      // ── Total Matches (real — from localStorage) ──
+      var totalMatches = 0;
+      try { totalMatches = parseInt(localStorage.getItem('duo_total_matches')) || 0; } catch (e) { }
+      var matchEl = document.getElementById('stat-matches');
+      if (matchEl) matchEl.textContent = totalMatches;
+
+      // ── Active Lobbies (real — from localStorage) ──
+      var lobbyEl = document.getElementById('stat-lobbies');
+      var lobbies = [];
+      try { lobbies = JSON.parse(localStorage.getItem('nexus_lfg_lobbies')) || []; } catch (e) { }
+      if (lobbyEl) lobbyEl.textContent = lobbies.length;
+
+      // ── Lobby counts by game (real) ──
+      var valC = 0, csC = 0, lolC = 0;
+      for (var i = 0; i < lobbies.length; i++) {
+        var g = (lobbies[i].game || '').toLowerCase();
+        if (g.indexOf('val') > -1) valC++;
+        else if (g.indexOf('cs') > -1) csC++;
+        else if (g.indexOf('lol') > -1 || g.indexOf('league') > -1) lolC++;
+      }
+      var v = document.getElementById('lobby-val-count'); if (v) v.textContent = valC;
+      var c = document.getElementById('lobby-cs-count'); if (c) c.textContent = csC;
+      var l = document.getElementById('lobby-lol-count'); if (l) l.textContent = lolC;
+
+      // ── Growth Badge (real — based on user count) ──
+      var growthBadge = document.getElementById('stat-growth-badge');
+      if (growthBadge) {
+        if (users.length === 0) {
+          growthBadge.textContent = '—';
+          growthBadge.className = 'badge badge-offline';
+        } else if (users.length <= 5) {
+          growthBadge.textContent = 'BETA';
+          growthBadge.className = 'badge badge-online';
+        } else {
+          growthBadge.textContent = users.length + ' kayıt';
+          growthBadge.className = 'badge badge-online';
+        }
+      }
+
+      // ── Game Popularity (real — computed from user data) ──
+      var gameChart = document.getElementById('game-popularity-chart');
+      if (gameChart) {
+        var gameConfig = [
+          { key: 'valorant', label: 'VALORANT', gradient: ['#8B5CF6','#7C3AED'], bg: 'rgba(139,92,246,0.1)' },
+          { key: 'cs2', label: 'CS2', gradient: ['#EC4899','#DB2777'], bg: 'rgba(236,72,153,0.1)' },
+          { key: 'lol', label: 'LOL', gradient: ['#00ff88','#00cc6a'], bg: 'rgba(0,255,136,0.06)' },
+          { key: 'fc24', label: 'FC 24', gradient: ['#ffaa00','#ff8800'], bg: 'rgba(255,170,0,0.06)' },
+          { key: 'minecraft', label: 'MINECRAFT', gradient: ['#5dba3b','#4a9e2f'], bg: 'rgba(93,186,59,0.06)' }
+        ];
+        var gameCounts = {};
+        for (var gc = 0; gc < gameConfig.length; gc++) gameCounts[gameConfig[gc].key] = 0;
+        for (var gu = 0; gu < users.length; gu++) {
+          var uGames = users[gu].games || [];
+          for (var gg = 0; gg < uGames.length; gg++) {
+            var gName = (uGames[gg].name || '').toLowerCase();
+            if (gName.indexOf('val') > -1) gameCounts['valorant']++;
+            else if (gName.indexOf('cs') > -1) gameCounts['cs2']++;
+            else if (gName.indexOf('lol') > -1 || gName.indexOf('league') > -1) gameCounts['lol']++;
+            else if (gName.indexOf('fc') > -1 || gName.indexOf('fifa') > -1) gameCounts['fc24']++;
+            else if (gName.indexOf('mine') > -1) gameCounts['minecraft']++;
+          }
+        }
+        var maxGameCount = 1;
+        for (var gk in gameCounts) { if (gameCounts[gk] > maxGameCount) maxGameCount = gameCounts[gk]; }
+        gameChart.innerHTML = '';
+        for (var gi = 0; gi < gameConfig.length; gi++) {
+          var gConf = gameConfig[gi];
+          var gPct = Math.round((gameCounts[gConf.key] / maxGameCount) * 100) || 0;
+          if (users.length === 0) gPct = 0;
+          var gCount = gameCounts[gConf.key];
+          var gDiv = document.createElement('div');
+          gDiv.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;';
+          gDiv.innerHTML = '<div style="width:100%;background:' + gConf.bg + ';border-radius:8px;height:160px;display:flex;align-items:flex-end;">'
+            + '<div class="chart-bar" style="width:100%;height:' + (gPct || 2) + '%;background:linear-gradient(180deg,' + gConf.gradient[0] + ',' + gConf.gradient[1] + ');"></div>'
+            + '</div>'
+            + '<span class="font-[\'Outfit\'] text-[10px] text-[#849495] font-bold">' + gConf.label + '</span>'
+            + '<span class="font-[\'Outfit\'] text-[9px] font-bold" style="color:' + gConf.gradient[0] + ';">' + gCount + ' oyuncu</span>';
+          gameChart.appendChild(gDiv);
+        }
+      }
+
+      // ── Weekly Registration Trend (real — computed from user data) ──
+      var weeklyChart = document.getElementById('weekly-trend-chart');
+      if (weeklyChart) {
+        var dayNames = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
+        var dayCounts = [0, 0, 0, 0, 0, 0, 0];
+        for (var wu = 0; wu < users.length; wu++) {
+          if (users[wu].registeredAt) {
+            var regDate = new Date(users[wu].registeredAt);
+            if (!isNaN(regDate.getTime())) {
+              dayCounts[regDate.getDay()]++;
+            }
+          }
+        }
+        var maxDay = 1;
+        for (var wd = 0; wd < dayCounts.length; wd++) { if (dayCounts[wd] > maxDay) maxDay = dayCounts[wd]; }
+        // Reorder: start from Monday (index 1)
+        var orderedDays = [1, 2, 3, 4, 5, 6, 0];
+        weeklyChart.innerHTML = '';
+        for (var wi = 0; wi < orderedDays.length; wi++) {
+          var dayIdx = orderedDays[wi];
+          var dayPct = Math.round((dayCounts[dayIdx] / maxDay) * 100) || 0;
+          var isWeekend = (dayIdx === 0 || dayIdx === 6);
+          var barBg = isWeekend ? 'linear-gradient(180deg,#8B5CF6,#EC4899)' : 'rgba(139,92,246,0.6)';
+          var wDiv = document.createElement('div');
+          wDiv.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;';
+          wDiv.innerHTML = '<div style="width:100%;background:rgba(139,92,246,0.08);border-radius:6px;height:100px;display:flex;align-items:flex-end;">'
+            + '<div class="chart-bar" style="width:100%;height:' + (dayPct || 2) + '%;background:' + barBg + ';"></div>'
+            + '</div>'
+            + '<span class="font-[\'Outfit\'] text-[9px] text-[#849495]">' + dayNames[dayIdx] + '</span>'
+            + '<span class="font-[\'Outfit\'] text-[8px] font-bold" style="color:#8B5CF6;">' + dayCounts[dayIdx] + '</span>';
+          weeklyChart.appendChild(wDiv);
+        }
+      }
+
+      // ── Region Distribution (real — computed from user data) ──
+      var regionContainer = document.getElementById('region-distribution-bars');
+      if (regionContainer && users.length > 0) {
+        var regionMap = {};
+        for (var i = 0; i < users.length; i++) {
+          var reg = (users[i].region || 'Bilinmiyor').toUpperCase();
+          // Normalize common values
+          if (reg === 'ISTANBUL' || reg === 'ANKARA' || reg === 'IZMIR' || reg === 'TR' || reg === 'TÜRKIYE') reg = 'TR';
+          else if (reg === 'EU' || reg === 'EUROPE') reg = 'EU';
+          else if (reg === 'NA' || reg === 'US' || reg === 'USA') reg = 'NA';
+          else if (reg === 'BILINMIYOR' || reg === '' || reg === '—') reg = 'DİĞER';
+          regionMap[reg] = (regionMap[reg] || 0) + 1;
+        }
+        var regionNames = { 'TR': 'Türkiye (TR)', 'EU': 'Avrupa (EU)', 'NA': 'Kuzey Amerika (NA)', 'DİĞER': 'Diğer' };
+        var regionColors = { 'TR': ['#8B5CF6', '#a78bfa'], 'EU': ['#EC4899', '#f472b6'], 'NA': ['#00ff88', '#00cc6a'] };
+        var defaultColors = ['#ffaa00', '#ffd700'];
+        var regionTextColors = { 'TR': '#8B5CF6', 'EU': '#EC4899', 'NA': '#00ff88' };
+
+        // Sort by count descending
+        var sortedRegions = Object.keys(regionMap).sort(function (a, b) { return regionMap[b] - regionMap[a]; });
+        regionContainer.innerHTML = '';
+        for (var r = 0; r < sortedRegions.length; r++) {
+          var key = sortedRegions[r];
+          var pct = Math.round((regionMap[key] / users.length) * 100);
+          var label = regionNames[key] || key;
+          var colors = regionColors[key] || defaultColors;
+          var textColor = regionTextColors[key] || '#ffaa00';
+          var div = document.createElement('div');
+          div.innerHTML = '<div class="flex justify-between mb-1"><span class="font-[\'Outfit\'] text-xs text-[#b9cacb]">' + label + ' (' + regionMap[key] + ' kullanıcı)</span><span class="font-[\'Outfit\'] text-xs font-bold" style="color:' + textColor + '">' + pct + '%</span></div>'
+            + '<div style="height:6px;background:rgba(45,46,74,0.4);border-radius:3px;"><div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,' + colors[0] + ',' + colors[1] + ');border-radius:3px;"></div></div>';
+          regionContainer.appendChild(div);
+        }
+      } else if (regionContainer) {
+        regionContainer.innerHTML = '<p class="font-[\'Outfit\'] text-xs text-[#849495] text-center" style="padding:1rem;">Henüz kullanıcı verisi yok</p>';
+      }
+
+      // ── Set admin name (real) ──
+      var email = localStorage.getItem('loggedInUser');
+      if (email) {
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].email === email) {
+            var nameEl = document.getElementById('admin-name');
+            if (nameEl) nameEl.textContent = users[i].username || email.split('@')[0];
+            break;
+          }
+        }
+      }
+    }
+
+    // ── Clear Resolved Reports ──
+    window.clearResolvedReports = function () {
+      if (!confirm('Tüm çözülen rapor geçmişini silmek istediğinize emin misiniz?')) return;
+      localStorage.setItem('resolved_reports', '[]');
+      addAuditLog('Çözülen rapor geçmişi <strong style="color:#ffaa00;">sıfırlandı</strong>', '#ffaa00');
+      loadReports();
+    };
+
+    // ── Clear All Bans ──
+    window.clearAllBans = function () {
+      if (!confirm('Tüm yasaklı kullanıcıların banını kaldırmak istediğinize emin misiniz?')) return;
+      var bannedUsers = [];
+      try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { }
+      
+      // Also clear isBanned flag in users array
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+      for (var i = 0; i < users.length; i++) {
+        users[i].isBanned = false;
+      }
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('banned_users', '[]');
+      
+      addAuditLog('Tüm yasaklamalar <strong style="color:#00ff88;">kaldırıldı</strong> (' + bannedUsers.length + ' kullanıcı)', '#00ff88');
+      loadUsersTable();
+      loadReports();
+    };
+
+    // ── Init ──
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.ADMIN_IS_FOUNDER) return;
+
+      // ── Clean up stale counter keys (now computed dynamically from arrays) ──
+      localStorage.removeItem('reports_banned_count');
+      localStorage.removeItem('reports_resolved_count');
+
+      // ── Data integrity: remove banned_users entries that don't exist in users ──
+      (function cleanBannedUsers() {
+        var bannedUsers = [];
+        try { bannedUsers = JSON.parse(localStorage.getItem('banned_users')) || []; } catch(e) { }
+        if (bannedUsers.length === 0) return;
+        var users = [];
+        try { users = JSON.parse(localStorage.getItem('users')) || []; } catch(e) { }
+        var validEmails = users.map(function(u) { return u.email; });
+        var cleaned = bannedUsers.filter(function(email) {
+          return validEmails.indexOf(email) > -1;
+        });
+        if (cleaned.length !== bannedUsers.length) {
+          localStorage.setItem('banned_users', JSON.stringify(cleaned));
+        }
+      })();
+
+      loadUsersTable();
+      initStats();
+      initSettings();
+      loadAnnouncements();
+      loadTickerMessages();
+      loadReports();
+      loadLobbies();
+    });
+  </script>
+</body>
+
+</html>
+

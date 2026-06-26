@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Klipler | İstiklal Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Poppins', 'Outfit', sans-serif; background-color: #0A0B1E; color: #e2e2e8; -webkit-font-smoothing: antialiased; }
+    .font-syne { font-family: 'Syne', sans-serif; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+
+    /* == Page Header Bar == */
+    .clips-page-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 72px;
+      background: rgba(10,11,30,0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(139,92,246,0.15);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .clips-page-header .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .clips-page-header .logo-area:hover .logo-icon { transform: scale(1.1); }
+    .clips-page-header .logo-icon { transition: transform 0.3s ease; }
+    .clips-back-btn {
+      display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 12px;
+      background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.15);
+      color: #b9cacb; font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease;
+    }
+    .clips-back-btn:hover { background: rgba(139,92,246,0.12); border-color: rgba(139,92,246,0.3); color: #8B5CF6; }
+    .clips-back-btn .material-symbols-outlined { font-size: 18px; }
+    .clips-user-pill {
+      display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 8px; border-radius: 14px;
+      background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.12);
+    }
+    .clips-user-pill .avatar-ring {
+      width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(139,92,246,0.3);
+      display: flex; align-items: center; justify-content: center; background: rgba(20,21,48,0.8);
+    }
+    .clips-user-pill .avatar-ring .material-symbols-outlined { font-size: 16px; color: #849495; }
+    .clips-user-pill .user-name { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; color: #e2e2e8; }
+    .clips-auth-btns { display: flex; align-items: center; gap: 8px; }
+    .clips-auth-btns a {
+      padding: 7px 18px; border-radius: 12px; font-family: 'Outfit', sans-serif;
+      font-size: 12px; font-weight: 700; text-decoration: none; transition: all 0.25s ease; letter-spacing: 0.03em;
+    }
+    .clips-hdr-register { background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: #fff !important; box-shadow: 0 4px 16px rgba(139,92,246,0.3); }
+    .clips-hdr-register:hover { box-shadow: 0 6px 24px rgba(139,92,246,0.5); transform: translateY(-1px); }
+    .clips-hdr-login { background: rgba(139,92,246,0.08); color: #8B5CF6 !important; border: 1px solid rgba(139,92,246,0.25); }
+    .clips-hdr-login:hover { background: rgba(139,92,246,0.15); }
+
+    /* == Upload Zone == */
+    .upload-zone {
+      position: relative; aspect-ratio: 16/9; background: rgba(20,21,48,0.5);
+      border: 2px dashed rgba(139,92,246,0.25); border-radius: 20px; overflow: hidden;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .upload-zone:hover { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 30px rgba(139,92,246,0.08); }
+    .upload-zone.has-video { border-style: solid; border-color: rgba(139,92,246,0.3); }
+    .upload-zone .bg-layer {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+      opacity: 0.2; transition: transform 0.7s ease;
+    }
+    .upload-zone:hover .bg-layer { transform: scale(1.05); }
+    .upload-zone .overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: rgba(10,11,30,0.6); backdrop-filter: blur(4px); transition: background 0.3s;
+    }
+    .upload-zone:hover .overlay { background: rgba(10,11,30,0.4); }
+    .upload-icon-wrap {
+      width: 72px; height: 72px; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.08));
+      border: 1px solid rgba(139,92,246,0.25); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; transition: all 0.3s ease;
+    }
+    .upload-zone:hover .upload-icon-wrap { transform: scale(1.08); box-shadow: 0 0 24px rgba(139,92,246,0.2); }
+    .upload-icon-wrap .material-symbols-outlined { font-size: 36px; color: #8B5CF6; filter: drop-shadow(0 0 8px rgba(139,92,246,0.5)); }
+
+    /* == Live Rendering Badge == */
+    .live-badge {
+      position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px;
+      background: rgba(10,11,30,0.8); backdrop-filter: blur(12px); padding: 4px 12px; border-radius: 8px;
+    }
+    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: #EC4899; box-shadow: 0 0 8px #EC4899; animation: livePulse 2s ease-in-out infinite; }
+    @keyframes livePulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+    /* == Interaction Bar == */
+    .interact-bar {
+      background: rgba(26,28,50,0.6); backdrop-filter: blur(12px); border-radius: 16px;
+      border: 1px solid rgba(139,92,246,0.08); padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .interact-btn {
+      display: flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer;
+      font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #b9cacb; transition: all 0.2s ease;
+    }
+    .interact-btn:hover { color: #8B5CF6; }
+    .interact-btn:hover .material-symbols-outlined { transform: scale(1.15); }
+    .interact-btn .material-symbols-outlined { font-size: 22px; transition: transform 0.2s ease; }
+
+    /* == Input Fields == */
+    .clip-input-group {
+      background: rgba(20,21,48,0.5); border: 1px solid rgba(58,73,75,0.2); border-radius: 16px;
+      padding: 16px 20px; transition: all 0.25s ease;
+    }
+    .clip-input-group:focus-within { border-color: rgba(139,92,246,0.3); box-shadow: 0 0 16px rgba(139,92,246,0.06); }
+    .clip-input-label {
+      display: block; font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase; color: #8B5CF6; margin-bottom: 6px;
+    }
+    /* Override Tailwind forms plugin defaults (needs high specificity) */
+    [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='search'], textarea, select,
+    [type='text']:focus, textarea:focus, select:focus {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+      --tw-ring-color: transparent !important;
+      --tw-ring-shadow: 0 0 #0000 !important;
+      --tw-ring-offset-shadow: 0 0 #0000 !important;
+    }
+    .clip-input {
+      width: 100%; background: transparent !important; background-color: transparent !important;
+      border: none !important; outline: none; color: #e2e2e8;
+      font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700;
+      padding: 0; box-shadow: none !important;
+    }
+    .clip-input::placeholder { color: rgba(132,148,149,0.25); }
+    .clip-input:focus { border: none !important; box-shadow: none !important; --tw-ring-shadow: none !important; }
+    .clip-textarea {
+      width: 100%; background: transparent !important; background-color: transparent !important;
+      border: none !important; outline: none; color: #b9cacb; resize: none;
+      font-family: 'Poppins', sans-serif; font-size: 14px; line-height: 1.6;
+      padding: 0; box-shadow: none !important;
+    }
+    .clip-textarea::placeholder { color: rgba(132,148,149,0.25); }
+    .clip-textarea:focus { border: none !important; box-shadow: none !important; --tw-ring-shadow: none !important; }
+
+    /* == Side Panel Cards == */
+    .side-card {
+      background: rgba(20,21,48,0.5); backdrop-filter: blur(12px); border: 1px solid rgba(58,73,75,0.15);
+      border-radius: 20px; padding: 24px; transition: all 0.25s ease;
+    }
+    .side-card:hover { border-color: rgba(139,92,246,0.15); }
+    .side-card-title {
+      font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 800;
+      letter-spacing: 0.15em; text-transform: uppercase; color: #e2e2e8; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .side-card-title .material-symbols-outlined { font-size: 20px; color: #8B5CF6; }
+
+    /* == Game Grid == */
+    .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .game-tile {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      padding: 16px 8px; border-radius: 14px; border: 1px solid rgba(58,73,75,0.2);
+      background: rgba(26,28,50,0.4); cursor: pointer; transition: all 0.2s ease;
+    }
+    .game-tile:hover { border-color: rgba(139,92,246,0.25); background: rgba(139,92,246,0.05); }
+    .game-tile.selected { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.08); box-shadow: 0 0 16px rgba(139,92,246,0.08); }
+    .game-tile .material-symbols-outlined { font-size: 24px; color: #849495; transition: color 0.2s; }
+    .game-tile.selected .material-symbols-outlined { color: #8B5CF6; filter: drop-shadow(0 0 6px rgba(139,92,246,0.5)); }
+    .game-tile-label { font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #849495; }
+    .game-tile.selected .game-tile-label { color: #e2e2e8; }
+
+    /* == Privacy Options == */
+    .privacy-opt {
+      display: flex; align-items: center; justify-content: space-between; padding: 12px 14px;
+      border-radius: 12px; border: 1px solid rgba(58,73,75,0.2); background: rgba(10,11,30,0.4);
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .privacy-opt:hover { border-color: rgba(236,72,153,0.2); }
+    .privacy-opt.selected { border-color: rgba(236,72,153,0.35); background: rgba(236,72,153,0.04); }
+    .privacy-radio { width: 14px; height: 14px; border-radius: 3px; border: 2px solid #849495; flex-shrink: 0; transition: all 0.2s; }
+    .privacy-opt.selected .privacy-radio { border-color: #EC4899; background: #EC4899; }
+
+    /* == Upload Button == */
+    .upload-btn {
+      width: 100%; padding: 20px; border-radius: 16px; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      box-shadow: 0 6px 24px rgba(139,92,246,0.3); position: relative; overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .upload-btn:hover { box-shadow: 0 8px 32px rgba(139,92,246,0.5); transform: translateY(-2px); }
+    .upload-btn .sweep {
+      position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transform: translateX(-100%); transition: transform 0.7s ease;
+    }
+    .upload-btn:hover .sweep { transform: translateX(100%); }
+
+    /* == Tip Box == */
+    .tip-box {
+      padding: 16px; border-radius: 14px; border-left: 3px solid #EC4899;
+      background: rgba(236,72,153,0.04);
+    }
+
+    /* == Saved Clips Grid == */
+    .saved-clips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .saved-clip-card {
+      background: rgba(20,21,48,0.5); border: 1px solid rgba(58,73,75,0.15); border-radius: 16px;
+      overflow: hidden; transition: all 0.3s ease; animation: clipFadeIn 0.4s ease;
+    }
+    .saved-clip-card:hover { border-color: rgba(139,92,246,0.2); box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 16px rgba(139,92,246,0.06); transform: translateY(-2px); }
+    @keyframes clipFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .clip-thumb { width: 100%; aspect-ratio: 16/9; background: rgba(10,11,30,0.6); display: flex; align-items: center; justify-content: center; position: relative; }
+    .clip-thumb video { width: 100%; height: 100%; object-fit: cover; }
+    .clip-play-overlay {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(10,11,30,0.3); opacity: 0; transition: opacity 0.2s;
+    }
+    .saved-clip-card:hover .clip-play-overlay { opacity: 1; }
+    .clip-card-body { padding: 14px 16px; }
+    .clip-card-title { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700; color: #e2e2e8; margin-bottom: 4px; }
+    .clip-card-meta { font-family: 'Poppins', sans-serif; font-size: 11px; color: #849495; display: flex; align-items: center; gap: 8px; }
+    .clip-card-game {
+      display: inline-flex; padding: 2px 8px; border-radius: 6px; font-family: 'Outfit', sans-serif;
+      font-size: 9px; font-weight: 800; background: rgba(139,92,246,0.08); color: #8B5CF6;
+      border: 1px solid rgba(139,92,246,0.15);
+    }
+    .clip-delete-btn {
+      position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(255,68,68,0.15); border: 1px solid rgba(255,68,68,0.2);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      opacity: 0; transition: all 0.2s; z-index: 5;
+    }
+    .saved-clip-card:hover .clip-delete-btn { opacity: 1; }
+    .clip-delete-btn:hover { background: rgba(255,68,68,0.3); }
+    .clip-delete-btn .material-symbols-outlined { font-size: 16px; color: #ff6b6b; }
+
+    /* Guest Auth Modal */
+    #guest-auth-modal-overlay {
+      position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #guest-auth-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    #guest-auth-modal {
+      background: rgba(20,21,48,0.85); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(139,92,246,0.25); border-radius: 28px; padding: 40px 36px 32px;
+      max-width: 400px; width: 90%; box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(139,92,246,0.1);
+      text-align: center; transform: scale(0.92) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    #guest-auth-modal-overlay.open #guest-auth-modal { transform: scale(1) translateY(0); }
+    .gam-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.1)); border-radius: 20px; border: 1px solid rgba(139,92,246,0.2); display: flex; align-items: center; justify-content: center; }
+    .gam-icon .material-symbols-outlined { font-size: 32px; color: #8B5CF6; filter: drop-shadow(0 0 12px rgba(139,92,246,0.5)); }
+    .gam-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: #e2e2e8; margin-bottom: 8px; }
+    .gam-desc { font-family: 'Poppins', sans-serif; font-size: 13px; color: #849495; line-height: 1.6; margin-bottom: 28px; }
+    .gam-btns { display: flex; flex-direction: column; gap: 10px; }
+    .gam-btn-register { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 0; background: linear-gradient(135deg, #8B5CF6, #7C3AED); border: none; border-radius: 14px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 6px 24px rgba(139,92,246,0.3); text-decoration: none; }
+    .gam-btn-register:hover { box-shadow: 0 8px 32px rgba(139,92,246,0.5); transform: translateY(-2px); }
+    .gam-btn-login { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 0; background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.25); border-radius: 14px; color: #8B5CF6; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; text-decoration: none; }
+    .gam-btn-login:hover { background: rgba(139,92,246,0.12); border-color: rgba(139,92,246,0.4); }
+    .gam-close { margin-top: 16px; background: none; border: none; color: #849495; font-family: 'Poppins', sans-serif; font-size: 12px; cursor: pointer; transition: color 0.2s; }
+    .gam-close:hover { color: #e2e2e8; }
+
+    /* BG */
+    .clips-bg { position: fixed; inset: 0; z-index: -2; background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat; opacity: 0.12; }
+    .clips-bg-overlay { position: fixed; inset: 0; z-index: -1; background: linear-gradient(to bottom, rgba(10,11,30,0.96), rgba(10,11,30,0.82), rgba(10,11,30,0.96)); pointer-events: none; }
+  </style>
+  <script>
+    tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface": "#0A0B1E", "primary-container": "#8B5CF6" } } } }
+  </script>
+</head>
+<body class="bg-[#0A0B1E] text-[#e2e2e8] min-h-screen flex flex-col">
+
+  <!-- BG -->
+  <div class="clips-bg"></div>
+  <div class="clips-bg-overlay"></div>
+
+  <!-- Header -->
+  <header class="clips-page-header">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="./code.html" class="logo-area">
+        <span class="material-symbols-outlined logo-icon text-[#8B5CF6] text-3xl" style="font-variation-settings:'FILL' 1;">sports_esports</span>
+        <span class=" font-black text-4xl tracking-tighter bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent hidden sm:inline">İSTİKLAL</span>
+      </a>
+      <a href="./code.html" class="clips-back-btn">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>Panele Dön</span>
+      </a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="clips-user-pill" id="clips-user-pill" style="display:none;">
+        <div class="avatar-ring"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">person</span></div>
+        <span class="user-name" id="clips-user-name">Oyuncu</span>
+      </div>
+      <div class="clips-auth-btns" id="clips-auth-btns" style="display:none;">
+        <a href="../kay_t_ol_register/code.html" class="clips-hdr-register">Kayıt Ol</a>
+        <a href="../giri_yap_login/code.html" class="clips-hdr-login">Giriş Yap</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Guest Auth Modal -->
+  <div id="guest-auth-modal-overlay">
+    <div id="guest-auth-modal">
+      <div class="gam-icon"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">lock</span></div>
+      <div class="gam-title">Giriş Gerekli</div>
+      <div class="gam-desc">Klip yüklemek için İstiklal hesabınıza giriş yapmanız gerekiyor.</div>
+      <div class="gam-btns">
+        <a href="../kay_t_ol_register/code.html" class="gam-btn-register"><span class="material-symbols-outlined" style="font-size:18px;">person_add</span> Kayıt Ol</a>
+        <a href="../giri_yap_login/code.html" class="gam-btn-login"><span class="material-symbols-outlined" style="font-size:18px;">login</span> Giriş Yap</a>
+      </div>
+      <button class="gam-close" onclick="closeGuestModal()">Daha sonra</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main style="padding-top:96px; padding-bottom:40px; max-width:1200px; width:100%; margin:0 auto; padding-left:20px; padding-right:20px; flex:1;">
+
+    <!-- Hero Header -->
+    <div style="margin-bottom:32px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:10px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15);margin-bottom:14px;">
+        <span class="material-symbols-outlined" style="font-size:16px;color:#8B5CF6;">play_circle</span>
+        <span style="font-family:'Outfit';font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#8B5CF6;">Yeni Yükleme</span>
+      </div>
+      <h1 class="" style="font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:12px;">
+        En İyi <span style="background:linear-gradient(135deg,#8B5CF6,#EC4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Anını Paylaş</span>
+      </h1>
+      <p style="color:#849495;font-family:'Poppins';font-size:15px;max-width:560px;line-height:1.7;">
+        Teknik hakimiyetini yayınla. En iyi kliplerini yükle ve topluluğun yeteneğine tanıklık etsin.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:24px;" id="clips-layout">
+      <!-- Left Column: Upload & Preview -->
+      <div style="display:flex;flex-direction:column;gap:16px;" id="upload-column">
+        <!-- Video Upload Zone -->
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('video-input').click()">
+          <div class="bg-layer"></div>
+          <div class="overlay" id="upload-overlay">
+            <div class="upload-icon-wrap">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">cloud_upload</span>
+            </div>
+            <div style="font-family:'Outfit';font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Sürükle & Bırak veya Tıkla</div>
+            <div style="color:#849495;font-family:'Poppins';font-size:12px;">MP4, MOV veya WEBM (Maks 500MB)</div>
+          </div>
+          <div class="live-badge">
+            <div class="live-dot"></div>
+            <span style="font-family:'Outfit';font-size:9px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:#EC4899;">Canlı Önizleme</span>
+          </div>
+          <video id="video-preview" style="display:none;width:100%;height:100%;object-fit:cover;" controls></video>
+          <input type="file" id="video-input" accept="video/mp4,video/webm,video/quicktime" style="display:none;" />
+        </div>
+
+        <!-- Interaction Bar -->
+        <div class="interact-bar">
+          <div style="display:flex;align-items:center;gap:20px;">
+            <button class="interact-btn"><span class="material-symbols-outlined" style="color:#EC4899;font-variation-settings:'FILL' 1;">favorite</span> 0</button>
+            <button class="interact-btn"><span class="material-symbols-outlined" style="color:#8B5CF6;">chat_bubble</span> 0</button>
+            <button class="interact-btn"><span class="material-symbols-outlined" style="color:#00b4ff;">share</span> PAYLAŞ</button>
+          </div>
+        </div>
+
+        <!-- Title Input -->
+        <div class="clip-input-group">
+          <label class="clip-input-label">Klip Başlığı</label>
+          <input type="text" class="clip-input" id="clip-title" placeholder="Örn: İNANILMAZ 1V5 ACE CLUTCH" maxlength="100" />
+        </div>
+
+        <!-- Description Input -->
+        <div class="clip-input-group">
+          <label class="clip-input-label">Açıklama</label>
+          <textarea class="clip-textarea" id="clip-desc" placeholder="Bu anın yoğunluğunu anlat..." rows="3" maxlength="500"></textarea>
+        </div>
+      </div>
+
+      <!-- Right Column: Settings -->
+      <div style="display:flex;flex-direction:column;gap:16px;" id="settings-column">
+        <!-- Game Selection -->
+        <div class="side-card">
+          <div class="side-card-title">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">category</span>
+            Oyun Seç
+          </div>
+          <div class="game-grid" id="game-grid">
+            <div class="game-tile selected" data-game="valorant">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">sports_esports</span>
+              <span class="game-tile-label">Valorant</span>
+            </div>
+            <div class="game-tile" data-game="lol">
+              <span class="material-symbols-outlined">shield</span>
+              <span class="game-tile-label">LoL</span>
+            </div>
+            <div class="game-tile" data-game="cs2">
+              <span class="material-symbols-outlined">bolt</span>
+              <span class="game-tile-label">CS2</span>
+            </div>
+            <div class="game-tile" data-game="other">
+              <span class="material-symbols-outlined">more_horiz</span>
+              <span class="game-tile-label">Diğer</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy -->
+        <div class="side-card">
+          <div class="side-card-title">
+            <span class="material-symbols-outlined" style="color:#EC4899;">visibility</span>
+            Gizlilik
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="privacy-opts">
+            <div class="privacy-opt selected" data-privacy="public">
+              <div>
+                <div style="font-family:'Outfit';font-size:12px;font-weight:700;color:#e2e2e8;">Herkese Açık</div>
+                <div style="font-family:'Poppins';font-size:10px;color:#849495;">Tüm kullanıcılar görebilir</div>
+              </div>
+              <div class="privacy-radio"></div>
+            </div>
+            <div class="privacy-opt" data-privacy="private">
+              <div>
+                <div style="font-family:'Outfit';font-size:12px;font-weight:700;color:#e2e2e8;">Sadece Ben</div>
+                <div style="font-family:'Poppins';font-size:10px;color:#849495;">Özel arşiv</div>
+              </div>
+              <div class="privacy-radio"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Button -->
+        <button class="upload-btn" id="upload-submit-btn">
+          <div class="sweep"></div>
+          <div style="position:relative;z-index:2;text-align:center;">
+            <div style="font-family:'Outfit';font-size:18px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#fff;">Yüklemeyi Başlat</div>
+            <div style="font-family:'Poppins';font-size:10px;color:rgba(255,255,255,0.7);margin-top:4px;">Arşive Kaydet</div>
+          </div>
+        </button>
+
+        <!-- Tip Box -->
+        <div class="tip-box">
+          <div style="font-family:'Outfit';font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#EC4899;margin-bottom:6px;">İstiklal İpucu</div>
+          <p style="font-family:'Poppins';font-size:12px;color:#849495;line-height:1.6;">Yüksek etkileşim alan klipler (Beğeni/Paylaşım) otomatik olarak 'Ayın En İyi Klipleri' galeri alanına arşivlenir.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Clips Section -->
+    <div style="margin-top:48px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,rgba(236,72,153,0.1),rgba(139,92,246,0.08));border:1px solid rgba(236,72,153,0.15);display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-size:22px;color:#EC4899;font-variation-settings:'FILL' 1;">video_library</span>
+          </div>
+          <div>
+            <h3 class="" style="font-size:22px;font-weight:700;letter-spacing:-0.02em;">Kaydedilen <span style="background:linear-gradient(135deg,#EC4899,#8B5CF6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Klipler</span></h3>
+            <span id="clips-count" style="font-family:'Outfit';font-size:11px;color:#849495;">0 klip</span>
+          </div>
+        </div>
+      </div>
+      <div class="saved-clips-grid" id="saved-clips-grid">
+        <div style="text-align:center;padding:48px 20px;color:#849495;font-family:'Outfit';grid-column:1/-1;" id="clips-empty">
+          <span class="material-symbols-outlined" style="font-size:48px;color:rgba(58,73,75,0.5);display:block;margin:0 auto 12px;">video_library</span>
+          <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Henüz klip yüklenmedi</div>
+          <div style="font-size:12px;">İlk klibini sen yükle!</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background:#060718; border-top:1px solid rgba(139,92,246,0.1); padding:24px; text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+      <span class="material-symbols-outlined" style="color:#8B5CF6;font-size:20px;font-variation-settings:'FILL' 1;">sports_esports</span>
+      <span style="font-family:'Outfit';font-weight:800;font-size:18px;background:linear-gradient(135deg,#8B5CF6,#EC4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">İSTİKLAL</span>
+    </div>
+    <p style="color:#849495;font-size:11px;font-family:'Poppins';">© 2026 İstiklal. All rights reserved.</p>
+  </footer>
+
+<script>
+(function() {
+  // ¦¦¦ Auth Detection ¦¦¦
+  var isGuest = true;
+  var currentUser = null;
+  var loggedInEmail = localStorage.getItem('loggedInUser');
+
+  if (loggedInEmail) {
+    isGuest = false;
+    try {
+      var users = JSON.parse(localStorage.getItem('users')) || [];
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === loggedInEmail) { currentUser = users[i].username || loggedInEmail.split('@')[0]; break; }
+      }
+    } catch(e) {}
+    if (!currentUser) currentUser = loggedInEmail.split('@')[0];
+  }
+
+  if (isGuest) {
+    document.getElementById('clips-auth-btns').style.display = 'flex';
+    document.getElementById('clips-user-pill').style.display = 'none';
+  } else {
+    document.getElementById('clips-auth-btns').style.display = 'none';
+    document.getElementById('clips-user-pill').style.display = 'flex';
+    document.getElementById('clips-user-name').textContent = currentUser;
+  }
+
+  window.showGuestAuthModal = function() { document.getElementById('guest-auth-modal-overlay').classList.add('open'); };
+  window.closeGuestModal = function() { document.getElementById('guest-auth-modal-overlay').classList.remove('open'); };
+  document.getElementById('guest-auth-modal-overlay').addEventListener('click', function (e) { if (e.target === this) closeGuestModal(); });
+
+  // ¦¦¦ Responsive Layout ¦¦¦
+  function updateLayout() {
+    var layout = document.getElementById('clips-layout');
+    if (window.innerWidth >= 1024) {
+      layout.style.gridTemplateColumns = '1fr 380px';
+    } else {
+      layout.style.gridTemplateColumns = '1fr';
+    }
+  }
+  updateLayout();
+  window.addEventListener('resize', updateLayout);
+
+  // ¦¦¦ Game Selection ¦¦¦
+  var gameTiles = document.querySelectorAll('#game-grid .game-tile');
+  var selectedGame = 'valorant';
+  gameTiles.forEach(function(tile) {
+    tile.addEventListener('click', function() {
+      gameTiles.forEach(function(t) { t.classList.remove('selected'); });
+      tile.classList.add('selected');
+      selectedGame = tile.getAttribute('data-game');
+    });
+  });
+
+  // ¦¦¦ Privacy Selection ¦¦¦
+  var privacyOpts = document.querySelectorAll('#privacy-opts .privacy-opt');
+  privacyOpts.forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      privacyOpts.forEach(function(o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+    });
+  });
+
+  // ¦¦¦ IndexedDB for clips ¦¦¦
+  var DB_NAME = 'nexus_clips_db';
+  var DB_VERSION = 1;
+  var STORE_NAME = 'clips';
+  var db = null;
+
+  function openDB(cb) {
+    if (db) { cb(db); return; }
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = function(e) {
+      var d = e.target.result;
+      if (!d.objectStoreNames.contains(STORE_NAME)) {
+        d.createObjectStore(STORE_NAME, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = function(e) { db = e.target.result; cb(db); };
+    req.onerror = function() { console.error('IndexedDB error'); };
+  }
+
+  function saveClip(clipData, cb) {
+    openDB(function(d) {
+      var tx = d.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).put(clipData);
+      tx.oncomplete = function() { if (cb) cb(); };
+    });
+  }
+
+  function loadClips(cb) {
+    openDB(function(d) {
+      var tx = d.transaction(STORE_NAME, 'readonly');
+      var req = tx.objectStore(STORE_NAME).getAll();
+      req.onsuccess = function() { cb(req.result || []); };
+    });
+  }
+
+  function deleteClip(id, cb) {
+    openDB(function(d) {
+      var tx = d.transaction(STORE_NAME, 'readwrite');
+      tx.objectStore(STORE_NAME).delete(id);
+      tx.oncomplete = function() { if (cb) cb(); };
+    });
+  }
+
+  // ¦¦¦ Video Upload ¦¦¦
+  var uploadZone = document.getElementById('upload-zone');
+  var videoInput = document.getElementById('video-input');
+  var videoPreview = document.getElementById('video-preview');
+  var uploadOverlay = document.getElementById('upload-overlay');
+  var currentVideoBlob = null;
+
+  videoInput.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    handleVideoFile(file);
+  });
+
+  // Drag & drop
+  uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); uploadZone.style.borderColor = 'rgba(139,92,246,0.6)'; });
+  uploadZone.addEventListener('dragleave', function() { uploadZone.style.borderColor = ''; });
+  uploadZone.addEventListener('drop', function(e) {
+    e.preventDefault(); uploadZone.style.borderColor = '';
+    var file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('video/')) handleVideoFile(file);
+  });
+
+  function handleVideoFile(file) {
+    currentVideoBlob = file;
+    var url = URL.createObjectURL(file);
+    videoPreview.src = url;
+    videoPreview.style.display = 'block';
+    uploadOverlay.style.display = 'none';
+    uploadZone.classList.add('has-video');
+    uploadZone.onclick = null;
+  }
+
+  // ¦¦¦ Upload Submit ¦¦¦
+  document.getElementById('upload-submit-btn').addEventListener('click', function() {
+    if (isGuest) { showGuestAuthModal(); return; }
+    if (!currentVideoBlob) { alert('Lütfen bir video seçin!'); return; }
+    var title = document.getElementById('clip-title').value.trim();
+    if (!title) { alert('Lütfen bir başlık girin!'); return; }
+
+    var clipData = {
+      id: 'clip_' + Date.now() + '_' + Math.random().toString(36).substr(2,5),
+      title: title,
+      desc: document.getElementById('clip-desc').value.trim(),
+      game: selectedGame,
+      videoBlob: currentVideoBlob, // Store raw Blob to prevent base64 performance issues
+      author: currentUser,
+      timestamp: Date.now()
+    };
+    
+    saveClip(clipData, function() {
+      // Reset form
+      document.getElementById('clip-title').value = '';
+      document.getElementById('clip-desc').value = '';
+      videoPreview.style.display = 'none';
+      uploadOverlay.style.display = '';
+      uploadZone.classList.remove('has-video');
+      uploadZone.onclick = function() { videoInput.click(); };
+      currentVideoBlob = null;
+      videoInput.value = '';
+      renderSavedClips();
+    });
+  });
+
+  // ¦¦¦ Render Saved Clips ¦¦¦
+  var gameLabels = { valorant: 'VALORANT', lol: 'LOL', cs2: 'CS2', other: 'DİĞER' };
+
+  function timeAgo(ts) {
+    var diff = Date.now() - ts;
+    var mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'Şimdi';
+    if (mins < 60) return mins + ' dk önce';
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + ' saat önce';
+    var days = Math.floor(hrs / 24);
+    return days + ' gün önce';
+  }
+
+  function renderSavedClips() {
+    loadClips(function(clips) {
+      var grid = document.getElementById('saved-clips-grid');
+      var countEl = document.getElementById('clips-count');
+      countEl.textContent = clips.length + ' klip';
+
+      if (clips.length === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:48px 20px;color:#849495;font-family:Outfit;grid-column:1/-1;" id="clips-empty"><span class="material-symbols-outlined" style="font-size:48px;color:rgba(58,73,75,0.5);display:block;margin:0 auto 12px;">video_library</span><div style="font-size:14px;font-weight:600;margin-bottom:4px;">Henüz klip yüklenmedi</div><div style="font-size:12px;">İlk klibini sen yükle!</div></div>';
+        return;
+      }
+
+      clips.sort(function(a,b) { return b.timestamp - a.timestamp; });
+      var html = '';
+      clips.forEach(function(clip) {
+        var videoSrc = '';
+        if (clip.videoBlob) {
+          videoSrc = URL.createObjectURL(clip.videoBlob);
+        } else {
+          videoSrc = clip.videoData || '';
+        }
+
+        html += '<div class="saved-clip-card">';
+        html += '<div class="clip-thumb" style="position:relative;">';
+        html += '<video src="' + videoSrc + '" preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>';
+        html += '<div class="clip-play-overlay"><span class="material-symbols-outlined" style="font-size:48px;color:rgba(255,255,255,0.9);filter:drop-shadow(0 0 12px rgba(0,0,0,0.5));">play_circle</span></div>';
+        html += '<button class="clip-delete-btn" onclick="window.nexusClips.deleteClip(\'' + clip.id + '\')"><span class="material-symbols-outlined">delete</span></button>';
+        html += '</div>';
+        html += '<div class="clip-card-body">';
+        html += '<div class="clip-card-title">' + escapeHtml(clip.title) + '</div>';
+        html += '<div class="clip-card-meta">';
+        html += '<span class="clip-card-game">' + (gameLabels[clip.game] || 'DİĞER') + '</span>';
+        html += '<span>' + timeAgo(clip.timestamp) + '</span>';
+        if (clip.author) html += '<span>• ' + escapeHtml(clip.author) + '</span>';
+        html += '</div></div></div>';
+      });
+      grid.innerHTML = html;
+
+      // Add click to play
+      grid.querySelectorAll('.clip-thumb video').forEach(function(v) {
+        v.parentElement.style.cursor = 'pointer';
+        v.parentElement.addEventListener('click', function(e) {
+          if (e.target.closest('.clip-delete-btn')) return;
+          if (v.paused) { v.controls = true; v.play(); }
+          else { v.pause(); }
+        });
+      });
+    });
+  }
+
+  function escapeHtml(str) { var div = document.createElement('div'); div.appendChild(document.createTextNode(str)); return div.innerHTML; }
+
+  window.nexusClips = {
+    deleteClip: function(id) {
+      if (!confirm('Bu klibi silmek istediğinize emin misiniz?')) return;
+      deleteClip(id, function() { renderSavedClips(); });
+    }
+  };
+
+  renderSavedClips();
+})();
+</script>
+
+<script src="../../js/modules/profile-navigation.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+

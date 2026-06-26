@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+  <title>İstiklal | Profil Düzenle</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-lowest": "#0c0e12",
+            "error": "#ffb4ab",
+            "tertiary": "#fff4f9",
+            "inverse-surface": "#e2e2e8",
+            "surface-tint": "#7C3AED",
+            "secondary-fixed": "#ffddb4",
+            "on-primary-container": "#006a71",
+            "surface-dim": "#0A0B1E",
+            "on-secondary-container": "#694300",
+            "surface-container": "#1e2024",
+            "on-tertiary": "#5b005b",
+            "on-surface": "#e2e2e8",
+            "surface-bright": "#37393e",
+            "surface-container-low": "#1a1c20",
+            "secondary-container": "#ffaa00",
+            "primary-fixed": "#74f5ff",
+            "background": "#0A0B1E",
+            "inverse-on-surface": "#2f3035",
+            "surface": "#0A0B1E",
+            "surface-container-high": "#282a2e",
+            "on-error": "#690005",
+            "error-container": "#93000a",
+            "surface-container-highest": "#333539",
+            "on-secondary-fixed-variant": "#633f00",
+            "outline": "#849495",
+            "on-surface-variant": "#b9cacb",
+            "tertiary-fixed": "#ffd7f5",
+            "surface-variant": "#333539",
+            "on-tertiary-container": "#ab00aa",
+            "on-primary-fixed": "#002022",
+            "on-background": "#e2e2e8",
+            "on-primary": "#1E0A4B",
+            "on-tertiary-fixed": "#380038",
+            "tertiary-container": "#ffcbf4",
+            "on-primary-fixed-variant": "#004f54",
+            "tertiary-fixed-dim": "#ffabf3",
+            "primary": "#e1fdff",
+            "on-error-container": "#ffdad6",
+            "secondary-fixed-dim": "#ffb952",
+            "primary-fixed-dim": "#7C3AED",
+            "on-tertiary-fixed-variant": "#810081",
+            "on-secondary": "#452b00",
+            "inverse-primary": "#00696f",
+            "primary-container": "#8B5CF6",
+            "secondary": "#ffcf90",
+            "outline-variant": "#3a494b",
+            "on-secondary-fixed": "#291800"
+          },
+          fontFamily: {
+            "headline": ["Outfit"],
+            "body": ["Poppins"],
+            "label": ["Poppins"],
+            "Syne": ["Syne", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0A0B1E;
+      color: #e2e2e8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .glass-card {
+      background: rgba(30, 32, 36, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 255, 255, 0.12);
+      border-radius: 1.5rem;
+    }
+
+    .glass-card-orange {
+      background: rgba(30, 32, 36, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 170, 0, 0.12);
+      border-radius: 1.5rem;
+    }
+
+    .neon-input {
+      background: rgba(17, 19, 24, 0.8);
+      border: 1px solid rgba(58, 73, 75, 0.4);
+      border-radius: 0.75rem;
+      color: #e2e2e8;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .neon-input:focus {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.15), 0 0 4px rgba(139, 92, 246, 0.3);
+    }
+
+    .neon-input::placeholder {
+      color: rgba(132, 148, 149, 0.5);
+    }
+
+    .neon-select {
+      background: rgba(17, 19, 24, 0.8);
+      border: 1px solid rgba(58, 73, 75, 0.4);
+      border-radius: 0.75rem;
+      color: #e2e2e8;
+      transition: all 0.25s ease;
+      outline: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23849495' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2.5rem;
+    }
+
+    .neon-select:focus {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.15), 0 0 4px rgba(139, 92, 246, 0.3);
+    }
+
+    .glow-sm {
+      text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+    }
+
+    .game-check {
+      display: none;
+    }
+
+    .game-label {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(58, 73, 75, 0.3);
+      border-radius: 1rem;
+      padding: 0.75rem;
+    }
+
+    .game-check:checked+.game-label {
+      border-color: rgba(139, 92, 246, 0.5);
+      background: rgba(139, 92, 246, 0.06);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.15);
+    }
+
+    .rank-select-wrapper {
+      display: none;
+    }
+
+    .game-check:checked~.rank-select-wrapper {
+      display: block;
+    }
+
+    .role-chip {
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(58, 73, 75, 0.3);
+      border-radius: 9999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .role-chip.active {
+      border-color: rgba(255, 170, 0, 0.5);
+      background: rgba(255, 170, 0, 0.08);
+      color: #ffaa00;
+      box-shadow: 0 0 10px rgba(255, 170, 0, 0.15);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* ¦¦ Nav Links Left ¦¦ */
+    .nav-link-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link-left:hover {
+      color: #8B5CF6;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-link-left .material-symbols-outlined {
+      font-size: 18px;
+      color: #849495;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-left:hover .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .nav-link-left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #8B5CF6;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link-left:hover::after {
+      width: 80%;
+    }
+
+    body.light-mode .nav-link-left {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .nav-link-left:hover {
+      color: #3B82F6 !important;
+      text-shadow: none !important;
+    }
+
+    /* ¦¦ Hero Section (Parallax) ¦¦ */
+    .profile-hero {
+      position: relative;
+      width: 100%;
+      min-height: 380px;
+      background: linear-gradient(135deg, #0a0c10 0%, #0A0B1E 40%, #0a1628 100%);
+      overflow: hidden;
+    }
+
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+      background-attachment: fixed;
+      opacity: 0.18;
+      filter: blur(1px);
+      transform: scale(1.05);
+    }
+
+    .profile-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10, 12, 16, 0.3) 0%, transparent 30%, rgba(17, 19, 24, 0.8) 80%, #0A0B1E 100%);
+    }
+
+    .hex-avatar {
+      width: 140px;
+      height: 140px;
+      position: relative;
+      background: conic-gradient(from 0deg, #8B5CF6, #a78bfa, #ffaa00, #8B5CF6);
+      border-radius: 50%;
+      padding: 4px;
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.25), 0 0 80px rgba(167, 139, 250, 0.15);
+    }
+
+    .hex-avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #0A0B1E;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid #0A0B1E;
+    }
+
+    /* ¦¦ Profile Sections ¦¦ */
+    .profile-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .profile-section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-card {
+      background: rgba(30, 32, 36, 0.6);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.12);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .section-card:hover {
+      border-color: rgba(139, 92, 246, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    body.light-mode .section-card {
+      background: #FFFFFF !important;
+      border-color: #E1E8ED !important;
+      backdrop-filter: none !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.light-mode .profile-hero {
+      background: linear-gradient(135deg, #f0f4f8 0%, #e8edf2 40%, #dce4ec 100%) !important;
+    }
+
+    body.light-mode .profile-hero::before {
+      opacity: 0.08 !important;
+    }
+
+    body.light-mode .hex-avatar {
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.2) !important;
+    }
+
+    /* ¦¦ Game ID Cards (Glassmorphism) ¦¦ */
+    .game-id-card {
+      background: rgba(30, 32, 36, 0.5);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-id-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, #8B5CF6), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .game-id-card:hover {
+      border-color: rgba(139, 92, 246, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.08);
+    }
+
+    .game-id-card:hover::before {
+      opacity: 1;
+    }
+
+    .game-id-card .game-id-input {
+      background: rgba(17, 19, 24, 0.6);
+      border: 1px solid rgba(58, 73, 75, 0.3);
+      border-radius: 0.6rem;
+      color: #e2e2e8;
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      width: 100%;
+      outline: none;
+      transition: all 0.25s ease;
+      font-family: 'Outfit', monospace;
+    }
+
+    .game-id-card .game-id-input:focus {
+      border-color: rgba(139, 92, 246, 0.5);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.12), 0 0 3px rgba(139, 92, 246, 0.25);
+    }
+
+    .game-id-card .edit-pencil {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(132, 148, 149, 0.5);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .game-id-card .edit-pencil:hover {
+      color: #8B5CF6;
+    }
+
+    body.light-mode .game-id-card {
+      background: #FFFFFF !important;
+      backdrop-filter: none !important;
+      border: 1px solid #E1E8ED !important;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-mode .game-id-card:hover {
+      border-color: #3B82F6 !important;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1) !important;
+    }
+
+    body.light-mode .game-id-card::before {
+      background: linear-gradient(90deg, transparent, #3B82F6, transparent) !important;
+    }
+
+    body.light-mode .game-id-card .game-id-input {
+      background: #F8FAFC !important;
+      border-color: #E1E8ED !important;
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .game-id-card .game-id-input:focus {
+      border-color: #3B82F6 !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12) !important;
+    }
+
+    body.light-mode .game-id-card .edit-pencil {
+      color: #A0ADB5 !important;
+    }
+
+    body.light-mode .game-id-card .edit-pencil:hover {
+      color: #3B82F6 !important;
+    }
+
+    /* ¦¦ Animated hex-avatar border spin ¦¦ */
+    @keyframes avatarSpin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .hex-avatar {
+      animation: avatarSpin 8s linear infinite;
+    }
+
+    .hex-avatar-inner {
+      animation: avatarSpin 8s linear infinite reverse;
+    }
+
+    /* ¦¦ Read-only email lock ¦¦ */
+    .email-readonly {
+      opacity: 0.7;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .email-readonly:focus {
+      border-color: rgba(58, 73, 75, 0.4) !important;
+      box-shadow: none !important;
+    }
+
+    /* Toast animation */
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes toastOut {
+      from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+    }
+
+    .toast-in {
+      animation: toastIn 0.4s ease forwards;
+    }
+
+    .toast-out {
+      animation: toastOut 0.4s ease forwards;
+    }
+
+    /* Hardware section */
+    .hw-section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .hw-section-title span.hw-icon {
+      font-size: 1.25rem;
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .hw-section-title h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8B5CF6;
+      text-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+    }
+
+    .hw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .hw-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hw-category-label {
+      grid-column: 1 / -1;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(139, 92, 246, 0.45);
+      margin-top: 0.5rem;
+      padding-left: 0.25rem;
+    }
+
+    .hw-input-group {
+      position: relative;
+    }
+
+    .hw-input-group .hw-neon-icon {
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: rgba(139, 92, 246, 0.5);
+      filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.3));
+      pointer-events: none;
+      transition: color 0.25s ease, filter 0.25s ease;
+    }
+
+    .hw-input-group input:focus~.hw-neon-icon,
+    .hw-input-group input:focus+.hw-neon-icon {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
+    }
+
+    .hw-input-group input {
+      width: 100%;
+      padding: 0.6rem 0.75rem 0.6rem 2.2rem;
+      font-size: 0.8rem;
+      background: rgba(17, 19, 24, 0.85);
+      border: 1px solid rgba(58, 73, 75, 0.35);
+      border-radius: 0.75rem;
+      color: #e2e2e8;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hw-input-group input::placeholder {
+      color: rgba(132, 148, 149, 0.4);
+      font-size: 0.75rem;
+    }
+
+    .hw-input-group input:focus {
+      border-color: rgba(139, 92, 246, 0.55);
+      box-shadow: 0 0 14px rgba(139, 92, 246, 0.12), 0 0 4px rgba(139, 92, 246, 0.25);
+    }
+
+    /* ¦¦ Profile Tab Navigation ¦¦ */
+    .profile-tabs-wrapper {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .profile-tab-nav {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 220px;
+      flex-shrink: 0;
+      background: rgba(30, 32, 36, 0.5);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 1.25rem;
+      padding: 12px;
+    }
+
+    .profile-tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 0.875rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #849495;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-tab-btn::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      border-radius: 2px;
+      background: linear-gradient(180deg, #8B5CF6, #EC4899);
+      transition: height 0.3s ease;
+    }
+
+    .profile-tab-btn:hover {
+      color: #b9cacb;
+      background: rgba(139, 92, 246, 0.04);
+    }
+
+    .profile-tab-btn.active {
+      color: #e2e2e8;
+      background: rgba(139, 92, 246, 0.08);
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.06);
+    }
+
+    .profile-tab-btn.active::before {
+      height: 60%;
+    }
+
+    .profile-tab-btn .material-symbols-outlined {
+      font-size: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .profile-tab-btn.active .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .profile-tab-content-area {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .profile-tab-panel {
+      display: none;
+      animation: tabFadeIn 0.35s ease forwards;
+    }
+
+    .profile-tab-panel.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @media(max-width:768px) {
+      .profile-tabs-wrapper {
+        flex-direction: column;
+        gap: 1rem
+      }
+
+      .profile-tab-nav {
+        position: relative;
+        top: 0;
+        flex-direction: row;
+        min-width: unset;
+        overflow-x: auto;
+        padding: 8px;
+        scrollbar-width: none
+      }
+
+      .profile-tab-nav::-webkit-scrollbar {
+        display: none
+      }
+
+      .profile-tab-btn {
+        padding: 10px 14px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 12px
+      }
+
+      .profile-tab-btn::before {
+        display: none
+      }
+
+      .profile-tab-btn .tab-label {
+        display: none
+      }
+    }
+
+    body.light-mode .profile-tab-nav {
+      background: #fff !important;
+      border-color: #E1E8ED !important;
+      backdrop-filter: none !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important
+    }
+
+    body.light-mode .profile-tab-btn {
+      color: #636E72 !important
+    }
+
+    body.light-mode .profile-tab-btn.active {
+      color: #2D3436 !important;
+      background: rgba(59, 130, 246, 0.08) !important
+    }
+
+    body.light-mode .profile-tab-btn.active .material-symbols-outlined {
+      color: #3B82F6 !important;
+      filter: none !important
+    }
+
+    body.light-mode .profile-tab-btn.active::before {
+      background: #3B82F6 !important
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background  pb-24">
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <!-- Auth Guard -->
+  <script>
+      (function () {
+        var loggedInEmail = localStorage.getItem('loggedInUser');
+        if (!loggedInEmail) { window.location.href = '../giri_yap_login/code.html'; }
+      })();
+  </script>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• ZOZZO-FUSION NAVBAR â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/60 backdrop-blur-2xl flex items-center justify-between px-4 md:px-6 h-20 shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 border-b border-[#8B5CF6]/10">
+    <!-- NAV-LEFT -->
+    <div class="flex items-center gap-4 lg:gap-6">
+      <a href="../duo_finder_dashboard_yeni/code.html" class="flex items-center gap-2 group shrink-0">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-3xl group-hover:scale-110 transition-transform"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span
+          class=" font-black text-4xl tracking-tighter text-[#8B5CF6] drop-shadow-[0_0_12px_rgba(139, 92, 246,0.6)] hidden sm:inline">İSTİKLAL</span>
+      </a>
+      <div id="clock-btn"
+        class="hidden md:flex bg-[#1a1c20]/80 rounded-full px-4 py-1.5 border border-[#3a494b]/50 items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-sm">schedule</span>
+        <span id="live-clock" class=" font-medium text-xs tracking-wide text-[#8B5CF6]/70">00:00:00</span>
+      </div>
+      <div class="hidden lg:flex items-center gap-5">
+        <a href="../duo_e_le_melerim/code.html" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">handshake</span><span
+            data-i18n="nav_matches">Eşleşmeler</span></a>
+        <a href="../duo_finder_yar_ma_ekran/code.html" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">trophy</span><span data-i18n="nav_compete">Rekabet</span></a>
+
+        <button onclick="openSupportModal()" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">support_agent</span><span
+            data-i18n="nav_support">Destek</span></button>
+      </div>
+    </div>
+    <!-- NAV-RIGHT -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <div class="relative" id="notif-wrapper">
+        <button id="notif-btn"
+          class="relative material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-95 duration-200">notifications
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 bg-[#ff4444] rounded-full text-[8px] text-white font-bold flex items-center justify-center shadow-[0_0_8px_#ff4444]"
+            id="notif-badge">2</span>
+        </button>
+        <div id="notif-dropdown"
+          class="hidden absolute right-0 top-12 w-80 bg-[#1e2024]/95 backdrop-blur-xl border border-[#8B5CF6]/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden z-[60]">
+          <div class="px-4 py-3 border-b border-[#3a494b]/30 flex items-center justify-between">
+            <span class=" font-bold text-xs uppercase tracking-widest text-[#8B5CF6]"
+              data-i18n="notif_title">Bildirimler</span>
+            <span id="notif-count-label" class="text-[10px] text-[#849495]"></span>
+          </div>
+          <div class="max-h-64 overflow-y-auto" id="notif-list"></div>
+          <div class="px-4 py-3 bg-[#0A0B1E]/80 border-t border-[#3a494b]/30 flex justify-between gap-3">
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#e2e2e8] border border-[#8B5CF6]/30 rounded-lg hover:bg-[#8B5CF6]/10 transition-all"
+              onclick="clearNotifications()" data-i18n="notif_clear_all">Tümünü Sil</button>
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6] border border-[#8B5CF6]/50 rounded-lg hover:bg-[#8B5CF6]/20 transition-all"
+              onclick="markNotificationsRead()" data-i18n="notif_mark_read">Okundu İşaretle</button>
+          </div>
+        </div>
+      </div>
+      <a id="header-avatar-link" href="#"
+        class="block w-10 h-10 rounded-full border-2 border-[#8B5CF6]/40 p-0.5 overflow-hidden shadow-[0_0_10px_rgba(139, 92, 246,0.3)] bg-[#1a1c20] flex items-center justify-center hover:border-[#8B5CF6] transition-colors">
+        <span class="material-symbols-outlined text-[#849495] text-xl"
+          style="font-variation-settings: 'FILL' 1;">person</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO IDENTITY BAND â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="profile-hero pt-20">
+    <div class="relative z-10 flex flex-col items-center justify-center pt-16 pb-10 px-6">
+      <div class="relative group mb-4">
+        <div class="hex-avatar">
+          <div id="avatar-preview" class="hex-avatar-inner">
+            <span class="material-symbols-outlined text-[#849495] text-5xl"
+              style="font-variation-settings: 'FILL' 1;">person</span>
+          </div>
+        </div>
+        <div
+          class="absolute bottom-1 right-1 w-9 h-9 bg-[#8B5CF6] rounded-full flex items-center justify-center shadow-[0_0_16px_rgba(139, 92, 246,0.5)] cursor-pointer hover:scale-110 transition-transform z-20"
+          onclick="document.getElementById('avatar-upload').click()">
+          <span class="material-symbols-outlined text-[#0A0B1E] text-lg">photo_camera</span>
+        </div>
+      </div>
+      <input type="file" id="avatar-upload" accept="image/*" class="hidden">
+      <h1 class=" text-4xl lg:text-5xl font-bold tracking-tight text-center mt-2">
+        <span id="hero-display-name"
+          class="text-[#8B5CF6] drop-shadow-[0_0_16px_rgba(139, 92, 246,0.5)] profile-name-disp">yildirayakzm</span>
+      </h1>
+      <p id="hero-tagline" class="text-[#849495]  text-sm mt-2 max-w-md text-center"
+        data-i18n="profile_gamer_customize">Gamer kimliğini özelleştir</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-5">
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-[#a78bfa]/10 border border-[#a78bfa]/20">
+          <span class="material-symbols-outlined text-[#a78bfa] text-sm"
+            style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+          <span class=" text-xs font-semibold text-[#e2e2e8]" data-i18n="player_role">Oyuncu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• STRIP SECTIONS â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <main class="w-full flex flex-col gap-12 items-center pb-32 px-4 sm:px-6 -mt-4">
+    <div class="w-full max-w-[1100px] profile-tabs-wrapper profile-section">
+
+      <!-- â•â•â• TAB NAVIGATION SIDEBAR â•â•â• -->
+      <nav class="profile-tab-nav">
+        <button class="profile-tab-btn active" data-tab="game-ids" type="button">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">id_card</span>
+          <span class="tab-label">Oyun Kimlikleri</span>
+        </button>
+        <button class="profile-tab-btn" data-tab="identity" type="button">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">badge</span>
+          <span class="tab-label">Kimlik Ayarları</span>
+        </button>
+        <button class="profile-tab-btn" data-tab="hardware" type="button">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">memory</span>
+          <span class="tab-label">Sistem & Ekipman</span>
+        </button>
+        <button class="profile-tab-btn" data-tab="gaming-prefs" type="button">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">sports_esports</span>
+          <span class="tab-label">Oyun Tercihleri</span>
+        </button>
+        <button class="profile-tab-btn" data-tab="account" type="button">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">shield_person</span>
+          <span class="tab-label">Hesap & Güvenlik</span>
+        </button>
+      </nav>
+
+      <!-- â•â•â• TAB CONTENT AREA â•â•â• -->
+      <div class="profile-tab-content-area">
+
+        <!-- â•â•â• PANEL 1: GAME IDS â•â•â• -->
+        <div class="profile-tab-panel active" id="panel-game-ids">
+          <div class="section-card">
+            <div class="flex items-center gap-2 mb-6 border-b border-[#3a494b]/30 pb-3">
+              <span class="material-symbols-outlined text-[#ffaa00]"
+                style="font-variation-settings: 'FILL' 1;">id_card</span>
+              <h2 class=" font-bold text-sm uppercase tracking-widest text-[#ffaa00]" data-i18n="profile_game_ids">Oyun
+                Kimlikleri</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5" id="game-id-grid">
+              <!-- Valorant -->
+              <div class="game-id-card" style="--card-accent: #ff4655;">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="https://img.icons8.com/?size=100&id=aUZxT3Erwill&format=png&color=000000" alt="Valorant"
+                    class="w-10 h-10 rounded-xl" onerror="this.style.display='none'">
+                  <div>
+                    <h3 class=" font-bold text-sm text-[#e2e2e8]">Valorant</h3>
+                    <p class="text-[10px] text-[#849495]  uppercase tracking-wider">Riot ID</p>
+                  </div>
+                </div>
+                <div class="relative">
+                  <input type="text" class="game-id-input" id="gid-valorant" placeholder="Player#TAG">
+                  <span class="material-symbols-outlined edit-pencil"
+                    onclick="this.previousElementSibling.focus()">edit</span>
+                </div>
+              </div>
+              <!-- League of Legends -->
+              <div class="game-id-card" style="--card-accent: #c89b3c;">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="https://img.icons8.com/?size=100&id=IH9qqSdkPkox&format=png&color=000000" alt="LoL"
+                    class="w-10 h-10 rounded-xl" onerror="this.style.display='none'">
+                  <div>
+                    <h3 class=" font-bold text-sm text-[#e2e2e8]">League of Legends</h3>
+                    <p class="text-[10px] text-[#849495]  uppercase tracking-wider">Riot ID</p>
+                  </div>
+                </div>
+                <div class="relative">
+                  <input type="text" class="game-id-input" id="gid-lol" placeholder="Summoner#TAG">
+                  <span class="material-symbols-outlined edit-pencil"
+                    onclick="this.previousElementSibling.focus()">edit</span>
+                </div>
+              </div>
+              <!-- CS2 -->
+              <div class="game-id-card" style="--card-accent: #de9b35;">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="https://img.icons8.com/?size=100&id=jzahITKncvRL&format=png&color=000000" alt="CS2"
+                    class="w-10 h-10 rounded-xl" onerror="this.style.display='none'">
+                  <div>
+                    <h3 class=" font-bold text-sm text-[#e2e2e8]">CS2</h3>
+                    <p class="text-[10px] text-[#849495]  uppercase tracking-wider">Steam ID</p>
+                  </div>
+                </div>
+                <div class="relative">
+                  <input type="text" class="game-id-input" id="gid-cs2" placeholder="STEAM_0:1:12345">
+                  <span class="material-symbols-outlined edit-pencil"
+                    onclick="this.previousElementSibling.focus()">edit</span>
+                </div>
+              </div>
+              <!-- Fortnite -->
+              <div class="game-id-card" style="--card-accent: #9d4dbb;">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="https://img.icons8.com/?size=100&id=MqXsMYKvGTO6&format=png&color=000000" alt="Fortnite"
+                    class="w-10 h-10 rounded-xl" onerror="this.style.display='none'">
+                  <div>
+                    <h3 class=" font-bold text-sm text-[#e2e2e8]">Fortnite</h3>
+                    <p class="text-[10px] text-[#849495]  uppercase tracking-wider">Epic ID</p>
+                  </div>
+                </div>
+                <div class="relative">
+                  <input type="text" class="game-id-input" id="gid-fortnite" placeholder="EpicNickname">
+                  <span class="material-symbols-outlined edit-pencil"
+                    onclick="this.previousElementSibling.focus()">edit</span>
+                </div>
+              </div>
+              <!-- Minecraft -->
+              <div class="game-id-card" style="--card-accent: #5b8731;">
+                <div class="flex items-center gap-3 mb-4">
+                  <img src="https://img.icons8.com/?size=100&id=PQ7bo28SyNO6&format=png&color=000000" alt="Minecraft"
+                    class="w-10 h-10 rounded-xl" onerror="this.style.display='none'">
+                  <div>
+                    <h3 class=" font-bold text-sm text-[#e2e2e8]">Minecraft</h3>
+                    <p class="text-[10px] text-[#849495]  uppercase tracking-wider">Java Nick</p>
+                  </div>
+                </div>
+                <div class="relative">
+                  <input type="text" class="game-id-input" id="gid-minecraft" placeholder="Steve">
+                  <span class="material-symbols-outlined edit-pencil"
+                    onclick="this.previousElementSibling.focus()">edit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- â•â•â• PANEL 2: IDENTITY â•â•â• -->
+        <div class="profile-tab-panel" id="panel-identity">
+          <div class="section-card">
+            <div class="flex items-center gap-2 mb-6 border-b border-[#3a494b]/30 pb-3">
+              <span class="material-symbols-outlined text-[#8B5CF6]"
+                style="font-variation-settings: 'FILL' 1;">badge</span>
+              <h2 class=" font-bold text-sm uppercase tracking-widest text-[#8B5CF6]" data-i18n="profile_identity">
+                Kimlik Ayarları</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-2">
+                <label class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1"
+                  data-i18n="username_label">Kullanıcı Adı</label>
+                <div class="relative">
+                  <span
+                    class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/60 text-lg">person</span>
+                  <input id="edit-username" type="text" class="neon-input w-full py-3 pl-10 pr-4 text-sm"
+                    placeholder="GamerTag'ini gir..." data-i18n-ph="ph_gamer_tag">
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1"
+                  data-i18n="profile_bio_label">Biyografi</label>
+                <div class="relative">
+                  <span
+                    class="absolute left-3 top-3 material-symbols-outlined text-[#849495]/60 text-lg">edit_note</span>
+                  <textarea id="edit-bio" class="neon-input w-full py-3 pl-10 pr-4 text-sm resize-none h-28"
+                    placeholder="Kendinden bahset..." data-i18n-ph="ph_bio_profile"></textarea>
+                </div>
+                <p class="text-[10px] text-[#849495]/50 text-right mr-1"><span id="bio-char-count">0</span>/200</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- â•â•â• PANEL 3: HARDWARE â•â•â• -->
+        <div class="profile-tab-panel" id="panel-hardware">
+          <div class="section-card">
+            <div class="hw-section-title">
+              <span class="material-symbols-outlined hw-icon" style="font-variation-settings: 'FILL' 1;">memory</span>
+              <h3 data-i18n="profile_hardware">Sistem Özellikleri & Ekipman</h3>
+            </div>
+            <div class="hw-grid">
+              <div class="hw-category-label" data-i18n="hw_pc_components">💻 PC Bileşenleri</div>
+              <div class="hw-input-group"><input type="text" id="hw-cpu" placeholder="İşlemci (CPU)"
+                  data-i18n-ph="ph_cpu"><span class="material-symbols-outlined hw-neon-icon">developer_board</span>
+              </div>
+              <div class="hw-input-group"><input type="text" id="hw-gpu" placeholder="Ekran Kartı (GPU)"
+                  data-i18n-ph="ph_gpu"><span class="material-symbols-outlined hw-neon-icon">videocam</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-ram" placeholder="RAM (Bellek)"
+                  data-i18n-ph="ph_ram"><span class="material-symbols-outlined hw-neon-icon">memory</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-motherboard" placeholder="Anakart"
+                  data-i18n-ph="ph_motherboard"><span class="material-symbols-outlined hw-neon-icon">dashboard</span>
+              </div>
+              <div class="hw-input-group"><input type="text" id="hw-storage" placeholder="Depolama (SSD/HDD)"
+                  data-i18n-ph="ph_storage"><span class="material-symbols-outlined hw-neon-icon">hard_drive</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-psu" placeholder="Güç Kaynağı (PSU)"
+                  data-i18n-ph="ph_psu"><span class="material-symbols-outlined hw-neon-icon">bolt</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-case" placeholder="Kasa"
+                  data-i18n-ph="ph_case"><span class="material-symbols-outlined hw-neon-icon">computer</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-cooling" placeholder="Soğutma Sistemi"
+                  data-i18n-ph="ph_cooling"><span class="material-symbols-outlined hw-neon-icon">ac_unit</span></div>
+              <div class="hw-category-label" data-i18n="hw_peripherals">🎮 Çevre Birimleri</div>
+              <div class="hw-input-group"><input type="text" id="hw-monitor" placeholder="Monitör"><span
+                  class="material-symbols-outlined hw-neon-icon">monitor</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-keyboard" placeholder="Klavye"><span
+                  class="material-symbols-outlined hw-neon-icon">keyboard</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-mouse" placeholder="Mouse"><span
+                  class="material-symbols-outlined hw-neon-icon">mouse</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-headset" placeholder="Kulaklık"><span
+                  class="material-symbols-outlined hw-neon-icon">headphones</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-mousepad" placeholder="Mousepad"><span
+                  class="material-symbols-outlined hw-neon-icon">grid_on</span></div>
+              <div class="hw-category-label" data-i18n="hw_console_other">🕹️ Konsol & Diğer</div>
+              <div class="hw-input-group"><input type="text" id="hw-console"
+                  placeholder="Oyun Konsolu (PS5 Pro vb.)"><span
+                  class="material-symbols-outlined hw-neon-icon">sports_esports</span></div>
+              <div class="hw-input-group"><input type="text" id="hw-laptop" placeholder="Laptop (MacBook vb.)"><span
+                  class="material-symbols-outlined hw-neon-icon">laptop_mac</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- â• â• â•  PANEL 4: GAMING PREFERENCES â• â• â•  -->
+        <div class="profile-tab-panel" id="panel-gaming-prefs">
+          <div class="section-card" style="border-color: rgba(255,170,0,0.12);">
+            <div class="flex items-center gap-2 mb-6 border-b border-[#3a494b]/30 pb-3">
+              <span class="material-symbols-outlined text-[#ffaa00]"
+                style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+              <h2 class=" font-bold text-sm uppercase tracking-widest text-[#ffaa00]" data-i18n="profile_gaming_prefs">
+                Oyun Tercihleri</h2>
+            </div>
+            <div class="space-y-3 mb-6">
+              <label class="text-[10px]  font-bold uppercase tracking-widest text-[#ffaa00]/60 ml-1"
+                data-i18n="profile_select_games">Oyunlarını Seç</label>
+              <!-- Valorant -->
+              <div>
+                <input type="checkbox" id="game-valorant" class="game-check" data-game="valorant">
+                <label for="game-valorant"
+                  class="game-label flex items-center gap-3 bg-[#0A0B1E]/50 hover:bg-[#8B5CF6]/5">
+                  <img src="https://img.icons8.com/?size=100&id=aUZxT3Erwill&format=png&color=000000" alt="Valorant"
+                    class="w-8 h-8 rounded-lg" onerror="this.style.display='none'">
+                  <span class=" font-bold text-sm">Valorant</span>
+                  <span
+                    class="ml-auto material-symbols-outlined text-[#849495]/40 text-lg check-icon">check_circle</span>
+                </label>
+                <div class="rank-select-wrapper mt-2 ml-11">
+                  <select id="rank-valorant" class="neon-select w-full py-2 pl-3 text-xs">
+                    <option value="">Rank Seç...</option>
+                    <option value="Iron">Iron</option>
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Ascendant">Ascendant</option>
+                    <option value="Immortal">Immortal</option>
+                    <option value="Radiant">Radiant</option>
+                  </select>
+                </div>
+              </div>
+              <!-- LoL -->
+              <div>
+                <input type="checkbox" id="game-lol" class="game-check" data-game="lol">
+                <label for="game-lol" class="game-label flex items-center gap-3 bg-[#0A0B1E]/50 hover:bg-[#8B5CF6]/5">
+                  <img src="https://img.icons8.com/?size=100&id=IH9qqSdkPkox&format=png&color=000000" alt="LoL"
+                    class="w-8 h-8 rounded-lg" onerror="this.style.display='none'">
+                  <span class=" font-bold text-sm">League of Legends</span>
+                  <span
+                    class="ml-auto material-symbols-outlined text-[#849495]/40 text-lg check-icon">check_circle</span>
+                </label>
+                <div class="rank-select-wrapper mt-2 ml-11">
+                  <select id="rank-lol" class="neon-select w-full py-2 pl-3 text-xs">
+                    <option value="">Rank Seç...</option>
+                    <option value="Iron">Iron</option>
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="Emerald">Emerald</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Master">Master</option>
+                    <option value="Grandmaster">Grandmaster</option>
+                    <option value="Challenger">Challenger</option>
+                  </select>
+                </div>
+              </div>
+              <!-- CS2 -->
+              <div>
+                <input type="checkbox" id="game-cs2" class="game-check" data-game="cs2">
+                <label for="game-cs2" class="game-label flex items-center gap-3 bg-[#0A0B1E]/50 hover:bg-[#8B5CF6]/5">
+                  <img src="https://img.icons8.com/?size=100&id=jzahITKncvRL&format=png&color=000000" alt="CS2"
+                    class="w-8 h-8 rounded-lg" onerror="this.style.display='none'">
+                  <span class=" font-bold text-sm">CS2</span>
+                  <span
+                    class="ml-auto material-symbols-outlined text-[#849495]/40 text-lg check-icon">check_circle</span>
+                </label>
+                <div class="rank-select-wrapper mt-2 ml-11">
+                  <select id="rank-cs2" class="neon-select w-full py-2 pl-3 text-xs">
+                    <option value="">Rank Seç...</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold Nova">Gold Nova</option>
+                    <option value="Master Guardian">Master Guardian</option>
+                    <option value="Legendary Eagle">Legendary Eagle</option>
+                    <option value="Supreme">Supreme</option>
+                    <option value="Global Elite">Global Elite</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Minecraft -->
+              <div>
+                <input type="checkbox" id="game-minecraft" class="game-check" data-game="minecraft">
+                <label for="game-minecraft"
+                  class="game-label flex items-center gap-3 bg-[#0A0B1E]/50 hover:bg-[#8B5CF6]/5">
+                  <img src="https://img.icons8.com/?size=100&id=PQ7bo28SyNO6&format=png&color=000000" alt="Minecraft"
+                    class="w-8 h-8 rounded-lg" onerror="this.style.display='none'">
+                  <span class=" font-bold text-sm">Minecraft</span>
+                  <span
+                    class="ml-auto material-symbols-outlined text-[#849495]/40 text-lg check-icon">check_circle</span>
+                </label>
+                <div class="rank-select-wrapper mt-2 ml-11">
+                  <select id="rank-minecraft" class="neon-select w-full py-2 pl-3 text-xs">
+                    <option value="">Mod Seç...</option>
+                    <option value="Survival">Survival</option>
+                    <option value="Creative">Creative</option>
+                    <option value="Hardcore">Hardcore</option>
+                    <option value="SMP">SMP</option>
+                    <option value="PvP">PvP</option>
+                    <option value="Skyblock">Skyblock</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- Roles -->
+            <div class="space-y-3">
+              <label class="text-[10px]  font-bold uppercase tracking-widest text-[#ffaa00]/60 ml-1"
+                data-i18n="profile_in_game_roles">Oyun İçi Roller</label>
+              <div id="roles-container" class="flex flex-wrap gap-2">
+                <button type="button" class="role-chip" data-role="Duelist">⚔️ Duelist</button>
+                <button type="button" class="role-chip" data-role="Support">🤝 Support</button>
+                <button type="button" class="role-chip" data-role="Tank">🏋️ Tank</button>
+                <button type="button" class="role-chip" data-role="Controller">🎯 Controller</button>
+                <button type="button" class="role-chip" data-role="Initiator">⚡ Initiator</button>
+                <button type="button" class="role-chip" data-role="Sentinel">🛡️ Sentinel</button>
+                <button type="button" class="role-chip" data-role="Carry">💎 Carry</button>
+                <button type="button" class="role-chip" data-role="Jungle">🌲 Jungle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- â•â•â• PANEL 5: ACCOUNT & SECURITY â•â•â• -->
+        <div class="profile-tab-panel" id="panel-account">
+          <div class="section-card">
+            <div class="flex items-center gap-2 mb-6 border-b border-[#3a494b]/30 pb-3">
+              <span class="material-symbols-outlined text-[#8B5CF6]"
+                style="font-variation-settings: 'FILL' 1;">shield_person</span>
+              <h2 class=" font-bold text-sm uppercase tracking-widest text-[#8B5CF6]"
+                data-i18n="profile_account_security">Hesap & Güvenlik</h2>
+            </div>
+            <!-- Email (Read-Only) -->
+            <div class="space-y-2 mb-4">
+              <label
+                class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1 flex items-center gap-1"><span
+                  class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">lock</span>
+                E-posta</label>
+              <div class="relative">
+                <span
+                  class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/60 text-lg">mail</span>
+                <input id="edit-email" type="email" class="neon-input email-readonly w-full py-3 pl-10 pr-10 text-sm"
+                  placeholder="ornek@duofinder.com" readonly>
+                <span
+                  class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/40 text-lg"
+                  style="font-variation-settings: 'FILL' 1;">lock</span>
+              </div>
+              <p class="text-[10px] text-[#849495]/40 ml-1" data-i18n="profile_email_readonly">E-posta adresi
+                değiştirilemez</p>
+            </div>
+            <!-- Old Password -->
+            <div class="space-y-2 mb-4">
+              <label class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1"
+                data-i18n="profile_old_pw">Mevcut Şifre</label>
+              <div class="relative">
+                <span
+                  class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/60 text-lg">lock_open</span>
+                <input id="edit-old-password" type="password" class="neon-input w-full py-3 pl-10 pr-4 text-sm"
+                  placeholder="••••••••">
+              </div>
+            </div>
+            <!-- New Password -->
+            <div class="space-y-2 mb-6">
+              <label class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1"
+                data-i18n="profile_new_pw">Yeni Şifre</label>
+              <div class="relative">
+                <span
+                  class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/60 text-lg">lock</span>
+                <input id="edit-new-password" type="password" class="neon-input w-full py-3 pl-10 pr-4 text-sm"
+                  placeholder="••••••••">
+              </div>
+            </div>
+            <div class="h-px bg-[#3a494b]/30 my-5"></div>
+            <!-- Server Region -->
+            <div class="space-y-2">
+              <label class="text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6]/60 ml-1"
+                data-i18n="profile_server_region">Sunucu Bölgesi</label>
+              <div class="relative">
+                <span
+                  class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]/60 text-lg">dns</span>
+                <select id="edit-region" class="neon-select w-full py-3 pl-10 text-sm">
+                  <option value="">Bölge Seç...</option>
+                  <option value="TR">TR (Türkiye)</option>
+                  <option value="EU West">EU West</option>
+                  <option value="EU East">EU East (EUNE)</option>
+                  <option value="NA">NA (Kuzey Amerika)</option>
+                  <option value="Asia">Asia</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /profile-tab-content-area -->
+    </div><!-- /profile-tabs-wrapper -->
+
+    <!-- â•â•â•â•â•â•â• SAVE / CANCEL BUTTONS (Edit Mode) â•â•â•â•â•â•â• -->
+    <div id="edit-actions" class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button id="save-btn"
+        class="w-full sm:w-auto px-12 py-4 rounded-full  font-bold text-lg uppercase tracking-wider text-[#0A0B1E] bg-gradient-to-r from-[#00e676] to-[#00c853] shadow-[0_0_24px_rgba(0,230,118,0.4)] hover:shadow-[0_0_36px_rgba(0,230,118,0.6)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+        <span data-i18n="profile_save_changes">Değişiklikleri Kaydet</span>
+      </button>
+      <button id="cancel-btn"
+        class="w-full sm:w-auto px-10 py-4 rounded-full  font-bold text-sm uppercase tracking-wider text-[#849495] bg-[#282a2e] border border-[#3a494b]/40 hover:bg-[#333539] hover:text-[#e2e2e8] active:scale-95 transition-all"
+        data-i18n="profile_cancel">
+        İptal
+      </button>
+      <a href="javascript:void(0)" onclick="openSupportModal()"
+        class="w-full sm:w-auto px-10 py-4 rounded-full  font-bold text-sm uppercase tracking-wider text-[#8B5CF6] border-2 border-[#8B5CF6]/40 hover:bg-[#8B5CF6]/10 hover:border-[#8B5CF6] active:scale-95 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(139,92,246,0.15)] cursor-pointer">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+        <span data-i18n="profile_get_support">Destek Al</span>
+      </a>
+    </div>
+
+    <!-- â•â•â•â•â•â•â• VISITOR BUTTONS (Public View Mode) â•â•â•â•â•â•â• -->
+    <div id="visitor-actions" class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 hidden">
+      <button id="visitor-msg-btn"
+        class="w-full sm:w-auto px-10 py-4 rounded-full  font-bold text-lg uppercase tracking-wider text-[#0A0B1E] bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] shadow-[0_0_24px_rgba(139,92,246,0.4)] hover:shadow-[0_0_36px_rgba(139,92,246,0.6)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+        <span>Mesaj Gönder</span>
+      </button>
+      <button id="visitor-add-btn"
+        class="w-full sm:w-auto px-10 py-4 rounded-full  font-bold text-lg uppercase tracking-wider text-[#e2e2e8] bg-gradient-to-r from-[#ffaa00] to-[#ffd700] shadow-[0_0_24px_rgba(255,170,0,0.3)] hover:shadow-[0_0_36px_rgba(255,170,0,0.5)] hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+        <span>Arkadaş Ekle</span>
+      </button>
+    </div>
+
+    <!-- Error/Info Message -->
+    <p id="form-msg" class="text-center text-sm mt-4 hidden"></p>
+
+  </main>
+  </main>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• SUCCESS TOAST â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <div id="success-toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[100] hidden">
+    <div
+      class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#00e676]/15 border border-[#00e676]/40 backdrop-blur-xl shadow-[0_0_30px_rgba(0,230,118,0.3)]">
+      <span class="material-symbols-outlined text-[#00e676] text-2xl"
+        style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      <span class="text-[#e2e2e8] font-semibold text-sm">Değişiklikler başarıyla kaydedildi!</span>
+    </div>
+  </div>
+
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• BOTTOM NAV â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <nav
+    class="nexus-bottom-nav fixed bottom-0 w-full z-50 rounded-t-2xl bg-[#0A0B1E]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(139, 92, 246,0.08)] flex justify-around items-center h-20 px-4 pb-safe border-t border-[#8B5CF6]/20">
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_dashboard_yeni/code.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">PANEL</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_e_le_melerim/code.html">
+      <span class="material-symbols-outlined">bolt</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">EŞLEŞMELER</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_yar_ma_ekran/code.html">
+      <span class="material-symbols-outlined">emoji_events</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">REKABET</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#8B5CF6] drop-shadow-[0_0_10px_rgba(139, 92, 246,0.6)] transition-all active:scale-90 duration-150 group"
+      href="#">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">PROFİL</span>
+      <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] rounded-full bg-[#8B5CF6]"></span>
+    </a>
+    <!-- Destek Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group cursor-pointer"
+      href="javascript:void(0)" onclick="openSupportModal()">
+      <span class="material-symbols-outlined">support_agent</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="mega_support">DESTEK</span>
+    </a>
+  </nav>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• JAVASCRIPT â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <script>
+    (function () {
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 1. AUTH & DATA LOAD
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var loggedInEmail = localStorage.getItem('loggedInUser');
+      var users = [];
+      try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { users = []; }
+
+      var currentUser = null;
+      var currentUserIndex = -1;
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === loggedInEmail) {
+          currentUser = users[i];
+          currentUserIndex = i;
+          break;
+        }
+      }
+
+      var displayName = loggedInEmail ? loggedInEmail.split('@')[0] : 'Kullanıcı';
+      if (currentUser && currentUser.username) displayName = currentUser.username;
+
+      // Populate sidebar
+      var sidebarName = document.getElementById('sidebar-user-name');
+      var sidebarEmail = document.getElementById('sidebar-user-email');
+      if (sidebarName) sidebarName.textContent = displayName;
+      if (sidebarEmail) sidebarEmail.textContent = loggedInEmail || '';
+
+      // Sync hero identity band
+      var heroName = document.getElementById('hero-display-name');
+      var heroTagline = document.getElementById('hero-tagline');
+      if (heroName) heroName.textContent = displayName;
+      if (heroTagline && currentUser && currentUser.bio) heroTagline.textContent = currentUser.bio;
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 2. PRE-FILL FORM FIELDS
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var usernameInput = document.getElementById('edit-username');
+      var bioInput = document.getElementById('edit-bio');
+      var emailInput = document.getElementById('edit-email');
+      var bioCount = document.getElementById('bio-char-count');
+
+      if (currentUser) {
+        usernameInput.value = currentUser.username || '';
+        bioInput.value = currentUser.bio || '';
+        emailInput.value = currentUser.email || '';
+
+        // Pre-select games & ranks
+        if (currentUser.games) {
+          for (var g = 0; g < currentUser.games.length; g++) {
+            var gName = currentUser.games[g].name;
+            var gRank = currentUser.games[g].rank;
+            var checkbox = document.getElementById('game-' + gName);
+            var rankSelect = document.getElementById('rank-' + gName);
+            if (checkbox) checkbox.checked = true;
+            if (rankSelect && gRank) rankSelect.value = gRank;
+          }
+        }
+
+        // Pre-select roles
+        if (currentUser.roles) {
+          var roleChips = document.querySelectorAll('.role-chip');
+          roleChips.forEach(function (chip) {
+            if (currentUser.roles.indexOf(chip.getAttribute('data-role')) !== -1) {
+              chip.classList.add('active');
+            }
+          });
+        }
+
+        // Pre-fill region
+        if (currentUser.region) document.getElementById('edit-region').value = currentUser.region;
+      } else {
+        emailInput.value = loggedInEmail || '';
+      }
+
+      // Bio character counter
+      function updateBioCount() { bioCount.textContent = bioInput.value.length; }
+      bioInput.addEventListener('input', function () {
+        if (this.value.length > 200) this.value = this.value.substring(0, 200);
+        updateBioCount();
+      });
+      updateBioCount();
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 3. GAME CHECKBOX — CHECK ICON TOGGLE
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var gameChecks = document.querySelectorAll('.game-check');
+      gameChecks.forEach(function (check) {
+        check.addEventListener('change', function () {
+          var icon = this.nextElementSibling.querySelector('.check-icon');
+          if (icon) {
+            icon.style.color = this.checked ? '#8B5CF6' : '';
+            icon.style.fontVariationSettings = this.checked ? "'FILL' 1" : "'FILL' 0";
+          }
+        });
+        // Trigger on load for pre-selected
+        if (check.checked) {
+          var icon = check.nextElementSibling.querySelector('.check-icon');
+          if (icon) { icon.style.color = '#8B5CF6'; icon.style.fontVariationSettings = "'FILL' 1"; }
+        }
+      });
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 4. ROLE CHIPS TOGGLE
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var roleChips = document.querySelectorAll('.role-chip');
+      roleChips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          this.classList.toggle('active');
+        });
+      });
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 5. AVATAR PREVIEW + BASE64 PERSISTENCE
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var avatarUpload = document.getElementById('avatar-upload');
+      var avatarPreview = document.getElementById('avatar-preview');
+      var headerAvatarLink = document.getElementById('header-avatar-link');
+
+      // Helper: apply image to both avatar preview and header icon
+      function applyProfileImage(base64) {
+        if (!base64) return;
+        avatarPreview.innerHTML = '<img src="' + base64 + '" class="w-full h-full object-cover rounded-full" alt="Avatar">';
+        if (headerAvatarLink) {
+          headerAvatarLink.innerHTML = '<img src="' + base64 + '" class="w-full h-full object-cover rounded-full" alt="Avatar">';
+        }
+      }
+
+      avatarUpload.addEventListener('change', function (e) {
+        if (e.target.files && e.target.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (ev) {
+            var base64 = ev.target.result;
+            applyProfileImage(base64);
+            // Save to localStorage immediately
+            try { localStorage.setItem('user_profile_image', base64); } catch (err) { }
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      });
+
+      // Load saved profile image on page init (localStorage â†’ database.js fallback)
+      (function loadProfileImage() {
+        try {
+          var savedImg = localStorage.getItem('user_profile_image');
+          if (savedImg) {
+            applyProfileImage(savedImg);
+            return;
+          }
+          // Fallback: check database.js MASTER_USERS for logged-in user's default
+          var loggedInEmail = localStorage.getItem('loggedInUser');
+          if (loggedInEmail && window.MASTER_USERS) {
+            for (var i = 0; i < window.MASTER_USERS.length; i++) {
+              if (window.MASTER_USERS[i].email === loggedInEmail && window.MASTER_USERS[i].profileImage) {
+                applyProfileImage(window.MASTER_USERS[i].profileImage);
+                return;
+              }
+            }
+          }
+        } catch (e) { }
+      })();
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 6. SAVE CHANGES
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var saveBtn = document.getElementById('save-btn');
+      var cancelBtn = document.getElementById('cancel-btn');
+      var formMsg = document.getElementById('form-msg');
+      var toast = document.getElementById('success-toast');
+
+      // ¦¦¦ Hardware field IDs ¦¦¦
+      var hwFieldIds = [
+        'hw-cpu', 'hw-gpu', 'hw-ram', 'hw-motherboard', 'hw-storage', 'hw-psu', 'hw-case', 'hw-cooling',
+        'hw-monitor', 'hw-keyboard', 'hw-mouse', 'hw-headset', 'hw-mousepad',
+        'hw-console', 'hw-laptop'
+      ];
+
+      // Load hardware data from localStorage
+      (function loadHardwareData() {
+        try {
+          var hwData = JSON.parse(localStorage.getItem('user_hardware_data'));
+          if (hwData) {
+            hwFieldIds.forEach(function (id) {
+              var el = document.getElementById(id);
+              if (el && hwData[id] !== undefined) el.value = hwData[id];
+            });
+          }
+        } catch (e) { }
+      })();
+
+      // ¦¦¦ Game ID Card field IDs ¦¦¦
+      var gameIdFields = ['gid-valorant', 'gid-lol', 'gid-cs2', 'gid-fortnite', 'gid-minecraft'];
+
+      // Load game IDs from localStorage
+      (function loadGameIds() {
+        try {
+          var gids = JSON.parse(localStorage.getItem('game_ids'));
+          if (gids) {
+            gameIdFields.forEach(function (id) {
+              var el = document.getElementById(id);
+              if (el && gids[id] !== undefined) el.value = gids[id];
+            });
+          }
+        } catch (e) { }
+      })();
+
+      saveBtn.addEventListener('click', function () {
+        var newUsername = usernameInput.value.trim();
+        var newBio = bioInput.value.trim();
+        var newEmail = emailInput.value.trim();
+        var oldPw = document.getElementById('edit-old-password').value;
+        var newPw = document.getElementById('edit-new-password').value;
+        var newRegion = document.getElementById('edit-region').value;
+
+        // Validate
+        if (!newUsername) {
+          showFormMsg('Lütfen kullanıcı adını doldurun.', 'error'); return;
+        }
+        if (!newEmail) {
+          showFormMsg('Lütfen e-posta adresini doldurun.', 'error'); return;
+        }
+
+        // Password change validation
+        if (newPw && !oldPw) {
+          showFormMsg('Yeni şifre için mevcut şifrenizi girin.', 'error'); return;
+        }
+        if (oldPw && currentUser && oldPw !== currentUser.password) {
+          showFormMsg('Mevcut şifre yanlış!', 'error'); return;
+        }
+
+        // Collect selected games
+        var selectedGames = [];
+        gameChecks.forEach(function (check) {
+          if (check.checked) {
+            var gameName = check.getAttribute('data-game');
+            var rankEl = document.getElementById('rank-' + gameName);
+            selectedGames.push({ name: gameName, rank: rankEl ? rankEl.value : '' });
+          }
+        });
+
+        // Collect selected roles
+        var selectedRoles = [];
+        document.querySelectorAll('.role-chip.active').forEach(function (chip) {
+          selectedRoles.push(chip.getAttribute('data-role'));
+        });
+
+        // Build updated user object
+        var updatedUser = Object.assign({}, currentUser || {}, {
+          username: newUsername,
+          email: newEmail,
+          password: (newPw && oldPw) ? newPw : (currentUser ? currentUser.password : ''),
+          bio: newBio,
+          games: selectedGames,
+          roles: selectedRoles,
+          region: newRegion
+        });
+
+        // Update in users array
+        if (currentUserIndex >= 0) {
+          users[currentUserIndex] = updatedUser;
+        } else {
+          users.push(updatedUser);
+        }
+
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // Save hardware data
+        var hwData = {};
+        hwFieldIds.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) hwData[id] = el.value.trim();
+        });
+        localStorage.setItem('user_hardware_data', JSON.stringify(hwData));
+
+        // Save game IDs
+        var gidData = {};
+        gameIdFields.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) gidData[id] = el.value.trim();
+        });
+        localStorage.setItem('game_ids', JSON.stringify(gidData));
+
+        // Ensure profile image is saved (in case it was set before save)
+        var avatarImg = avatarPreview.querySelector('img');
+        if (avatarImg && avatarImg.src && avatarImg.src.startsWith('data:')) {
+          try { localStorage.setItem('user_profile_image', avatarImg.src); } catch (err) { }
+        }
+        // Instant header sync
+        if (typeof syncProfileImage === 'function') syncProfileImage();
+
+        // If email changed, update loggedInUser key
+        if (newEmail !== loggedInEmail) {
+          localStorage.setItem('loggedInUser', newEmail);
+        }
+
+        // Re-sync hero identity
+        if (heroName) heroName.textContent = newUsername;
+        if (heroTagline && newBio) heroTagline.textContent = newBio;
+
+        // Show success toast
+        formMsg.classList.add('hidden');
+        toast.classList.remove('hidden');
+        toast.querySelector('div').className = 'flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#00e676]/15 border border-[#00e676]/40 backdrop-blur-xl shadow-[0_0_30px_rgba(0,230,118,0.3)] toast-in';
+
+        // Disable save button briefly
+        saveBtn.disabled = true;
+        saveBtn.style.opacity = '0.7';
+        saveBtn.querySelector('span').textContent = 'Kaydedildi âœ“';
+
+        setTimeout(function () {
+          toast.querySelector('div').classList.remove('toast-in');
+          toast.querySelector('div').classList.add('toast-out');
+          setTimeout(function () { toast.classList.add('hidden'); }, 400);
+          saveBtn.disabled = false;
+          saveBtn.style.opacity = '';
+          saveBtn.querySelector('span').textContent = 'Değişiklikleri Kaydet';
+        }, 2500);
+
+        // Clear password fields
+        document.getElementById('edit-old-password').value = '';
+        document.getElementById('edit-new-password').value = '';
+
+        // Update sidebar name
+        if (sidebarName) sidebarName.textContent = newUsername;
+        if (sidebarEmail) sidebarEmail.textContent = newEmail;
+      });
+
+      // Cancel — go back to dashboard
+      cancelBtn.addEventListener('click', function () {
+        window.location.href = '../duo_finder_dashboard_yeni/code.html';
+      });
+
+      function showFormMsg(msg, type) {
+        formMsg.textContent = msg;
+        formMsg.classList.remove('hidden');
+        formMsg.style.color = type === 'error' ? '#ffb4ab' : '#00e676';
+      }
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 7. NOTIFICATION DROPDOWN (handled by notifications.js)
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 8. SIDEBAR TOGGLE
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var sidebarOpenBtn = document.getElementById('sidebar-open-btn');
+      var sidebar = document.getElementById('sidebar');
+      var sidebarOverlay = document.getElementById('sidebar-overlay');
+      var sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+      function openSidebar() {
+        if (sidebar) sidebar.classList.remove('-translate-x-full');
+        if (sidebar) sidebar.classList.add('translate-x-0');
+        if (sidebarOverlay) sidebarOverlay.classList.remove('hidden');
+      }
+      function closeSidebar() {
+        if (sidebar) sidebar.classList.add('-translate-x-full');
+        if (sidebar) sidebar.classList.remove('translate-x-0');
+        if (sidebarOverlay) sidebarOverlay.classList.add('hidden');
+      }
+      if (sidebarOpenBtn) sidebarOpenBtn.addEventListener('click', openSidebar);
+      if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+      if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 9. LOGOUT
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function () {
+          localStorage.removeItem('loggedInUser');
+          window.location.href = '../duo_finder_dashboard_yeni/code.html';
+        });
+      }
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 10. PUBLIC VIEW MODE DETECTION
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      var urlParams = new URLSearchParams(window.location.search);
+      var isPublicView = urlParams.get('view') === 'public';
+      var viewedUser = urlParams.get('user') || '';
+
+      if (isPublicView) {
+        // Hide edit buttons, show visitor buttons
+        var editActions = document.getElementById('edit-actions');
+        var visitorActions = document.getElementById('visitor-actions');
+        if (editActions) editActions.classList.add('hidden');
+        if (visitorActions) visitorActions.classList.remove('hidden');
+
+        // Update page title with viewed user's name
+        var pageTitle = document.querySelector('h1');
+        var viewName = viewedUser.charAt(0).toUpperCase() + viewedUser.slice(1);
+        if (pageTitle) {
+          pageTitle.innerHTML = '<span class="text-[#8B5CF6] glow-sm">' + viewName + '</span> Profili';
+        }
+        var pageSubtitle = pageTitle ? pageTitle.nextElementSibling : null;
+        if (pageSubtitle && pageSubtitle.tagName === 'P') {
+          pageSubtitle.textContent = 'Bu oyuncunun halka açık profili';
+        }
+
+        // Make all inputs readonly / disabled
+        var allInputs = document.querySelectorAll('.neon-input, .neon-select, .hw-input-group input');
+        allInputs.forEach(function (el) {
+          if (el.tagName === 'SELECT') { el.disabled = true; el.style.opacity = '0.6'; }
+          else { el.readOnly = true; el.style.opacity = '0.6'; }
+        });
+
+        // Disable game checkboxes
+        var gameChecks = document.querySelectorAll('.game-check');
+        gameChecks.forEach(function (cb) { cb.disabled = true; });
+
+        // Disable role chips
+        var roleChips = document.querySelectorAll('.role-chip');
+        roleChips.forEach(function (chip) {
+          chip.style.pointerEvents = 'none';
+          chip.style.opacity = '0.7';
+        });
+
+        // Disable avatar upload
+        var avatarUploadBtn = document.querySelector('[onclick*="avatar-upload"]');
+        if (avatarUploadBtn) avatarUploadBtn.style.display = 'none';
+        var uploadText = document.querySelector('button[onclick*="avatar-upload"]');
+        if (uploadText) uploadText.style.display = 'none';
+        // Hide the camera icon
+        var cameraIcon = document.querySelector('#avatar-preview')
+          ? document.querySelector('#avatar-preview').parentElement.querySelector('.absolute.bottom-0') : null;
+        if (cameraIcon) cameraIcon.style.display = 'none';
+
+        // Pre-fill from database for public view
+        var viewedUserData = null;
+        if (window.MASTER_USERS) {
+          for (var mu = 0; mu < window.MASTER_USERS.length; mu++) {
+            if (window.MASTER_USERS[mu].username.toLowerCase() === viewedUser.toLowerCase()) {
+              viewedUserData = window.MASTER_USERS[mu];
+              break;
+            }
+          }
+        }
+        if (viewedUserData) {
+          if (usernameInput) usernameInput.value = viewedUserData.username;
+          if (bioInput) bioInput.value = viewedUserData.bio || '';
+          if (emailInput) emailInput.value = '••••••@duofinder.com';
+          // Check games & set ranks
+          if (viewedUserData.games) {
+            viewedUserData.games.forEach(function (g) {
+              var gc = document.getElementById('game-' + g.name);
+              if (gc) { gc.checked = true; gc.dispatchEvent(new Event('change')); }
+              var gr = document.getElementById('rank-' + g.name);
+              if (gr && g.rank) gr.value = g.rank;
+            });
+          }
+          // Activate roles
+          if (viewedUserData.roles) {
+            document.querySelectorAll('.role-chip').forEach(function (c) {
+              var r = c.getAttribute('data-role');
+              if (viewedUserData.roles.indexOf(r) !== -1) c.classList.add('active');
+            });
+          }
+          // Set location/region
+          if (viewedUserData.region) { var rs = document.getElementById('edit-region'); if (rs) rs.value = viewedUserData.region; }
+        } else {
+          if (usernameInput) usernameInput.value = viewName;
+          if (bioInput) bioInput.value = '';
+          if (emailInput) emailInput.value = '••••••@duofinder.com';
+        }
+
+
+        // Visitor button handlers
+        var visitorMsgBtn = document.getElementById('visitor-msg-btn');
+        var visitorAddBtn = document.getElementById('visitor-add-btn');
+
+        if (visitorMsgBtn) {
+          visitorMsgBtn.addEventListener('click', function () {
+            alert('Mesajlaşma özelliği yakında aktif olacak! 💬');
+          });
+        }
+        if (visitorAddBtn) {
+          visitorAddBtn.addEventListener('click', function () {
+            this.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1;">check_circle</span> <span>İstek Gönderildi!</span>';
+            this.style.background = 'linear-gradient(to right, #00e676, #00c853)';
+            this.disabled = true;
+          });
+        }
+      }
+
+    })();
+  </script>
+
+  <!-- â•â•â• Profile Tab Switching â•â•â• -->
+  <script>
+    (function () {
+      var tabBtns = document.querySelectorAll('.profile-tab-btn');
+      var panels = document.querySelectorAll('.profile-tab-panel');
+      tabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = this.getAttribute('data-tab');
+          tabBtns.forEach(function (b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          panels.forEach(function (p) {
+            if (p.id === 'panel-' + target) {
+              p.classList.add('active');
+              p.style.animation = 'none';
+              p.offsetHeight;
+              p.style.animation = '';
+            } else {
+              p.classList.remove('active');
+            }
+          });
+        });
+      });
+    })();
+  </script>
+
+  <!-- â•â•â• Scroll Reveal Observer â•â•â• -->
+  <script>
+    (function () {
+      var sections = document.querySelectorAll('.profile-section');
+      if (!sections.length) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+  <script src="../../js/modules/notifications.js"></script>
+  <script src="../../js/core/duo-state.js"></script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/settings-modal.js"></script>
+  <script src="../../js/modals/feedback-modal.js"></script>
+  <script src="../../js/modules/detail-polish.js"></script>
+  <script src="../../js/modules/theme-switcher.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+  <script src="../../js/modules/header-enhancements.js"></script>
+  <script src="../../js/modules/profile-sync.js"></script>
+  <script src="../../js/modals/report-modal.js"></script>
+  <script src="../../js/modules/mobile-nav.js"></script>
+</body>
+
+</html>

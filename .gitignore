@@ -1,0 +1,10 @@
+# API Keys & Credentials
+.env
+
+# System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.user

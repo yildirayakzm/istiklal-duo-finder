@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İSTİKLAL | Mesajlar</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-on-surface": "#2f3035", "surface-container-low": "#1a1c20", "secondary-fixed-dim": "#ffb952",
+            "surface-tint": "#7C3AED", "secondary": "#ffcf90", "tertiary-fixed": "#ffd7f5",
+            "surface-variant": "#333539", "error-container": "#93000a", "surface-container-high": "#282a2e",
+            "on-error": "#690005", "primary-fixed": "#74f5ff", "inverse-primary": "#00696f",
+            "on-surface-variant": "#b9cacb", "surface-container-highest": "#333539",
+            "surface-container-lowest": "#0c0e12", "secondary-fixed": "#ffddb4", "background": "#0A0B1E",
+            "on-surface": "#e2e2e8", "outline-variant": "#3a494b", "on-background": "#e2e2e8",
+            "surface-dim": "#0A0B1E", "secondary-container": "#ffaa00", "primary-fixed-dim": "#7C3AED",
+            "surface-container": "#1e2024", "outline": "#849495", "primary": "#e1fdff",
+            "on-primary": "#1E0A4B", "surface-bright": "#37393e", "surface": "#0A0B1E",
+            "inverse-surface": "#e2e2e8", "error": "#ffb4ab", "primary-container": "#8B5CF6"
+          },
+          fontFamily: { "headline": ["Outfit"], "body": ["Poppins"] },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100dvh;
+    }
+
+    .glass-panel {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0A0B1E;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333539;
+      border-radius: 10px;
+    }
+
+    .contact-item {
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .contact-item:hover,
+    .contact-item.active {
+      background: rgba(139, 92, 246, 0.06);
+    }
+
+    .contact-item.active {
+      border-left: 3px solid var(--accent, #8B5CF6);
+    }
+
+    .contact-item .del-btn {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-item:hover .del-btn {
+      opacity: 1;
+    }
+
+    @keyframes statusPulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
+
+    .status-blink {
+      animation: statusPulse 1.5s ease-in-out infinite;
+    }
+
+    .msg-bubble {
+      animation: bubbleIn 0.25s ease-out;
+    }
+
+    @keyframes bubbleIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .read-mark {
+      color: #0A0B1E;
+      font-size: 12px;
+      margin-left: 4px;
+      font-weight: 700;
+    }
+
+    /* Neon scrollbar for duo list */
+    #contact-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #contact-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #contact-list::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.3);
+      border-radius: 10px;
+    }
+
+    #contact-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 92, 246, 0.6);
+    }
+
+    /* Right column (suggested) scrollbar */
+    #suggested-col::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #suggested-col::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #suggested-col::-webkit-scrollbar-thumb {
+      background: rgba(139, 92, 246, 0.3);
+      border-radius: 10px;
+    }
+
+    #suggested-col::-webkit-scrollbar-thumb:hover {
+      background: rgba(139, 92, 246, 0.6);
+    }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    /* â•â•â• RESPONSIVE BREAKPOINTS â•â•â• */
+
+    /* Mobile back button — hidden by default */
+    #mobile-back-btn {
+      display: none;
+    }
+
+    /* Detail drawer FAB — hidden by default */
+    #detail-drawer-btn {
+      display: none;
+    }
+
+    /* Detail drawer overlay */
+    #detail-drawer {
+      display: none;
+    }
+
+    #detail-drawer.active {
+      display: flex;
+    }
+
+    /* ¦¦ TABLET (768px â€“ 1199px) ¦¦ */
+    @media (max-width:1199px) {
+      #suggested-col {
+        display: none !important;
+      }
+
+      #left-col {
+        width: 35%;
+        min-width: 220px;
+      }
+
+      #center-col {
+        width: 65%;
+        flex: 1;
+      }
+
+      #detail-drawer-btn {
+        display: flex;
+      }
+    }
+
+    /* ¦¦ MOBILE (<768px) ¦¦ */
+    @media (max-width:767px) {
+      #main-layout {
+        flex-direction: column;
+        gap: 0;
+        padding-left: 0;
+        padding-right: 0;
+        height: calc(100dvh - 4rem);
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+      }
+
+      #left-col {
+        width: 100% !important;
+        min-width: unset;
+        height: 100%;
+      }
+
+      #center-col {
+        width: 100% !important;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      #suggested-col {
+        display: none !important;
+      }
+
+      #detail-drawer-btn {
+        display: none !important;
+      }
+
+      /* Mobile: show list, hide chat initially */
+      #center-col.mobile-hidden {
+        display: none !important;
+      }
+
+      #left-col.mobile-hidden {
+        display: none !important;
+      }
+
+      #mobile-back-btn {
+        display: flex;
+      }
+
+      /* Header compact */
+      header {
+        height: 3.5rem !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+
+      header h1 {
+        font-size: 1.1rem !important;
+      }
+
+      /* Bottom nav compact */
+      .nexus-bottom-nav {
+        height: 4rem !important;
+      }
+
+      .nexus-bottom-nav span.material-symbols-outlined {
+        font-size: 20px;
+      }
+
+      .nexus-bottom-nav span:last-child {
+        font-size: 8px !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background select-none">
+  <!-- TopAppBar -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/40 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.5)] h-16 flex justify-between items-center px-6 flex-wrap">
+    <div class="flex items-center gap-3">
+      <button id="sidebar-open-btn"
+        class="material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-90"
+        aria-label="Menü">menu</button>
+      <h1
+        class="text-2xl font-black text-[#8B5CF6] drop-shadow-[0_0_8px_rgba(139, 92, 246,0.4)]  tracking-tight">
+        İSTİKLAL</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="relative" id="notif-wrapper">
+        <button id="notif-btn"
+          class="relative material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-95 duration-200">notifications
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 bg-[#ff4444] rounded-full text-[8px] text-white font-bold flex items-center justify-center"
+            id="notif-badge">2</span>
+        </button>
+        <div id="notif-dropdown"
+          class="hidden absolute right-0 top-12 w-80 bg-[#1e2024]/95 backdrop-blur-xl border border-[#8B5CF6]/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden z-[60]">
+          <div class="px-4 py-3 border-b border-[#3a494b]/30 flex items-center justify-between">
+            <span class=" font-bold text-xs uppercase tracking-widest text-[#8B5CF6]">Bildirimler</span>
+            <span id="notif-count-label" class="text-[10px] text-[#849495]"></span>
+          </div>
+          <div class="max-h-64 overflow-y-auto" id="notif-list"></div>
+          <div class="px-4 py-3 bg-[#0A0B1E]/80 border-t border-[#3a494b]/30 flex justify-between gap-3">
+            <button
+              class="flex-1 py-2 text-[10px]  font-bold uppercase tracking-widest text-[#e2e2e8] border border-[#8B5CF6]/30 rounded-lg hover:bg-[#8B5CF6]/10 hover:border-[#8B5CF6] transition-all"
+              onclick="clearNotifications()">Tümünü Sil</button>
+            <button
+              class="flex-1 py-2 text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6] border border-[#8B5CF6]/50 rounded-lg hover:bg-[#8B5CF6]/20 hover:border-[#8B5CF6] shadow-[0_0_10px_rgba(139, 92, 246,0.2)] transition-all"
+              onclick="markNotificationsRead()">Okundu İşaretle</button>
+          </div>
+        </div>
+      </div>
+      <a href="../oyuncu_profili/code.html"
+        class="block w-10 h-10 rounded-full border-2 border-[#8B5CF6]/30 p-0.5 overflow-hidden hover:border-[#8B5CF6] transition-colors">
+        <img alt="Profil" class="w-full h-full object-cover rounded-full"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVIx2KXTehYGayQfZM5U4ZGcsn7Q1Q4PjwJEWBsq1IpTBdIuHwWTLaVGDWW4PycDJ8L5o6kuei_GHrDKtCnlTcFTBMUW4b9XdwIpUNxXUXgpJ5pTja5ya2tX8blqtG8unChAHgiVrKsFB2FuxjeI85QyPsH55jbCur9fNZzkCW5hB5TqrhcAxRxxUVaonCdDff6x1jcSJCibSks7FraDunoLMCvyT9mWLCySAxK3BgqGU22OAr1V_xAXh8H0yBRlUJiEg4c0qlUXpj" />
+      </a>
+    </div>
+  </header>
+
+  <!-- â•â•â• THREE-COLUMN MAIN LAYOUT â•â•â• -->
+  <main id="main-layout" class="pt-20 pb-24 px-4 h-[calc(100dvh-5rem)] flex gap-4 max-w-[1600px] mx-auto">
+
+    <!-- LEFT COLUMN: DUO LIST (25%) -->
+    <div id="left-col" class="w-[25%] min-w-[240px] flex flex-col gap-4 h-full overflow-hidden">
+      <div class="flex items-center justify-between px-1 pt-2 pb-1">
+        <h2
+          class=" font-black text-[#8B5CF6] uppercase flex items-center gap-2.5 drop-shadow-[0_0_10px_rgba(139, 92, 246,0.35)]"
+          style="font-size:14px;letter-spacing:1px;">
+          <span class="material-symbols-outlined text-xl" style="font-variation-settings:'FILL' 1;">contacts</span>
+          <span data-i18n="msg_duo_list">DUO LİST</span>
+        </h2>
+        <div class="flex items-center gap-2">
+          <button id="requests-open-btn"
+            class="relative material-symbols-outlined text-[#ffaa00] hover:text-[#ffcc44] transition-colors active:scale-90"
+            style="font-size:20px;" title="İstekler">person_add
+            <span id="requests-badge"
+              class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#ff4444] rounded-full text-[7px] text-white font-bold flex items-center justify-center hidden">0</span>
+          </button>
+          <button id="search-open-btn"
+            class="material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] transition-colors active:scale-90"
+            style="font-size:20px;" title="Oyuncu Ara">search</button>
+        </div>
+      </div>
+
+      <!-- Active Friends (horizontal) -->
+      <div class="flex-shrink-0">
+        <h3 class=" font-bold text-[#849495] uppercase mb-2 px-1"
+          style="font-size:14px;letter-spacing:1px;" data-i18n="msg_active_friends">AKTİF ARKADAŞLAR</h3>
+        <div class="flex gap-3 overflow-x-auto pb-1 no-scrollbar" id="active-friends-row"></div>
+      </div>
+
+      <!-- Contact List -->
+      <div class="flex-1 overflow-y-auto space-y-1 pr-1" id="contact-list"></div>
+
+      <!-- ARKADAŞLARIM Section -->
+      <div class="flex-shrink-0 mt-2 border-t border-[#3a494b]/30 pt-2">
+        <h3
+          class=" font-bold text-[#00ff88] uppercase mb-2 px-1 flex items-center gap-2 drop-shadow-[0_0_8px_rgba(0,255,136,0.3)]"
+          style="font-size:14px;letter-spacing:1px;">
+          <span class="material-symbols-outlined text-lg" style="font-variation-settings:'FILL' 1;">group</span>
+          <span data-i18n="msg_my_friends">ARKADAŞLARIM</span>
+        </h3>
+        <div class="overflow-y-auto space-y-1 pr-1 max-h-[200px]" id="friends-list"></div>
+      </div>
+    </div>
+
+    <!-- REQUESTS PANEL (overlay on left column) -->
+    <div id="requests-panel" class="hidden fixed inset-0 z-[100]">
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="requests-backdrop"></div>
+      <div
+        class="absolute inset-y-0 left-0 w-full max-w-md bg-[#1a1c20]/95 backdrop-blur-xl border-r border-[#8B5CF6]/15 shadow-[4px_0_32px_rgba(0,0,0,0.5)] flex flex-col"
+        style="animation:slideInLeft 0.3s ease">
+        <!-- Panel Header -->
+        <div class="flex items-center justify-between px-5 py-4 border-b border-[#3a494b]/30">
+          <h3 class=" font-bold text-[#ffaa00] uppercase tracking-wider flex items-center gap-2"
+            style="font-size:14px;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">group_add</span>
+            <span data-i18n="msg_requests_title">İSTEKLER</span>
+          </h3>
+          <button id="requests-close-btn"
+            class="material-symbols-outlined text-[#849495] hover:text-[#ffb4ab] transition-colors">close</button>
+        </div>
+        <!-- Tabs -->
+        <div class="flex border-b border-[#3a494b]/30">
+          <button id="req-tab-incoming"
+            class="flex-1 py-3 text-center  font-bold text-xs uppercase tracking-widest text-[#8B5CF6] border-b-2 border-[#8B5CF6] transition-all" data-i18n="msg_incoming_requests">Gelen
+            İstekler</button>
+          <button id="req-tab-sent"
+            class="flex-1 py-3 text-center  font-bold text-xs uppercase tracking-widest text-[#849495] border-b-2 border-transparent hover:text-[#e2e2e8] transition-all" data-i18n="msg_sent_requests">Gönderilen
+            İstekler</button>
+        </div>
+        <!-- Tab Content -->
+        <div id="req-list-incoming" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+        <div id="req-list-sent" class="flex-1 overflow-y-auto p-4 space-y-2 hidden"></div>
+      </div>
+    </div>
+
+    <!-- CENTER COLUMN: CHAT AREA (50%) -->
+    <div id="center-col"
+      class="w-[50%] flex flex-col glass-panel rounded-2xl border border-white/5 overflow-hidden h-full relative">
+      <!-- Chat Header -->
+      <div id="chat-header"
+        class="flex items-center px-5 py-3.5 border-b border-[#3a494b]/30 bg-[#1a1c20]/60 backdrop-blur-xl flex-shrink-0">
+        <!-- Mobile Back Button -->
+        <button id="mobile-back-btn"
+          class="material-symbols-outlined text-[#8B5CF6] hover:text-[#7C3AED] transition-colors active:scale-90 mr-2"
+          style="font-size:22px;">arrow_back</button>
+        <div class="flex items-center gap-3 flex-1">
+          <div id="chat-avatar"
+            class="w-10 h-10 rounded-full bg-[#282a2e] flex items-center justify-center overflow-hidden">
+            <span class="material-symbols-outlined text-[#849495]">person</span>
+          </div>
+          <div>
+            <h3 id="chat-contact-name" class=" font-bold text-[#e2e2e8]" style="font-size:18px;" data-i18n="msg_select_contact">Bir kişi
+              seçin</h3>
+            <span id="chat-status" class="font-bold uppercase tracking-wider text-[#849495]"
+              style="font-size:14px;">—</span>
+          </div>
+        </div>
+        <!-- Chat Action Buttons (shown when a contact is selected) -->
+        <div id="chat-actions" class="flex items-center gap-1.5 ml-2" style="display:none;">
+          <button id="chat-block-btn"
+            class="w-8 h-8 rounded-lg flex items-center justify-center bg-[#282a2e]/60 border border-[#3a494b]/30 hover:border-[#ff4b4b]/40 hover:bg-[#ff4b4b]/10 transition-all active:scale-90"
+            title="Kullanıcıyı Engelle" data-i18n-title="msg_block_user">
+            <span class="material-symbols-outlined text-[#ff4b4b]/60 hover:text-[#ff4b4b] transition-colors"
+              style="font-size:16px;">block</span>
+          </button>
+          <button id="chat-report-btn"
+            class="w-8 h-8 rounded-lg flex items-center justify-center bg-[#282a2e]/60 border border-[#3a494b]/30 hover:border-[#ffaa00]/40 hover:bg-[#ffaa00]/10 transition-all active:scale-90"
+            title="Kullanıcıyı Bildir" data-i18n-title="msg_report_user">
+            <span class="material-symbols-outlined text-[#ffaa00]/60 hover:text-[#ffaa00] transition-colors"
+              style="font-size:16px;">report</span>
+          </button>
+        </div>
+        <!-- Tablet Detail Drawer Button -->
+        <button id="detail-drawer-btn"
+          class="items-center justify-center w-9 h-9 rounded-lg bg-[#282a2e]/60 border border-[#3a494b]/30 hover:border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/5 transition-all active:scale-90 ml-2"
+          title="Önerilen Oyuncular">
+          <span class="material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] transition-colors"
+            style="font-size:18px;">group_add</span>
+        </button>
+      </div>
+
+      <!-- Chat Messages -->
+      <div id="chat-body" class="flex-1 overflow-y-auto p-5 space-y-3">
+        <div class="flex flex-col items-center justify-center h-full opacity-40">
+          <span class="material-symbols-outlined text-6xl text-[#3a494b] mb-3">forum</span>
+          <p class=" font-bold text-sm text-[#849495] tracking-wide" data-i18n="msg_start_chat">Sohbet başlatmak için bir kişi seçin
+          </p>
+        </div>
+      </div>
+
+      <!-- Message Input -->
+      <div id="chat-input-area"
+        class="px-4 py-3 border-t border-[#3a494b]/30 bg-[#1a1c20]/60 backdrop-blur-xl flex items-center gap-2 flex-shrink-0">
+        <button id="attach-btn"
+          class="material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] transition-colors text-xl"
+          title="Dosya Ekle">attach_file</button>
+        <button id="emoji-btn"
+          class="material-symbols-outlined text-[#849495] hover:text-[#ffaa00] transition-colors text-xl"
+          title="Emoji">mood</button>
+        <input id="chat-input" type="text" placeholder="Mesaj yaz..."
+          class="flex-1 bg-[#282a2e]/60 border border-[#3a494b]/40 rounded-xl px-4 py-2.5 text-[#e2e2e8] placeholder:text-[#849495]/40 focus:ring-1 focus:ring-[#8B5CF6]/30 focus:border-[#8B5CF6]/20 outline-none transition-all"
+          style="font-size:15px;" data-i18n-ph="msg_type" />
+        <button id="chat-send-btn"
+          class="w-10 h-10 bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] rounded-xl flex items-center justify-center active:scale-90 transition-transform shadow-[0_0_12px_rgba(139, 92, 246,0.3)]">
+          <span class="material-symbols-outlined text-[#0A0B1E] text-lg"
+            style="font-variation-settings:'FILL' 1;">send</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: SUGGESTED PLAYERS (25%) — Desktop -->
+    <div id="suggested-col"
+      class="w-[25%] min-w-[220px] glass-panel rounded-2xl border border-white/5 overflow-y-auto h-full p-4 flex flex-col gap-3">
+      <h3
+        class=" font-bold text-[#8B5CF6] uppercase flex items-center gap-2 drop-shadow-[0_0_8px_rgba(139, 92, 246,0.3)]"
+        style="font-size:14px;letter-spacing:1px;">
+        <span class="material-symbols-outlined"
+          style="font-size:18px;font-variation-settings:'FILL' 1;">group_add</span>
+        <span data-i18n="msg_suggested_players">ÖNERİLEN OYUNCULAR</span>
+      </h3>
+      <div id="suggested-list" class="space-y-1 flex-1"></div>
+    </div>
+  </main>
+
+  <!-- DETAIL DRAWER (Tablet/Mobile overlay for suggested players) -->
+  <div id="detail-drawer" class="fixed inset-0 z-[95]">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="detail-drawer-backdrop"></div>
+    <div
+      class="absolute inset-y-0 right-0 w-80 max-w-[85vw] bg-[#1a1c20]/95 backdrop-blur-xl border-l border-[#8B5CF6]/15 shadow-[-4px_0_32px_rgba(0,0,0,0.5)] flex flex-col"
+      style="animation:slideInRight 0.3s ease">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-[#3a494b]/30">
+        <h3 class=" font-bold text-[#8B5CF6] uppercase tracking-wider flex items-center gap-2"
+          style="font-size:14px;">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">group_add</span>
+          <span data-i18n="msg_suggested_players">ÖNERİLEN OYUNCULAR</span>
+        </h3>
+        <button id="detail-drawer-close"
+          class="material-symbols-outlined text-[#849495] hover:text-[#ffb4ab] transition-colors">close</button>
+      </div>
+      <div id="drawer-suggested-list" class="flex-1 overflow-y-auto p-4 space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav
+    class="nexus-bottom-nav fixed bottom-0 w-full z-50 rounded-t-2xl bg-[#0A0B1E]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(139, 92, 246,0.08)] flex justify-around items-center h-20 px-4 pb-safe border-t border-[#8B5CF6]/20">
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_dashboard_yeni/code.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_panel">PANEL</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_e_le_melerim/code.html">
+      <span class="material-symbols-outlined">bolt</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_matches">EŞLEŞMELER</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_yar_ma_ekran/code.html">
+      <span class="material-symbols-outlined">emoji_events</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_compete">REKABET</span>
+    </a>
+    <a class="relative flex flex-col items-center justify-center text-[#8B5CF6] drop-shadow-[0_0_10px_rgba(139, 92, 246,0.6)] bg-[#8B5CF6]/10 rounded-xl px-4 py-1 transition-all active:scale-90 duration-150"
+      href="./code.html">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">forum</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="btm_messages">MESAJLAR</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-[#8B5CF6] shadow-[0_0_8px_rgba(139, 92, 246,0.8)]"></span>
+    </a>
+    <!-- Destek Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group cursor-pointer"
+      href="javascript:void(0)" onclick="openSupportModal()">
+      <span class="material-symbols-outlined">support_agent</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="mega_support">DESTEK</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+  </nav>
+
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <script>
+      (function () {
+        // ¦¦ Notification ¦¦ (handled by notifications.js)
+
+        // ¦¦ Sidebar ¦¦
+        var sb = document.getElementById('sidebar'), sbO = document.getElementById('sidebar-overlay');
+        var openBtn = document.getElementById('sidebar-open-btn');
+        var closeBtn = document.getElementById('sidebar-close-btn');
+
+        if (openBtn && sb && sbO) {
+          openBtn.addEventListener('click', function () { sb.classList.remove('-translate-x-full'); sb.classList.add('translate-x-0'); sbO.classList.remove('hidden'); });
+        }
+        function closeSB() {
+          if (sb && sbO) {
+            sb.classList.add('-translate-x-full'); sb.classList.remove('translate-x-0'); sbO.classList.add('hidden');
+          }
+        }
+        if (closeBtn) closeBtn.addEventListener('click', closeSB);
+        if (sbO) sbO.addEventListener('click', closeSB);
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // DATA
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        var contacts = [
+          { id: 'Cyber_X', status: 'online', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuApVOqxbZnIwqDqXCEpe05wjNf9bsTHC1Tn3jPk_ipmXOqIRxOBUHRyHViH5mUCd3odVJjfaGPc6K9IJgKhNIUR7-n2Fy-gRunAjW9sDtYlyyQABNQWK7g26OG_Q4B3sS7Kixsc_Vp-LrvZCv59z037B_N7VIzWqVNZZ5xsX2RGcFFJiZJ4Na0ZZ3VI7BdK1aLmjnVXwIcWwZxbMzsiQclwvSUHKfDqypOubK086qYGork0SWOYa6dCRjMkZoZYlnYFd2L-3ZJmfnLd' },
+          { id: 'NeonGaze', status: 'online', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBODF6igzfljTV6gFlHkm6rt8OZODXaic9dN1BEuJBcSqWdR1fRrcvRAk0V2jQX46MNQIhSXq_WML5mp9xsfHZ3vDw9qKXwZaERPM4y9z63lLbARygU3E-z83f4Mcv3_h3MbWkYSd2w9Jj5ggnTxHSjo9eAv6BvX5-ogwke5Yl3FifTythFAfSKbsxaqzJ3JCjGWGUSlUatlozJ9L-tDaMUkU8RTD5gDehLjq5DUJc1_OLlWinkxFc8UcagkPnLJQyGjeKOQOe5n7Rx' },
+          { id: 'DarkSoul', status: 'busy', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCWg80RREcRFPqSQPfH44incwLiB5Qi5LZRCIUkVMxYlLQ1oCajWEyorOUYx-HyeuPkLPpUnc8iokMV3DuUhOodbsF-3OmBxKo9_IehYIihCY_dBOMRUsq0o_y4G2x1c59OvZOfw8RnDCeiRxR0wJYeGOBN-Egt-yyL0IMXwInC7xuaflg06mei4Gq0VxXV0S_a6HTJ2CGO3rl6mob7K9JJ38cpb7FZhxEgeedz5CrAvza8_kB6eNE25fpnnXdHz8VrdghLAq1aLQVF' },
+          { id: 'ProSniper', status: 'offline', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0cmSzb96FwDFTOfDLqL-hALVgs27wKA_KY5tfYpTPezOuNoihGx3Xf1erXurwNBhhtxFrWSMgHqe9jVPalQRmsQNqhc3VmtpM17qeZzm9IeipkWyd6JJyjSf_cMUr4tGnFTd35Pj7uFt5dTsdHn8q3OvsIs7pVlifFNwyq7fk8m7ljKAlJX9lfaEzIIt2fz7Y-LCy05VAh9kDACOX6BJRLuRmUfHaZNA8SVwTzu5CWR5Adax52mzEFDmNXEYdxmar9ZgOB3wOL2of' },
+          { id: 'Koda_99', status: 'online', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBr3WF2xJXASaeR9FIXGyd7YOdqKSSurcg2MQ2Jzh4u9fHUD7lUrOHzw6LXSzeYN_WKvbROQKr22X10id6OVcFlg_YX8be9PpkNfSLfvyw3hTZdYcJvaeiiO5mT4XUTesjikE1flAtm431FTQJmRV4sZXQeJxhrX_bRHiuHGK-9w-lDtF-73EniZqF2XE7b4iVD0Kuw7nW7OmQvLMT5hj8z-ClFzsR-kx16xz3jFzcz7NZodtmNl9B0c8NurZS0B2Sc0b4tUi1pI6rp' }
+        ];
+
+        var suggested = [
+          { id: 'ShadowKnight', rank: 'Diamond 2', game: 'Valorant' },
+          { id: 'GhostBlade', rank: 'Global Elite', game: 'CS2' },
+          { id: 'PhantomX', rank: 'Platinum 1', game: 'Valorant' },
+          { id: 'NightRaven', rank: 'Immortal 3', game: 'Valorant' },
+          { id: 'StormBreaker', rank: 'Master', game: 'LoL' },
+          { id: 'IronPulse', rank: 'Supreme', game: 'CS2' }
+        ];
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // LOCALSTORAGE CHAT PERSISTENCE
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        var defaultHistories = {
+          'Cyber_X': [
+            { from: 'them', text: 'Selam dostum, bugün online mısın?', time: '' },
+            { from: 'me', text: 'Evet, hazırım! Ne oynayalım?', time: '' },
+            { from: 'them', text: 'Ranked maç için yer var mı dostum?', time: '' }
+          ],
+          'NeonGaze': [
+            { from: 'them', text: 'Turnuva kayıtları açıldı, gördün mü?', time: '' },
+            { from: 'me', text: 'Henüz bakmadım, kaydolalım mı?', time: '' },
+            { from: 'them', text: 'Turnuva başlıyor, hazır mısın?', time: '' }
+          ],
+          'DarkSoul': [
+            { from: 'me', text: 'GG, harika oynadın!', time: '' },
+            { from: 'them', text: 'Teşekkürler, harika maçtı!', time: '' }
+          ],
+          'ProSniper': [
+            { from: 'them', text: 'Tekrar oynamak istersen buradayım.', time: '' }
+          ],
+          'Koda_99': [
+            { from: 'them', text: 'Bugün akşam müsait misin?', time: '' },
+            { from: 'me', text: 'Evet, 8\'den sonra varım!', time: '' },
+            { from: 'them', text: 'GG! Yarın tekrar oynayalım.', time: '' }
+          ]
+        };
+
+        function getChatKey(contactId) {
+          return 'chat_history_' + contactId;
+        }
+
+        function loadChatHistory(contactId) {
+          try {
+            var stored = localStorage.getItem(getChatKey(contactId));
+            if (stored) return JSON.parse(stored);
+          } catch (e) { }
+          return null;
+        }
+
+        function saveChatHistory(contactId, msgs) {
+          try {
+            localStorage.setItem(getChatKey(contactId), JSON.stringify(msgs));
+          } catch (e) { }
+        }
+
+        // ¦¦ Read Status Persistence ¦¦
+        function getReadKey(contactId) { return 'chat_read_' + contactId; }
+
+        function isContactRead(contactId) {
+          try {
+            var val = localStorage.getItem(getReadKey(contactId));
+            if (val === null) return true; // no data = read by default
+            return val === 'true';
+          } catch (e) { return true; }
+        }
+
+        function markContactRead(contactId) {
+          try { localStorage.setItem(getReadKey(contactId), 'true'); } catch (e) { }
+        }
+
+        function markContactUnread(contactId) {
+          try { localStorage.setItem(getReadKey(contactId), 'false'); } catch (e) { }
+        }
+
+        // ¦¦ Helper: get last message preview + time from chatHistories ¦¦
+        function getLastMsgInfo(contactId) {
+          var msgs = chatHistories[contactId];
+          if (!msgs || msgs.length === 0) return { text: '', time: '' };
+          var last = msgs[msgs.length - 1];
+          return { text: last.text || '', time: last.time || '' };
+        }
+
+        // Build chatHistories: load from localStorage, fallback to defaults
+        var chatHistories = {};
+        contacts.forEach(function (c) {
+          var saved = loadChatHistory(c.id);
+          chatHistories[c.id] = saved || (defaultHistories[c.id] ? defaultHistories[c.id].slice() : []);
+        });
+        // Also check suggested contacts
+        suggested.forEach(function (s) {
+          if (!chatHistories[s.id]) {
+            var saved = loadChatHistory(s.id);
+            chatHistories[s.id] = saved || [];
+          }
+        });
+
+        var currentContact = null;
+
+        function getTimeString() {
+          var now = new Date();
+          return String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+        }
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // RENDER ACTIVE FRIENDS ROW
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        function renderActiveFriends() {
+          var row = document.getElementById('active-friends-row');
+          row.innerHTML = '';
+          contacts.forEach(function (c) {
+            if (c.status === 'offline') return;
+            var d = document.createElement('div');
+            d.className = 'flex-shrink-0 flex flex-col items-center gap-1.5 cursor-pointer';
+            d.onclick = function () { selectContact(c.id); };
+            var statusColor = c.status === 'online' ? '#00ff88' : '#ff4444';
+            d.innerHTML =
+              '<div class="relative">' +
+              '<div class="w-12 h-12 rounded-full border-2 border-[' + statusColor + ']/40 p-0.5">' +
+              '<img alt="' + c.id + '" class="w-full h-full rounded-full object-cover" src="' + c.img + '"/>' +
+              '</div>' +
+              '<div class="absolute bottom-0 right-0 w-3 h-3 bg-[' + statusColor + '] rounded-full border-2 border-[#0A0B1E] status-blink"></div>' +
+              '</div>' +
+              '<span class="text-[9px] font-bold text-[#e2e2e8]/70 truncate max-w-[54px]">' + c.id + '</span>';
+            row.appendChild(d);
+          });
+        }
+        renderActiveFriends();
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // RENDER CONTACT LIST
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        function renderContacts(filter) {
+          var list = document.getElementById('contact-list');
+          list.innerHTML = '';
+          contacts.forEach(function (c) {
+            if (filter && !c.id.toLowerCase().includes(filter)) return;
+            var statusColor = c.status === 'online' ? '#00ff88' : (c.status === 'busy' ? '#ff4444' : '#849495');
+            var isActive = currentContact === c.id;
+            // Dynamic: pull last message & time from chatHistories (localStorage)
+            var info = getLastMsgInfo(c.id);
+            var previewText = info.text;
+            var previewTime = info.time;
+            // Read status from localStorage
+            var unread = !isContactRead(c.id);
+            var d = document.createElement('div');
+            d.className = 'contact-item flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer' + (isActive ? ' active' : '');
+            d.onclick = function () { selectContact(c.id); };
+            d.innerHTML =
+              '<div class="relative flex-shrink-0">' +
+              '<img alt="' + c.id + '" class="w-11 h-11 rounded-xl object-cover' + (c.status === 'offline' ? ' grayscale opacity-60' : '') + '" src="' + c.img + '"/>' +
+              '<div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[' + statusColor + '] rounded-full border-2 border-[#0A0B1E]' + (c.status !== 'offline' ? ' status-blink' : '') + '"></div>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<div class="flex justify-between items-center mb-0.5">' +
+              '<h4 class="font-bold text-[#e2e2e8] truncate" style="font-size:15px;">' + c.id + '</h4>' +
+              '<span class="text-[#849495] font-bold flex-shrink-0" style="font-size:13px;">' + previewTime + '</span>' +
+              '</div>' +
+              '<p class="text-[#849495] truncate" style="font-size:13px;">' + previewText + '</p>' +
+              '</div>' +
+              (unread ? '<div class="w-5 h-5 bg-[#8B5CF6] text-[#0A0B1E] rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 shadow-[0_0_8px_rgba(139, 92, 246,0.4)]">!</div>' : '') +
+              '<button class="del-btn material-symbols-outlined flex-shrink-0" style="font-size:18px;color:#ff6b6b;" title="Sohbeti Sil" data-id="' + c.id + '">delete</button>';
+            // Attach delete handler
+            (function (contactId) {
+              d.querySelector('.del-btn').addEventListener('click', function (e) {
+                e.stopPropagation();
+                deleteContact(contactId);
+              });
+            })(c.id);
+            list.appendChild(d);
+          });
+        }
+        renderContacts();
+
+        // ¦¦ Delete Contact ¦¦
+        function deleteContact(contactId) {
+          // Remove chat history from localStorage
+          try { localStorage.removeItem(getChatKey(contactId)); } catch (e) { }
+          // Remove read status
+          try { localStorage.removeItem(getReadKey(contactId)); } catch (e) { }
+          // Remove from in-memory chatHistories
+          delete chatHistories[contactId];
+          // Remove from contacts array
+          contacts = contacts.filter(function (c) { return c.id !== contactId; });
+          // Save updated contacts list
+          saveContactsList();
+          // If deleted contact is currently active, reset chat view
+          if (currentContact === contactId) {
+            currentContact = null;
+            document.getElementById('chat-contact-name').textContent = 'Bir kişi seçin';
+            document.getElementById('chat-status').textContent = '—';
+            document.getElementById('chat-status').style.color = '#849495';
+            document.getElementById('chat-avatar').innerHTML = '<span class="material-symbols-outlined text-[#849495]">person</span>';
+            document.getElementById('chat-body').innerHTML = '<div class="flex flex-col items-center justify-center h-full opacity-40"><span class="material-symbols-outlined text-6xl text-[#3a494b] mb-3">forum</span><p class=" font-bold text-sm text-[#849495] tracking-wide">Sohbet başlatmak için bir kişi seçin</p></div>';
+          }
+          // Re-render lists
+          renderContacts();
+          renderActiveFriends();
+        }
+
+        // (Search removed)
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // RENDER SUGGESTED PLAYERS
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        function promoteToDuoList(suggestedPlayer) {
+          // Check if already in contacts
+          if (contacts.find(function (c) { return c.id === suggestedPlayer.id; })) {
+            selectContact(suggestedPlayer.id);
+            return;
+          }
+          // Add to contacts array
+          var newContact = {
+            id: suggestedPlayer.id,
+            status: 'online',
+            img: '' // no image for suggested
+          };
+          contacts.push(newContact);
+          saveContactsList();
+          // Init empty chat history
+          if (!chatHistories[suggestedPlayer.id]) {
+            chatHistories[suggestedPlayer.id] = [];
+          }
+          // Remove from suggested
+          suggested = suggested.filter(function (s) { return s.id !== suggestedPlayer.id; });
+          renderContacts();
+          renderSuggested();
+          renderActiveFriends();
+          selectContact(suggestedPlayer.id);
+        }
+
+        function renderSuggested() {
+          var list = document.getElementById('suggested-list');
+          list.innerHTML = '';
+          suggested.forEach(function (s) {
+            var d = document.createElement('div');
+            d.className = 'flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[#8B5CF6]/5 transition-all cursor-pointer';
+            d.innerHTML =
+              '<div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#8B5CF6]/20 to-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">' +
+              '<span class="material-symbols-outlined text-[#8B5CF6] text-sm">person</span>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<span class="text-xs font-bold text-[#e2e2e8] block truncate">' + s.id + '</span>' +
+              '<span class="text-[9px] text-[#849495]">' + s.game + ' • ' + s.rank + '</span>' +
+              '</div>' +
+              '<button class="material-symbols-outlined text-[#8B5CF6] text-lg hover:scale-110 transition-transform" title="Mesaj Gönder" onclick="event.stopPropagation()">chat</button>';
+            (function (sRef) {
+              d.querySelector('button').addEventListener('click', function () { promoteToDuoList(sRef); });
+            })(s);
+            list.appendChild(d);
+          });
+        }
+        renderSuggested();
+
+        // ¦¦ Contacts localStorage Persistence ¦¦
+        var CONTACTS_KEY = 'duo_contacts_list';
+        function saveContactsList() {
+          try {
+            localStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
+          } catch (e) { }
+        }
+        function loadContactsList() {
+          try {
+            var stored = localStorage.getItem(CONTACTS_KEY);
+            if (stored) return JSON.parse(stored);
+          } catch (e) { }
+          return null;
+        }
+        // On init: use saved contacts as THE authoritative source (prevents deleted contacts from reappearing)
+        (function () {
+          var saved = loadContactsList();
+          if (saved) {
+            // Saved list is the sole source of truth
+            contacts = saved;
+            // Rebuild chat histories for saved contacts
+            contacts.forEach(function (c) {
+              if (!chatHistories[c.id]) {
+                var loaded = loadChatHistory(c.id);
+                chatHistories[c.id] = loaded || (defaultHistories[c.id] ? defaultHistories[c.id].slice() : []);
+              }
+            });
+          }
+          // Filter suggested: remove any already in contacts
+          suggested = suggested.filter(function (s) {
+            return !contacts.find(function (c) { return c.id === s.id; });
+          });
+          renderContacts();
+          renderSuggested();
+          renderActiveFriends();
+        })();
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // SELECT CONTACT & RENDER CHAT
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        function selectContact(name, isSuggested) {
+          currentContact = name;
+          var c = contacts.find(function (x) { return x.id === name; });
+          var avatar = document.getElementById('chat-avatar');
+          var nameEl = document.getElementById('chat-contact-name');
+          var statusEl = document.getElementById('chat-status');
+
+          nameEl.textContent = name;
+          // Mark this conversation as read
+          markContactRead(name);
+          if (c) {
+            avatar.innerHTML = '<img class="w-full h-full object-cover rounded-full" src="' + c.img + '" alt="' + name + '"/>';
+            var sColor = c.status === 'online' ? '#00ff88' : (c.status === 'busy' ? '#ff4444' : '#849495');
+            var sText = c.status === 'online' ? 'Çevrimiçi' : (c.status === 'busy' ? 'Meşgul' : 'Çevrimdışı');
+            statusEl.textContent = sText;
+            statusEl.style.color = sColor;
+          } else {
+            avatar.innerHTML = '<span class="material-symbols-outlined text-[#8B5CF6]">person</span>';
+            statusEl.textContent = 'Yeni Sohbet';
+            statusEl.style.color = '#8B5CF6';
+          }
+          renderContacts();
+          renderChatMessages();
+          document.getElementById('chat-input').focus();
+          // Show action buttons
+          var chatActions = document.getElementById('chat-actions');
+          if (chatActions) chatActions.style.display = 'flex';
+          // Mobile: switch to chat view
+          if (window.innerWidth < 768) {
+            document.getElementById('left-col').classList.add('mobile-hidden');
+            document.getElementById('center-col').classList.remove('mobile-hidden');
+          }
+        }
+
+        function renderChatMessages() {
+          var body = document.getElementById('chat-body');
+          if (!currentContact) return;
+          var msgs = chatHistories[currentContact] || [];
+          body.innerHTML = '';
+          if (msgs.length === 0) {
+            body.innerHTML = '<div class="flex flex-col items-center justify-center h-full opacity-40"><span class="material-symbols-outlined text-4xl text-[#3a494b] mb-2">waving_hand</span><p class="text-xs text-[#849495]">Sohbet başlatmak için mesaj yazın</p></div>';
+            return;
+          }
+          msgs.forEach(function (m, i) {
+            var d = document.createElement('div');
+            d.className = 'flex ' + (m.from === 'me' ? 'justify-end' : 'justify-start') + ' msg-bubble';
+            var isLast = i === msgs.length - 1;
+            var readHtml = (m.from === 'me') ? '<span class="read-mark">✓✓</span>' : '';
+            var bubble = document.createElement('div');
+            bubble.className = m.from === 'me'
+              ? 'max-w-[70%] px-4 py-2.5 rounded-2xl rounded-br-md bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] text-[#0A0B1E] font-medium shadow-[0_2px_10px_rgba(139, 92, 246,0.15)]'
+              : 'max-w-[70%] px-4 py-2.5 rounded-2xl rounded-bl-md bg-[#282a2e] text-[#e2e2e8] border border-[#3a494b]/30';
+            bubble.style.fontSize = '16px';
+            bubble.style.lineHeight = '1.5';
+            bubble.innerHTML = m.text + readHtml;
+            d.appendChild(bubble);
+            body.appendChild(d);
+          });
+          body.scrollTop = body.scrollHeight;
+        }
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // SEND MESSAGE
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        function playClickSound() {
+          try {
+            var ctx = new (window.AudioContext || window.webkitAudioContext)();
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.frequency.value = 800;
+            osc.type = 'sine';
+            gain.gain.value = 0.1;
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 0.1);
+          } catch (e) { }
+        }
+
+        function sendMessage() {
+          var text = document.getElementById('chat-input').value.trim();
+          if (!text || !currentContact) return;
+          if (!chatHistories[currentContact]) chatHistories[currentContact] = [];
+          var msg = { from: 'me', text: text, time: getTimeString() };
+          chatHistories[currentContact].push(msg);
+          saveChatHistory(currentContact, chatHistories[currentContact]);
+          document.getElementById('chat-input').value = '';
+          playClickSound();
+          renderChatMessages();
+          renderContacts();
+          // Simulate reply after 2s
+          var replyTo = currentContact;
+          setTimeout(function () {
+            if (!chatHistories[replyTo]) return;
+            var replies = ['Anladım, hemen geliyorum! ??', 'Harika fikir! ??', 'Tamam, birazdan başlayalım.', 'OK, lobby\'deyim ???', 'Süper! ??'];
+            var replyMsg = { from: 'them', text: replies[Math.floor(Math.random() * replies.length)], time: getTimeString() };
+            chatHistories[replyTo].push(replyMsg);
+            saveChatHistory(replyTo, chatHistories[replyTo]);
+            // If user is viewing this chat, render; otherwise mark unread
+            if (currentContact === replyTo) {
+              renderChatMessages();
+            } else {
+              markContactUnread(replyTo);
+            }
+            renderContacts();
+          }, 2000 + Math.random() * 2000);
+        }
+
+        document.getElementById('chat-send-btn').addEventListener('click', sendMessage);
+        document.getElementById('chat-input').addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
+        });
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // SEARCH via search-open-btn (filter contacts inline)
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        var searchOpen = false;
+        var searchBoxEl = null;
+
+        function toggleInlineSearch() {
+          var container = document.getElementById('contact-list').parentNode;
+          if (searchOpen && searchBoxEl) {
+            searchBoxEl.remove();
+            searchBoxEl = null;
+            searchOpen = false;
+            renderContacts();
+            return;
+          }
+          // Create inline search box
+          searchBoxEl = document.createElement('div');
+          searchBoxEl.className = 'px-1 pb-2';
+          searchBoxEl.innerHTML =
+            '<div class="relative">' +
+            '<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#8B5CF6]" style="font-size:16px;">search</span>' +
+            '<input id="inline-search-input" type="text" placeholder="Oyuncu ara..." class="w-full bg-[#282a2e]/60 border border-[#8B5CF6]/30 rounded-xl px-4 py-2 pl-9 text-[#e2e2e8] placeholder:text-[#849495]/40 focus:ring-1 focus:ring-[#8B5CF6]/30 focus:border-[#8B5CF6]/40 outline-none transition-all" style="font-size:13px;"/>' +
+            '</div>';
+          var contactList = document.getElementById('contact-list');
+          contactList.parentNode.insertBefore(searchBoxEl, contactList);
+          var inp = document.getElementById('inline-search-input');
+          inp.focus();
+          inp.addEventListener('input', function () {
+            var q = inp.value.trim().toLowerCase();
+            renderContacts(q || undefined);
+          });
+          searchOpen = true;
+        }
+
+        document.getElementById('search-open-btn').addEventListener('click', toggleInlineSearch);
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && searchOpen) toggleInlineSearch();
+        });
+
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        // ARKADAŞLARIM (FRIENDS LIST) LOGIC
+        // ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+        var FRIENDS_KEY = 'user_friends_list';
+
+        function loadFriendsList() {
+          try {
+            var data = localStorage.getItem(FRIENDS_KEY);
+            if (data) return JSON.parse(data);
+          } catch (e) { }
+          return [];
+        }
+
+        function saveFriendsList(arr) {
+          try { localStorage.setItem(FRIENDS_KEY, JSON.stringify(arr)); } catch (e) { }
+        }
+
+        function addToFriends(user) {
+          var friends = loadFriendsList();
+          // Prevent duplicates
+          if (friends.find(function (f) { return f.id === user.id; })) return;
+          friends.push({ id: user.id, game: user.game || '—', rank: user.rank || '—', time: user.time || '' });
+          saveFriendsList(friends);
+        }
+
+        function renderFriendsList() {
+          var list = document.getElementById('friends-list');
+          if (!list) return;
+          var friends = loadFriendsList();
+          list.innerHTML = '';
+          if (friends.length === 0) {
+            list.innerHTML = '<div class="flex flex-col items-center justify-center py-4 opacity-40"><span class="material-symbols-outlined text-2xl text-[#3a494b] mb-1">group_off</span><p class="text-[10px] text-[#849495]">Henüz arkadaş yok</p></div>';
+            return;
+          }
+          friends.forEach(function (f) {
+            var d = document.createElement('div');
+            d.className = 'contact-item flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-[#00ff88]/5 transition-all';
+            d.innerHTML =
+              '<div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#00ff88]/20 to-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">' +
+              '<span class="material-symbols-outlined text-[#00ff88] text-sm">person</span>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<h4 class="font-bold text-[#e2e2e8] truncate" style="font-size:13px;">' + f.id + '</h4>' +
+              '<span class="text-[9px] text-[#849495]">' + f.game + ' • ' + f.rank + '</span>' +
+              '</div>' +
+              '<button class="friend-remove-btn material-symbols-outlined text-[#ff6b6b]/60 hover:text-[#ff6b6b] transition-colors" style="font-size:16px;" title="Arkadaşı Kaldır">close</button>';
+            // Click to chat
+            (function (friendId) {
+              d.addEventListener('click', function (e) {
+                if (e.target.classList.contains('friend-remove-btn')) return;
+                // Ensure contact exists or create temporary one
+                if (!contacts.find(function (c) { return c.id === friendId; })) {
+                  contacts.push({ id: friendId, status: 'online', img: '' });
+                  saveContactsList();
+                }
+                if (!chatHistories[friendId]) {
+                  chatHistories[friendId] = [];
+                }
+                selectContact(friendId);
+              });
+              d.querySelector('.friend-remove-btn').addEventListener('click', function (e) {
+                e.stopPropagation();
+                var friends = loadFriendsList().filter(function (x) { return x.id !== friendId; });
+                saveFriendsList(friends);
+                renderFriendsList();
+              });
+            })(f.id);
+            list.appendChild(d);
+          });
+        }
+
+        // Render friends on load
+        renderFriendsList();
+
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // REQUESTS PANEL LOGIC
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        var REQ_INCOMING_KEY = 'duo_requests_incoming';
+        var REQ_SENT_KEY = 'sent_duo_requests';
+
+        // Default incoming requests removed — only real requests
+        var DEFAULT_INCOMING = [];
+
+        function loadIncomingRequests() {
+          try {
+            var data = localStorage.getItem(REQ_INCOMING_KEY);
+            if (data === null) {
+              return [];
+            }
+            return JSON.parse(data);
+          } catch (e) { return []; }
+        }
+
+        function saveIncomingRequests(arr) {
+          try { localStorage.setItem(REQ_INCOMING_KEY, JSON.stringify(arr)); } catch (e) { }
+        }
+
+        function loadSentRequestsList() {
+          try {
+            var data = localStorage.getItem(REQ_SENT_KEY);
+            if (data) return JSON.parse(data);
+          } catch (e) { }
+          return [];
+        }
+
+        function saveSentRequestsList(arr) {
+          try { localStorage.setItem(REQ_SENT_KEY, JSON.stringify(arr)); } catch (e) { }
+        }
+
+        // Update badge
+        function updateRequestsBadge() {
+          var badge = document.getElementById('requests-badge');
+          if (!badge) return;
+          var incoming = loadIncomingRequests();
+          if (incoming.length > 0) {
+            badge.textContent = incoming.length;
+            badge.classList.remove('hidden');
+          } else {
+            badge.classList.add('hidden');
+          }
+        }
+
+        // Render incoming requests
+        function renderIncomingRequests() {
+          var list = document.getElementById('req-list-incoming');
+          if (!list) return;
+          var incoming = loadIncomingRequests();
+          list.innerHTML = '';
+          if (incoming.length === 0) {
+            list.innerHTML = '<div class="flex flex-col items-center justify-center py-8 opacity-50"><span class="material-symbols-outlined text-4xl text-[#3a494b] mb-2">inbox</span><p class="text-xs text-[#849495]">Gelen istek yok</p></div>';
+            return;
+          }
+          incoming.forEach(function (req) {
+            var card = document.createElement('div');
+            card.className = 'flex items-center gap-3 p-3 rounded-xl bg-[#282a2e]/40 border border-[#3a494b]/20 hover:border-[#8B5CF6]/20 transition-all';
+            card.innerHTML =
+              '<div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#8B5CF6]/20 to-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">' +
+              '<span class="material-symbols-outlined text-[#8B5CF6]">person</span>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<p class="text-sm font-bold text-[#e2e2e8] truncate">' + req.id + '</p>' +
+              '<p class="text-[9px] text-[#849495]">' + req.game + ' • ' + req.rank + ' • ' + req.time + '</p>' +
+              '</div>' +
+              '<div class="flex gap-1.5 flex-shrink-0">' +
+              '<button class="req-accept px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-[#8B5CF6]/15 text-[#8B5CF6] border border-[#8B5CF6]/30 hover:bg-[#8B5CF6]/25 transition-all">Kabul</button>' +
+              '<button class="req-reject px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-[#ff4444]/10 text-[#ffb4ab] border border-[#ff4444]/20 hover:bg-[#ff4444]/20 transition-all">Reddet</button>' +
+              '</div>';
+            // Accept handler
+            (function (r) {
+              card.querySelector('.req-accept').addEventListener('click', function () {
+                // Remove from incoming requests
+                var arr = loadIncomingRequests().filter(function (x) { return x.id !== r.id; });
+                saveIncomingRequests(arr);
+                // Also remove from sent requests if exists
+                var sentArr = loadSentRequestsList().filter(function (x) { return x !== r.id; });
+                saveSentRequestsList(sentArr);
+                // Add to friends list
+                addToFriends({ id: r.id, game: r.game || '—', rank: r.rank || '—', time: r.time || '' });
+                // Add notification
+                if (typeof addNotification === 'function') {
+                  addNotification({ text: '<b>' + r.id + '</b> isteğini kabul ettin!', icon: 'check_circle', iconColor: '#00ff88', bgColor: 'rgba(0,255,136,0.1)', borderColor: '#00ff88' });
+                }
+                renderIncomingRequests();
+                renderSentRequests();
+                updateRequestsBadge();
+                renderFriendsList();
+              });
+              card.querySelector('.req-reject').addEventListener('click', function () {
+                var arr = loadIncomingRequests().filter(function (x) { return x.id !== r.id; });
+                saveIncomingRequests(arr);
+                renderIncomingRequests();
+                updateRequestsBadge();
+              });
+            })(req);
+            list.appendChild(card);
+          });
+        }
+
+        // Render sent requests
+        function renderSentRequests() {
+          var list = document.getElementById('req-list-sent');
+          if (!list) return;
+          var sent = loadSentRequestsList();
+          list.innerHTML = '';
+          if (sent.length === 0) {
+            list.innerHTML = '<div class="flex flex-col items-center justify-center py-8 opacity-50"><span class="material-symbols-outlined text-4xl text-[#3a494b] mb-2">outbox</span><p class="text-xs text-[#849495]">Gönderilen istek yok</p></div>';
+            return;
+          }
+          sent.forEach(function (name) {
+            var card = document.createElement('div');
+            card.className = 'flex items-center gap-3 p-3 rounded-xl bg-[#282a2e]/40 border border-[#3a494b]/20 transition-all';
+            card.innerHTML =
+              '<div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#ffaa00]/15 to-[#ff8800]/10 flex items-center justify-center flex-shrink-0">' +
+              '<span class="material-symbols-outlined text-[#ffaa00]">person</span>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<p class="text-sm font-bold text-[#e2e2e8] truncate">' + name + '</p>' +
+              '<p class="text-[9px] text-[#849495]">İstek gönderildi</p>' +
+              '</div>' +
+              '<button class="req-cancel px-2.5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-[#ff4444]/10 text-[#ffb4ab] border border-[#ff4444]/20 hover:bg-[#ff4444]/20 transition-all flex-shrink-0">İptal</button>';
+            (function (n) {
+              card.querySelector('.req-cancel').addEventListener('click', function () {
+                var arr = loadSentRequestsList().filter(function (x) { return x !== n; });
+                saveSentRequestsList(arr);
+                renderSentRequests();
+              });
+            })(name);
+            list.appendChild(card);
+          });
+        }
+
+        // Panel open/close
+        var reqPanel = document.getElementById('requests-panel');
+        var reqOpenBtn = document.getElementById('requests-open-btn');
+        var reqCloseBtn = document.getElementById('requests-close-btn');
+        var reqBackdrop = document.getElementById('requests-backdrop');
+
+        if (reqOpenBtn) {
+          reqOpenBtn.addEventListener('click', function () {
+            reqPanel.classList.remove('hidden');
+            renderIncomingRequests();
+            renderSentRequests();
+          });
+        }
+        if (reqCloseBtn) reqCloseBtn.addEventListener('click', function () { reqPanel.classList.add('hidden'); });
+        if (reqBackdrop) reqBackdrop.addEventListener('click', function () { reqPanel.classList.add('hidden'); });
+
+        // Tab switching
+        var tabIncoming = document.getElementById('req-tab-incoming');
+        var tabSent = document.getElementById('req-tab-sent');
+        var listIncoming = document.getElementById('req-list-incoming');
+        var listSent = document.getElementById('req-list-sent');
+
+        if (tabIncoming && tabSent) {
+          tabIncoming.addEventListener('click', function () {
+            tabIncoming.className = tabIncoming.className.replace('text-[#849495]', 'text-[#8B5CF6]').replace('border-transparent', 'border-[#8B5CF6]');
+            tabSent.className = tabSent.className.replace('text-[#8B5CF6]', 'text-[#849495]').replace('border-[#8B5CF6]', 'border-transparent');
+            listIncoming.classList.remove('hidden');
+            listSent.classList.add('hidden');
+          });
+          tabSent.addEventListener('click', function () {
+            tabSent.className = tabSent.className.replace('text-[#849495]', 'text-[#8B5CF6]').replace('border-transparent', 'border-[#8B5CF6]');
+            tabIncoming.className = tabIncoming.className.replace('text-[#8B5CF6]', 'text-[#849495]').replace('border-[#8B5CF6]', 'border-transparent');
+            listSent.classList.remove('hidden');
+            listIncoming.classList.add('hidden');
+          });
+        }
+
+        // Init badge
+        updateRequestsBadge();
+
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // CHAT: BLOCK & REPORT BUTTONS
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        var chatBlockBtn = document.getElementById('chat-block-btn');
+        var chatReportBtn = document.getElementById('chat-report-btn');
+
+        if (chatBlockBtn) {
+          chatBlockBtn.addEventListener('click', function () {
+            if (!currentContact) return;
+            var name = currentContact;
+            if (!confirm(name + ' kullanıcısını engellemek istediğinize emin misiniz?')) return;
+            // Use global blockUser
+            if (typeof blockUser === 'function') blockUser(name);
+            // Also remove from local contacts array
+            contacts = contacts.filter(function (c) { return c.id !== name; });
+            saveContactsList();
+            // Remove chat history
+            delete chatHistories[name];
+            saveChatHistories();
+            // Reset chat
+            currentContact = null;
+            document.getElementById('chat-contact-name').textContent = 'Bir kişi seçin';
+            document.getElementById('chat-status').textContent = '—';
+            document.getElementById('chat-status').style.color = '#849495';
+            document.getElementById('chat-avatar').innerHTML = '<span class="material-symbols-outlined text-[#849495]">person</span>';
+            document.getElementById('chat-body').innerHTML = '<div class="flex flex-col items-center justify-center h-full opacity-40"><span class="material-symbols-outlined text-6xl text-[#3a494b] mb-3">forum</span><p class=" font-bold text-sm text-[#849495] tracking-wide">Sohbet başlatmak için bir kişi seçin</p></div>';
+            var chatActions = document.getElementById('chat-actions');
+            if (chatActions) chatActions.style.display = 'none';
+            renderContacts();
+            renderFriendsList();
+          });
+        }
+
+        if (chatReportBtn) {
+          chatReportBtn.addEventListener('click', function () {
+            if (!currentContact) return;
+            if (typeof openReportModal === 'function') openReportModal(currentContact);
+          });
+        }
+
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // RESPONSIVE: MOBILE & TABLET LOGIC
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        var leftCol = document.getElementById('left-col');
+        var centerCol = document.getElementById('center-col');
+        var detailDrawer = document.getElementById('detail-drawer');
+        var detailDrawerBtn = document.getElementById('detail-drawer-btn');
+        var detailDrawerClose = document.getElementById('detail-drawer-close');
+        var detailDrawerBackdrop = document.getElementById('detail-drawer-backdrop');
+        var mobileBackBtn = document.getElementById('mobile-back-btn');
+
+        // Mobile: Back button â†’ show list, hide chat
+        if (mobileBackBtn) {
+          mobileBackBtn.addEventListener('click', function () {
+            centerCol.classList.add('mobile-hidden');
+            leftCol.classList.remove('mobile-hidden');
+            currentContact = null;
+          });
+        }
+
+        // Detail Drawer: open/close
+        function openDetailDrawer() {
+          detailDrawer.classList.add('active');
+          renderDrawerSuggested();
+        }
+        function closeDetailDrawer() {
+          detailDrawer.classList.remove('active');
+        }
+
+        if (detailDrawerBtn) detailDrawerBtn.addEventListener('click', openDetailDrawer);
+        if (detailDrawerClose) detailDrawerClose.addEventListener('click', closeDetailDrawer);
+        if (detailDrawerBackdrop) detailDrawerBackdrop.addEventListener('click', closeDetailDrawer);
+
+        // Render suggested players in drawer
+        function renderDrawerSuggested() {
+          var list = document.getElementById('drawer-suggested-list');
+          if (!list) return;
+          list.innerHTML = '';
+          suggested.forEach(function (s) {
+            var d = document.createElement('div');
+            d.className = 'flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#8B5CF6]/5 transition-all cursor-pointer';
+            d.innerHTML =
+              '<div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#8B5CF6]/20 to-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">' +
+              '<span class="material-symbols-outlined text-[#8B5CF6] text-sm">person</span>' +
+              '</div>' +
+              '<div class="flex-1 min-w-0">' +
+              '<span class="text-xs font-bold text-[#e2e2e8] block truncate">' + s.id + '</span>' +
+              '<span class="text-[9px] text-[#849495]">' + s.game + ' \u2022 ' + s.rank + '</span>' +
+              '</div>' +
+              '<button class="material-symbols-outlined text-[#8B5CF6] text-lg hover:scale-110 transition-transform" title="Mesaj G\u00f6nder">chat</button>';
+            (function (sRef) {
+              d.querySelector('button').addEventListener('click', function () {
+                promoteToDuoList(sRef);
+                closeDetailDrawer();
+              });
+            })(s);
+            list.appendChild(d);
+          });
+          if (suggested.length === 0) {
+            list.innerHTML = '<div class="flex flex-col items-center justify-center py-8 opacity-40"><span class="material-symbols-outlined text-3xl text-[#3a494b] mb-2">group_off</span><p class="text-xs text-[#849495]">\u00d6nerilen oyuncu yok</p></div>';
+          }
+        }
+
+        // Mobile: initial state — show list, hide chat
+        function initMobileState() {
+          if (window.innerWidth < 768) {
+            centerCol.classList.add('mobile-hidden');
+            leftCol.classList.remove('mobile-hidden');
+          } else {
+            centerCol.classList.remove('mobile-hidden');
+            leftCol.classList.remove('mobile-hidden');
+          }
+        }
+        initMobileState();
+
+        // Handle resize
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            initMobileState();
+          }, 150);
+        });
+
+      })();
+  </script>
+  <script src="../../js/modules/notifications.js"></script>
+  <script src="../../js/core/duo-state.js"></script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/settings-modal.js"></script>
+  <script src="../../js/modals/feedback-modal.js"></script>
+  <script src="../../js/modules/detail-polish.js"></script>
+  <script src="../../js/modules/theme-switcher.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+  <script src="../../js/modules/header-enhancements.js"></script>
+  <script src="../../js/modules/profile-sync.js"></script>
+  <script src="../../js/modals/report-modal.js"></script>
+  <script src="../../js/modules/mobile-nav.js"></script>
+</body>
+
+</html>
+
+
+

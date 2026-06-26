@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Kayıt Ol</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=Outfit:wght@300;400;500;600;700;800&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#0c0e12", "error": "#ffb4ab", "tertiary": "#fff4f9", "inverse-surface": "#e2e2e8", "surface-tint": "#7C3AED", "surface-dim": "#0A0B1E", "surface-container": "#1e2024", "on-surface": "#e2e2e8", "surface-bright": "#37393e", "background": "#0A0B1E", "surface": "#0A0B1E", "surface-container-high": "#282a2e", "outline": "#849495", "on-surface-variant": "#b9cacb", "surface-variant": "#333539", "on-background": "#e2e2e8", "on-primary": "#1E0A4B", "primary": "#e1fdff", "primary-fixed-dim": "#7C3AED", "primary-container": "#8B5CF6", "secondary": "#ffcf90", "outline-variant": "#3a494b" }, fontFamily: { headline: ["Outfit"], body: ["Poppins"], label: ["Poppins"] }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" } } } }
+  </script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Poppins', 'Syne', sans-serif;
+      background: #050510;
+      color: #e2e2e8;
+      overflow-x: hidden;
+      min-height: 100vh
+    }
+
+    .split-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%
+    }
+
+    /* LEFT PANEL */
+    .brand-panel {
+      flex: 1;
+      position: relative;
+      background: linear-gradient(160deg, #050510 0%, #0a0d2c 35%, #12062e 65%, #080520 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px;
+      overflow: hidden
+    }
+
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: linear-gradient(rgba(139, 92, 246, .015) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, .015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    .ambient-orb.orb-1 {
+      width: 450px;
+      height: 450px;
+      top: 10%;
+      left: -120px;
+      background: radial-gradient(circle, rgba(59, 130, 246, .08), transparent 70%);
+      animation: orbFloat 8s ease-in-out infinite
+    }
+
+    .ambient-orb.orb-2 {
+      width: 380px;
+      height: 380px;
+      bottom: 5%;
+      right: -100px;
+      background: radial-gradient(circle, rgba(139, 92, 246, .07), transparent 70%);
+      animation: orbFloat 10s ease-in-out infinite reverse
+    }
+
+    .ambient-orb.orb-3 {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      left: 40%;
+      background: radial-gradient(circle, rgba(236, 72, 153, .04), transparent 70%);
+      animation: orbFloat 12s ease-in-out infinite
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0)
+      }
+
+      50% {
+        transform: translate(20px, -15px)
+      }
+    }
+
+    .floating-shapes {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      animation: shapeFloat ease-in-out infinite
+    }
+
+    .shape-1 {
+      width: 80px;
+      height: 80px;
+      top: 12%;
+      left: 15%;
+      background: linear-gradient(135deg, #EC4899, #F472B6);
+      border-radius: 20%;
+      transform: rotate(15deg);
+      animation-duration: 7s;
+      opacity: .85
+    }
+
+    .shape-2 {
+      width: 18px;
+      height: 18px;
+      top: 22%;
+      left: 40%;
+      background: #3B82F6;
+      animation-duration: 5s;
+      animation-delay: 1s;
+      opacity: .9
+    }
+
+    .shape-3 {
+      width: 14px;
+      height: 14px;
+      top: 55%;
+      left: 8%;
+      background: #8B5CF6;
+      border-radius: 3px;
+      transform: rotate(45deg);
+      animation-duration: 9s;
+      opacity: .6
+    }
+
+    .shape-4 {
+      width: 60px;
+      height: 60px;
+      bottom: 22%;
+      left: 25%;
+      background: transparent;
+      border: 3px solid rgba(139, 92, 246, .4);
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      animation-duration: 11s;
+      opacity: .65
+    }
+
+    .shape-5 {
+      width: 50px;
+      height: 50px;
+      bottom: 35%;
+      right: 15%;
+      background: #60A5FA;
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      animation-duration: 8s;
+      opacity: .35
+    }
+
+    .shape-6 {
+      width: 90px;
+      height: 90px;
+      bottom: 10%;
+      left: 5%;
+      background: linear-gradient(135deg, #F59E0B, #FBBF24);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      animation-duration: 10s;
+      opacity: .75
+    }
+
+    @keyframes shapeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg)
+      }
+
+      25% {
+        transform: translateY(-12px) rotate(3deg)
+      }
+
+      50% {
+        transform: translateY(-6px) rotate(-2deg)
+      }
+
+      75% {
+        transform: translateY(-18px) rotate(1deg)
+      }
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 10;
+      max-width: 480px
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px
+    }
+
+    .brand-logo .material-symbols-outlined {
+      font-size: 40px;
+      color: #8B5CF6;
+      font-variation-settings: 'FILL' 1
+    }
+
+    .brand-logo span:last-child {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 34px;
+      letter-spacing: -1px;
+      color: #8B5CF6
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 20px
+    }
+
+    .brand-title .highlight {
+      color: #8B5CF6;
+      text-shadow: 0 0 25px rgba(139, 92, 246, .25)
+    }
+
+    .brand-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(226, 226, 232, .55);
+      max-width: 400px
+    }
+
+    .brand-desc strong {
+      color: rgba(226, 226, 232, .8)
+    }
+
+    /* RIGHT PANEL */
+    .form-panel {
+      width: 780px;
+      min-width: 780px;
+      background: rgba(8, 10, 30, .97);
+      border-left: 1px solid rgba(139, 92, 246, .06);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-y: auto
+    }
+
+    .form-scroll-area {
+      flex: 1;
+      padding: 36px 44px;
+      overflow-y: auto
+    }
+
+    .lang-hint {
+      position: absolute;
+      top: 24px;
+      right: 155px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: rgba(132, 148, 149, .4);
+      z-index: 5
+    }
+
+    .lang-hint .material-symbols-outlined {
+      font-size: 16px
+    }
+
+    .go-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: rgba(132, 148, 149, .5);
+      text-decoration: none;
+      transition: all .3s;
+      margin-bottom: 24px;
+      cursor: pointer
+    }
+
+    .go-back:hover {
+      color: #8B5CF6
+    }
+
+    .go-back .material-symbols-outlined {
+      font-size: 18px;
+      transition: transform .3s
+    }
+
+    .go-back:hover .material-symbols-outlined {
+      transform: translateX(-3px)
+    }
+
+    .welcome-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px
+    }
+
+    .welcome-header p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: rgba(132, 148, 149, .6);
+      margin-bottom: 28px
+    }
+
+    /* INPUTS */
+    .input-group {
+      position: relative;
+      margin-bottom: 4px
+    }
+
+    .input-group .input-icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: rgba(132, 148, 149, .4);
+      transition: all .3s;
+      font-variation-settings: 'FILL' 0, 'wght' 300
+    }
+
+    .input-group input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid rgba(58, 73, 75, .4);
+      color: #e2e2e8;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      padding: 12px 12px 12px 32px;
+      outline: none;
+      transition: all .35s
+    }
+
+    .input-group input::placeholder {
+      color: rgba(132, 148, 149, .3);
+      font-weight: 400
+    }
+
+    .input-group input:focus {
+      border-bottom-color: #3B82F6;
+      box-shadow: 0 4px 15px -6px rgba(59, 130, 246, .3)
+    }
+
+    .input-group:focus-within .input-icon {
+      color: #3B82F6;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(139, 92, 246, .45);
+      margin-bottom: 2px;
+      display: block
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(58, 73, 75, .3), transparent);
+      margin: 18px 0
+    }
+
+    /* GAME PILLS */
+    .game-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .06);
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(226, 226, 232, .6);
+      cursor: pointer;
+      transition: all .3s;
+      backdrop-filter: blur(8px)
+    }
+
+    .game-pill:hover {
+      border-color: rgba(139, 92, 246, .3);
+      color: rgba(226, 226, 232, .8)
+    }
+
+    .game-pill .material-symbols-outlined {
+      font-size: 16px;
+      color: rgba(132, 148, 149, .4);
+      transition: color .3s
+    }
+
+    .game-pill[data-selected="true"] {
+      background: rgba(139, 92, 246, .08) !important;
+      border-color: rgba(139, 92, 246, .4) !important;
+      color: #8B5CF6 !important;
+      box-shadow: 0 0 15px rgba(139, 92, 246, .15)
+    }
+
+    .game-pill[data-selected="true"] .material-symbols-outlined {
+      color: #8B5CF6 !important
+    }
+
+    /* BUTTON */
+    .gamer-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(45deg, #3B82F6, #2563EB);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, .3), 0 0 40px rgba(59, 130, 246, .1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px
+    }
+
+    .gamer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, .4), 0 0 60px rgba(59, 130, 246, .15)
+    }
+
+    .gamer-btn:active {
+      transform: translateY(0) scale(.98)
+    }
+
+    .gamer-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .1), transparent);
+      transition: left .5s
+    }
+
+    .gamer-btn:hover::after {
+      left: 100%
+    }
+
+    #reg-error {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: #ff6b6b;
+      text-align: center;
+      margin-top: 8px
+    }
+
+    /* AGREEMENT */
+    .agreement-section {
+      padding: 14px 0 4px
+    }
+
+    .agreement-section .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(139, 92, 246, .45);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .agreement-section .section-title .material-symbols-outlined {
+      font-size: 15px;
+      color: rgba(139, 92, 246, .4);
+      font-variation-settings: 'FILL' 1
+    }
+
+    .agreement-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 14px;
+      margin-bottom: 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .015);
+      border: 1px solid rgba(255, 255, 255, .04);
+      transition: all .3s;
+      cursor: pointer
+    }
+
+    .agreement-item:hover {
+      background: rgba(139, 92, 246, .03);
+      border-color: rgba(139, 92, 246, .12)
+    }
+
+    .agreement-item.checked {
+      background: rgba(139, 92, 246, .05);
+      border-color: rgba(139, 92, 246, .2)
+    }
+
+    .agreement-item.select-all {
+      background: rgba(59, 130, 246, .03);
+      border-color: rgba(59, 130, 246, .1);
+      margin-bottom: 10px
+    }
+
+    .agreement-item.select-all:hover {
+      background: rgba(59, 130, 246, .06);
+      border-color: rgba(59, 130, 246, .2)
+    }
+
+    .agreement-item.select-all.checked {
+      background: rgba(59, 130, 246, .08);
+      border-color: rgba(59, 130, 246, .3)
+    }
+
+    .custom-checkbox {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(58, 73, 75, .5);
+      background: rgba(5, 5, 16, .6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .3s;
+      margin-top: 1px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .custom-checkbox .material-symbols-outlined {
+      font-size: 14px;
+      color: transparent;
+      transition: all .25s;
+      font-variation-settings: 'FILL' 1, 'wght' 600
+    }
+
+    .agreement-item.checked .custom-checkbox {
+      border-color: rgba(139, 92, 246, .6);
+      background: rgba(139, 92, 246, .15);
+      box-shadow: 0 0 12px rgba(139, 92, 246, .15)
+    }
+
+    .agreement-item.checked .custom-checkbox .material-symbols-outlined {
+      color: #8B5CF6
+    }
+
+    .agreement-item.select-all.checked .custom-checkbox {
+      border-color: rgba(59, 130, 246, .6);
+      background: rgba(59, 130, 246, .15)
+    }
+
+    .agreement-item.select-all.checked .custom-checkbox .material-symbols-outlined {
+      color: #3B82F6
+    }
+
+    .agreement-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(226, 226, 232, .6);
+      flex: 1
+    }
+
+    .agreement-text a {
+      color: #8B5CF6;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .2s;
+      border-bottom: 1px solid transparent
+    }
+
+    .agreement-text a:hover {
+      color: #A78BFA;
+      border-bottom-color: rgba(139, 92, 246, .4)
+    }
+
+    .agreement-item.select-all .agreement-text {
+      font-weight: 600;
+      color: rgba(226, 226, 232, .7)
+    }
+
+    .agreement-error {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(255, 68, 68, .06);
+      border: 1px solid rgba(255, 68, 68, .15);
+      margin-top: 8px;
+      animation: fadeInUp .3s
+    }
+
+    .agreement-error.show {
+      display: flex
+    }
+
+    .agreement-error .material-symbols-outlined {
+      font-size: 16px;
+      color: #ff6b6b;
+      font-variation-settings: 'FILL' 1
+    }
+
+    .agreement-error span:last-child {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      color: #ff6b6b
+    }
+
+    /* EXPANDABLE LEGAL ACCORDION */
+    .agreement-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      padding: 2px 8px;
+      border-radius: 6px;
+      color: #8B5CF6;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .25s;
+      margin-left: 4px;
+      white-space: nowrap
+    }
+
+    .agreement-expand-btn:hover {
+      background: rgba(139, 92, 246, .08);
+      color: #A78BFA
+    }
+
+    .agreement-expand-btn .material-symbols-outlined {
+      font-size: 16px;
+      transition: transform .3s ease
+    }
+
+    .agreement-expand-btn.expanded .material-symbols-outlined {
+      transform: rotate(180deg)
+    }
+
+    .legal-accordion {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s cubic-bezier(.4, 0, .2, 1), opacity .3s ease, padding .3s ease;
+      opacity: 0;
+      margin-top: 0;
+      border-radius: 10px;
+      background: rgba(5, 5, 16, .6);
+      border: 1px solid transparent
+    }
+
+    .legal-accordion.open {
+      opacity: 1;
+      border-color: rgba(139, 92, 246, .1);
+      margin-top: 8px;
+      padding: 14px 16px
+    }
+
+    .legal-accordion-content {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: rgba(226, 226, 232, .6)
+    }
+
+    .legal-accordion-content strong {
+      color: rgba(226, 226, 232, .85)
+    }
+
+    .legal-accordion-content p {
+      margin-bottom: 8px
+    }
+
+    .legal-accordion-content ul {
+      padding-left: 18px;
+      margin: 6px 0
+    }
+
+    .legal-accordion-content li {
+      margin-bottom: 4px
+    }
+
+    .legal-accordion-header {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #8B5CF6;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .legal-accordion-header .material-symbols-outlined {
+      font-size: 16px;
+      font-variation-settings: 'FILL' 1
+    }
+
+    /* DIVIDER & FOOTER */
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(58, 73, 75, .4), transparent)
+    }
+
+    .login-divider span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(132, 148, 149, .4);
+      white-space: nowrap
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: rgba(185, 202, 203, .5);
+      padding: 16px 0;
+      border-top: 1px solid rgba(58, 73, 75, .2)
+    }
+
+    .login-footer a {
+      color: #8B5CF6;
+      font-weight: 700;
+      text-decoration: none;
+      margin-left: 4px;
+      transition: all .3s
+    }
+
+    .login-footer a:hover {
+      text-shadow: 0 0 10px rgba(139, 92, 246, .4)
+    }
+
+    .guest-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px;
+      border-radius: 14px;
+      background: rgba(139, 92, 246, .04);
+      border: 1.5px solid rgba(139, 92, 246, .2);
+      color: rgba(139, 92, 246, .7);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition: all .35s
+    }
+
+    .guest-btn:hover {
+      background: rgba(139, 92, 246, .1);
+      border-color: rgba(139, 92, 246, .45);
+      color: #8B5CF6;
+      box-shadow: 0 0 30px rgba(139, 92, 246, .12);
+      transform: translateY(-1px)
+    }
+
+    .guest-btn:active {
+      transform: translateY(0) scale(.98)
+    }
+
+    /* PAGE FOOTER */
+    .page-footer {
+      background: rgba(6, 7, 24, .6);
+      border-top: 1px solid rgba(139, 92, 246, .06);
+      padding: 14px 20px
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 4px 12px;
+      margin-bottom: 6px
+    }
+
+    .footer-links a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(185, 202, 203, .35);
+      text-decoration: none;
+      transition: all .3s;
+      letter-spacing: .3px
+    }
+
+    .footer-links a:hover {
+      color: #8B5CF6
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px;
+      color: rgba(132, 148, 149, .25)
+    }
+
+    .footer-divider {
+      color: rgba(58, 73, 75, .3);
+      font-size: 7px;
+      user-select: none
+    }
+
+    /* MODALS */
+    .legal-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s
+    }
+
+    .legal-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .legal-modal-card {
+      background: rgba(15, 17, 30, .95);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, .15);
+      border-radius: 24px;
+      padding: 32px;
+      width: 90%;
+      max-width: 520px;
+      max-height: 70vh;
+      overflow-y: auto;
+      box-shadow: 0 0 60px rgba(139, 92, 246, .08), 0 24px 48px rgba(0, 0, 0, .5);
+      transform: scale(.92) translateY(20px);
+      transition: transform .35s cubic-bezier(.22, 1, .36, 1)
+    }
+
+    .legal-modal-overlay.active .legal-modal-card {
+      transform: scale(1) translateY(0)
+    }
+
+    .legal-modal-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #8B5CF6;
+      margin-bottom: 16px
+    }
+
+    .legal-modal-card .legal-body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(226, 226, 232, .75)
+    }
+
+    .legal-modal-card .legal-body strong {
+      color: #e2e2e8
+    }
+
+    .legal-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: rgba(132, 148, 149, .5);
+      cursor: pointer;
+      font-size: 22px;
+      transition: color .2s
+    }
+
+    .legal-modal-close:hover {
+      color: #ff6b6b
+    }
+
+    .verify-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, .7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s
+    }
+
+    .verify-backdrop.active {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .verify-card {
+      background: rgba(15, 17, 30, .9);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, .12);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 60px rgba(139, 92, 246, .06), 0 24px 48px rgba(0, 0, 0, .5);
+      transform: scale(.92) translateY(20px);
+      transition: transform .35s cubic-bezier(.22, 1, .36, 1)
+    }
+
+    .verify-backdrop.active .verify-card {
+      transform: scale(1) translateY(0)
+    }
+
+    .code-input {
+      width: 3rem;
+      height: 3.5rem;
+      background: rgba(5, 5, 16, .8);
+      border: 1.5px solid rgba(58, 73, 75, .4);
+      border-radius: 12px;
+      color: #8B5CF6;
+      font-family: 'Outfit', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+      transition: all .2s;
+      caret-color: #8B5CF6
+    }
+
+    .code-input:focus {
+      border-color: rgba(139, 92, 246, .6);
+      box-shadow: 0 0 20px rgba(139, 92, 246, .15), 0 0 6px rgba(139, 92, 246, .3)
+    }
+
+    .code-input.error {
+      border-color: rgba(255, 68, 68, .7);
+      box-shadow: 0 0 12px rgba(255, 68, 68, .3);
+      animation: codeShake .4s
+    }
+
+    .code-input.success {
+      border-color: rgba(0, 230, 118, .7);
+      box-shadow: 0 0 12px rgba(0, 230, 118, .3);
+      color: #00e676
+    }
+
+    @keyframes codeShake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      20%,
+      60% {
+        transform: translateX(-6px)
+      }
+
+      40%,
+      80% {
+        transform: translateX(6px)
+      }
+    }
+
+    .btn-spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, .2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: inline-block
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes pulseRing {
+      0% {
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, .4)
+      }
+
+      70% {
+        box-shadow: 0 0 0 12px rgba(139, 92, 246, 0)
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0)
+      }
+    }
+
+    .pulse-ring {
+      animation: pulseRing 2s ease infinite
+    }
+
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeInUp .7s ease-out forwards
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* MOBILE NAV */
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background: rgba(5, 5, 16, .85);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(139, 92, 246, .08);
+      padding: 10px 0 22px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center
+    }
+
+    .mobile-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      transition: all .3s
+    }
+
+    .mobile-nav .nav-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .brand-panel {
+        padding: 40px
+      }
+
+      .brand-title {
+        font-size: 34px
+      }
+
+      .form-panel {
+        width: 700px;
+        min-width: 700px
+      }
+
+      .form-scroll-area {
+        padding: 32px 32px
+      }
+    }
+
+    @media(max-width:768px) {
+      .split-container {
+        flex-direction: column
+      }
+
+      .brand-panel {
+        display: none
+      }
+
+      .form-panel {
+        width: 100%;
+        min-width: 100%;
+        border-left: none;
+        background: linear-gradient(160deg, #050510 0%, #0a0d2c 40%, #12062e 70%, #080520 100%)
+      }
+
+      .form-scroll-area {
+        padding: 24px 20px;
+        padding-top: 20px;
+        padding-bottom: 100px
+      }
+
+      .go-back {
+        margin-bottom: 20px
+      }
+
+      .welcome-header h1 {
+        font-size: 22px
+      }
+
+      .lang-hint {
+        top: 18px;
+        right: 18px
+      }
+    }
+
+    @keyframes istiFlagWave {
+      0% {
+        transform: rotate(0deg) scaleX(1)
+      }
+
+      15% {
+        transform: rotate(2.5deg) scaleX(1.04)
+      }
+
+      30% {
+        transform: rotate(-1.5deg) scaleX(0.97)
+      }
+
+      50% {
+        transform: rotate(2deg) scaleX(1.03)
+      }
+
+      70% {
+        transform: rotate(-1deg) scaleX(0.99)
+      }
+
+      85% {
+        transform: rotate(1.5deg) scaleX(1.02)
+      }
+
+      100% {
+        transform: rotate(0deg) scaleX(1)
+      }
+    }
+
+    @keyframes istiPoleShine {
+
+      0%,
+      100% {
+        opacity: .6
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    .istiklal-flag-wrap {
+      display: inline-flex;
+      align-items: center;
+      position: relative
+    }
+
+    .istiklal-fpole {
+      width: 2px;
+      height: 18px;
+      background: linear-gradient(180deg, #FFD700, #C8A832, #FFD700);
+      border-radius: 1px;
+      flex-shrink: 0;
+      animation: istiPoleShine 3s ease-in-out infinite;
+      box-shadow: 0 0 4px rgba(255, 215, 0, .4);
+      position: relative
+    }
+
+    .istiklal-fpole::before {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 4px;
+      background: #FFD700;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      left: -1px;
+      box-shadow: 0 0 5px rgba(255, 215, 0, .6)
+    }
+
+    .istiklal-fsvg {
+      animation: istiFlagWave 4s ease-in-out infinite;
+      transform-origin: left center;
+    }
+
+    /* ── Giant Background Flag ── */
+    .giant-bg-flag {
+      position: absolute;
+      top: 4%;
+      left: 50%;
+      width: 380px;
+      transform: translateX(-50%);
+      opacity: 0.50;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .waving-bg-flag-svg {
+      width: 100%;
+      height: auto;
+      animation: giantFlagWave 5s ease-in-out infinite;
+      transform-origin: center left;
+      border-radius: 12px;
+    }
+
+    @keyframes giantFlagWave {
+
+      0%,
+      100% {
+        transform: perspective(800px) rotateY(0deg) skewY(0deg);
+        border-radius: 12px;
+      }
+
+      25% {
+        transform: perspective(800px) rotateY(4deg) skewY(1.5deg);
+        border-radius: 12px 24px 12px 18px;
+      }
+
+      50% {
+        transform: perspective(800px) rotateY(-2deg) skewY(-1deg);
+        border-radius: 12px 10px 12px 24px;
+      }
+
+      75% {
+        transform: perspective(800px) rotateY(2deg) skewY(0.5deg);
+        border-radius: 12px 18px 12px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="split-container">
+    <!-- LEFT PANEL -->
+    <div class="brand-panel">
+      <canvas id="particle-canvas"></canvas>
+      <div class="ambient-orb orb-1"></div>
+      <div class="ambient-orb orb-2"></div>
+      <div class="ambient-orb orb-3"></div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+        <div class="shape shape-6"></div>
+      </div>
+
+      <!-- Giant Waving Background Flag -->
+      <div class="giant-bg-flag">
+        <svg class="waving-bg-flag-svg" viewBox="0 0 1200 800">
+          <rect width="1200" height="800" fill="#E30A17" rx="40" />
+          <circle cx="400" cy="400" r="200" fill="#fff" />
+          <circle cx="450" cy="400" r="160" fill="#E30A17" />
+          <polygon fill="#fff" fill-rule="nonzero" points="566.6,400 747.5,341.2 635.7,495.1 635.7,304.9 747.5,458.8" />
+        </svg>
+      </div>
+
+      <div class="brand-content fade-in-up">
+        <div class="brand-logo">
+          <span class="material-symbols-outlined">sports_esports</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;">İSTİKLAL<span class="istiklal-flag-wrap"
+              title="🇹🇷"><span class="istiklal-fpole" style="height:28px;"></span><svg class="istiklal-fsvg"
+                width="36" height="24" viewBox="0 0 1200 800">
+                <rect width="1200" height="800" fill="#E30A17" />
+                <circle cx="400" cy="400" r="200" fill="#fff" />
+                <circle cx="450" cy="400" r="160" fill="#E30A17" />
+                <polygon fill="#fff" fill-rule="nonzero"
+                  points="566.6,400 747.5,341.2 635.7,495.1 635.7,304.9 747.5,458.8" />
+              </svg></span></span>
+        </div>
+        <h2 class="brand-title"><span data-i18n="brand_reg_title_1">Yeni Nesil</span><br><span class="highlight"
+            data-i18n="brand_reg_highlight">Eşleşme</span><br><span data-i18n="brand_reg_title_2">Deneyimi</span></h2>
+        <p class="brand-desc" data-i18n="brand_reg_desc">Rekabetçi oyun dünyasında <strong>mükemmel takım
+            arkadaşını</strong> bul. Ücretsiz kayıt ol, hemen eşleşmeye başla.</p>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="form-panel">
+      <div class="lang-hint"><span class="material-symbols-outlined">language</span><span
+          data-i18n="lang_hint_text">Türkçe (Turkish)</span></div>
+      <div class="form-scroll-area">
+        <a class="go-back fade-in-up" style="animation-delay:.1s" href="../giri_yap_login/code.html">
+          <span class="material-symbols-outlined">arrow_back</span><span data-i18n="go_back">Geri Dön</span>
+        </a>
+        <div class="welcome-header fade-in-up" style="animation-delay:.15s">
+          <h1 data-i18n="reg_title_heading">Hesap Oluştur</h1>
+          <p data-i18n="reg_join_sub">Yeni nesil eşleşme deneyimine katıl.</p>
+        </div>
+
+        <form class="space-y-5" onsubmit="return false;">
+          <!-- Username -->
+          <div class="fade-in-up" style="animation-delay:.2s">
+            <label class="field-label" data-i18n="username_label">Kullanıcı Adı</label>
+            <div class="input-group"><span class="material-symbols-outlined input-icon">person</span><input
+                id="reg-username" type="text" placeholder="Gamer Etiketi" data-i18n-ph="reg_gamer_tag_ph" /></div>
+          </div>
+          <!-- Email -->
+          <div class="fade-in-up" style="animation-delay:.25s">
+            <label class="field-label" data-i18n="email_label">E-posta</label>
+            <div class="input-group"><span class="material-symbols-outlined input-icon">alternate_email</span><input
+                id="reg-email" type="email" placeholder="ornek@mail.com" /></div>
+          </div>
+          <!-- Password Row -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 fade-in-up" style="animation-delay:.3s">
+            <div><label class="field-label" data-i18n="password_label">Şifre</label>
+              <div class="input-group"><span class="material-symbols-outlined input-icon">lock</span><input
+                  id="reg-password" type="password" placeholder="••••••••" /></div>
+            </div>
+            <div><label class="field-label" data-i18n="reg_pw_confirm">Şifre Tekrar</label>
+              <div class="input-group"><span class="material-symbols-outlined input-icon">lock</span><input
+                  id="reg-password-confirm" type="password" placeholder="••••••••" /></div>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- Game Selector -->
+          <div class="fade-in-up" style="animation-delay:.35s">
+            <div class="flex justify-between items-center mb-3">
+              <label class="field-label" style="margin-bottom:0" data-i18n="reg_fav_games">En Sevdiğin Oyunlar</label>
+              <span class=" text-[9px] font-bold tracking-widest uppercase" style="color:rgba(255,170,0,.5)"
+                data-i18n="reg_optional">Opsiyonel</span>
+            </div>
+            <div id="game-selector" class="flex flex-wrap gap-2">
+              <button class="game-pill" type="button" data-game="lol"><span
+                  class="material-symbols-outlined">swords</span>League of Legends</button>
+              <button class="game-pill" type="button" data-game="valorant"><span
+                  class="material-symbols-outlined">target</span>Valorant</button>
+              <button class="game-pill" type="button" data-game="cs2"><span
+                  class="material-symbols-outlined">videogame_asset</span>CS2</button>
+              <button class="game-pill" type="button" data-game="fc24"><span
+                  class="material-symbols-outlined">sports_soccer</span>FC 24</button>
+              <button class="game-pill" type="button" data-game="minecraft"><span
+                  class="material-symbols-outlined">construction</span>Minecraft</button>
+              <button class="game-pill" type="button" data-game="gta5"><span
+                  class="material-symbols-outlined">directions_car</span>GTA 5</button>
+              <button class="game-pill" type="button" data-game="pubg"><span
+                  class="material-symbols-outlined">military_tech</span>PUBG</button>
+              <button class="game-pill" type="button" data-game="apex"><span
+                  class="material-symbols-outlined">explore</span>Apex Legends</button>
+              <button class="game-pill" type="button" data-game="r6"><span
+                  class="material-symbols-outlined">security</span>R6 Siege</button>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- AGREEMENTS -->
+          <div class="agreement-section fade-in-up" style="animation-delay:.4s">
+            <div class="section-title"><span class="material-symbols-outlined">gavel</span><span
+                data-i18n="agree_section_title">Sözleşme Onayı</span></div>
+            <div class="agreement-item select-all" id="agree-all" onclick="toggleSelectAll()">
+              <div class="custom-checkbox"><span class="material-symbols-outlined">check</span></div>
+              <div class="agreement-text" data-i18n="agree_select_all">Tümünü kabul ediyorum</div>
+            </div>
+
+            <!-- Kullanım Koşulları -->
+            <div class="agreement-item" data-agreement="terms" onclick="toggleAgreement(this)">
+              <div class="custom-checkbox"><span class="material-symbols-outlined">check</span></div>
+              <div class="agreement-text">
+                <span data-i18n="accord_terms_text">Kullanım Koşulları'nı okudum ve kabul ediyorum.</span>
+                <button type="button" class="agreement-expand-btn"
+                  onclick="event.stopPropagation(); toggleLegalAccordion('terms-accordion', this)">
+                  <span class="material-symbols-outlined">expand_more</span><span data-i18n="accord_read_btn">Oku</span>
+                </button>
+                <div class="legal-accordion" id="terms-accordion">
+                  <div class="legal-accordion-header"><span class="material-symbols-outlined">description</span><span
+                      data-i18n="accord_terms_header">Kullanım Koşulları</span></div>
+                  <div class="legal-accordion-content">
+                    <p><strong data-i18n="accord_terms_body_title">İstiklal Genel Kullanım Koşulları</strong></p>
+                    <p data-i18n="accord_terms_body_intro">İstiklal hizmetlerine erişerek aşağıdaki kuralları kabul
+                      etmiş sayılırsınız:</p>
+                    <ul>
+                      <li data-i18n="accord_terms_rule_1">Platform üzerinde diğer kullanıcılara karşı saygılı ve adil
+                        olmak.</li>
+                      <li data-i18n="accord_terms_rule_2">Hile, üçüncü parti yazılım veya manipülatif bot kullanımının
+                        kalıcı yasaklanma sebebi olduğunu bilmek.</li>
+                      <li data-i18n="accord_terms_rule_3">Toksik davranışlar ve hakaret içerikli mesajların sistem
+                        tarafından otomatik olarak filtrelendiğini kabul etmek.</li>
+                    </ul>
+                    <p data-i18n="accord_terms_body_footer">Platform yönetimi kural ihlallerinde önceden haber
+                      vermeksizin hesapları kapatma hakkını saklı tutar.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gizlilik Politikası -->
+            <div class="agreement-item" data-agreement="privacy" onclick="toggleAgreement(this)">
+              <div class="custom-checkbox"><span class="material-symbols-outlined">check</span></div>
+              <div class="agreement-text">
+                <span data-i18n="accord_privacy_text">Gizlilik Politikası'nı okudum ve kabul ediyorum.</span>
+                <button type="button" class="agreement-expand-btn"
+                  onclick="event.stopPropagation(); toggleLegalAccordion('privacy-accordion', this)">
+                  <span class="material-symbols-outlined">expand_more</span><span data-i18n="accord_read_btn">Oku</span>
+                </button>
+                <div class="legal-accordion" id="privacy-accordion">
+                  <div class="legal-accordion-header"><span class="material-symbols-outlined">shield</span><span
+                      data-i18n="accord_privacy_header">Gizlilik Politikası</span></div>
+                  <div class="legal-accordion-content">
+                    <p><strong data-i18n="accord_privacy_body_title">İstiklal Gizlilik Politikası</strong></p>
+                    <p data-i18n="accord_privacy_body_date">Son güncellenme: 14 Eylül 2026</p>
+                    <p data-i18n="accord_privacy_body_p1">İstiklal olarak kişisel verilerinize son derece önem
+                      veriyoruz. Sistemimizde toplanan veriler yalnızca oyuncu eşleştirmelerini daha isabetli
+                      gerçekleştirmek ve size daha iyi bir deneyim sunmak amacıyla kullanılmaktadır.</p>
+                    <p data-i18n="accord_privacy_body_p2">Oyun içi istatistikleriniz ve oynama süreleriniz herkese açık
+                      olarak profilinizde sergilenmekte olup, mesajlaşma verileriniz uçtan uca şifreleme ile
+                      korunmaktadır.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KVKK Aydınlatma Metni -->
+            <div class="agreement-item" data-agreement="kvkk" onclick="toggleAgreement(this)">
+              <div class="custom-checkbox"><span class="material-symbols-outlined">check</span></div>
+              <div class="agreement-text">
+                <span data-i18n="accord_kvkk_text">KVKK Aydınlatma Metni'ni okudum, onaylıyorum.</span>
+                <button type="button" class="agreement-expand-btn"
+                  onclick="event.stopPropagation(); toggleLegalAccordion('kvkk-accordion', this)">
+                  <span class="material-symbols-outlined">expand_more</span><span data-i18n="accord_read_btn">Oku</span>
+                </button>
+                <div class="legal-accordion" id="kvkk-accordion">
+                  <div class="legal-accordion-header"><span class="material-symbols-outlined">gavel</span><span
+                      data-i18n="accord_kvkk_header">KVKK Aydınlatma Metni</span></div>
+                  <div class="legal-accordion-content">
+                    <p><strong data-i18n="accord_kvkk_body_title">6698 Sayılı KVKK Çerçevesinde Aydınlatma
+                        Metni</strong></p>
+                    <p data-i18n="accord_kvkk_body_p1">Veri Sorumlusu sıfatıyla İstiklal A.Ş., toplanan bilgilerinizi
+                      KVKK'nın 5. ve 6. maddelerine uygun olarak işlemektedir.</p>
+                    <p data-i18n="accord_kvkk_body_p2">Detaylı talep ve itirazlarınızı "destek@duofinder.com" adresine
+                      iletebilirsiniz.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Çerez Politikası -->
+            <div class="agreement-item" data-agreement="cookie" onclick="toggleAgreement(this)">
+              <div class="custom-checkbox"><span class="material-symbols-outlined">check</span></div>
+              <div class="agreement-text">
+                <span data-i18n="accord_cookie_text">Çerez Politikası'nı kabul ediyorum.</span>
+                <button type="button" class="agreement-expand-btn"
+                  onclick="event.stopPropagation(); toggleLegalAccordion('cookie-accordion', this)">
+                  <span class="material-symbols-outlined">expand_more</span><span data-i18n="accord_read_btn">Oku</span>
+                </button>
+                <div class="legal-accordion" id="cookie-accordion">
+                  <div class="legal-accordion-header"><span class="material-symbols-outlined">cookie</span><span
+                      data-i18n="accord_cookie_header">Çerez Politikası</span></div>
+                  <div class="legal-accordion-content">
+                    <p><strong data-i18n="accord_cookie_body_title">Çerez (Cookie) Kullanımı</strong></p>
+                    <p data-i18n="accord_cookie_body_p1">Platformumuzun temel işlevlerini sağlamak ve güvenliği sağlamak
+                      için zaruri çerezler kullanılmaktadır.</p>
+                    <p data-i18n="accord_cookie_body_p2">Sitemizde reklam çerezleri veya üçüncü taraf izleme çerezleri
+                      bulundurmamaktayız.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="agreement-error" id="agreement-error"><span class="material-symbols-outlined">error</span><span
+                data-i18n="agree_error_msg">Devam edebilmek için tüm sözleşmeleri onaylamanız gerekmektedir.</span>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- İstiklal Shield CAPTCHA -->
+          <div class="fade-in-up" style="animation-delay:.42s;margin-bottom:16px;">
+            <div id="register-captcha-container"></div>
+          </div>
+
+          <!-- Register Button -->
+          <div class="fade-in-up" style="animation-delay:.45s">
+            <button id="register-btn" type="button" class="gamer-btn"><span data-i18n="reg_create_account">Hesap
+                Oluştur</span><span class="material-symbols-outlined text-lg">arrow_forward</span></button>
+            <p id="reg-error" class="hidden"></p>
+          </div>
+        </form>
+
+        <!-- Login Link -->
+        <div class="login-footer fade-in-up" style="animation-delay:.5s">
+          <span data-i18n="reg_already_account">Zaten bir hesabın var mı?</span>
+          <a href="../giri_yap_login/code.html" data-i18n="reg_login_link">Giriş Yap</a>
+        </div>
+        <div class="login-divider my-4 fade-in-up" style="animation-delay:.55s"><span
+            data-i18n="login_or_guest">veya</span></div>
+        <div class="fade-in-up" style="animation-delay:.6s">
+          <button id="guest-access-btn" type="button" class="guest-btn"
+            onclick="localStorage.removeItem('loggedInUser'); window.location.href='../duo_finder_dashboard_yeni/code.html';">
+            <span class="material-symbols-outlined"
+              style="font-size:18px;font-variation-settings:'FILL' 1">visibility</span>
+            <span data-i18n="guest_access_btn">Misafir Olarak Devam Et</span>
+          </button>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <div class="footer-links">
+          <a href="javascript:void(0)" onclick="openFAQModal()" data-i18n="footer_faq">SSS</a><span
+            class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('gizlilik')" data-i18n="footer_privacy">Gizlilik</a><span
+            class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kosullar')" data-i18n="footer_terms">Koşullar</a><span
+            class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('cerez')" data-i18n="footer_cookie">Çerez</a><span
+            class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kvkk')" data-i18n="footer_kvkk">KVKK</a><span
+            class="footer-divider">•</span>
+          <a href="javascript:void(0)" onclick="openSupportModal()" data-i18n="footer_contact">İletişim</a>
+        </div>
+        <div class="footer-bottom" data-i18n="footer_copyright">© 2026 İstiklal. Tüm hakları saklıdır.</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- LEGAL MODAL -->
+  <div id="legal-modal-overlay" class="legal-modal-overlay" onclick="if(event.target===this)closeLegalModal()">
+    <div class="legal-modal-card" style="position:relative">
+      <button class="legal-modal-close material-symbols-outlined" onclick="closeLegalModal()">close</button>
+      <h3 id="legal-modal-title"></h3>
+      <div id="legal-modal-content" class="legal-body"></div>
+    </div>
+  </div>
+
+  <!-- SUCCESS TOAST -->
+  <div id="success-toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] hidden">
+    <div class="flex items-center gap-3 px-6 py-4 rounded-2xl border backdrop-blur-xl"
+      style="background:rgba(139,92,246,.08);border-color:rgba(139,92,246,.3);box-shadow:0 0 30px rgba(139,92,246,.2)">
+      <span class="material-symbols-outlined text-[#8B5CF6] text-2xl"
+        style="font-variation-settings:'FILL' 1">check_circle</span>
+      <span class="text-[#e2e2e8] font-semibold text-sm" data-i18n="reg_success_toast">Hesap başarıyla
+        oluşturuldu!</span>
+    </div>
+  </div>
+
+  <!-- VERIFICATION MODAL -->
+  <div id="verify-backdrop" class="verify-backdrop">
+    <div class="verify-card">
+      <div class="text-center mb-6">
+        <div
+          class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#EC4899] flex items-center justify-center shadow-[0_0_30px_rgba(139,92,246,.3)] pulse-ring">
+          <span class="material-symbols-outlined text-[#050510] text-3xl"
+            style="font-variation-settings:'FILL' 1">mark_email_read</span>
+        </div>
+        <h3 class="text-xl font-bold text-[#e2e2e8] mb-1 " data-i18n="reg_verify_title">Doğrulama Kodu
+        </h3>
+        <p class="text-[13px] text-[#849495] leading-relaxed">E-posta adresinize gönderilen <span
+            class="text-[#8B5CF6] font-bold">6 haneli kodu</span> giriniz.</p>
+        <p id="verify-email-display" class="text-[11px] text-[#8B5CF6]/50 mt-1 font-mono"></p>
+      </div>
+      <div id="code-inputs" class="flex justify-center gap-2 sm:gap-3 mb-4">
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="0">
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="1">
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="2">
+        <div class="flex items-center px-1"><span class="text-[#3a494b] text-xl font-bold">—</span></div>
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="3">
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="4">
+        <input class="code-input" type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-idx="5">
+      </div>
+      <p id="verify-error" class="text-center text-[12px] text-red-400 mb-4 hidden"></p>
+      <button id="verify-confirm-btn"
+        class="w-full py-3.5 rounded-full font-bold text-[#050510] uppercase tracking-[.15em] text-sm  flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-95"
+        style="background:linear-gradient(135deg,#00e676,#00c853);box-shadow:0 0 20px rgba(0,230,118,.25)">
+        <span class="material-symbols-outlined text-lg">verified</span><span>Doğrula & Kayıt Ol</span>
+      </button>
+      <div class="flex items-center justify-between mt-4">
+        <button id="verify-resend-btn"
+          class="text-[11px] text-[#8B5CF6]/50 hover:text-[#8B5CF6] transition-colors uppercase tracking-widest font-bold "
+          disabled>Tekrar Gönder (<span id="resend-timer">60</span>s)</button>
+        <button id="verify-cancel-btn"
+          class="text-[11px] text-[#849495] hover:text-red-400 transition-colors uppercase tracking-widest font-bold "
+          data-i18n="reg_cancel">İptal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav md:hidden">
+    <a href="../giri_yap_login/code.html" class="text-[#e2e2e8]/30 hover:text-[#8B5CF6]/60"><span
+        class="material-symbols-outlined">login</span><span class="nav-label" data-i18n="nav_login">Giriş</span></a>
+    <a href="#" class="text-[#8B5CF6]">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+      <span class="nav-label" data-i18n="nav_register">Kayıt</span>
+    </a>
+    <a href="javascript:void(0)" onclick="openSupportModal()" class="text-[#e2e2e8]/30 hover:text-[#8B5CF6]/60">
+      <span class="material-symbols-outlined">help_outline</span>
+      <span class="nav-label" data-i18n="nav_support">Destek</span>
+    </a>
+  </nav>
+
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <script src="../../js/core/nexus-captcha.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+
+  <!-- Particle System (brand panel) -->
+  <script>
+      (function () {
+        var c = document.getElementById('particle-canvas');
+        if (!c) return;
+        var x = c.getContext('2d'), p = c.parentElement, ps = [], N = 50,
+          cols = ['rgba(139,92,246,', 'rgba(139,92,246,', 'rgba(255,255,255,', 'rgba(96,165,250,'];
+        function rs() { c.width = p.offsetWidth; c.height = p.offsetHeight; }
+        rs(); window.addEventListener('resize', rs);
+        function cp() {
+          var cl = cols[Math.floor(Math.random() * cols.length)];
+          return { x: Math.random() * c.width, y: Math.random() * c.height, s: Math.random() * 1.8 + .4, sy: -(Math.random() * .25 + .08), sx: (Math.random() - .5) * .12, o: Math.random() * .4 + .08, od: (Math.random() - .5) * .004, c: cl };
+        }
+        for (var i = 0; i < N; i++) ps.push(cp());
+        function an() {
+          x.clearRect(0, 0, c.width, c.height);
+          for (var i = 0; i < ps.length; i++) {
+            var q = ps[i]; q.x += q.sx; q.y += q.sy; q.o += q.od;
+            if (q.o <= .04 || q.o >= .5) q.od *= -1;
+            if (q.y < -10) { q.y = c.height + 10; q.x = Math.random() * c.width; }
+            if (q.x < -10) q.x = c.width + 10;
+            if (q.x > c.width + 10) q.x = -10;
+            x.beginPath(); x.arc(q.x, q.y, q.s, 0, Math.PI * 2);
+            x.fillStyle = q.c + q.o + ')'; x.fill();
+          }
+          requestAnimationFrame(an);
+        }
+        an();
+      })();
+  </script>
+
+  <script>
+    (function () {
+      'use strict'; var LOGIN_PAGE = '../giri_yap_login/code.html'; emailjs.init('4nOnD1fyCLTj7BW3p'); var registerBtn = document.getElementById('register-btn'), btnTextSpan = registerBtn.querySelector('span'), btnIconSpan = registerBtn.querySelectorAll('span')[1], errorMsg = document.getElementById('reg-error'), toast = document.getElementById('success-toast'), verifyBackdrop = document.getElementById('verify-backdrop'), verifyError = document.getElementById('verify-error'), confirmBtn = document.getElementById('verify-confirm-btn'), cancelBtn = document.getElementById('verify-cancel-btn'), resendBtn = document.getElementById('verify-resend-btn'), resendTimer = document.getElementById('resend-timer'), emailDisplay = document.getElementById('verify-email-display'), codeInputs = document.querySelectorAll('.code-input'), pendingUser = null, resendInterval = null;
+      // Init CAPTCHA for register page
+      var regCaptcha = window.NexusCaptcha ? window.NexusCaptcha.create('register-captcha-container') : null;
+      document.querySelectorAll('.game-pill').forEach(function (b) { b.addEventListener('click', function () { var s = b.getAttribute('data-selected') === 'true'; b.setAttribute('data-selected', s ? 'false' : 'true') }) });
+      codeInputs.forEach(function (inp, idx) { inp.addEventListener('input', function () { this.value = this.value.replace(/[^0-9]/g, ''); if (this.value && idx < codeInputs.length - 1) codeInputs[idx + 1].focus(); inp.classList.remove('error'); verifyError.classList.add('hidden') }); inp.addEventListener('keydown', function (e) { if (e.key === 'Backspace' && !this.value && idx > 0) codeInputs[idx - 1].focus(); if (e.key === 'Enter') confirmBtn.click() }); inp.addEventListener('paste', function (e) { e.preventDefault(); var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, ''); for (var p = 0; p < paste.length && p < codeInputs.length; p++)codeInputs[p].value = paste[p]; var li = Math.min(paste.length, codeInputs.length) - 1; if (li >= 0) codeInputs[li].focus() }) });
+      function generateCode() { var c = ''; for (var i = 0; i < 6; i++)c += Math.floor(Math.random() * 10); return c }
+      function sendVerificationEmail(ue, un, code, cb) { if (!ue) ue = document.getElementById('reg-email').value.trim(); var tp = { to_email: ue, email: ue, email_address: ue, reply_to: ue, user_email: ue, to_name: un, verification_code: code }; emailjs.send('service_is4jo2s', 'template_sl57mqg', tp).then(function () { cb(null) }, function (err) { cb(err) }) }
+      function setButtonLoading(l) { if (l) { registerBtn.disabled = true; registerBtn.style.opacity = '.7'; registerBtn.style.pointerEvents = 'none'; btnTextSpan.textContent = t('reg_sending_code'); if (btnIconSpan) { btnIconSpan.textContent = ''; btnIconSpan.className = 'btn-spinner' } } else { registerBtn.disabled = false; registerBtn.style.opacity = ''; registerBtn.style.pointerEvents = ''; btnTextSpan.textContent = t('reg_create_account'); if (btnIconSpan) { btnIconSpan.className = 'material-symbols-outlined text-lg'; btnIconSpan.textContent = 'arrow_forward' } } }
+      function openModal() { verifyBackdrop.classList.add('active'); codeInputs.forEach(function (i) { i.value = ''; i.classList.remove('error', 'success') }); verifyError.classList.add('hidden'); setTimeout(function () { codeInputs[0].focus() }, 400); startResendTimer() }
+      function closeModal() { verifyBackdrop.classList.remove('active'); clearInterval(resendInterval); pendingUser = null; sessionStorage.removeItem('df_verify_code'); setButtonLoading(false) }
+      function startResendTimer() { var s = 60; resendBtn.disabled = true; resendBtn.style.opacity = '.4'; resendTimer.textContent = s; clearInterval(resendInterval); resendInterval = setInterval(function () { s--; resendTimer.textContent = s; if (s <= 0) { clearInterval(resendInterval); resendBtn.disabled = false; resendBtn.style.opacity = '1' } }, 1000) }
+      var fields = [{ id: 'reg-username', label: 'username_label' }, { id: 'reg-email', label: 'email_label' }, { id: 'reg-password', label: 'password_label' }, { id: 'reg-password-confirm', label: 'reg_pw_confirm' }];
+      registerBtn.addEventListener('click', function () { errorMsg.classList.add('hidden'); document.getElementById('agreement-error').classList.remove('show'); var settings = {}; try { settings = JSON.parse(localStorage.getItem('PLATFORM_SETTINGS')) || {}; } catch (e) { } if (settings.registration === false) { errorMsg.textContent = 'Platform kayıtları şu anda kapalıdır.'; errorMsg.classList.remove('hidden'); return; } /* CAPTCHA check */if (regCaptcha && !regCaptcha.isVerified()) { errorMsg.textContent = 'Lütfen robot olmadığınızı doğrulayın.'; errorMsg.classList.remove('hidden'); return; } for (var i = 0; i < fields.length; i++) { var input = document.getElementById(fields[i].id); if (!input.value.trim()) { errorMsg.textContent = t('reg_err_field_prefix') + ' ' + t(fields[i].label) + ' ' + t('reg_err_field_suffix'); errorMsg.classList.remove('hidden'); input.focus(); return } } var allAg = document.querySelectorAll('.agreement-item[data-agreement]'), allCh = true; allAg.forEach(function (it) { if (!it.classList.contains('checked')) allCh = false }); if (!allCh) { document.getElementById('agreement-error').classList.add('show'); return } var pw = document.getElementById('reg-password').value, pwc = document.getElementById('reg-password-confirm').value; if (pw !== pwc) { errorMsg.textContent = t('reg_err_pw_mismatch'); errorMsg.classList.remove('hidden'); return } var email = document.getElementById('reg-email').value.trim(), username = document.getElementById('reg-username').value.trim(); var ml = window.MASTER_USERS || []; for (var k = 0; k < ml.length; k++) { if (ml[k].email === email) { errorMsg.textContent = t('reg_err_email_exists'); errorMsg.classList.remove('hidden'); return } } var users = []; try { users = JSON.parse(localStorage.getItem('users')) || [] } catch (e) { users = [] } for (var j = 0; j < users.length; j++) { if (users[j].email === email) { errorMsg.textContent = t('reg_err_email_exists'); errorMsg.classList.remove('hidden'); return } } var code = generateCode(); sessionStorage.setItem('df_verify_code', code); var selectedGames = []; document.querySelectorAll('.game-pill[data-selected="true"]').forEach(function(g) { selectedGames.push({ name: g.getAttribute('data-game'), rank: '', main: '', level: 0 }); }); pendingUser = { username: username, email: email, password: pw, games: selectedGames, registeredAt: new Date().toISOString() }; setButtonLoading(true); emailDisplay.textContent = email; sendVerificationEmail(email, username, code, function (err) { if (err) { setButtonLoading(false); errorMsg.textContent = t('reg_err_send_fail') + ' (' + (err.text || err) + ')'; errorMsg.classList.remove('hidden'); return } openModal() }) });
+      confirmBtn.addEventListener('click', function () { var entered = ''; codeInputs.forEach(function (i) { entered += i.value }); var stored = sessionStorage.getItem('df_verify_code'); if (entered.length < 6) { verifyError.textContent = t('verify_err_incomplete'); verifyError.classList.remove('hidden'); codeInputs.forEach(function (i) { if (!i.value) i.classList.add('error') }); return } if (entered !== stored) { verifyError.textContent = t('verify_err_wrong'); verifyError.classList.remove('hidden'); codeInputs.forEach(function (i) { i.classList.add('error') }); setTimeout(function () { codeInputs.forEach(function (i) { i.classList.remove('error') }) }, 500); return } codeInputs.forEach(function (i) { i.classList.add('success') }); verifyError.classList.add('hidden'); confirmBtn.disabled = true; confirmBtn.querySelector('span:last-child').textContent = t('reg_registering'); var users = []; try { users = JSON.parse(localStorage.getItem('users')) || [] } catch (e) { users = [] } users.push(pendingUser); localStorage.setItem('users', JSON.stringify(users)); sessionStorage.removeItem('df_verify_code'); toast.classList.remove('hidden'); setTimeout(function () { verifyBackdrop.classList.remove('active'); window.location.href = LOGIN_PAGE }, 2000) });
+      cancelBtn.addEventListener('click', closeModal);
+      resendBtn.addEventListener('click', function () { if (resendBtn.disabled || !pendingUser) return; var code = generateCode(); sessionStorage.setItem('df_verify_code', code); resendBtn.disabled = true; resendBtn.style.opacity = '.4'; sendVerificationEmail(pendingUser.email, pendingUser.username, code, function (err) { if (err) { verifyError.textContent = t('verify_resend_fail') + ' ' + (err.text || err); verifyError.classList.remove('hidden') } else { verifyError.textContent = ''; verifyError.classList.add('hidden'); codeInputs.forEach(function (i) { i.value = '' }); codeInputs[0].focus() } startResendTimer() }) })
+    })();
+  </script>
+
+  <!-- Enforce Platform Registration Setting -->
+  <script>
+    (function () {
+      var settings = {};
+      try { settings = JSON.parse(localStorage.getItem('PLATFORM_SETTINGS')) || {}; } catch (e) { }
+      if (settings.registration === false) {
+        document.addEventListener('DOMContentLoaded', function () {
+          var regBtn = document.getElementById('register-btn');
+          if (regBtn) {
+            regBtn.disabled = true;
+            regBtn.style.opacity = '0.5';
+            regBtn.style.cursor = 'not-allowed';
+            regBtn.innerHTML = '<span class="material-symbols-outlined">block</span> Kayıtlar Geçici Olarak Kapalı';
+          }
+          var errorMsg = document.getElementById('reg-error');
+          if (errorMsg) {
+            errorMsg.textContent = 'Platform kayıtları şu anda yönetici tarafından kapatılmıştır.';
+            errorMsg.classList.remove('hidden');
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    function toggleAgreement(el) { el.classList.toggle('checked'); updateSelectAll(); document.getElementById('agreement-error').classList.remove('show') }
+    function toggleSelectAll() { var s = document.getElementById('agree-all'), items = document.querySelectorAll('.agreement-item[data-agreement]'), c = s.classList.contains('checked'); if (c) { s.classList.remove('checked'); items.forEach(function (i) { i.classList.remove('checked') }) } else { s.classList.add('checked'); items.forEach(function (i) { i.classList.add('checked') }) } document.getElementById('agreement-error').classList.remove('show') }
+    function updateSelectAll() { var items = document.querySelectorAll('.agreement-item[data-agreement]'), all = true; items.forEach(function (i) { if (!i.classList.contains('checked')) all = false }); var s = document.getElementById('agree-all'); if (all) s.classList.add('checked'); else s.classList.remove('checked') }
+
+    /* Expandable Legal Accordion */
+    function toggleLegalAccordion(id, btn) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var isOpen = el.classList.contains('open');
+      // Close all other accordions first
+      document.querySelectorAll('.legal-accordion.open').forEach(function (acc) {
+        if (acc.id !== id) {
+          acc.classList.remove('open');
+          acc.style.maxHeight = '0';
+          acc.style.padding = '0 16px';
+          var otherBtn = acc.parentElement.querySelector('.agreement-expand-btn');
+          if (otherBtn) { otherBtn.classList.remove('expanded'); otherBtn.querySelector('span:last-child').textContent = t('accord_read_btn'); }
+        }
+      });
+      if (isOpen) {
+        el.classList.remove('open');
+        el.style.maxHeight = '0';
+        el.style.padding = '0 16px';
+        btn.classList.remove('expanded');
+        btn.querySelector('span:last-child').textContent = t('accord_read_btn');
+      } else {
+        el.classList.add('open');
+        el.style.maxHeight = el.scrollHeight + 40 + 'px';
+        btn.classList.add('expanded');
+        btn.querySelector('span:last-child').textContent = t('accord_close_btn');
+      }
+    }
+  </script>
+
+  <script>
+    (function () { var o = document.getElementById('legal-modal-overlay'), tEl = document.getElementById('legal-modal-title'), c = document.getElementById('legal-modal-content'); window.openLegalModal = function (id) { var d = { gizlilik: { title: t('legal_privacy_title'), content: '<p><strong>' + t('accord_privacy_body_title') + '</strong></p><p class="mt-2">' + t('accord_privacy_body_date') + '</p><p class="mt-4">' + t('accord_privacy_body_p1') + '</p><p class="mt-4">' + t('accord_privacy_body_p2') + '</p>' }, kosullar: { title: t('legal_terms_title'), content: '<p><strong>' + t('accord_terms_body_title') + '</strong></p><p class="mt-4">' + t('accord_terms_body_intro') + '</p><ul class="list-disc pl-5 mt-4 space-y-2"><li>' + t('accord_terms_rule_1') + '</li><li>' + t('accord_terms_rule_2') + '</li><li>' + t('accord_terms_rule_3') + '</li></ul><p class="mt-4">' + t('accord_terms_body_footer') + '</p>' }, cerez: { title: t('legal_cookie_title'), content: '<p><strong>' + t('accord_cookie_body_title') + '</strong></p><p class="mt-4">' + t('accord_cookie_body_p1') + '</p><p class="mt-4">' + t('accord_cookie_body_p2') + '</p>' }, kvkk: { title: t('legal_kvkk_title'), content: '<p><strong>' + t('accord_kvkk_body_title') + '</strong></p><p class="mt-4">' + t('accord_kvkk_body_p1') + '</p><p class="mt-4">' + t('accord_kvkk_body_p2') + '</p>' } }; if (d[id]) { tEl.textContent = d[id].title; c.innerHTML = d[id].content; o.classList.add('active') } }; window.closeLegalModal = function () { o.classList.remove('active') } })();
+  </script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+</body>
+
+</html>

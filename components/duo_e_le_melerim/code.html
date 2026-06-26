@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Eşleşmeler</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "inverse-on-surface": "#2f3035",
+            "surface-container-low": "#1a1c20",
+            "secondary-fixed-dim": "#ffb952",
+            "surface-tint": "#7C3AED",
+            "secondary": "#ffcf90",
+            "tertiary-fixed": "#ffd7f5",
+            "on-secondary-fixed-variant": "#633f00",
+            "on-tertiary-fixed": "#380038",
+            "surface-variant": "#333539",
+            "error-container": "#93000a",
+            "surface-container-high": "#282a2e",
+            "on-tertiary-fixed-variant": "#810081",
+            "on-error": "#690005",
+            "primary-fixed": "#74f5ff",
+            "on-tertiary": "#5b005b",
+            "inverse-primary": "#00696f",
+            "on-secondary-fixed": "#291800",
+            "on-error-container": "#ffdad6",
+            "on-surface-variant": "#b9cacb",
+            "tertiary-fixed-dim": "#ffabf3",
+            "surface-container-highest": "#333539",
+            "surface-container-lowest": "#0c0e12",
+            "secondary-fixed": "#ffddb4",
+            "background": "#0A0B1E",
+            "on-surface": "#e2e2e8",
+            "outline-variant": "#3a494b",
+            "on-secondary": "#452b00",
+            "on-primary-fixed-variant": "#004f54",
+            "on-background": "#e2e2e8",
+            "surface-dim": "#0A0B1E",
+            "secondary-container": "#ffaa00",
+            "on-primary-fixed": "#002022",
+            "primary-fixed-dim": "#7C3AED",
+            "tertiary-container": "#ffcbf4",
+            "surface-container": "#1e2024",
+            "outline": "#849495",
+            "primary": "#e1fdff",
+            "on-primary": "#1E0A4B",
+            "on-primary-container": "#006a71",
+            "tertiary": "#fff4f9",
+            "surface-bright": "#37393e",
+            "on-tertiary-container": "#ab00aa",
+            "surface": "#0A0B1E",
+            "inverse-surface": "#e2e2e8",
+            "on-secondary-container": "#694300",
+            "error": "#ffb4ab",
+            "primary-container": "#8B5CF6"
+          },
+          fontFamily: {
+            "headline": ["Outfit"],
+            "body": ["Poppins"],
+            "label": ["Poppins"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0a0c10;
+      color: #e2e2e8;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0c10;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333539;
+      border-radius: 10px;
+    }
+
+    /* ── Nav Links Left ── */
+    .nav-link-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link-left:hover {
+      color: #8B5CF6;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-link-left .material-symbols-outlined {
+      font-size: 18px;
+      color: #849495;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-left:hover .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .nav-link-left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #8B5CF6;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link-left:hover::after {
+      width: 80%;
+    }
+
+    body.light-mode .nav-link-left {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .nav-link-left:hover {
+      color: #3B82F6 !important;
+      text-shadow: none !important;
+    }
+
+    /* ── Performance Hero ── */
+    .match-hero {
+      position: relative;
+      width: 100%;
+      padding: 6rem 2rem 3rem;
+      background: linear-gradient(135deg, #0a0c10 0%, #0d1520 50%, #0a0c10 100%);
+      overflow: hidden;
+    }
+
+    .match-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 60%);
+    }
+
+    .match-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, #0a0c10);
+    }
+
+    .hero-glass {
+      background: rgba(30, 32, 36, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 1.5rem;
+    }
+
+    .stat-glow-cyan {
+      color: #8B5CF6;
+      text-shadow: 0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(139, 92, 246, 0.2);
+    }
+
+    .stat-glow-gold {
+      color: #ffaa00;
+      text-shadow: 0 0 30px rgba(255, 170, 0, 0.5), 0 0 60px rgba(255, 170, 0, 0.2);
+    }
+
+    @keyframes countUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .stat-animate {
+      animation: countUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    body.light-mode .match-hero {
+      background: linear-gradient(135deg, #F4F7FA 0%, #E8EDF2 50%, #F4F7FA 100%) !important;
+    }
+
+    body.light-mode .match-hero::before {
+      background: none !important;
+    }
+
+    body.light-mode .hero-glass {
+      background: #FFFFFF !important;
+      border-color: #E1E8ED !important;
+      backdrop-filter: none !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+    }
+
+    body.light-mode .stat-glow-cyan {
+      color: #3B82F6 !important;
+      text-shadow: none !important;
+    }
+
+    body.light-mode .stat-glow-gold {
+      color: #F59E0B !important;
+      text-shadow: none !important;
+    }
+
+    /* ── Smart Duo Cards ── */
+    .duo-carousel {
+      display: flex;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1rem 0.5rem 2rem;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .duo-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .duo-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      background: rgba(30, 32, 36, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .duo-card:hover {
+      transform: scale(1.05) translateY(-8px);
+      border-color: rgba(139, 92, 246, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.1);
+    }
+
+    .duo-card .card-stats {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .duo-card:hover .card-stats {
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 0.75rem;
+    }
+
+    body.light-mode .duo-card {
+      background: #FFFFFF !important;
+      border-color: #E1E8ED !important;
+      backdrop-filter: none !important;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    body.light-mode .duo-card:hover {
+      border-color: #3B82F6 !important;
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12) !important;
+    }
+
+    /* ── Battle Log Strips ── */
+    .battle-strip {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-radius: 1rem;
+      border-left: 4px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .battle-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .battle-strip:hover {
+      transform: translateY(-2px);
+    }
+
+    .battle-strip.win {
+      background: rgba(0, 230, 118, 0.04);
+      border-left-color: #00e676;
+    }
+
+    .battle-strip.win::before {
+      background: linear-gradient(90deg, rgba(0, 230, 118, 0.08) 0%, transparent 60%);
+    }
+
+    .battle-strip.win:hover {
+      box-shadow: 0 4px 24px rgba(0, 230, 118, 0.12);
+    }
+
+    .battle-strip.win:hover::before {
+      opacity: 1;
+    }
+
+    .battle-strip.loss {
+      background: rgba(255, 68, 68, 0.04);
+      border-left-color: #ff4444;
+    }
+
+    .battle-strip.loss::before {
+      background: linear-gradient(90deg, rgba(255, 68, 68, 0.08) 0%, transparent 60%);
+    }
+
+    .battle-strip.loss:hover {
+      box-shadow: 0 4px 24px rgba(255, 68, 68, 0.12);
+    }
+
+    .battle-strip.loss:hover::before {
+      opacity: 1;
+    }
+
+    body.light-mode .battle-strip.win {
+      background: rgba(16, 185, 129, 0.06) !important;
+      border-left-color: #10B981 !important;
+    }
+
+    body.light-mode .battle-strip.win:hover {
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1) !important;
+    }
+
+    body.light-mode .battle-strip.loss {
+      background: rgba(239, 68, 68, 0.06) !important;
+      border-left-color: #EF4444 !important;
+    }
+
+    body.light-mode .battle-strip.loss:hover {
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.1) !important;
+    }
+
+    /* ── Section reveal ── */
+    .match-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .match-section.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Carousel fade edges ── */
+    .carousel-wrapper {
+      position: relative;
+    }
+
+    .carousel-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 60px;
+      background: linear-gradient(to right, transparent, #0a0c10);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    body.light-mode .carousel-wrapper::after {
+      background: linear-gradient(to right, transparent, #F4F7FA) !important;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background  min-h-screen pb-24">
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <!-- Auth Guard -->
+  <script>
+      (function () {
+        var loggedInEmail = localStorage.getItem('loggedInUser');
+        if (!loggedInEmail) { window.location.href = '../giri_yap_login/code.html'; }
+      })();
+  </script>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• ZOZZO-FUSION NAVBAR â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/60 backdrop-blur-2xl flex items-center justify-between px-4 md:px-6 h-20 shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 border-b border-[#8B5CF6]/10">
+    <div class="flex items-center gap-4 lg:gap-6">
+      <a href="../duo_finder_dashboard_yeni/code.html" class="flex items-center gap-2 group shrink-0">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-3xl group-hover:scale-110 transition-transform"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span
+          class=" font-black text-4xl tracking-tighter text-[#8B5CF6] drop-shadow-[0_0_12px_rgba(139, 92, 246,0.6)] hidden sm:inline">İSTİKLAL</span>
+      </a>
+      <div id="clock-btn"
+        class="hidden md:flex bg-[#1a1c20]/80 rounded-full px-4 py-1.5 border border-[#3a494b]/50 items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-sm">schedule</span>
+        <span id="live-clock" class=" font-medium text-xs tracking-wide text-[#8B5CF6]/70">00:00:00</span>
+      </div>
+      <div class="hidden lg:flex items-center gap-5">
+        <a href="../duo_finder_dashboard_yeni/code.html" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">dashboard</span><span data-i18n="nav_panel">Panel</span></a>
+        <a href="../duo_finder_yar_ma_ekran/code.html" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">trophy</span><span data-i18n="nav_compete">Rekabet</span></a>
+
+        <button onclick="openSupportModal()" class="nav-link-left"><span class="material-symbols-outlined"
+            style="font-variation-settings: 'FILL' 1;">support_agent</span><span
+            data-i18n="nav_support">Destek</span></button>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 md:gap-3">
+      <div class="relative" id="notif-wrapper">
+        <button id="notif-btn"
+          class="relative material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-95 duration-200">notifications
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 bg-[#ff4444] rounded-full text-[8px] text-white font-bold flex items-center justify-center shadow-[0_0_8px_#ff4444]"
+            id="notif-badge">2</span>
+        </button>
+        <div id="notif-dropdown"
+          class="hidden absolute right-0 top-12 w-80 bg-[#1e2024]/95 backdrop-blur-xl border border-[#8B5CF6]/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden z-[60]">
+          <div class="px-4 py-3 border-b border-[#3a494b]/30 flex items-center justify-between">
+            <span class=" font-bold text-xs uppercase tracking-widest text-[#8B5CF6]"
+              data-i18n="notif_title">Bildirimler</span>
+            <span id="notif-count-label" class="text-[10px] text-[#849495]"></span>
+          </div>
+          <div class="max-h-64 overflow-y-auto" id="notif-list"></div>
+          <div class="px-4 py-3 bg-[#0A0B1E]/80 border-t border-[#3a494b]/30 flex justify-between gap-3">
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#e2e2e8] border border-[#8B5CF6]/30 rounded-lg hover:bg-[#8B5CF6]/10 transition-all"
+              onclick="clearNotifications()" data-i18n="notif_clear_all">Tümünü Sil</button>
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6] border border-[#8B5CF6]/50 rounded-lg hover:bg-[#8B5CF6]/20 transition-all"
+              onclick="markNotificationsRead()" data-i18n="notif_mark_read">Okundu İşaretle</button>
+          </div>
+        </div>
+      </div>
+      <a id="header-avatar-link" href="../oyuncu_profili/code.html"
+        class="block w-10 h-10 rounded-full border-2 border-[#8B5CF6]/40 p-0.5 overflow-hidden shadow-[0_0_10px_rgba(139, 92, 246,0.3)] bg-[#1a1c20] flex items-center justify-center hover:border-[#8B5CF6] transition-colors">
+        <span class="material-symbols-outlined text-[#849495] text-xl"
+          style="font-variation-settings: 'FILL' 1;">person</span>
+      </a>
+    </div>
+  </header>
+  <main class="w-full">
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• SECTION 1: PERFORMANCE HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <section class="match-hero">
+      <div class="relative z-10 max-w-[960px] mx-auto">
+        <div class="hero-glass p-8 md:p-10">
+          <div class="flex items-center gap-2 mb-8">
+            <span class="material-symbols-outlined text-[#8B5CF6] text-xl"
+              style="font-variation-settings: 'FILL' 1;">analytics</span>
+            <h2 class=" font-bold text-xs uppercase tracking-[0.2em] text-[#8B5CF6]" data-i18n="match_duo_perf">Duo
+              Performansı — Son 30 Gün</h2>
+          </div>
+          <!-- Giant Stats -->
+          <div class="grid grid-cols-2 gap-8 mb-10">
+            <div class="text-center stat-animate" style="animation-delay: 0.1s;">
+              <p class="text-[10px]  font-bold uppercase tracking-widest text-[#849495] mb-2"
+                data-i18n="match_win_rate">
+                Galibiyet Oranı</p>
+              <p class="text-6xl md:text-7xl  font-black stat-glow-cyan" id="stat-win-rate">%0</p>
+            </div>
+            <div class="text-center stat-animate" style="animation-delay: 0.3s;">
+              <p class="text-[10px]  font-bold uppercase tracking-widest text-[#849495] mb-2"
+                data-i18n="match_kd_ratio">K/D
+                Oranı</p>
+              <p class="text-6xl md:text-7xl  font-black stat-glow-gold" id="stat-kd">0.0</p>
+            </div>
+          </div>
+          <!-- Sub Stats -->
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="text-center p-3 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10">
+              <span class="material-symbols-outlined text-[#ffaa00] text-xl mb-1">trending_up</span>
+              <p class="text-2xl  font-black text-[#e2e2e8]" id="stat-win-streak">0</p>
+              <p class="text-[8px]  font-bold uppercase tracking-widest text-[#849495]" data-i18n="match_win_streak">
+                Seri
+                Galibiyet</p>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10">
+              <span class="material-symbols-outlined text-[#8B5CF6] text-xl mb-1">groups</span>
+              <p class="text-2xl  font-black text-[#e2e2e8]" id="stat-total-duos">0</p>
+              <p class="text-[8px]  font-bold uppercase tracking-widest text-[#849495]" data-i18n="match_total_duo">
+                Toplam Duo
+              </p>
+            </div>
+            <div class="text-center p-3 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10">
+              <span class="material-symbols-outlined text-[#a78bfa] text-xl mb-1">schedule</span>
+              <p class="text-2xl  font-black text-[#e2e2e8]" id="stat-hours-played">0</p>
+              <p class="text-[8px]  font-bold uppercase tracking-widest text-[#849495]" data-i18n="match_hours_played">
+                Saat
+                Oynadın</p>
+            </div>
+          </div>
+          <!-- Bar Chart -->
+          <div class="h-28 w-full flex items-end gap-1.5 relative">
+            <div class="bg-[#333539]/60 w-full h-[40%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/20"></div>
+            <div class="bg-[#333539]/60 w-full h-[60%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/20"></div>
+            <div class="bg-[#8B5CF6]/30 w-full h-[85%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/40"></div>
+            <div class="bg-[#8B5CF6] w-full h-[70%] rounded-t-lg shadow-[0_0_12px_rgba(139, 92, 246,0.3)]"></div>
+            <div class="bg-[#333539]/60 w-full h-[50%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/20"></div>
+            <div class="bg-[#ffaa00]/50 w-full h-[90%] rounded-t-lg transition-all hover:bg-[#ffaa00]/60"></div>
+            <div class="bg-[#8B5CF6] w-full h-[95%] rounded-t-lg shadow-[0_0_15px_rgba(139, 92, 246,0.4)]"></div>
+            <div class="bg-[#333539]/60 w-full h-[45%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/20"></div>
+            <div class="bg-[#8B5CF6]/30 w-full h-[75%] rounded-t-lg transition-all hover:bg-[#8B5CF6]/40"></div>
+            <div class="bg-[#ffaa00]/50 w-full h-[65%] rounded-t-lg transition-all hover:bg-[#ffaa00]/60"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• SECTION 2: SMART DUO CARDS â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <section class="w-full max-w-[1200px] mx-auto px-4 sm:px-6 mt-12 match-section">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#ffaa00]"
+            style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+          <h2 class=" font-bold text-lg text-[#e2e2e8]" data-i18n="match_custom_duos">Sana Özel Duo'lar;
+          </h2>
+        </div>
+        <span id="rank-label"
+          class="text-[10px]  font-semibold uppercase tracking-widest text-[#8B5CF6]">Yükleniyor...</span>
+      </div>
+      <div class="carousel-wrapper">
+        <button id="carousel-prev"
+          class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1c20]/70 backdrop-blur-md border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] hover:bg-[#8B5CF6]/15 hover:border-[#8B5CF6]/50 hover:shadow-[0_0_16px_rgba(139, 92, 246,0.2)] transition-all active:scale-90 cursor-pointer">
+          <span class="material-symbols-outlined text-xl">chevron_left</span>
+        </button>
+        <div id="suggested-players" class="duo-carousel">
+          <!-- JS populates this as horizontal scroll cards -->
+        </div>
+        <button id="carousel-next"
+          class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1c20]/70 backdrop-blur-md border border-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] hover:bg-[#8B5CF6]/15 hover:border-[#8B5CF6]/50 hover:shadow-[0_0_16px_rgba(139, 92, 246,0.2)] transition-all active:scale-90 cursor-pointer">
+          <span class="material-symbols-outlined text-xl">chevron_right</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• SECTION 3: BATTLE LOGS â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <section class="w-full max-w-[960px] mx-auto px-4 sm:px-6 mt-12 pb-32 match-section">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[#a78bfa]"
+            style="font-variation-settings: 'FILL' 1;">history</span>
+          <h2 class=" font-bold text-lg text-[#e2e2e8]" data-i18n="match_battle_log">Savaş Günlüğü</h2>
+        </div>
+        <button id="filter-open-btn"
+          class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#1a1c20]/60 border border-[#3a494b]/30 text-[#849495] hover:text-[#8B5CF6] hover:border-[#8B5CF6]/30 transition-all">
+          <span class="material-symbols-outlined text-lg">filter_list</span>
+          <span class=" text-[10px] font-bold uppercase tracking-wider" data-i18n="match_filter">Filtre</span>
+        </button>
+      </div>
+      <div class="space-y-3" id="battle-log-list">
+        <!-- Empty state — no fake battle log entries -->
+        <div class="flex flex-col items-center justify-center py-10 opacity-60">
+          <span class="material-symbols-outlined text-4xl text-[#849495]/30 mb-3"
+            style="font-variation-settings: 'FILL' 1;">history</span>
+          <p class=" font-bold text-sm text-[#e2e2e8]/60">Henüz eşleşme yok</p>
+          <p class="text-[11px] text-[#849495]/50 mt-1">Duo bulduğunda savaş günlüğün burada görünecek.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- BottomNavBar -->
+  <nav
+    class="nexus-bottom-nav fixed bottom-0 w-full z-50 rounded-t-2xl bg-[#0A0B1E]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(139, 92, 246,0.08)] flex justify-around items-center h-20 px-4 pb-safe border-t border-[#8B5CF6]/20">
+    <!-- Panel Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_dashboard_yeni/code.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">PANEL</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+    <!-- Active Eşleşmeler Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#8B5CF6] drop-shadow-[0_0_10px_rgba(139, 92, 246,0.6)] bg-[#8B5CF6]/10 rounded-xl px-4 py-1 transition-all active:scale-90 duration-150"
+      href="./code.html">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">EŞLEŞMELER</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-[#8B5CF6] shadow-[0_0_8px_rgba(139, 92, 246,0.8)]"></span>
+    </a>
+    <!-- Rekabet Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_yar_ma_ekran/code.html">
+      <span class="material-symbols-outlined">emoji_events</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">REKABET</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+
+    <!-- Destek Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group cursor-pointer"
+      href="javascript:void(0)" onclick="openSupportModal()">
+      <span class="material-symbols-outlined">support_agent</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]" data-i18n="mega_support">DESTEK</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+  </nav>
+
+  <!-- Filter Modal -->
+  <div id="filter-modal" class="fixed inset-0 z-[100] hidden transition-opacity duration-300">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="filter-backdrop"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <div
+        class="bg-[#1a1c20]/90 backdrop-blur-xl border border-[#8B5CF6]/20 rounded-2xl shadow-[0_8px_32px_rgba(139, 92, 246,0.15)] w-full max-w-sm p-6 space-y-5"
+        style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.08);">
+        <div class="flex items-center justify-between">
+          <h3 class=" font-bold text-base text-[#8B5CF6] uppercase tracking-wider">Filtreler</h3>
+          <button id="filter-close-btn"
+            class="material-symbols-outlined text-[#849495] hover:text-[#ffb4ab] transition-colors active:scale-90">close</button>
+        </div>
+        <div class="space-y-4">
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox"
+              class="w-4 h-4 rounded border-[#3a494b] bg-[#0A0B1E] text-[#8B5CF6] focus:ring-[#8B5CF6]/30 focus:ring-offset-0">
+            <span
+              class="material-symbols-outlined text-[#849495] group-hover:text-[#8B5CF6] transition-colors text-lg">sports_esports</span>
+            <span class=" text-sm text-[#e2e2e8]/80 font-medium">Oyun</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox"
+              class="w-4 h-4 rounded border-[#3a494b] bg-[#0A0B1E] text-[#8B5CF6] focus:ring-[#8B5CF6]/30 focus:ring-offset-0">
+            <span
+              class="material-symbols-outlined text-[#849495] group-hover:text-[#8B5CF6] transition-colors text-lg">military_tech</span>
+            <span class=" text-sm text-[#e2e2e8]/80 font-medium">Rank</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <input type="checkbox"
+              class="w-4 h-4 rounded border-[#3a494b] bg-[#0A0B1E] text-[#8B5CF6] focus:ring-[#8B5CF6]/30 focus:ring-offset-0">
+            <span
+              class="material-symbols-outlined text-[#849495] group-hover:text-[#8B5CF6] transition-colors text-lg">mic</span>
+            <span class=" text-sm text-[#e2e2e8]/80 font-medium">Mikrofon</span>
+          </label>
+        </div>
+        <button id="filter-apply-btn"
+          class="w-full py-3 bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] rounded-xl text-[#0A0B1E]  font-bold text-sm uppercase tracking-wider shadow-[0_0_15px_rgba(139, 92, 246,0.3)] active:scale-95 transition-transform">Uygula</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <style>
+    @keyframes duoReqSent {
+      0% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(0.95)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .duo-req-anim {
+      animation: duoReqSent 0.3s ease;
+    }
+  </style>
+
+  <script>
+    (function () {
+      // ─── 1. Notification Dropdown ─── (handled by notifications.js)
+
+      // ─── 2. Sidebar Toggle ───
+      var sidebarOpenBtn = document.getElementById('sidebar-open-btn');
+      var sidebar = document.getElementById('sidebar');
+      var sidebarOverlay = document.getElementById('sidebar-overlay');
+      var sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+      function openSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.remove('-translate-x-full');
+        sidebar.classList.add('translate-x-0');
+        if (sidebarOverlay) sidebarOverlay.classList.remove('hidden');
+      }
+      function closeSidebar() {
+        if (!sidebar) return;
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        if (sidebarOverlay) sidebarOverlay.classList.add('hidden');
+      }
+      if (sidebarOpenBtn) sidebarOpenBtn.addEventListener('click', openSidebar);
+      if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+      if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // ─── 3. Filter Modal ───
+      var filterOpenBtn = document.getElementById('filter-open-btn');
+      var filterModal = document.getElementById('filter-modal');
+      var filterCloseBtn = document.getElementById('filter-close-btn');
+      var filterBackdrop = document.getElementById('filter-backdrop');
+      var filterApplyBtn = document.getElementById('filter-apply-btn');
+
+      function openFilter() { filterModal.classList.remove('hidden'); }
+      function closeFilter() { filterModal.classList.add('hidden'); }
+
+      filterOpenBtn.addEventListener('click', openFilter);
+      filterCloseBtn.addEventListener('click', closeFilter);
+      filterBackdrop.addEventListener('click', closeFilter);
+      filterApplyBtn.addEventListener('click', closeFilter);
+
+      // ─── 4. Carousel Scroll Controls ───
+      var carouselPrev = document.getElementById('carousel-prev');
+      var carouselNext = document.getElementById('carousel-next');
+      var carouselContainer = document.getElementById('suggested-players');
+
+      if (carouselPrev && carouselNext && carouselContainer) {
+        var scrollAmount = 300; // roughly one card width + gap
+        carouselPrev.addEventListener('click', function () {
+          carouselContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        carouselNext.addEventListener('click', function () {
+          carouselContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
+
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      // 5. SMART RANK-BASED PLAYER SUGGESTIONS
+      // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+
+      var AVATARS = [
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuD-J9zOVUO1ToBZWRRPXQZEyUe0L8moDbBKcNLtAi4ceR29HQvbb-lLjtown-YoiNLu32xkcnkH8FI5VMso1YQMORW_NOLxWSKxZ03XLgCbRpxxsECcf60goTjEi22oUkzZpciyD5ga0DE9KMrsTokrIiUE5TUv2--LzUI4KiK2EDWsfO8HDPU-cxwhAYZsyYfzp78twsge6JO0TfURxhB-vEepxAXLmlkfSf-6AsNFeqe9-OH0kpsKCiU7aqsDuQEOwcDaGaByyhGe',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuAWZbeClOK8A2Omm80AuPBsmMvT5UWNsQOAUIH6riTt_HnN6wl7LzSA71BNrz185sV1Rrh2qFAeYyVGaG24umkNCjtFsWGZhDPX1aF5wCQCma_-ZqYXjg783Oo9gkccVLps0cdEbtufefFb_mYtYnHpMFDKqFwONGnALW9mJAA3sbbCCmnjrUQo3zx6DOeSHUjFiZSMwSl44S6hsOGk8hIxL8GGsBIqsNttjCy4gf6cWRoISsfGypyeuIQShZ65zFpjmEJQiwJBuM-M',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuArxquXEDohIdJsVOBft7DL6t-rCL64UBbnK5BRN1jMGWRVukNgBMz0qp_4yltRtry6jfAMfCUi83N9pPCW-sNEf1o6RhXJHcKXC08o5JgFyM3pbT9qdazwPNZtyrgMXgk846QXhZxe-HrdwUPtNjPOrOoDnvs9-BUNRatCLM76Y9j3jAZ73eXrCgaqjRQRKgY0OMuAV10rX1IlCdAijxscdlmfx1JPK_9B7nZMYGvic0o6_dA8a1NQy-g9k0alVrt5PX2Uybx8Np6O',
+        'https://lh3.googleusercontent.com/aida-public/AB6AXuDrbVepSnCJI9GNT9T9BN9hOWl9sJta15SnyfCuxrDI5zEajV5fzSBIq9ay3ulGeslTKhmpDDMsVYQ81UfTuTq9QZAvn84KAR2tvxuDU3lXWd46WiHaTKJVPv-ZOCz9EVhMLooZbp2IaPEHkN5p8kRS7rMAwelB5bn78tK-bLU6wVGDyAeDkfnHMylGIOdDWyIhp-uY6yQzE9LRrlHFFy2ABMnD0CQYsjeAxp24GKkhV6jBC8QiUdxqsYIBnzK_2Cv6F_LmEjD7LyJM'
+      ];
+
+      // Player pool with rank tiers
+      // Fake players removed — only real users
+      var ALL_PLAYERS = [];
+
+      // Rank icons
+      var RANK_ICONS = {
+        'Silver': 'workspace_premium', 'Gold': 'military_tech', 'Platinum': 'shield',
+        'Diamond': 'diamond', 'Immortal': 'whatshot', 'Radiant': 'auto_awesome',
+        'Gold Nova': 'military_tech', 'Faceit': 'star', 'Global Elite': 'auto_awesome',
+        'Master': 'whatshot', 'default': 'military_tech'
+      };
+
+      function getRankIcon(rank) {
+        for (var key in RANK_ICONS) {
+          if (rank.indexOf(key) !== -1) return RANK_ICONS[key];
+        }
+        return RANK_ICONS['default'];
+      }
+
+      function getUserRank() {
+        try {
+          var profile = JSON.parse(localStorage.getItem('df_profile') || '{}');
+          return (profile.rank || '').toLowerCase();
+        } catch (e) { return ''; }
+      }
+
+      function determineRankTier(rankStr) {
+        if (!rankStr) return 'mixed';
+        var lowRanks = ['iron', 'bronze', 'silver', 'gold', 'platinum', 'gold nova'];
+        var highRanks = ['diamond', 'immortal', 'radiant', 'global elite', 'faceit', 'master', 'grandmaster', 'challenger'];
+        for (var i = 0; i < lowRanks.length; i++) {
+          if (rankStr.indexOf(lowRanks[i]) !== -1) return 'low';
+        }
+        for (var j = 0; j < highRanks.length; j++) {
+          if (rankStr.indexOf(highRanks[j]) !== -1) return 'high';
+        }
+        return 'mixed';
+      }
+
+      // ── Sent Duo Requests: localStorage helpers ──
+      function loadSentRequests() {
+        try {
+          var data = localStorage.getItem('sent_duo_requests');
+          if (data) return JSON.parse(data);
+        } catch (e) { }
+        return [];
+      }
+
+      function saveSentRequest(playerName) {
+        var list = loadSentRequests();
+        if (list.indexOf(playerName) === -1) {
+          list.push(playerName);
+          try { localStorage.setItem('sent_duo_requests', JSON.stringify(list)); } catch (e) { }
+        }
+      }
+
+      function isRequestSent(playerName) {
+        return loadSentRequests().indexOf(playerName) !== -1;
+      }
+
+      // Apply "sent" visual state to a button
+      function markButtonAsSent(btn) {
+        btn.disabled = true;
+        btn.textContent = 'Gönderildi âœ“';
+        btn.classList.remove('from-[#7C3AED]', 'to-[#8B5CF6]');
+        btn.style.background = 'rgba(139, 92, 246,0.1)';
+        btn.style.color = '#8B5CF6';
+        btn.style.boxShadow = 'none';
+        btn.style.opacity = '0.7';
+        btn.style.cursor = 'default';
+      }
+
+      function buildSuggestions() {
+        var container = document.getElementById('suggested-players');
+        var rankLabel = document.getElementById('rank-label');
+        var settings = {};
+        try { settings = JSON.parse(localStorage.getItem('PLATFORM_SETTINGS')) || {}; } catch(e){}
+        var loggedInEmail = localStorage.getItem('loggedInUser');
+        var isFounder = (loggedInEmail === 'akuzumy1905@gmail.com');
+        if (settings['ai-match'] === false && !isFounder) {
+          rankLabel.textContent = 'Nexus AI Pasif';
+          container.innerHTML = '<div class="flex flex-col items-center justify-center py-8 opacity-70 min-w-[300px]"><span class="material-symbols-outlined text-3xl text-[#ffaa00] mb-2">auto_awesome</span><p class="text-[11px] text-[#ffaa00] font-bold">Nexus AI Eşleşme Motoru Bakımdadır.</p><p class="text-[10px] text-[#849495] mt-1">Lütfen daha sonra tekrar deneyiniz.</p></div>';
+          return;
+        }
+        var userRank = getUserRank();
+        var tier = determineRankTier(userRank);
+        var pool;
+
+        if (ALL_PLAYERS.length === 0) {
+          rankLabel.textContent = 'Henüz öneri yok';
+          container.innerHTML = '<div class="flex flex-col items-center justify-center py-8 opacity-50 min-w-[200px]"><span class="material-symbols-outlined text-3xl text-[#849495]/30 mb-2">group_off</span><p class="text-[11px] text-[#849495]">Henüz önerilecek oyuncu yok</p></div>';
+          return;
+        }
+
+        if (tier === 'low') {
+          pool = ALL_PLAYERS.filter(function (p) { return p.tier === 'low'; });
+          rankLabel.textContent = 'Silver — Platinum Arası';
+        } else if (tier === 'high') {
+          pool = ALL_PLAYERS.filter(function (p) { return p.tier === 'high'; });
+          rankLabel.textContent = 'Diamond — Radiant Arası';
+        } else {
+          pool = ALL_PLAYERS.slice();
+          rankLabel.textContent = 'Karışık Öneriler';
+        }
+
+        // Shuffle and take up to 5
+        pool.sort(function () { return Math.random() - 0.5; });
+        pool = pool.slice(0, 5);
+
+        container.innerHTML = '';
+        pool.forEach(function (player, idx) {
+          var avatar = AVATARS[idx % AVATARS.length];
+          var rankIcon = getRankIcon(player.rank);
+          var cardId = 'duo-req-' + idx;
+
+          var card = document.createElement('div');
+          card.className = 'duo-card group';
+          var fakeWR = (50 + Math.floor(Math.random() * 30)).toString();
+          var fakeKD = (0.8 + Math.random() * 1.5).toFixed(2);
+          card.innerHTML =
+            '<div class="flex items-center gap-3 mb-4">' +
+            '<div class="relative">' +
+            '<img alt="' + player.name + '" class="w-14 h-14 rounded-xl object-cover ring-2 ring-[#3a494b]/30 group-hover:ring-[#8B5CF6]/50 transition-all" src="' + avatar + '"/>' +
+            '<div class="absolute -bottom-1.5 -right-1.5 bg-[#8B5CF6] text-[#0A0B1E] text-[7px] font-bold px-1.5 py-0.5 rounded-md shadow-lg">LVL ' + player.lvl + '</div>' +
+            '</div>' +
+            '<div class="flex-1 min-w-0">' +
+            '<h3 class="font-[\'Outfit\'] font-bold text-[#e2e2e8] text-sm truncate">' + player.name + '</h3>' +
+            '<span class="text-[10px] text-[#849495] font-medium">' + player.game + '</span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="flex items-center gap-1 mb-3">' +
+            '<span class="material-symbols-outlined text-[#8B5CF6] text-sm" style="font-variation-settings: \'FILL\' 1;">' + rankIcon + '</span>' +
+            '<span class="text-[10px] font-[\'Outfit\'] font-bold text-[#8B5CF6]">' + player.rank + '</span>' +
+            '</div>' +
+            '<div class="card-stats">' +
+            '<div class="grid grid-cols-2 gap-2 p-2 rounded-lg bg-[#0A0B1E]/40 border border-[#3a494b]/20">' +
+            '<div class="text-center"><p class="text-[9px] text-[#849495] uppercase">Win Rate</p><p class="text-sm font-[\'Outfit\'] font-bold text-[#00e676]">%' + fakeWR + '</p></div>' +
+            '<div class="text-center"><p class="text-[9px] text-[#849495] uppercase">K/D</p><p class="text-sm font-[\'Outfit\'] font-bold text-[#ffaa00]">' + fakeKD + '</p></div>' +
+            '</div>' +
+            '</div>' +
+            '<button id="' + cardId + '" class="w-full mt-3 bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] text-[#0A0B1E] font-[\'Outfit\'] font-bold text-[10px] uppercase tracking-wider px-3 py-2.5 rounded-xl shadow-[0_0_12px_rgba(139, 92, 246,0.2)] hover:shadow-[0_0_20px_rgba(139, 92, 246,0.4)] active:scale-95 transition-all">' +
+            'Duo İsteği 📩' +
+            '</button>';
+
+          container.appendChild(card);
+
+          // Wire button
+          var btn = document.getElementById(cardId);
+
+          // Restore state: if already sent, mark as sent immediately
+          if (isRequestSent(player.name)) {
+            markButtonAsSent(btn);
+          } else {
+            btn.addEventListener('click', function () {
+              if (btn.disabled) return;
+              // Save to localStorage
+              saveSentRequest(player.name);
+              // Push notification
+              if (typeof addNotification === 'function') {
+                addNotification({ text: '<b>' + player.name + '</b> adlı oyuncuya duo isteği gönderdin!', icon: 'send', iconColor: '#8B5CF6' });
+              }
+              // Apply visual state
+              markButtonAsSent(btn);
+              card.classList.add('duo-req-anim');
+              setTimeout(function () { card.classList.remove('duo-req-anim'); }, 300);
+            });
+          }
+        });
+      }
+
+      buildSuggestions();
+
+    })();
+  </script>
+
+  <!-- â•â•â• Scroll Reveal Observer â•â•â• -->
+  <script>
+    (function () {
+      var sections = document.querySelectorAll('.match-section');
+      if (!sections.length) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    })();
+  </script>
+  <script src="../../js/modules/notifications.js"></script>
+  <script src="../../js/core/duo-state.js"></script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/settings-modal.js"></script>
+  <script src="../../js/modals/feedback-modal.js"></script>
+  <script src="../../js/modules/detail-polish.js"></script>
+  <script src="../../js/modules/theme-switcher.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+  <script src="../../js/modules/header-enhancements.js"></script>
+  <script src="../../js/modules/profile-sync.js"></script>
+  <script src="../../js/modals/report-modal.js"></script>
+  <script src="../../js/modules/mobile-nav.js"></script>
+
+  <script>
+    // â•â• LOAD DYNAMIC USER STATS â•â•
+    (function () {
+      var email = localStorage.getItem('loggedInUser');
+      if (!email) return;
+      var users = JSON.parse(localStorage.getItem('users') || '[]');
+      var currentUser = null;
+      for (var i = 0; i < users.length; i++) {
+        if (users[i].email === email) { currentUser = users[i]; break; }
+      }
+      if (currentUser && currentUser.stats) {
+        document.getElementById('stat-win-rate').textContent = '%' + currentUser.stats.winRate;
+        document.getElementById('stat-kd').textContent = currentUser.stats.kd;
+        document.getElementById('stat-win-streak').textContent = currentUser.stats.winStreak;
+        document.getElementById('stat-total-duos').textContent = currentUser.stats.totalDuos;
+        document.getElementById('stat-hours-played').textContent = currentUser.stats.hoursPlayed;
+      }
+    })();
+  </script>
+</body>
+
+</html>

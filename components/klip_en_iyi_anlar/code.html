@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NEON_VAULT // SHARE MOMENTS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ff7351",
+                    "surface-tint": "#8eff71",
+                    "on-tertiary-container": "#000000",
+                    "surface-container-highest": "#22262f",
+                    "tertiary-fixed-dim": "#d97dff",
+                    "primary-dim": "#2be800",
+                    "error-container": "#b92902",
+                    "tertiary-fixed": "#e192ff",
+                    "on-surface": "#ecedf6",
+                    "surface-container-high": "#1c2028",
+                    "surface-container-low": "#10131a",
+                    "primary": "#8eff71",
+                    "secondary-fixed-dim": "#00deec",
+                    "on-primary-fixed": "#064200",
+                    "primary-fixed": "#2ff801",
+                    "surface": "#0b0e14",
+                    "secondary-fixed": "#00eefc",
+                    "tertiary-container": "#be0dff",
+                    "surface-container-lowest": "#000000",
+                    "background": "#0b0e14",
+                    "primary-fixed-dim": "#2be800",
+                    "on-primary-container": "#0b5800",
+                    "secondary": "#00eefc",
+                    "on-background": "#ecedf6",
+                    "tertiary": "#d674ff",
+                    "on-error": "#450900",
+                    "surface-container": "#161a21",
+                    "on-tertiary-fixed-variant": "#600083",
+                    "on-tertiary-fixed": "#2c003f",
+                    "primary-container": "#2ff801",
+                    "on-surface-variant": "#a9abb3",
+                    "on-primary-fixed-variant": "#0d6200",
+                    "outline": "#73757d",
+                    "on-secondary-fixed-variant": "#005e64",
+                    "surface-dim": "#0b0e14",
+                    "on-error-container": "#ffd2c8",
+                    "surface-bright": "#282c36",
+                    "surface-variant": "#22262f",
+                    "on-primary": "#0d6100",
+                    "on-tertiary": "#390050",
+                    "inverse-on-surface": "#52555c",
+                    "outline-variant": "#45484f",
+                    "inverse-primary": "#106f00",
+                    "secondary-container": "#006970",
+                    "inverse-surface": "#f9f9ff",
+                    "secondary-dim": "#00deec",
+                    "error-dim": "#d53d18",
+                    "tertiary-dim": "#bb00fc",
+                    "on-secondary-fixed": "#003f43",
+                    "on-secondary": "#005359",
+                    "on-secondary-container": "#e3fdff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Manrope"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; background-color: #0b0e14; color: #ecedf6; }
+        .space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 h-16 bg-[#0b0e14] flex justify-between items-center px-8 w-full border-b border-white/5">
+<div class="flex items-center space-x-12">
+<span class="text-2xl font-black text-[#39FF14] tracking-tighter italic  uppercase">NEON_VAULT</span>
+<div class="hidden md:flex space-x-8">
+<a class=" tracking-tighter uppercase text-[#39FF14] border-b-2 border-[#39FF14] pb-1 hover:opacity-100 transition-all duration-150 ease-out" href="#">Discover</a>
+<a class=" tracking-tighter uppercase text-white opacity-70 hover:opacity-100 hover:text-[#39FF14] transition-all duration-150 ease-out" href="#">Live</a>
+<a class=" tracking-tighter uppercase text-white opacity-70 hover:opacity-100 hover:text-[#39FF14] transition-all duration-150 ease-out" href="#">Tournaments</a>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative bg-[#161a21] px-4 py-1.5 flex items-center">
+<span class="material-symbols-outlined text-white/50 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs  placeholder:text-white/30 w-48" placeholder="SEARCH_ARCHIVE" type="text"/>
+</div>
+<span class="material-symbols-outlined text-[#39FF14] cursor-pointer hover:scale-95 transition-transform" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-[#39FF14] cursor-pointer hover:scale-95 transition-transform" data-icon="upload">upload</span>
+<div class="w-8 h-8 bg-surface-container-highest border border-primary/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a futuristic gamer with neon face paint and reflective eyewear in a dark room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxxh2oPQCtNJmBXrS8KDdBYtSiJ30wWOVTnQQgyd17g5oxbWmc6v2vW1R28_VdU9QSmRUBFcwuTvs0nuvIwAcQ7QXv5kZ8GZuThmNFo0iCaFW9YbO9rjY6OypTEqAc2V9STLzn2xxxOdxuzv7Wdqd-5Tjettj8orgrHosiJPxGfufQMOar1gD7EEBBla5y-kTqvzy8tmsaWcHIsUGW97bESMpMFkDOMlv0498qYuyJJ3iG3gHniMzjDILwcVy88qdghy_UqynjeU8"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-[#0b0e14] flex flex-col py-6 px-4 space-y-2 hidden md:flex border-r border-white/5">
+<div class="mb-8 px-2">
+<h3 class="text-[#39FF14]  font-bold text-xs tracking-widest">TRENDING_GAMES</h3>
+<p class="text-white/30 text-[10px]  uppercase">LIVE_ARCHIVE</p>
+</div>
+<div class="space-y-1">
+<div class="flex items-center space-x-3 p-3 text-[#39FF14] bg-[#1c2028] cursor-pointer transition-all duration-150  font-bold text-xs uppercase">
+<span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+<span>Valorant</span>
+</div>
+<div class="flex items-center space-x-3 p-3 text-white/60 hover:text-white hover:bg-[#161a21] cursor-pointer transition-all duration-150  font-bold text-xs uppercase">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span>Cyberpunk 2077</span>
+</div>
+<div class="flex items-center space-x-3 p-3 text-white/60 hover:text-white hover:bg-[#161a21] cursor-pointer transition-all duration-150  font-bold text-xs uppercase">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span>League of Legends</span>
+</div>
+<div class="flex items-center space-x-3 p-3 text-white/60 hover:text-white hover:bg-[#161a21] cursor-pointer transition-all duration-150  font-bold text-xs uppercase">
+<span class="material-symbols-outlined" data-icon="swords">swords</span>
+<span>Elden Ring</span>
+</div>
+<div class="flex items-center space-x-3 p-3 text-white/60 hover:text-white hover:bg-[#161a21] cursor-pointer transition-all duration-150  font-bold text-xs uppercase">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+<span>Starfield</span>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-white/5">
+<button class="w-full bg-[#39FF14] text-[#064200] font-black py-3 text-[10px] tracking-[0.2em] hover:bg-[#2be800] transition-colors">UPGRADE TO PRO</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-12 px-8 min-h-screen">
+<div class="max-w-6xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12">
+<div class="inline-block bg-primary/10 border-l-4 border-primary px-4 py-1 mb-4">
+<span class="text-primary  text-xs tracking-widest uppercase font-bold">New Upload</span>
+</div>
+<h1 class="text-6xl  font-black tracking-tighter uppercase leading-none mb-4">Share Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Peak Moment</span></h1>
+<p class="text-on-surface-variant  max-w-xl text-lg">Broadcast your technical dominance. Upload your best clips to the kinetic archive and let the community witness your skill.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Upload & Preview -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Video Preview Area -->
+<div class="relative aspect-video bg-surface-container border border-white/5 group overflow-hidden" id="upload-zone" onclick="document.getElementById('hidden-file-input').click()">
+<input type="file" id="hidden-file-input" class="hidden" accept="video/mp4,video/quicktime,video/webm" />
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&amp;w=2070&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-40 group-hover:scale-105 transition-transform duration-700" data-alt="cinematic interior of a high-tech gaming room with multiple monitors displaying gaming statistics and neon green ambient lighting"></div>
+<div class="absolute inset-0 flex flex-col items-center justify-center bg-surface/60 backdrop-blur-sm group-hover:bg-surface/40 transition-colors">
+<div class="w-20 h-20 bg-primary/20 flex items-center justify-center border border-primary hover:bg-primary/40 transition-all cursor-pointer mb-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<h2 class=" font-bold text-xl uppercase tracking-tighter" id="upload-text">Drag &amp; Drop Clip</h2>
+<p class="text-on-surface-variant  text-sm" id="upload-subtext">MP4, MOV, or WEBM (Max 500MB)</p>
+</div>
+<!-- Pulse Stat (Live Preview Mock) -->
+<div class="absolute top-4 right-4 flex items-center space-x-2 bg-surface/80 px-3 py-1 backdrop-blur-md">
+<div class="w-2 h-2 bg-tertiary shadow-[0_0_8px_#d674ff] animate-pulse"></div>
+<span class="text-[10px]  font-bold tracking-widest uppercase text-tertiary">Live Rendering</span>
+</div>
+</div>
+<!-- Interaction Section -->
+<div class="bg-surface-container-high p-6 flex items-center justify-between">
+<div class="flex items-center space-x-8">
+<button class="flex items-center space-x-2 group" id="btn-like">
+<span id="like-icon" class="material-symbols-outlined text-primary text-2xl transition-transform group-hover:scale-125" data-icon="favorite" style="font-variation-settings: 'FILL' 0;">favorite</span>
+<span class=" font-bold text-sm tracking-tighter" id="clip-likes">0</span>
+</button>
+<button class="flex items-center space-x-2 group" id="btn-comment">
+<span class="material-symbols-outlined text-secondary text-2xl transition-transform group-hover:scale-125" data-icon="chat_bubble">chat_bubble</span>
+<span class=" font-bold text-sm tracking-tighter" id="clip-comments">0</span>
+</button>
+</div>
+<div class="flex -space-x-2">
+<img class="w-8 h-8 border-2 border-surface" data-alt="Avatar of user 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfBt_apYqpT08inNhbUqQ7b7sJYYDqRk2x_Y3zLrkH1qefSFsX5iPXMpqzEq_hulgtaCL1v1yUm1uGHAcw4enIgtIQJWc0bHvqwTMs5VdGvKiHjmcIRzVt_L_e8h0DW7vwchWaCLHExfx_DvlXAsqi0YDgCJ6liuwMtAynOw2_iLnrlkOP1mNCFd6sPzDF1eNtG-M3aKApHOLwSTiaYly00saSGDqyx8gYWnPwSqpC6FeKpX3PVMaczEpIh2SW0SlJEGOItjGKauA"/>
+<img class="w-8 h-8 border-2 border-surface" data-alt="Avatar of user 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgcV90fQEoAOJJNn8CVAQcUT_pewSZKVFps8v2srKfzP2TH0t2xC-HmDIsZu0YITP-WXV8256oMgJHeWIj2ioT9hj2kSuXIaRP-koBKcqKR93uIPOgkaMqjhIMq5GbEhoAYqIN2eHrYmiaD6sIpjpqP3IvB29BHkCtmJh-ooNBkBcZGBb7L19354VkavrW_FvAkXZeX5y8EzKk1npvYDZIY2FBowX9dS1kdnXliZ-haVoPjLEUlNVbN8Fhw-yaGWT3gcxBUHCMLYs"/>
+<img class="w-8 h-8 border-2 border-surface" data-alt="Avatar of user 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDEDmwyBQH265hG3Sp6DyCjFsq7Wd1EnkOv4FhPQk68jJxJI8beTNtIjYksqpUZFpxlIlWfgPPBldWPyn5qnGd6S5XYcjFdbvUlqVeC3C_6WOEBFOvnFTYXAhJ7DC3u3JkA0htaMRhxrpsvUDJT-uVHTwLH_Btr6Pq3GLtI0K7Dj7JXDicK7wzZ5FyGnbwMjCDdDtvQ90BWQm3wCcHY8JkzRwEPBgw6CXCR-RIotsBQGO8Ydc1rKlDNYt5zAc40BcVliMwU2xd7qQ"/>
+<div class="w-8 h-8 bg-surface-container-highest border-2 border-surface flex items-center justify-center text-[10px] font-bold" id="clip-viewers">+0</div>
+</div>
+</div>
+<!-- Meta Input Section -->
+<div class="space-y-4">
+<div class="bg-surface-container-low border-b-2 border-outline-variant focus-within:border-primary transition-colors p-4">
+<label class="block text-[10px]  font-bold text-primary tracking-widest uppercase mb-1">Moment Title</label>
+<input class="w-full bg-transparent border-none p-0 text-xl  font-bold tracking-tight focus:ring-0 placeholder:text-white/10 uppercase" placeholder="E.G. UNBELIEVABLE 1V5 CLUTCH ON B SITE" type="text"/>
+</div>
+<div class="bg-surface-container-low border-b-2 border-outline-variant focus-within:border-primary transition-colors p-4">
+<label class="block text-[10px]  font-bold text-primary tracking-widest uppercase mb-1">Description</label>
+<textarea class="w-full bg-transparent border-none p-0 text-on-surface-variant  focus:ring-0 placeholder:text-white/10 resize-none" placeholder="Describe the intensity of this play..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<!-- Right Column: Metadata & Settings -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Game Selection Grid -->
+<div class="bg-surface-container p-6">
+<h3 class=" font-bold text-sm tracking-widest uppercase mb-6 flex items-center">
+<span class="material-symbols-outlined text-primary mr-2" data-icon="category">category</span>
+                            Select Game
+                        </h3>
+<div class="grid grid-cols-2 gap-3" id="game-grid">
+<div class="game-option bg-surface-container-high p-4 border border-primary flex flex-col items-center justify-center cursor-pointer hover:bg-surface-bright transition-colors" data-active="true">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="sports_esports">sports_esports</span>
+<span class="text-[10px]  font-black uppercase tracking-widest text-primary">Valorant</span>
+</div>
+<div class="game-option bg-surface-container-high p-4 border border-transparent hover:border-white/20 flex flex-col items-center justify-center cursor-pointer hover:bg-surface-bright transition-colors opacity-50" data-active="false">
+<span class="material-symbols-outlined text-white mb-2" data-icon="bolt">bolt</span>
+<span class="text-[10px]  font-black uppercase tracking-widest text-white">Cyberpunk</span>
+</div>
+<div class="game-option bg-surface-container-high p-4 border border-transparent hover:border-white/20 flex flex-col items-center justify-center cursor-pointer hover:bg-surface-bright transition-colors opacity-50" data-active="false">
+<span class="material-symbols-outlined text-white mb-2" data-icon="shield">shield</span>
+<span class="text-[10px]  font-black uppercase tracking-widest text-white">League</span>
+</div>
+<div class="game-option bg-surface-container-high p-4 border border-transparent hover:border-white/20 flex flex-col items-center justify-center cursor-pointer hover:bg-surface-bright transition-colors opacity-50" data-active="false">
+<span class="material-symbols-outlined text-white mb-2" data-icon="more_horiz">more_horiz</span>
+<span class="text-[10px]  font-black uppercase tracking-widest text-white">Other</span>
+</div>
+</div>
+</div>
+<!-- Visibility Settings -->
+<div class="bg-surface-container p-6">
+<h3 class=" font-bold text-sm tracking-widest uppercase mb-6 flex items-center">
+<span class="material-symbols-outlined text-secondary mr-2" data-icon="visibility">visibility</span>
+                            Privacy_Tier
+                        </h3>
+<div class="space-y-2" id="privacy-options">
+<div class="privacy-option flex items-center justify-between p-3 bg-surface-container-lowest border border-secondary cursor-pointer transition-colors" data-active="true">
+<div>
+<p class="text-xs  font-bold uppercase">Public Access</p>
+<p class="text-[10px] text-on-surface-variant ">Visible to all Vault citizens</p>
+</div>
+<div class="indicator w-4 h-4 border-2 border-secondary bg-secondary"></div>
+</div>
+<div class="privacy-option flex items-center justify-between p-3 bg-surface-container-lowest border border-outline-variant hover:border-secondary cursor-pointer transition-colors opacity-50" data-active="false">
+<div>
+<p class="text-xs  font-bold uppercase">Archive Only</p>
+<p class="text-[10px] text-on-surface-variant ">Private view only</p>
+</div>
+<div class="indicator w-4 h-4 border-2 border-outline bg-transparent"></div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button id="btn-upload-submit" class="w-full bg-gradient-to-br from-primary to-primary-container py-6 flex flex-col items-center justify-center group relative overflow-hidden">
+<span class="relative z-10 text-on-primary-fixed  font-black text-xl tracking-[0.3em] uppercase" id="submit-text">Initialize Upload</span>
+<span class="relative z-10 text-on-primary-fixed/60 text-[10px]  font-bold uppercase mt-1">Commit to the Archive</span>
+<div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+</button>
+<!-- Tip Box -->
+<div class="p-4 border-l-2 border-tertiary bg-tertiary/5">
+<p class="text-[10px]  font-bold text-tertiary uppercase tracking-widest mb-1">Vault Tip</p>
+<p class="text-xs text-on-surface-variant">Clips with high engagement (Likes/Shares) are automatically archived into the 'Monthly Hall of Tech' hall.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 mt-20 bg-[#161a21] flex flex-col items-center justify-center space-y-4 w-full">
+<div class="flex space-x-12 mb-4">
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-white/40 hover:text-[#00eefc] transition-colors opacity-100 hover:opacity-80" href="#">Terms</a>
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-white/40 hover:text-[#00eefc] transition-colors opacity-100 hover:opacity-80" href="#">Privacy</a>
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-white/40 hover:text-[#00eefc] transition-colors opacity-100 hover:opacity-80" href="#">Careers</a>
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-white/40 hover:text-[#00eefc] transition-colors opacity-100 hover:opacity-80" href="#">Support</a>
+</div>
+<div class="flex items-center space-x-4">
+<span class="w-8 h-px bg-white/10"></span>
+<span class="font-black text-[#39FF14]  tracking-tighter italic uppercase text-lg">NEON_VAULT</span>
+<span class="w-8 h-px bg-white/10"></span>
+</div>
+<p class="font-['Manrope'] text-[10px] tracking-widest uppercase text-white/40">© 2024 NEON_VAULT // THE KINETIC ARCHIVE</p>
+</footer>
+<script>
+  (function() {
+    var clipId = 'clip_hero_1';
+    var clipData = JSON.parse(localStorage.getItem('nexus_clips_data') || '{}');
+    if (!clipData[clipId]) {
+      clipData[clipId] = { likes: 0, comments: 0, viewers: 0 };
+      localStorage.setItem('nexus_clips_data', JSON.stringify(clipData));
+    }
+    
+    var statLikes = document.getElementById('clip-likes');
+    var statComments = document.getElementById('clip-comments');
+    var statViewers = document.getElementById('clip-viewers');
+    var btnLike = document.getElementById('btn-like');
+    
+    var btnComment = document.getElementById('btn-comment');
+    var likeIcon = document.getElementById('like-icon');
+    
+    function updateUI() {
+      var currentData = JSON.parse(localStorage.getItem('nexus_clips_data') || '{}')[clipId] || {likes:0, comments:0, viewers:0, isLiked: false};
+      if(statLikes) statLikes.textContent = currentData.likes;
+      if(statComments) statComments.textContent = currentData.comments;
+      if(statViewers) statViewers.textContent = '+' + currentData.viewers;
+      if(likeIcon) {
+        likeIcon.style.fontVariationSettings = currentData.isLiked ? "'FILL' 1" : "'FILL' 0";
+      }
+    }
+    
+    updateUI();
+    
+    if(btnLike) {
+      btnLike.addEventListener('click', function() {
+        var data = JSON.parse(localStorage.getItem('nexus_clips_data') || '{}');
+        if (!data[clipId]) data[clipId] = {likes:0, comments:0, viewers:0, isLiked: false};
+        
+        if (data[clipId].isLiked) {
+            data[clipId].likes = Math.max(0, data[clipId].likes - 1);
+            data[clipId].isLiked = false;
+        } else {
+            data[clipId].likes += 1;
+            data[clipId].isLiked = true;
+        }
+        
+        localStorage.setItem('nexus_clips_data', JSON.stringify(data));
+        updateUI();
+      });
+    }
+
+    if(btnComment) {
+      btnComment.addEventListener('click', function() {
+        var data = JSON.parse(localStorage.getItem('nexus_clips_data') || '{}');
+        if (!data[clipId]) data[clipId] = {likes:0, comments:0, viewers:0, isLiked: false};
+        data[clipId].comments += 1;
+        localStorage.setItem('nexus_clips_data', JSON.stringify(data));
+        updateUI();
+      });
+    }
+
+    // --- Added logic for interactions ---
+
+    // File Input Logic
+    var fileInput = document.getElementById('hidden-file-input');
+    var uploadText = document.getElementById('upload-text');
+    var uploadSubtext = document.getElementById('upload-subtext');
+    
+    if (fileInput) {
+      fileInput.addEventListener('change', function(e) {
+        if(e.target.files && e.target.files.length > 0) {
+          uploadText.textContent = "Clip Ready!";
+          uploadSubtext.textContent = e.target.files[0].name;
+          uploadText.classList.add('text-primary');
+        }
+      });
+    }
+
+    // Game Selection Logic
+    var gameOptions = document.querySelectorAll('.game-option');
+    gameOptions.forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        gameOptions.forEach(function(o) {
+          o.classList.remove('border-primary');
+          o.classList.add('border-transparent', 'opacity-50');
+          var icon = o.querySelector('.material-symbols-outlined');
+          var text = o.querySelector('span:last-child');
+          if (icon) { icon.classList.remove('text-primary'); icon.classList.add('text-white'); }
+          if (text) { text.classList.remove('text-primary'); text.classList.add('text-white'); }
+        });
+        this.classList.add('border-primary');
+        this.classList.remove('border-transparent', 'opacity-50');
+        var icon = this.querySelector('.material-symbols-outlined');
+        var text = this.querySelector('span:last-child');
+        if (icon) { icon.classList.add('text-primary'); icon.classList.remove('text-white'); }
+        if (text) { text.classList.add('text-primary'); text.classList.remove('text-white'); }
+      });
+    });
+
+    // Privacy Options Logic
+    var privacyOptions = document.querySelectorAll('.privacy-option');
+    privacyOptions.forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        privacyOptions.forEach(function(o) {
+          o.classList.remove('border-secondary');
+          o.classList.add('border-outline-variant', 'opacity-50');
+          var ind = o.querySelector('.indicator');
+          if(ind) { ind.classList.remove('border-secondary', 'bg-secondary'); ind.classList.add('border-outline', 'bg-transparent'); }
+        });
+        this.classList.add('border-secondary');
+        this.classList.remove('border-outline-variant', 'opacity-50');
+        var ind = this.querySelector('.indicator');
+        if(ind) { ind.classList.add('border-secondary', 'bg-secondary'); ind.classList.remove('border-outline', 'bg-transparent'); }
+      });
+    });
+
+    // Submit Logic
+    var submitBtn = document.getElementById('btn-upload-submit');
+    var submitText = document.getElementById('submit-text');
+    if(submitBtn) {
+      submitBtn.addEventListener('click', function() {
+        submitText.textContent = "UPLOADING...";
+        submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
+        setTimeout(function() {
+          submitText.textContent = "UPLOAD COMPLETE!";
+          setTimeout(function() {
+            submitText.textContent = "INITIALIZE UPLOAD";
+            submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+            if(fileInput) fileInput.value = "";
+            if(uploadText) uploadText.textContent = "Drag & Drop Clip";
+            if(uploadSubtext) uploadSubtext.textContent = "MP4, MOV, or WEBM (Max 500MB)";
+            if(uploadText) uploadText.classList.remove('text-primary');
+          }, 2000);
+        }, 1500);
+      });
+    }
+
+  })();
+</script>
+</body></html>
+
+

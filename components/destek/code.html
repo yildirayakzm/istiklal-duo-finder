@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Destek</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      background-color: #0A0B1E;
+      font-family: 'Poppins', sans-serif;
+      color: #e2e2e8;
+      min-height: 100dvh;
+    }
+
+    .glass-panel {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .neon-text-glow {
+      text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+    }
+
+    .neon-glow {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+    }
+
+    .cyber-btn {
+      background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+    }
+
+    .faq-item {
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .faq-answer.open {
+      max-height: 300px;
+    }
+
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      pointer-events: auto;
+      min-width: 320px;
+      max-width: 420px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      backdrop-filter: blur(16px);
+      border: 1px solid;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .toast.toast-out {
+      animation: toastSlideOut 0.35s ease forwards;
+    }
+
+    .toast-success {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: rgba(139, 92, 246, 0.35);
+      color: #8B5CF6;
+      text-shadow: 0 0 6px rgba(139, 92, 246, 0.4);
+    }
+
+    .toast-error {
+      background: rgba(255, 80, 80, 0.12);
+      border-color: rgba(255, 80, 80, 0.35);
+      color: #ff5050;
+      text-shadow: 0 0 6px rgba(255, 80, 80, 0.4);
+    }
+
+    @keyframes toastSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(60px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes toastSlideOut {
+      from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateX(60px) scale(0.95);
+      }
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/40 backdrop-blur-xl border-b border-[#8B5CF6]/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+    <div class="flex items-center justify-between px-6 h-16 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-2xl">sports_esports</span>
+        <span
+          class=" font-bold tracking-tighter text-4xl font-black text-[#8B5CF6] drop-shadow-[0_0_8px_rgba(139, 92, 246,0.4)]">İSTİKLAL</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8  font-bold">
+        <a class="text-[#e2e2e8]/60 transition-colors hover:text-[#8B5CF6]" href="../giri_yap_login/code.html">Giriş</a>
+        <a class="text-[#e2e2e8]/60 transition-colors hover:text-[#8B5CF6]"
+          href="../kay_t_ol_register/code.html">Kayit</a>
+        <a class="text-[#8B5CF6] transition-colors hover:text-[#8B5CF6]" href="#">Destek</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-[#8B5CF6]/5 rounded-full blur-[120px]"></div>
+    <div class="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-[#ffaa00]/5 rounded-full blur-[100px]"></div>
+  </div>
+
+  <main class="flex-grow flex flex-col items-center px-6 pt-28 pb-16 relative z-10">
+    <div class="w-full max-w-2xl">
+
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <div
+          class="inline-flex items-center justify-center p-4 bg-[#333539] rounded-2xl mb-4 border border-[#3a494b]/30 neon-glow">
+          <span class="material-symbols-outlined text-[#8B5CF6] text-5xl"
+            style="font-variation-settings: 'FILL' 1;">support_agent</span>
+        </div>
+        <h1 class="text-4xl font-bold neon-text-glow mb-2">Destek Merkezi</h1>
+        <p class="text-[#b9cacb] font-medium">Sana nasıl yardımcı olabiliriz?</p>
+      </div>
+
+      <!-- Contact Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <div
+          class="glass-panel rounded-2xl p-6 text-center hover:border-[#8B5CF6]/30 transition-all cursor-pointer group">
+          <span
+            class="material-symbols-outlined text-3xl text-[#8B5CF6] mb-3 block group-hover:scale-110 transition-transform">mail</span>
+          <h3 class="font-bold text-sm mb-1">E-posta</h3>
+          <p class="text-[#849495] text-xs">destek@duofinder.com</p>
+        </div>
+        <div
+          class="glass-panel rounded-2xl p-6 text-center hover:border-[#8B5CF6]/30 transition-all cursor-pointer group">
+          <span
+            class="material-symbols-outlined text-3xl text-[#8B5CF6] mb-3 block group-hover:scale-110 transition-transform">forum</span>
+          <h3 class="font-bold text-sm mb-1">Discord</h3>
+          <p class="text-[#849495] text-xs">discord.gg/duofinder</p>
+        </div>
+        <div
+          class="glass-panel rounded-2xl p-6 text-center hover:border-[#8B5CF6]/30 transition-all cursor-pointer group">
+          <span
+            class="material-symbols-outlined text-3xl text-[#8B5CF6] mb-3 block group-hover:scale-110 transition-transform">chat</span>
+          <h3 class="font-bold text-sm mb-1" data-i18n="mega_live_support">Destek</h3>
+          <p class="text-[#849495] text-xs">7/24 Aktif</p>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12">
+        <h2 class="text-xl font-bold mb-6 text-center neon-text-glow" data-i18n="mega_faq">Sıkça Sorulan Sorular</h2>
+        <div class="space-y-3" id="faq-list">
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">Duo nasıl bulunur?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">"LFG Lobiler" sekmesinden aktif odalara anında katılabilir veya kendi lobinizi oluşturarak uygun oyuncuları bekleyebilirsiniz.</p>
+            </div>
+          </div>
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">İstiklal AI (Yapay Zeka) nasıl çalışır?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">Nexus AI teknolojisi; rankınız, oynadığınız roller, aktif saatleriniz ve oyun içi iletişim tercihlerinizi analiz ederek uyumluluk yüzdesi en yüksek oyuncuları karşınıza çıkarır.</p>
+            </div>
+          </div>
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">Hangi oyunları destekliyorsunuz?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">Sistemimiz şu anda aktif olarak Valorant, League of Legends, CS2 ve Fortnite için gelişmiş duo ve lobi eşleştirmesi yapmaktadır.</p>
+            </div>
+          </div>
+
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">Bir oyuncuyu nasıl raporlarım?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">Oyun deneyiminizi bozan veya topluluk kurallarını ihlal eden kullanıcıları, eşleşme geçmişinizden veya profillerindeki Rapor Et butonunu kullanarak anında şikayet edebilirsiniz.</p>
+            </div>
+          </div>
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">Premium üyelik var mı?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">İstiklal temel eşleşme özellikleri ile her zaman ücretsiz kalacaktır. Liderlik tablosu avantajları veya özel profil kişiselleştirmeleri gibi ek özellikler zamanla eklenebilir.</p>
+            </div>
+          </div>
+          <div class="faq-item glass-panel rounded-xl cursor-pointer" onclick="toggleFaq(this)">
+            <div class="flex items-center justify-between p-4">
+              <span class="font-semibold text-sm">Destek ekibine nasıl ulaşırım?</span>
+              <span class="material-symbols-outlined text-[#8B5CF6] faq-icon transition-transform">expand_more</span>
+            </div>
+            <div class="faq-answer px-4 text-[#b9cacb] text-sm">
+              <p class="pb-4">Mega menüdeki "Yardım" sekmesinden "Destek" bölümüne tıklayarak veya Yardım Merkezimizden 7/24 ekibimizle iletişime geçebilirsiniz.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="glass-panel rounded-[2rem] p-8">
+        <h2 class="text-xl font-bold mb-6 text-center neon-text-glow">Bize Ulaş</h2>
+        <form id="support-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-widest text-[#b9cacb] mb-1 ml-1">Ad
+              Soyad</label>
+            <input id="support-name" name="name"
+              class="w-full bg-[#1a1c20] border border-[#3a494b]/30 focus:border-[#8B5CF6] text-[#e2e2e8] px-4 py-3 rounded-xl outline-none transition-all placeholder:text-[#849495]/40"
+              placeholder="İsminiz" type="text" />
+          </div>
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase tracking-widest text-[#b9cacb] mb-1 ml-1">E-posta</label>
+            <input id="support-email" name="email"
+              class="w-full bg-[#1a1c20] border border-[#3a494b]/30 focus:border-[#8B5CF6] text-[#e2e2e8] px-4 py-3 rounded-xl outline-none transition-all placeholder:text-[#849495]/40"
+              placeholder="ornek@mail.com" type="email" />
+          </div>
+          <div>
+            <label
+              class="block text-xs font-semibold uppercase tracking-widest text-[#b9cacb] mb-1 ml-1">Mesajınız</label>
+            <textarea id="support-message" name="message"
+              class="w-full bg-[#1a1c20] border border-[#3a494b]/30 focus:border-[#8B5CF6] text-[#e2e2e8] px-4 py-3 rounded-xl outline-none transition-all placeholder:text-[#849495]/40 resize-none"
+              rows="4" placeholder="Sorunuzu veya önerinizi yazınız..."></textarea>
+          </div>
+          <button id="support-submit-btn" type="button" onclick="submitSupport()"
+            class="w-full cyber-btn text-[#002022] font-bold py-4 rounded-full shadow-[0_0_25px_rgba(139, 92, 246,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all text-lg uppercase tracking-wider">
+            Gönder
+          </button>
+        </form>
+        <p id="support-msg" class="text-center text-sm mt-4 hidden text-[#8B5CF6] font-semibold"></p>
+      </div>
+
+      <!-- Back Link -->
+      <div class="text-center mt-8">
+        <a class="text-[#8B5CF6] font-bold hover:underline text-sm" href="../giri_yap_login/code.html">‹ Giriş sayfasına
+          dön</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Vignette -->
+  <div class="fixed inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.7)] z-20"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script>
+    // --- Toast Notification System ---
+    function showToast(message, type) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast toast-' + type;
+
+      const icon = type === 'success' ? 'check_circle' : 'error';
+      toast.innerHTML = '<span class="material-symbols-outlined" style="font-size:22px;font-variation-settings:\'FILL\' 1">' + icon + '</span><span>' + message + '</span>';
+
+      container.appendChild(toast);
+
+      setTimeout(function () {
+        toast.classList.add('toast-out');
+        toast.addEventListener('animationend', function () { toast.remove(); });
+      }, 4000);
+    }
+
+    // --- FAQ Toggle ---
+    function toggleFaq(el) {
+      const answer = el.querySelector('.faq-answer');
+      const icon = el.querySelector('.faq-icon');
+      const isOpen = answer.classList.contains('open');
+
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = '');
+
+      if (!isOpen) {
+        answer.classList.add('open');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // --- EmailJS Contact Form ---
+    function submitSupport() {
+      const nameEl = document.getElementById('support-name');
+      const emailEl = document.getElementById('support-email');
+      const messageEl = document.getElementById('support-message');
+      const btn = document.getElementById('support-submit-btn');
+
+      // Validation
+      if (!nameEl.value.trim() || !emailEl.value.trim() || !messageEl.value.trim()) {
+        showToast('Lütfen tüm alanları doldur aga!', 'error');
+        return;
+      }
+
+      // Loading state
+      btn.disabled = true;
+      btn.textContent = 'Mesaj İletiliyor...';
+      btn.style.opacity = '0.7';
+      btn.style.cursor = 'not-allowed';
+
+      const templateParams = {
+        name: nameEl.value.trim(),
+        email: emailEl.value.trim(),
+        message: messageEl.value.trim(),
+        from_name: 'İSTİKLAL Destek'
+      };
+
+      emailjs.send('service_is4jo2s', 'template_gg6h54g', templateParams, '4nOnD1fyCLTj7BW3p')
+        .then(function () {
+          showToast('Talebiniz bize ulaştı, en kısa sürede dönüş sağlayacağız.', 'success');
+          nameEl.value = '';
+          emailEl.value = '';
+          messageEl.value = '';
+        })
+        .catch(function () {
+          showToast('Bir hata oluştu, Lütfen tekrar deneyin!', 'error');
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = 'Gönder';
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+        });
+    }
+  </script>
+</body>
+
+</html>
+
+
+
+

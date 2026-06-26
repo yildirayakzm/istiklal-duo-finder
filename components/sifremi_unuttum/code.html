@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Şifremi Unuttum</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      background-color: #0A0B1E;
+      font-family: 'Poppins', sans-serif;
+      color: #e2e2e8;
+      min-height: 100dvh;
+    }
+
+    .glass-panel {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(139, 92, 246, 0.1);
+    }
+
+    .neon-text-glow {
+      text-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+    }
+
+    .neon-glow {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+    }
+
+    .cyber-btn {
+      background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+    }
+
+    .input-glow:focus {
+      border-color: #8B5CF6;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/40 backdrop-blur-xl border-b border-[#8B5CF6]/20 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+    <div class="flex items-center justify-between px-6 h-16 w-full max-w-7xl mx-auto">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-2xl">sports_esports</span>
+        <span
+          class=" font-bold tracking-tighter text-4xl font-black text-[#8B5CF6] drop-shadow-[0_0_8px_rgba(139, 92, 246,0.4)]">İSTİKLAL</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8  font-bold">
+        <a class="text-[#e2e2e8]/60 transition-colors hover:text-[#8B5CF6]" href="../giri_yap_login/code.html">Giriş</a>
+        <a class="text-[#e2e2e8]/60 transition-colors hover:text-[#8B5CF6]"
+          href="../kay_t_ol_register/code.html">Kayit</a>
+        <a class="text-[#e2e2e8]/60 transition-colors hover:text-[#8B5CF6] cursor-pointer" href="javascript:void(0)"
+          onclick="openSupportModal()">Destek</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Background Effects -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute top-[20%] left-[10%] w-[45%] h-[45%] bg-[#8B5CF6]/5 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[20%] right-[10%] w-[35%] h-[35%] bg-[#EC4899]/5 rounded-full blur-[100px]"></div>
+  </div>
+
+  <main class="flex-grow flex items-center justify-center px-6 pt-24 pb-12 relative z-10">
+    <div class="w-full max-w-md">
+
+      <!-- Icon + Title -->
+      <div class="text-center mb-10">
+        <div
+          class="inline-flex items-center justify-center p-4 bg-[#333539] rounded-2xl mb-4 border border-[#3a494b]/30 neon-glow">
+          <span class="material-symbols-outlined text-[#8B5CF6] text-5xl"
+            style="font-variation-settings: 'FILL' 1;">lock_reset</span>
+        </div>
+        <h1 class="text-3xl font-bold neon-text-glow mb-2">Şifreni Sıfırla</h1>
+        <p class="text-[#b9cacb] font-medium text-sm">Kayıtlı e-posta adresini gir, sana şifre sıfırlama bağlantısı
+          gönderelim.</p>
+      </div>
+
+      <!-- Reset Form -->
+      <div class="glass-panel rounded-[2rem] p-8 shadow-2xl">
+        <div class="space-y-6">
+          <!-- Email -->
+          <div class="space-y-2">
+            <label class="block text-xs font-semibold uppercase tracking-widest text-[#b9cacb] ml-1">E-posta
+              Adresi</label>
+            <div class="relative">
+              <span
+                class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#849495]">mail</span>
+              <input id="reset-email"
+                class="w-full bg-[#1a1c20] border border-[#3a494b]/30 text-[#e2e2e8] px-12 py-4 rounded-xl outline-none transition-all placeholder:text-[#849495]/40 input-glow"
+                placeholder="gamer@duofinder.com" type="email" />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button id="reset-btn" type="button"
+            class="w-full cyber-btn text-[#002022] font-bold py-4 rounded-full shadow-[0_0_25px_rgba(139, 92, 246,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all text-lg uppercase tracking-wider">
+            Sıfırlama Bağlantısı Gönder
+          </button>
+
+          <p id="reset-msg" class="text-center text-sm hidden font-semibold"></p>
+        </div>
+
+        <!-- Steps Info -->
+        <div class="mt-8 pt-6 border-t border-[#3a494b]/30">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-[#b9cacb] mb-4 text-center">Nasıl Çalışır?</h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#8B5CF6] font-bold text-xs">1</span>
+              </div>
+              <p class="text-[#b9cacb] text-sm">Kayıtlı e-posta adresini yukarıya yaz.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#8B5CF6] font-bold text-xs">2</span>
+              </div>
+              <p class="text-[#b9cacb] text-sm">E-postanı kontrol et, sıfırlama linkine tıkla.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 border border-[#8B5CF6]/20 flex items-center justify-center flex-shrink-0">
+                <span class="text-[#8B5CF6] font-bold text-xs">3</span>
+              </div>
+              <p class="text-[#b9cacb] text-sm">Yeni şifreni belirle ve giriş yap!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to Login -->
+      <div class="text-center mt-8">
+        <a class="text-[#8B5CF6] font-bold hover:underline text-sm" href="../giri_yap_login/code.html">‹ Giriş sayfasına
+          dön</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Vignette -->
+  <div class="fixed inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.7)] z-20"></div>
+
+  <script>
+    (function () {
+      var emailInput = document.getElementById('reset-email');
+      var resetBtn = document.getElementById('reset-btn');
+      var msg = document.getElementById('reset-msg');
+
+      resetBtn.addEventListener('click', function () {
+        var email = emailInput.value.trim();
+
+        if (!email) {
+          msg.textContent = 'Lütfen e-posta adresinizi giriniz.';
+          msg.className = 'text-center text-sm text-red-400 font-semibold';
+          emailInput.style.borderColor = '#ffb4ab';
+          return;
+        }
+
+        // Simple email format check
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          msg.textContent = 'Geçerli bir e-posta adresi giriniz.';
+          msg.className = 'text-center text-sm text-red-400 font-semibold';
+          emailInput.style.borderColor = '#ffb4ab';
+          return;
+        }
+
+        // Success state
+        emailInput.style.borderColor = '';
+        resetBtn.textContent = 'Gönderiliyor...';
+        resetBtn.disabled = true;
+        resetBtn.style.opacity = '0.7';
+
+        setTimeout(function () {
+          msg.textContent = '? Sıfırlama bağlantısı e-posta adresine gönderildi!';
+          msg.className = 'text-center text-sm text-[#8B5CF6] font-semibold';
+          resetBtn.textContent = 'Gönderildi ?';
+        }, 1200);
+      });
+
+      emailInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') resetBtn.click();
+      });
+
+      emailInput.addEventListener('input', function () {
+        emailInput.style.borderColor = '';
+        msg.className = 'text-center text-sm hidden font-semibold';
+      });
+    })();
+  </script>
+  <script src="../../js/modals/support-modal.js"></script>
+</body>
+
+</html>
+
+

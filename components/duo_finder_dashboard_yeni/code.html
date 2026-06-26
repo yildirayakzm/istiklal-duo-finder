@@ -1,0 +1,3926 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>İstiklal | Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', 'Outfit', sans-serif;
+      background-color: #0A0B1E;
+      color: #e2e2e8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-headline {
+      font-family: 'Syne', sans-serif;
+    }
+
+    .font-body {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .neon-glow-blue {
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.6), 0 0 24px rgba(236, 72, 153, 0.3);
+    }
+
+    .neon-card-blue {
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 40px rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .neon-card-orange {
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.15), 0 0 40px rgba(236, 72, 153, 0.05);
+      border: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .glass-panel {
+      background: rgba(30, 20, 60, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Sidebar menu icon hover glow */
+    .sidebar-nav-item {
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-nav-item:hover .nav-icon {
+      filter: drop-shadow(0 0 8px var(--theme-glow, rgba(139, 92, 246, 0.7)));
+      transform: scale(1.1);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-nav-item .nav-icon {
+      transition: all 0.3s ease;
+    }
+
+    /* Live Matches fade animation */
+    @keyframes liveMatchFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes liveMatchFadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+    }
+
+    .live-match-enter {
+      animation: liveMatchFadeIn 0.6s ease-out forwards;
+    }
+
+    .live-match-exit {
+      animation: liveMatchFadeOut 0.6s ease-in forwards;
+    }
+
+    /* Trend Radar neon pulse */
+    @keyframes trendPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(255, 68, 68, 0.3), inset 0 0 8px rgba(255, 68, 68, 0.05);
+      }
+
+      50% {
+        box-shadow: 0 0 16px rgba(255, 68, 68, 0.6), inset 0 0 12px rgba(255, 68, 68, 0.1);
+      }
+    }
+
+    .trend-radar-box {
+      animation: trendPulse 3s ease-in-out infinite;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Dynamic number glow/flash animation */
+    @keyframes numFlash {
+      0% {
+        text-shadow: 0 0 0 transparent;
+        transform: scale(1);
+      }
+
+      50% {
+        text-shadow: 0 0 18px currentColor, 0 0 36px currentColor;
+        transform: scale(1.08);
+      }
+
+      100% {
+        text-shadow: 0 0 0 transparent;
+        transform: scale(1);
+      }
+    }
+
+    .num-flash {
+      animation: numFlash 0.45s ease-out;
+      display: inline-block;
+    }
+
+    /* Ticker slide-in animation */
+    @keyframes tickerSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-16px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .ticker-enter {
+      animation: tickerSlideIn 0.5s ease-out;
+    }
+
+    /* ¦¦ Locked font sizes for Live Friendships panel ¦¦ */
+    aside .space-y-4>div p,
+    aside .space-y-4>div .live-ticker-text {
+      font-size: 14px !important;
+      line-height: 1.625 !important;
+      font-family: 'Poppins', sans-serif !important;
+    }
+
+    aside .space-y-4>div .live-ticker-time {
+      font-size: 11px !important;
+      font-family: 'Outfit', sans-serif !important;
+    }
+
+    /* ¦¦ Nav Drawer ¦¦ */
+    #nav-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #nav-drawer-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #nav-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1000;
+      width: 300px;
+      max-width: 85vw;
+      background: rgba(10, 11, 30, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-right: 1px solid rgba(139, 92, 246, 0.15);
+      box-shadow: 8px 0 40px rgba(0, 0, 0, 0.5);
+      transform: translateX(-100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+    }
+
+    #nav-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      color: #b9cacb;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      text-decoration: none;
+    }
+
+    .drawer-item:hover {
+      background: rgba(139, 92, 246, 0.08);
+      color: #8B5CF6;
+    }
+
+    .drawer-item .material-symbols-outlined {
+      font-size: 22px;
+    }
+
+    .drawer-divider {
+      height: 1px;
+      background: rgba(58, 73, 75, 0.3);
+      margin: 8px 16px;
+    }
+
+    .drawer-item.danger {
+      color: #ff6b6b;
+    }
+
+    .drawer-item.danger:hover {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+    }
+
+    /* ¦¦ Profile Avatar Direct Link ¦¦ */
+    .profile-direct-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .profile-direct-link .profile-avatar-ring {
+      transition: all 0.3s ease;
+    }
+
+    .profile-direct-link:hover .profile-avatar-ring {
+      transform: scale(1.05);
+      border-color: #8B5CF6 !important;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.35), 0 0 40px rgba(139, 92, 246, 0.15) !important;
+    }
+
+    .profile-direct-link:hover .profile-avatar-ring .material-symbols-outlined {
+      color: #8B5CF6 !important;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    /* ¦¦ Logout Button Neon Hover ¦¦ */
+    .header-logout-btn {
+      transition: all 0.25s ease;
+    }
+
+    .header-logout-btn:hover {
+      background: rgba(255, 68, 68, 0.2) !important;
+      border-color: rgba(255, 68, 68, 0.6) !important;
+      box-shadow: 0 0 18px rgba(255, 68, 68, 0.3), 0 0 40px rgba(255, 68, 68, 0.1) !important;
+    }
+
+    .header-logout-btn:hover .material-symbols-outlined {
+      color: #ff4444 !important;
+      filter: drop-shadow(0 0 6px rgba(255, 68, 68, 0.6));
+    }
+
+    /* ¦¦ Logout Toast ¦¦ */
+    #logout-toast {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      z-index: 9999;
+      background: rgba(17, 19, 24, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 68, 68, 0.3);
+      border-radius: 20px;
+      padding: 24px 40px;
+      box-shadow: 0 0 40px rgba(255, 68, 68, 0.15), 0 12px 40px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    }
+
+    #logout-toast.show {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* ¦¦ Light Mode: Footer Integration Icons ¦¦ */
+    body.light-mode .footer-integration-icon {
+      background: #F4F7FA !important;
+      border-color: #E1E8ED !important;
+    }
+
+    body.light-mode .footer-integration-icon svg {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .footer-integration-icon:hover svg {
+      color: #2D3436 !important;
+    }
+
+    /* Light mode footer social icons */
+    body.light-mode .footer-social-icon {
+      background: #F4F7FA !important;
+      border-color: #E1E8ED !important;
+    }
+
+    body.light-mode .footer-social-icon svg {
+      color: #636E72 !important;
+    }
+
+    /* ¦¦ Nav Links Left (Game/Social) ¦¦ */
+    .nav-link-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-link-left:hover {
+      color: #8B5CF6;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-link-left .material-symbols-outlined {
+      font-size: 18px;
+      color: #849495;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link-left:hover .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .nav-link-left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #8B5CF6, #EC4899);
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link-left:hover::after {
+      width: 80%;
+    }
+
+    body.light-mode .nav-link-left {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .nav-link-left:hover {
+      color: #3B82F6 !important;
+      text-shadow: none !important;
+    }
+
+    body.light-mode .nav-link-left .material-symbols-outlined {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .nav-link-left:hover .material-symbols-outlined {
+      color: #3B82F6 !important;
+      filter: none !important;
+    }
+
+    body.light-mode .nav-link-left::after {
+      background: #3B82F6 !important;
+    }
+
+    /* ¦¦ Header Search Bar ¦¦ */
+    .header-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(26, 28, 32, 0.8);
+      border: 1px solid rgba(58, 73, 75, 0.3);
+      border-radius: 12px;
+      padding: 6px 12px;
+      transition: all 0.25s ease;
+    }
+
+    .header-search:focus-within {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: rgba(20, 16, 40, 0.95);
+    }
+
+    .header-search input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #e2e2e8;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      width: 120px;
+    }
+
+    .header-search input::placeholder {
+      color: #849495;
+    }
+
+    .header-search .material-symbols-outlined {
+      color: #849495;
+      font-size: 18px;
+    }
+
+    body.light-mode .header-search {
+      background: #F4F7FA !important;
+      border-color: #E1E8ED !important;
+    }
+
+    body.light-mode .header-search input {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .header-search input::placeholder {
+      color: #A0ADB5 !important;
+    }
+
+    body.light-mode .header-search:focus-within {
+      border-color: #3B82F6 !important;
+    }
+
+    /* ¦¦ Duo-Radar Ticker Band ¦¦ */
+    #duo-radar-ticker {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      z-index: 45;
+      height: 36px;
+      background: rgba(10, 11, 30, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    #duo-radar-ticker .ticker-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: tickerScroll 40s linear infinite;
+    }
+
+    #duo-radar-ticker .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 32px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(139, 92, 246, 0.8);
+      letter-spacing: 0.03em;
+    }
+
+    #duo-radar-ticker .ticker-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.5);
+      flex-shrink: 0;
+    }
+
+    @keyframes tickerScroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    body.light-mode #duo-radar-ticker {
+      background: #F8FAFC !important;
+      border-bottom: 2px solid #E1E8ED !important;
+    }
+
+    body.light-mode #duo-radar-ticker .ticker-item {
+      color: #1E3A5F !important;
+    }
+
+    body.light-mode #duo-radar-ticker .ticker-dot {
+      background: #3B82F6 !important;
+    }
+
+    /* ¦¦ Nexus AI Daily Meta Card ¦¦ */
+    #daily-meta-card {
+      position: fixed;
+      top: 130px;
+      right: 20px;
+      z-index: 55;
+      width: 340px;
+      max-width: calc(100vw - 40px);
+      background: rgba(10, 11, 30, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 24px;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.08);
+      padding: 20px;
+      transform: translateX(120%);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #daily-meta-card.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    #daily-meta-card.dismissed {
+      transform: translateX(120%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #daily-meta-card .meta-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    #daily-meta-card .meta-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #daily-meta-card .meta-icon .material-symbols-outlined {
+      color: #FFD700;
+      font-size: 22px;
+      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+    }
+
+    #daily-meta-card .meta-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #8B5CF6;
+    }
+
+    #daily-meta-card .meta-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #849495;
+      font-size: 20px;
+      transition: color 0.2s;
+    }
+
+    #daily-meta-card .meta-close:hover {
+      color: #ff6b6b;
+    }
+
+    #daily-meta-card .meta-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #e2e2e8;
+    }
+
+    #daily-meta-card .meta-text strong {
+      color: #8B5CF6;
+      font-weight: 700;
+    }
+
+    body.light-mode #daily-meta-card {
+      background: rgba(255, 255, 255, 0.85) !important;
+      border-color: #E1E8ED !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.light-mode #daily-meta-card .meta-label {
+      color: #3B82F6 !important;
+    }
+
+    body.light-mode #daily-meta-card .meta-text {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode #daily-meta-card .meta-text strong {
+      color: #3B82F6 !important;
+    }
+
+    body.light-mode #daily-meta-card .meta-close {
+      color: #A0ADB5 !important;
+    }
+
+    body.light-mode #daily-meta-card .meta-close:hover {
+      color: #EF4444 !important;
+    }
+
+    /* â•â• GUEST MODE STYLES â•â• */
+    #guest-banner {
+      display: none;
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(236, 72, 153, 0.08));
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 18px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-family: 'Poppins', sans-serif;
+      animation: guestBannerIn 0.6s ease-out;
+    }
+
+    @keyframes guestBannerIn {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #guest-banner .guest-banner-inner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #guest-banner .guest-banner-icon {
+      font-size: 22px;
+      filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+    }
+
+    #guest-banner .guest-banner-text {
+      font-size: 13px;
+      color: #e2e2e8;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    #guest-banner .guest-banner-text strong {
+      color: #8B5CF6;
+    }
+
+    #guest-banner .guest-banner-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    #guest-banner .guest-banner-btns a {
+      padding: 7px 20px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.04em;
+    }
+
+    #guest-banner .guest-btn-primary {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+    }
+
+    #guest-banner .guest-btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    #guest-banner .guest-btn-secondary {
+      background: rgba(139, 92, 246, 0.08);
+      color: #8B5CF6;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    #guest-banner .guest-btn-secondary:hover {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.5);
+    }
+
+    body.light-mode #guest-banner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(236, 72, 153, 0.05)) !important;
+      border-color: rgba(59, 130, 246, 0.2) !important;
+    }
+
+    body.light-mode #guest-banner .guest-banner-text {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode #guest-banner .guest-banner-text strong {
+      color: #3B82F6 !important;
+    }
+
+    /* NEW GUEST GLASS STYLES */
+    html.is-guest-mode #lobby-wrapper>*:not(.guest-glass-overlay) {
+      filter: blur(12px) saturate(0.8);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.6;
+    }
+
+    html.is-guest-mode .guest-glass-overlay {
+      display: flex !important;
+    }
+
+    .guest-glass-overlay {
+      display: none;
+      /* Hidden by default */
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      background: rgba(10, 11, 30, 0.45);
+      border-radius: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .guest-glass-content {
+      background: rgba(20, 21, 48, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      border-radius: 24px;
+      padding: 40px 48px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 50px rgba(139, 92, 246, 0.15);
+      max-width: 450px;
+      transform: translateY(-20px);
+    }
+
+    .guest-glass-content .glass-icon {
+      font-size: 56px;
+      color: #8B5CF6;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.6));
+    }
+
+    .guest-glass-content h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #e2e2e8;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px rgba(226, 226, 232, 0.3);
+    }
+
+    .guest-glass-content p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      color: #a0adae;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .guest-glass-content .glass-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .guest-glass-content .glass-btn-primary {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+      transition: all 0.25s ease;
+    }
+
+    .guest-glass-content .glass-btn-primary:hover {
+      box-shadow: 0 8px 28px rgba(139, 92, 246, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .guest-glass-content .glass-btn-secondary {
+      background: rgba(139, 92, 246, 0.08);
+      color: #8B5CF6;
+      padding: 12px 28px;
+      border-radius: 14px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .guest-glass-content .glass-btn-secondary:hover {
+      background: rgba(139, 92, 246, 0.15);
+      border-color: rgba(139, 92, 246, 0.5);
+    }
+
+    body.light-mode .guest-glass-content {
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1), 0 0 30px rgba(59, 130, 246, 0.1);
+    }
+
+    body.light-mode .guest-glass-content h3 {
+      color: #2D3436;
+      text-shadow: none;
+    }
+
+    body.light-mode .guest-glass-content p {
+      color: #636E72;
+    }
+
+
+    /* Guest Auth Modal */
+    #guest-auth-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #guest-auth-modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #guest-auth-modal {
+      background: rgba(20, 21, 48, 0.85);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 28px;
+      padding: 40px 36px 32px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(139, 92, 246, 0.1);
+      text-align: center;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #guest-auth-modal-overlay.open #guest-auth-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    #guest-auth-modal .gam-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
+      border-radius: 20px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #guest-auth-modal .gam-icon .material-symbols-outlined {
+      font-size: 32px;
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.5));
+    }
+
+    #guest-auth-modal .gam-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e2e2e8;
+      margin-bottom: 8px;
+    }
+
+    #guest-auth-modal .gam-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      color: #849495;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    #guest-auth-modal .gam-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #guest-auth-modal .gam-btn-register {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 0;
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      border: none;
+      border-radius: 14px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.3);
+      text-decoration: none;
+    }
+
+    #guest-auth-modal .gam-btn-register:hover {
+      box-shadow: 0 8px 32px rgba(139, 92, 246, 0.5);
+      transform: translateY(-2px);
+    }
+
+    #guest-auth-modal .gam-btn-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+      background: rgba(139, 92, 246, 0.06);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 14px;
+      color: #8B5CF6;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+
+    #guest-auth-modal .gam-btn-login:hover {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    #guest-auth-modal .gam-close {
+      margin-top: 16px;
+      background: none;
+      border: none;
+      color: #849495;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    #guest-auth-modal .gam-close:hover {
+      color: #e2e2e8;
+    }
+
+    body.light-mode #guest-auth-modal {
+      background: rgba(255, 255, 255, 0.92) !important;
+      border-color: rgba(59, 130, 246, 0.2) !important;
+    }
+
+    body.light-mode #guest-auth-modal .gam-title {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode #guest-auth-modal .gam-desc {
+      color: #636E72 !important;
+    }
+
+    /* Guest Header Auth Buttons */
+    .guest-header-auth-btns {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .guest-header-auth-btns a {
+      padding: 7px 18px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .guest-hdr-register {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: #fff !important;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+    }
+
+    .guest-hdr-register:hover {
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .guest-hdr-login {
+      background: rgba(139, 92, 246, 0.08);
+      color: #8B5CF6 !important;
+      border: 1px solid rgba(139, 92, 246, 0.25);
+    }
+
+    .guest-hdr-login:hover {
+      background: rgba(139, 92, 246, 0.15);
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       NEXUS MEGA MENU SYSTEM
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    /* Mega Menu Trigger */
+    .mega-trigger {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      background: none;
+      border: none;
+    }
+
+    .mega-trigger:hover,
+    .mega-trigger.active {
+      color: #8B5CF6;
+      text-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .mega-trigger .material-symbols-outlined {
+      font-size: 18px;
+      color: #849495;
+      transition: all 0.3s ease;
+    }
+
+    .mega-trigger:hover .material-symbols-outlined,
+    .mega-trigger.active .material-symbols-outlined {
+      color: #8B5CF6;
+      filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
+    }
+
+    .mega-trigger .mega-arrow {
+      font-size: 14px !important;
+      transition: transform 0.3s ease;
+    }
+
+    .mega-trigger:hover .mega-arrow,
+    .mega-trigger.active .mega-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Mega Dropdown Panel */
+    .mega-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      z-index: 200;
+      min-width: 340px;
+      background: rgba(14, 15, 36, 0.97);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(139, 92, 246, 0.08);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mega-dropdown.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .mega-dropdown.align-left {
+      left: 0;
+      transform: translateX(0) translateY(8px);
+    }
+
+    .mega-dropdown.align-left.visible {
+      transform: translateX(0) translateY(0);
+    }
+
+    /* Mega Section Label */
+    .mega-section-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px 4px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8B5CF6;
+      opacity: 0.6;
+    }
+
+    /* Mega Item */
+    .mega-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .mega-item:hover {
+      background: rgba(139, 92, 246, 0.06);
+      border-color: rgba(139, 92, 246, 0.1);
+    }
+
+    .mega-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .mega-item:hover .mega-item-icon {
+      transform: scale(1.08);
+    }
+
+    .mega-item-icon .material-symbols-outlined {
+      font-size: 20px;
+    }
+
+    .mega-item-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .mega-item-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2e2e8;
+      transition: color 0.2s ease;
+    }
+
+    .mega-item:hover .mega-item-title {
+      color: #8B5CF6;
+    }
+
+    .mega-item-desc {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      color: #849495;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    .mega-divider {
+      height: 1px;
+      background: rgba(139, 92, 246, 0.08);
+      margin: 4px 8px;
+    }
+
+    /* Badge pill */
+    .mega-badge {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .mega-badge-new {
+      background: rgba(0, 255, 136, 0.1);
+      color: #00ff88;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    .mega-badge-hot {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+      border: 1px solid rgba(255, 68, 68, 0.2);
+      animation: hotPulse 2s ease-in-out infinite;
+    }
+
+    .mega-badge-soon {
+      background: rgba(255, 170, 0, 0.1);
+      color: #ffaa00;
+      border: 1px solid rgba(255, 170, 0, 0.2);
+    }
+
+    .mega-badge-locked {
+      background: rgba(132, 148, 149, 0.1);
+      color: #849495;
+      border: 1px solid rgba(132, 148, 149, 0.2);
+    }
+
+    @keyframes hotPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 transparent;
+      }
+
+      50% {
+        box-shadow: 0 0 8px rgba(255, 68, 68, 0.3);
+      }
+    }
+
+    /* Mega Featured Card */
+    .mega-featured {
+      margin: 4px;
+      padding: 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.04));
+      border: 1px solid rgba(139, 92, 246, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .mega-featured:hover {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(236, 72, 153, 0.06));
+      border-color: rgba(139, 92, 246, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.12);
+    }
+
+    /* Sub Header (Secondary Navigation Bar) */
+    .sub-header {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      right: 0;
+      z-index: 46;
+      height: 44px;
+      background: rgba(10, 11, 30, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 0 16px;
+    }
+
+    .sub-header-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      background: none;
+      position: relative;
+      z-index: 2;
+      box-shadow: none;
+    }
+
+    .sub-header-pill:hover {
+      color: #e2e2e8;
+      background: rgba(139, 92, 246, 0.06);
+      border-color: rgba(139, 92, 246, 0.1);
+    }
+
+    .sub-header-pill.active {
+      color: #8B5CF6;
+      background: rgba(139, 92, 246, 0.08);
+      border-color: rgba(139, 92, 246, 0.15);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.08);
+    }
+
+    .sub-header-pill .material-symbols-outlined {
+      font-size: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .sub-header-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(58, 73, 75, 0.3);
+      margin: 0 4px;
+    }
+
+    /* Drawer Accordion */
+    .drawer-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .drawer-accordion-header:hover {
+      background: rgba(139, 92, 246, 0.04);
+    }
+
+    .drawer-accordion-header .acc-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .drawer-accordion-header .acc-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #b9cacb;
+    }
+
+    .drawer-accordion-header .acc-icon {
+      font-size: 20px;
+      color: #8B5CF6;
+    }
+
+    .drawer-accordion-header .acc-arrow {
+      font-size: 18px;
+      color: #849495;
+      transition: transform 0.3s ease;
+    }
+
+    .drawer-accordion-header.open .acc-arrow {
+      transform: rotate(180deg);
+    }
+
+    .drawer-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .drawer-accordion-body.open {
+      max-height: 600px;
+    }
+
+    .drawer-accordion-body .drawer-sub-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 24px 9px 56px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      color: #849495;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .drawer-accordion-body .drawer-sub-item:hover {
+      color: #8B5CF6;
+      background: rgba(139, 92, 246, 0.04);
+    }
+
+    .drawer-accordion-body .drawer-sub-item .material-symbols-outlined {
+      font-size: 16px;
+    }
+
+    /* Bottom Nav More Popup */
+    #bottom-nav-more-popup {
+      position: fixed;
+      bottom: 88px;
+      right: 12px;
+      z-index: 51;
+      width: 220px;
+      background: rgba(14, 15, 36, 0.97);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 18px;
+      padding: 8px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 20px rgba(139, 92, 246, 0.06);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #bottom-nav-more-popup.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .bnm-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #b9cacb;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .bnm-item:hover {
+      background: rgba(139, 92, 246, 0.06);
+      color: #8B5CF6;
+    }
+
+    .bnm-item .material-symbols-outlined {
+      font-size: 18px;
+      color: #8B5CF6;
+    }
+
+    /* â•â•â• LIGHT MODE: Mega Menu â•â•â• */
+    body.light-mode .mega-dropdown {
+      background: rgba(255, 255, 255, 0.97) !important;
+      border-color: #E1E8ED !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode .mega-trigger {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .mega-trigger:hover,
+    body.light-mode .mega-trigger.active {
+      color: #3B82F6 !important;
+      text-shadow: none !important;
+    }
+
+    body.light-mode .mega-trigger .material-symbols-outlined {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .mega-trigger:hover .material-symbols-outlined,
+    body.light-mode .mega-trigger.active .material-symbols-outlined {
+      color: #3B82F6 !important;
+      filter: none !important;
+    }
+
+    body.light-mode .mega-item:hover {
+      background: rgba(59, 130, 246, 0.04) !important;
+      border-color: rgba(59, 130, 246, 0.1) !important;
+    }
+
+    body.light-mode .mega-item-title {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .mega-item:hover .mega-item-title {
+      color: #3B82F6 !important;
+    }
+
+    body.light-mode .mega-item-desc {
+      color: #A0ADB5 !important;
+    }
+
+    body.light-mode .mega-section-label {
+      color: #3B82F6 !important;
+    }
+
+    body.light-mode .mega-divider {
+      background: #E1E8ED !important;
+    }
+
+    body.light-mode .mega-featured {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(236, 72, 153, 0.03)) !important;
+      border-color: rgba(59, 130, 246, 0.12) !important;
+    }
+
+    body.light-mode .mega-featured:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(236, 72, 153, 0.05)) !important;
+      border-color: rgba(59, 130, 246, 0.25) !important;
+    }
+
+    body.light-mode .sub-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-bottom-color: #E1E8ED !important;
+    }
+
+    body.light-mode .sub-header-pill {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .sub-header-pill:hover {
+      color: #2D3436 !important;
+      background: rgba(59, 130, 246, 0.04) !important;
+    }
+
+    body.light-mode .sub-header-pill.active {
+      color: #3B82F6 !important;
+      background: rgba(59, 130, 246, 0.08) !important;
+      border-color: rgba(59, 130, 246, 0.15) !important;
+    }
+
+    body.light-mode .sub-header-divider {
+      background: #E1E8ED !important;
+    }
+
+    body.light-mode .drawer-accordion-header .acc-label {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .drawer-accordion-header:hover {
+      background: rgba(59, 130, 246, 0.04) !important;
+    }
+
+    body.light-mode .drawer-accordion-body .drawer-sub-item {
+      color: #636E72 !important;
+    }
+
+    body.light-mode .drawer-accordion-body .drawer-sub-item:hover {
+      color: #3B82F6 !important;
+      background: rgba(59, 130, 246, 0.04) !important;
+    }
+
+    body.light-mode #bottom-nav-more-popup {
+      background: rgba(255, 255, 255, 0.97) !important;
+      border-color: #E1E8ED !important;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    body.light-mode .bnm-item {
+      color: #2D3436 !important;
+    }
+
+    body.light-mode .bnm-item:hover {
+      background: rgba(59, 130, 246, 0.06) !important;
+      color: #3B82F6 !important;
+    }
+
+    body.light-mode .bnm-item .material-symbols-outlined {
+      color: #3B82F6 !important;
+    }
+
+    /* Hide sub-header on mobile */
+    @media (max-width: 1023px) {
+      .sub-header {
+        display: none !important;
+      }
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface": "#e2e2e8",
+            "on-tertiary-container": "#ab00aa",
+            "secondary-container": "#EC4899",
+            "on-tertiary": "#5b005b",
+            "error-container": "#93000a",
+            "primary-container": "#8B5CF6",
+            "on-error": "#690005",
+            "on-tertiary-fixed": "#380038",
+            "on-primary": "#1E0A4B",
+            "primary-fixed": "#C4B5FD",
+            "tertiary-fixed": "#ffd7f5",
+            "primary": "#EDE9FE",
+            "inverse-on-surface": "#2f3035",
+            "tertiary-container": "#ffcbf4",
+            "surface-tint": "#8B5CF6",
+            "inverse-surface": "#e2e2e8",
+            "inverse-primary": "#6D28D9",
+            "tertiary": "#fff4f9",
+            "on-primary-container": "#6D28D9",
+            "surface": "#0A0B1E",
+            "secondary-fixed-dim": "#F472B6",
+            "on-primary-fixed-variant": "#5B21B6",
+            "secondary": "#FBCFE8",
+            "on-primary-fixed": "#1E0A4B",
+            "on-surface-variant": "#b9cacb",
+            "surface-variant": "#1E1F3E",
+            "surface-container-high": "#1A1B3A",
+            "surface-bright": "#2A2B4A",
+            "primary-fixed-dim": "#7C3AED",
+            "on-secondary-container": "#9D174D",
+            "outline": "#849495",
+            "background": "#0A0B1E",
+            "on-tertiary-fixed-variant": "#810081",
+            "surface-dim": "#0A0B1E",
+            "on-background": "#e2e2e8",
+            "outline-variant": "#2D2E4A",
+            "on-secondary": "#452b00",
+            "secondary-fixed": "#ffddb4",
+            "on-secondary-fixed-variant": "#633f00",
+            "tertiary-fixed-dim": "#ffabf3",
+            "surface-container-low": "#0F1028",
+            "surface-container-lowest": "#070818",
+            "surface-container": "#141530",
+            "on-secondary-fixed": "#291800",
+            "surface-container-highest": "#1E1F3E",
+            "on-error-container": "#ffdad6",
+            "error": "#ffb4ab"
+          },
+          fontFamily: {
+            "headline": ["Outfit"],
+            "body": ["Poppins"],
+            "label": ["Poppins"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+  <script src="../../js/core/database.js"></script>
+  <script src="../../js/core/authority.js"></script>
+  <!-- Auth Guard -->
+  <script>
+      (function () {
+        var loggedInEmail = localStorage.getItem('loggedInUser');
+        if (!loggedInEmail) {
+          // GUEST MODE: Don't redirect, set global flag
+          window.DF_GUEST_MODE = true;
+          document.documentElement.classList.add('is-guest-mode');
+          document.addEventListener('DOMContentLoaded', function () {
+            // Show guest name in welcome
+            var welcomeSpan = document.querySelector('.neon-glow-blue');
+            if (welcomeSpan) welcomeSpan.textContent = 'Keşifçi!';
+          });
+          return;
+        }
+        window.DF_GUEST_MODE = false;
+        // Find user info for header display
+        var users = [];
+        try { users = JSON.parse(localStorage.getItem('users')) || []; } catch (e) { }
+        var currentUser = null;
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].email === loggedInEmail) { currentUser = users[i]; break; }
+        }
+        // Derive display name: username, or email prefix as fallback
+        var displayName = loggedInEmail.split('@')[0];
+        if (currentUser && currentUser.username) {
+          displayName = currentUser.username;
+        }
+        var displayEmail = loggedInEmail;
+
+        // Update all personalized elements after DOM loads
+        document.addEventListener('DOMContentLoaded', function () {
+          // Top-right profile area
+          var profileName = document.querySelector('.text-right .font-bold');
+          var profileRole = document.querySelector('.text-right .text-\\[10px\\]');
+          // Welcome banner
+          var welcomeSpan = document.querySelector('.neon-glow-blue');
+          // Sidebar user card
+          var sidebarName = document.getElementById('sidebar-user-name');
+          var sidebarEmail = document.getElementById('sidebar-user-email');
+
+          if (profileName) profileName.textContent = displayName;
+          if (profileRole) profileRole.textContent = displayEmail;
+          if (welcomeSpan) welcomeSpan.textContent = displayName + '!';
+          if (sidebarName) sidebarName.textContent = displayName;
+          if (sidebarEmail) sidebarEmail.textContent = displayEmail;
+
+          // ¦¦ Founder Detection: Show admin link if user is founder ¦¦
+          // Double check: MASTER_USERS role + hardcoded email
+          var FOUNDER_EMAIL = 'akuzumy1905@gmail.com';
+          var masterList = window.MASTER_USERS || [];
+          var isFounder = false;
+          for (var m = 0; m < masterList.length; m++) {
+            if (masterList[m].email === loggedInEmail && masterList[m].role === 'founder') {
+              isFounder = true; break;
+            }
+          }
+          // Final gate: must also match exact founder email
+          isFounder = isFounder && (loggedInEmail === FOUNDER_EMAIL);
+
+          if (isFounder) {
+            // ¦¦ Show Admin Panel links in ALL navigation areas ¦¦
+            // Drawer (mobile)
+            var adminLink = document.getElementById('drawer-admin-link');
+            if (adminLink) adminLink.style.display = '';
+            // Desktop header button
+            var headerAdminBtn = document.getElementById('header-admin-btn');
+            if (headerAdminBtn) { headerAdminBtn.style.display = 'flex'; headerAdminBtn.classList.remove('hidden'); }
+            // Sub-header bar
+            var subAdminLink = document.getElementById('subheader-admin-link');
+            var subAdminDiv = document.getElementById('subheader-admin-divider');
+            if (subAdminLink) subAdminLink.style.display = '';
+            if (subAdminDiv) subAdminDiv.style.display = '';
+            // Update role display to show Founder
+            var roleDisps = document.querySelectorAll('.profile-role-disp');
+            roleDisps.forEach(function (el) { el.textContent = 'Founder'; el.style.color = '#FFD700'; });
+          }
+        });
+      })();
+  </script>
+  <!-- TopAppBar (Zozzo-Fusion Split) -->
+  <header
+    class="fixed top-0 w-full z-50 bg-[#0A0B1E]/60 backdrop-blur-2xl flex items-center justify-between px-4 md:px-6 h-20 shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 border-b border-[#8B5CF6]/15">
+
+    <!-- â•â•â• NAV-LEFT: Logo + Mega Menu Triggers â•â•â• -->
+    <div class="flex items-center gap-3 lg:gap-5">
+      <a href="./code.html" class="flex items-center gap-2 group shrink-0">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-3xl group-hover:scale-110 transition-transform"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span
+          class=" font-black text-4xl tracking-tighter bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(139,92,246,0.6)] hidden sm:inline">İSTİKLAL</span>
+      </a>
+
+
+      <!-- ¦¦ MEGA MENU NAV (desktop only) ¦¦ -->
+      <nav class="hidden lg:flex items-center gap-1" id="mega-nav">
+
+        <!-- 🧭 KEŞFET -->
+        <div class="mega-trigger-wrap" data-mega="explore">
+          <button class="mega-trigger">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+            <span data-i18n="nav_discover">Keşfet</span>
+            <span class="material-symbols-outlined mega-arrow">expand_more</span>
+          </button>
+          <div class="mega-dropdown" data-mega-panel="explore">
+            <div class="mega-section-label" data-i18n="mega_find_player">OYUNCU BUL</div>
+            <a href="../lobi_sayfasi/code.html" class="mega-item">
+              <div class="mega-item-icon"
+                style="background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.15);">
+                <span class="material-symbols-outlined"
+                  style="color:#8B5CF6; font-variation-settings:'FILL' 1;">groups</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_lfg_lobbies">LFG Lobiler</div>
+                <div class="mega-item-desc" data-i18n="mega_lfg_desc">Aktif lobilere göz at, anında katıl</div>
+              </div>
+              <span class="mega-badge mega-badge-hot" data-i18n="badge_live">CANLI</span>
+            </a>
+
+
+            <div class="mega-divider"></div>
+            <div class="mega-section-label" data-i18n="mega_popular">POPÜLER</div>
+            <a href="../duo_e_le_melerim/code.html" class="mega-item">
+              <div class="mega-item-icon"
+                style="background:rgba(236,72,153,0.06); border:1px solid rgba(236,72,153,0.15);">
+                <span class="material-symbols-outlined"
+                  style="color:#EC4899; font-variation-settings:'FILL' 1;">handshake</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_my_matches">Eşleşmelerim</div>
+                <div class="mega-item-desc" data-i18n="mega_matches_desc">Geçmiş ve aktif duo eşleşmelerin</div>
+              </div>
+            </a>
+            <a href="javascript:void(0)" class="mega-item" data-action="player-search">
+              <div class="mega-item-icon"
+                style="background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.12);">
+                <span class="material-symbols-outlined" style="color:#a78bfa;">person_search</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_search_player">Oyuncu Ara</div>
+                <div class="mega-item-desc" data-i18n="mega_search_desc">İsme, oyuna veya rank'a göre bul</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+
+
+        <!-- 🌍 TOPLULUK -->
+        <div class="mega-trigger-wrap" data-mega="community">
+          <button class="mega-trigger">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+            <span data-i18n="nav_community">Topluluk</span>
+            <span class="material-symbols-outlined mega-arrow">expand_more</span>
+          </button>
+          <div class="mega-dropdown" data-mega-panel="community">
+            <div class="mega-section-label" data-i18n="mega_contents">İÇERİKLER</div>
+            <a href="./klipler.html" class="mega-item">
+              <div class="mega-item-icon"
+                style="background:rgba(255,68,85,0.06); border:1px solid rgba(255,68,85,0.15);">
+                <span class="material-symbols-outlined" style="color:#ff4455;">play_circle</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_best_clips">En İyi Klipler</div>
+                <div class="mega-item-desc" data-i18n="mega_clips_desc">Topluluktan öne çıkan oyun anları</div>
+              </div>
+              <span class="mega-badge mega-badge-hot" data-i18n="badge_trend">TREND</span>
+            </a>
+
+            <a href="javascript:void(0)" class="mega-item" data-action="polls">
+              <div class="mega-item-icon"
+                style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.12);">
+                <span class="material-symbols-outlined"
+                  style="color:#ffaa00; font-variation-settings:'FILL' 1;">how_to_vote</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_polls">Anketler & Oylama</div>
+                <div class="mega-item-desc" data-i18n="mega_polls_desc">Topluluk oylamaları ve fikir paylaşımı</div>
+              </div>
+              <span class="mega-badge mega-badge-new" data-i18n="badge_new">YENİ</span>
+            </a>
+            <div class="mega-divider"></div>
+
+          </div>
+        </div>
+
+        <!-- Forum -->
+        <a href="./forum.html" class="mega-trigger" style="text-decoration:none;">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+          <span data-i18n="nav_forum">Forum</span>
+        </a>
+
+        <!-- Destek -->
+        <div class="mega-trigger-wrap" data-mega="support">
+          <button class="mega-trigger">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">help_center</span>
+            <span data-i18n="nav_help">Yardım</span>
+            <span class="material-symbols-outlined mega-arrow">expand_more</span>
+          </button>
+          <div class="mega-dropdown" data-mega-panel="support">
+            <div class="mega-section-label" data-i18n="mega_support">DESTEK</div>
+            <a href="javascript:void(0)" class="mega-item" data-action="support">
+              <div class="mega-item-icon"
+                style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.12);">
+                <span class="material-symbols-outlined"
+                  style="color:#3B82F6; font-variation-settings:'FILL' 1;">support_agent</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_live_support">Destek</div>
+                <div class="mega-item-desc" data-i18n="mega_live_support_desc">Yardım ekibimize ulaşın</div>
+              </div>
+            </a>
+            <a href="javascript:void(0)" class="mega-item" data-action="faq">
+              <div class="mega-item-icon"
+                style="background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.12);">
+                <span class="material-symbols-outlined" style="color:#8B5CF6;">quiz</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_faq">Sıkça Sorulan Sorular</div>
+                <div class="mega-item-desc" data-i18n="mega_faq_desc">En çok merak edilen konular</div>
+              </div>
+            </a>
+            <a href="javascript:void(0)" class="mega-item" data-action="rules">
+              <div class="mega-item-icon"
+                style="background:rgba(255,170,0,0.06); border:1px solid rgba(255,170,0,0.12);">
+                <span class="material-symbols-outlined"
+                  style="color:#ffaa00; font-variation-settings:'FILL' 1;">gavel</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_rules">Topluluk Kuralları</div>
+                <div class="mega-item-desc" data-i18n="mega_rules_desc">Adil oyun ve davranış kuralları</div>
+              </div>
+            </a>
+            <div class="mega-divider"></div>
+            <div class="mega-section-label" data-i18n="mega_feedback_section">GERİ BİLDİRİM</div>
+            <a href="javascript:void(0)" class="mega-item" data-action="report">
+              <div class="mega-item-icon"
+                style="background:rgba(255,68,68,0.06); border:1px solid rgba(255,68,68,0.12);">
+                <span class="material-symbols-outlined"
+                  style="color:#ff4444; font-variation-settings:'FILL' 1;">shield</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_report_player">Oyuncu Raporla</div>
+                <div class="mega-item-desc" data-i18n="mega_report_desc">Kural ihlali veya toksik davranış bildir</div>
+              </div>
+            </a>
+            <a href="javascript:void(0)" class="mega-item" data-action="feedback">
+              <div class="mega-item-icon"
+                style="background:rgba(168,85,247,0.06); border:1px solid rgba(168,85,247,0.12);">
+                <span class="material-symbols-outlined"
+                  style="color:#A855F7; font-variation-settings:'FILL' 1;">lightbulb</span>
+              </div>
+              <div class="mega-item-text">
+                <div class="mega-item-title" data-i18n="mega_feedback">İstek & Öneri</div>
+                <div class="mega-item-desc" data-i18n="mega_feedback_desc">Platform iyileştirme önerileriniz</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- â•â•â• NAV-RIGHT: Account Tools + Search + Notifs + Profile â•â•â• -->
+    <div class="flex items-center gap-2 md:gap-3">
+      <!-- Compact Controls (desktop) -->
+      <nav class="hidden lg:flex items-center gap-1 bg-[#141530]/60 rounded-2xl p-1 border border-[#2D2E4A]/30">
+        <!-- Toggles -->
+        <div id="header-toggles" class="flex items-center gap-2">
+          <div id="theme-toggle-row"
+            class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10 cursor-pointer hover:bg-[#8B5CF6]/10 transition-colors">
+            <span id="theme-toggle-label"
+              class=" font-bold text-[10px] tracking-widest text-[#849495] flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">dark_mode</span>GÖRÜNÜM
+            </span>
+            <div id="theme-toggle-switch" class="relative w-8 h-4 rounded-full bg-[#2D2E4A]/50 shrink-0">
+              <div
+                class="knob absolute top-[2px] left-[2px] w-3 h-3 rounded-full bg-[#e2e2e8] flex items-center justify-center text-[8px] transition-all">
+                🌙</div>
+            </div>
+          </div>
+          <div id="lang-toggle-row"
+            class="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10 cursor-pointer hover:bg-[#8B5CF6]/10 transition-colors">
+            <span id="lang-toggle-label"
+              class=" font-bold text-[10px] tracking-widest text-[#849495] flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px]">translate</span>DİL
+            </span>
+            <div id="lang-toggle-pills" class="flex gap-0.5 bg-[#2D2E4A]/30 rounded-lg p-0.5">
+              <span
+                class="lang-pill active px-2 py-0.5 rounded-md  text-[9px] font-bold text-[#849495] cursor-pointer"
+                data-lang="tr">TR</span>
+              <span
+                class="lang-pill px-2 py-0.5 rounded-md  text-[9px] font-bold text-[#849495] cursor-pointer"
+                data-lang="en">EN</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Search Bar -->
+      <div class="header-search hidden md:flex">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Oyuncu Bul..." id="header-search-input" data-i18n-ph="ph_search_player" />
+      </div>
+
+      <!-- Notification Bell -->
+      <div class="relative" id="notif-wrapper">
+        <button id="notif-btn"
+          class="relative material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors active:scale-95 duration-200"
+          data-icon="notifications">notifications
+          <span
+            class="absolute -top-1 -right-1 w-4 h-4 bg-[#ff4444] rounded-full text-[8px] text-white font-bold flex items-center justify-center shadow-[0_0_8px_#ff4444]"
+            id="notif-badge">2</span>
+        </button>
+        <div id="notif-dropdown"
+          class="hidden absolute right-0 top-12 w-80 bg-[#141530]/95 backdrop-blur-xl border border-[#8B5CF6]/15 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden z-[60]">
+          <div class="px-4 py-3 border-b border-[#3a494b]/30 flex items-center justify-between">
+            <span class=" font-bold text-xs uppercase tracking-widest text-[#8B5CF6]"
+              data-i18n="notif_title">Bildirimler</span>
+            <span id="notif-count-label" class="text-[10px] text-[#849495]"></span>
+          </div>
+          <div class="max-h-64 overflow-y-auto" id="notif-list"></div>
+          <div class="px-4 py-3 bg-[#0A0B1E]/80 border-t border-[#2D2E4A]/30 flex justify-between gap-3">
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#e2e2e8] border border-[#8B5CF6]/30 rounded-lg hover:bg-[#8B5CF6]/10 hover:border-[#8B5CF6] transition-all"
+              onclick="clearNotifications()" data-i18n="notif_clear_all">Tümünü Sil</button>
+            <button
+              class="flex-1 py-1.5 text-[10px]  font-bold uppercase tracking-widest text-[#8B5CF6] border border-[#8B5CF6]/50 rounded-lg hover:bg-[#8B5CF6]/20 shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all"
+              onclick="markNotificationsRead()" data-i18n="notif_mark_read">Okundu İşaretle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Direct Link -->
+      <a href="../oyuncu_profili/code.html" class="profile-direct-link group" id="header-profile-link" title="Profil">
+        <div class="text-right hidden sm:block">
+          <div class="text-xs  font-bold text-[#e2e2e8] group-hover:text-[#8B5CF6] transition-colors">
+            <span class="font-bold top-right-profile-name profile-name-disp">yildirayakzm</span>
+          </div>
+          <div class="text-[10px] text-[#849495] top-right-profile-role profile-role-disp">Oyuncu</div>
+        </div>
+        <div
+          class="profile-avatar-ring w-10 h-10 rounded-full border-2 border-[#2D2E4A] p-0.5 overflow-hidden shadow-[0_0_15px_rgba(139,92,246,0.15)] flex items-center justify-center bg-[#141530]">
+          <span class="material-symbols-outlined text-[#849495] text-xl transition-all"
+            style="font-variation-settings: 'FILL' 1;">person</span>
+        </div>
+      </a>
+
+      <!-- Admin Panel Button (Founder Only — hidden by default) -->
+      <a href="../admin_panel/code.html" id="header-admin-btn"
+        class="hidden items-center justify-center w-10 h-10 rounded-full transition-all group"
+        style="background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);display:none;" title="Admin Panel">
+        <span class="material-symbols-outlined text-[#FFD700] text-xl transition-all"
+          style="font-variation-settings:'FILL' 1;filter:drop-shadow(0 0 6px rgba(255,215,0,0.4));">shield</span>
+      </a>
+
+      <!-- Logout -->
+      <button id="header-logout-btn"
+        class="header-logout-btn hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-[#ff4444]/5 border border-[#ff4444]/10 transition-all group"
+        title="Çıkış Yap" data-i18n-title="nav_logout">
+        <span class="material-symbols-outlined text-[#ffb4ab]/80 text-xl transition-all">logout</span>
+      </button>
+
+      <!-- Guest Header Auth Buttons (hidden by default, shown in guest mode) -->
+      <div class="guest-header-auth-btns" id="guest-header-btns">
+        <a href="../kay_t_ol_register/code.html" class="guest-hdr-register" data-i18n="nav_register">Kayıt Ol</a>
+        <a href="../giri_yap_login/code.html" class="guest-hdr-login" data-i18n="nav_login">Giriş Yap</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button id="mobile-menu-btn"
+        class="lg:hidden material-symbols-outlined text-[#e2e2e8]/60 hover:text-[#8B5CF6] transition-colors text-3xl">menu</button>
+    </div>
+  </header>
+
+  <!-- Sub-Header Quick Access Bar (desktop) -->
+  <div class="sub-header" id="sub-header-bar">
+    <a href="./code.html" class="sub-header-pill active">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">dashboard</span>
+      <span data-i18n="nav_panel">Panel</span>
+    </a>
+    <a href="../lobi_sayfasi/code.html" class="sub-header-pill">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">groups</span>
+      <span data-i18n="mega_lfg_lobbies">LFG Lobiler</span>
+    </a>
+    <a href="../duo_e_le_melerim/code.html" class="sub-header-pill">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">handshake</span>
+      <span data-i18n="nav_matches">Eşleşmeler</span>
+    </a>
+    <div class="sub-header-divider"></div>
+    <a href="../duo_finder_yar_ma_ekran/code.html" class="sub-header-pill">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">trophy</span>
+      <span data-i18n="nav_tournaments">Turnuvalar</span>
+    </a>
+    <a href="./klipler.html" class="sub-header-pill">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">play_circle</span>
+      <span data-i18n="nav_clips">Klipler</span>
+    </a>
+    <button class="sub-header-pill" data-action="leaderboard">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">leaderboard</span>
+      <span data-i18n="leaderboard">Sıralama</span>
+    </button>
+    <div class="sub-header-divider"></div>
+    <button class="sub-header-pill" onclick="openSettingsModal()">
+      <span class="material-symbols-outlined">settings</span>
+      <span data-i18n="nav_settings">Ayarlar</span>
+    </button>
+    <!-- Admin Panel Link in Sub-Header (Founder Only — hidden by default) -->
+    <div class="sub-header-divider" id="subheader-admin-divider" style="display:none;"></div>
+    <a href="../admin_panel/code.html" class="sub-header-pill" id="subheader-admin-link"
+      style="display:none;color:#FFD700;">
+      <span class="material-symbols-outlined"
+        style="font-variation-settings:'FILL' 1;color:#FFD700;filter:drop-shadow(0 0 4px rgba(255,215,0,0.4));">shield</span>
+      <span data-i18n="nav_admin">Admin</span>
+    </a>
+  </div>
+
+  <!-- Duo-Radar Ticker Band -->
+  <div id="duo-radar-ticker">
+    <div class="ticker-track" id="ticker-track">
+      <!-- Duplicated by JS for seamless loop -->
+    </div>
+  </div>
+
+  <!-- Nexus AI Daily Meta Card -->
+  <div id="daily-meta-card">
+    <div class="meta-header">
+      <div class="meta-icon">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+        <span class="meta-label" id="meta-card-label" data-i18n="nexus_tactic">İSTİKLAL TAKTİK</span>
+      </div>
+      <button class="meta-close material-symbols-outlined" id="meta-close-btn">close</button>
+    </div>
+    <p class="meta-text" id="meta-card-text"></p>
+  </div>
+
+  <!-- Parallax Background Layer -->
+  <div class="fixed inset-0 z-[-2] bg-cover bg-center bg-no-repeat opacity-20 parallax-bg"
+    style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop'); background-attachment: fixed; background-position: center top;">
+  </div>
+  <!-- Blackish overlay gradient -->
+  <div
+    class="fixed inset-0 z-[-1] bg-gradient-to-b from-[#0A0B1E]/95 via-[#0A0B1E]/80 to-[#0A0B1E]/95 pointer-events-none">
+  </div>
+
+  <!-- MAIN SCROLLABLE CONTAINER (Full Width Strips) -->
+  <!-- NAV DRAWER OVERLAY -->
+  <div id="nav-drawer-overlay"></div>
+  <!-- NAV DRAWER -->
+  <div id="nav-drawer">
+    <div class="px-6 py-6 flex items-center justify-between border-b border-[#3a494b]/30">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#8B5CF6] text-2xl"
+          style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+        <span
+          class=" font-black text-3xl tracking-tighter bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent">İSTİKLAL</span>
+      </div>
+      <button id="drawer-close-btn"
+        class="material-symbols-outlined text-[#849495] hover:text-[#8B5CF6] text-2xl transition-colors cursor-pointer">close</button>
+    </div>
+    <!-- User Card -->
+    <div class="px-6 py-5 flex items-center gap-3 border-b border-[#3a494b]/20">
+      <div class="w-12 h-12 rounded-full bg-[#141530] border-2 border-[#8B5CF6]/30 flex items-center justify-center">
+        <span class="material-symbols-outlined text-[#849495] text-2xl"
+          style="font-variation-settings: 'FILL' 1;">person</span>
+      </div>
+      <div>
+        <div class=" font-bold text-sm text-[#e2e2e8] profile-name-disp">yildirayakzm</div>
+        <div class="text-[11px] text-[#849495] profile-role-disp" data-i18n="player_role">Oyuncu</div>
+      </div>
+    </div>
+    <!-- Menu Items (Accordion Style) -->
+    <nav class="py-3">
+      <a href="../oyuncu_profili/code.html" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+        <span data-i18n="nav_profile">Profil</span>
+      </a>
+
+      <!-- Keşfet -->
+      <div class="drawer-accordion">
+        <div class="drawer-accordion-header" data-accordion="explore">
+          <div class="acc-left">
+            <span class="material-symbols-outlined acc-icon" style="font-variation-settings:'FILL' 1;">explore</span>
+            <span class="acc-label">Keşfet</span>
+          </div>
+          <span class="material-symbols-outlined acc-arrow">expand_more</span>
+        </div>
+        <div class="drawer-accordion-body" data-accordion-body="explore">
+          <a href="../lobi_sayfasi/code.html" class="drawer-sub-item">
+            <span class="material-symbols-outlined">groups</span> <span data-i18n="drawer_lfg_lobbies">LFG Lobiler</span>
+          </a>
+
+
+          <a href="../duo_e_le_melerim/code.html" class="drawer-sub-item">
+            <span class="material-symbols-outlined">handshake</span> <span data-i18n="drawer_my_matches">Eşleşmelerim</span>
+          </a>
+          <button class="drawer-sub-item" data-action="player-search" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">person_search</span> <span data-i18n="drawer_search_player">Oyuncu Ara</span>
+          </button>
+        </div>
+      </div>
+
+
+
+      <!-- Topluluk -->
+      <div class="drawer-accordion">
+        <div class="drawer-accordion-header" data-accordion="community">
+          <div class="acc-left">
+            <span class="material-symbols-outlined acc-icon" style="font-variation-settings:'FILL' 1;">forum</span>
+            <span class="acc-label">Topluluk</span>
+          </div>
+          <span class="material-symbols-outlined acc-arrow">expand_more</span>
+        </div>
+        <div class="drawer-accordion-body" data-accordion-body="community">
+          <a href="./klipler.html" class="drawer-sub-item" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">play_circle</span> <span data-i18n="drawer_best_clips">En İyi Klipler</span>
+          </a>
+          <button class="drawer-sub-item" data-action="guides" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">school</span> Rehberler
+          </button>
+          <button class="drawer-sub-item" data-action="polls" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">how_to_vote</span> Anketler
+          </button>
+        </div>
+      </div>
+
+      <!-- Forum -->
+      <div class="drawer-accordion">
+        <div class="drawer-accordion-header" data-accordion="forum">
+          <div class="acc-left">
+            <span class="material-symbols-outlined acc-icon"
+              style="font-variation-settings:'FILL' 1;">chat_bubble</span>
+            <span class="acc-label">Forum</span>
+          </div>
+          <span class="material-symbols-outlined acc-arrow">expand_more</span>
+        </div>
+        <div class="drawer-accordion-body" data-accordion-body="forum">
+          <a href="./forum.html" class="drawer-sub-item" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">forum</span> Son Konular
+          </a>
+          <a href="./forum.html" class="drawer-sub-item" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">newspaper</span> Haberler
+          </a>
+          <a href="./forum.html" class="drawer-sub-item" onclick="closeDrawer()">
+            <span class="material-symbols-outlined">edit_note</span> Yeni Konu Aç
+          </a>
+        </div>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <!-- Founder Admin Panel Link (hidden by default, shown for founders) -->
+      <a href="../admin_panel/code.html" class="drawer-item" id="drawer-admin-link" style="display:none;">
+        <span class="material-symbols-outlined"
+          style="font-variation-settings: 'FILL' 1; color:#FFD700; filter:drop-shadow(0 0 6px rgba(255,215,0,0.4));">shield</span>
+        <span
+          style="background:linear-gradient(90deg,#FFD700,#ffaa00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;">Admin
+          Panel</span>
+      </a>
+
+      <button onclick="openSettingsModal(); closeDrawer();" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+        <span data-i18n="nav_settings">Ayarlar</span>
+      </button>
+      <button onclick="openSupportModal(); closeDrawer();" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+        <span data-i18n="nav_support">Destek</span>
+      </button>
+      <button onclick="openReportModal(); closeDrawer();" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flag</span>
+        <span data-i18n="nav_report">Rapor Bildir</span>
+      </button>
+      <button onclick="openFAQModal(); closeDrawer();" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">help</span>
+        <span data-i18n="nav_faq">SSS</span>
+      </button>
+      <button onclick="openFeedbackModal(); closeDrawer();" class="drawer-item">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+        <span>Öneri</span>
+      </button>
+      <div class="drawer-divider"></div>
+      <!-- Theme & Lang toggles in drawer -->
+      <div class="px-6 py-3 flex items-center justify-between">
+        <span class="text-[11px]  font-bold uppercase tracking-widest text-[#849495]"
+          data-i18n="drawer_theme">Tema</span>
+        <div id="drawer-theme-toggle"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#8B5CF6]/5 border border-[#8B5CF6]/10 cursor-pointer hover:bg-[#8B5CF6]/10 transition-colors">
+          <span class="material-symbols-outlined text-[14px] text-[#849495]">dark_mode</span>
+          <span class="text-[10px]  font-bold text-[#849495] tracking-widest"
+            data-i18n="drawer_appearance">GÖRÜNÜM</span>
+        </div>
+      </div>
+      <div class="px-6 py-3 flex items-center justify-between">
+        <span class="text-[11px]  font-bold uppercase tracking-widest text-[#849495]"
+          data-i18n="drawer_lang">Dil</span>
+        <div class="flex gap-1 bg-[#2D2E4A]/30 rounded-lg p-0.5">
+          <span
+            class="drawer-lang-pill lang-pill active px-3 py-1 rounded-md  text-[10px] font-bold text-[#849495] cursor-pointer"
+            data-lang="tr">TR</span>
+          <span
+            class="drawer-lang-pill lang-pill px-3 py-1 rounded-md  text-[10px] font-bold text-[#849495] cursor-pointer"
+            data-lang="en">EN</span>
+        </div>
+      </div>
+      <div class="drawer-divider"></div>
+      <button id="drawer-logout-btn" class="drawer-item danger">
+        <span class="material-symbols-outlined">logout</span>
+        <span data-i18n="nav_logout">Çıkış Yap</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="pt-[136px] w-full flex flex-col gap-16 items-center pb-0 overflow-x-hidden flex-grow">
+
+    <!-- GUEST BANNER -->
+    <div id="guest-banner">
+      <div class="guest-banner-inner">
+        <span class="material-symbols-outlined guest-banner-icon"
+          style="color: #8B5CF6; font-variation-settings: 'FILL' 1;">lock</span>
+        <span class="guest-banner-text" id="guest-banner-text">
+          ✨ İstiklal'ı keşfediyorsunuz! Lobiler, eşleşmeler ve tüm özelliklere erişmek için <strong>Kayıt Ol</strong>
+          veya <strong>Giriş Yap</strong>.
+        </span>
+        <div class="guest-banner-btns">
+          <a href="../kay_t_ol_register/code.html" class="guest-btn-primary">Kayıt Ol</a>
+          <a href="../giri_yap_login/code.html" class="guest-btn-secondary">Giriş Yap</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRIP 1: WELCOME & SMART MATCH (Matches) -->
+    <section
+      class="w-full max-w-[1400px] px-6 space-y-10 reveal-on-scroll opacity-0 translate-y-10 transition-all duration-700 ease-out">
+      <!-- Header Row & Stats -->
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6">
+        <div>
+          <h2
+            class=" text-4xl lg:text-5xl font-bold tracking-tight text-on-background leading-tight drop-shadow-md">
+            <span data-i18n="welcome_prefix">İstiklal'e Hoş Geldin,</span> <br />
+            <span class="text-primary-container neon-glow-blue welcome-name-span">Oyuncu!</span>
+          </h2>
+          <p class="text-[#849495]  tracking-wide mt-2" data-i18n="dashboard_subtitle">Bugün kimi taşıyorsun?
+          </p>
+        </div>
+      </div>
+
+      <!-- Smart Match Card Injection Target -->
+      <div id="lobby-wrapper" class="w-full relative z-10">
+
+        <!-- NEW GUEST GLASS OVERLAY -->
+        <div class="guest-glass-overlay">
+          <div class="guest-glass-content">
+            <span class="material-symbols-outlined glass-icon">lock</span>
+            <h3>Erişim Kısıtlı</h3>
+            <p>Lobileri görüntülemek ve oyunlara katılmak için İstiklal'e giriş yapın.</p>
+            <div class="glass-btns">
+              <a href="../kay_t_ol_register/code.html" class="glass-btn-primary">Kayıt Ol</a>
+              <a href="../giri_yap_login/code.html" class="glass-btn-secondary">Giriş Yap</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- â•â• MAIN LAYOUT: FEED + SIDEBAR â•â• -->
+        <div class="flex flex-col lg:flex-row gap-6 mt-6">
+          
+          <!-- LEFT/CENTER: MAIN LFG FEED -->
+          <div class="flex-1 flex flex-col gap-6">
+            
+
+
+            <!-- 2. "Create Post" Input Area -->
+            <div class="bg-[#141530]/80 backdrop-blur-xl border border-[#2D2E4A]/50 rounded-2xl p-4 flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-[#0A0B1E] border border-[#8B5CF6]/30 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[#8B5CF6]">person</span>
+              </div>
+              <div class="flex-1">
+                <input type="text" class="w-full bg-transparent border-none outline-none text-[#e2e2e8]  text-sm placeholder:text-[#849495]" placeholder="Bugün nasıl oynuyorsun?">
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="window.location.href='../lobi_sayfasi/code.html'" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2D2E4A]/40 border border-[#3a494b]/30 hover:bg-[#2D2E4A] hover:border-[#8B5CF6]/30 transition-all group">
+                  <span class="material-symbols-outlined text-[#849495] group-hover:text-[#8B5CF6] text-[18px]">add</span>
+                  <span class=" font-bold text-xs text-[#849495] group-hover:text-[#e2e2e8]">Bir grup oluştur</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Filters / Sorter Row -->
+            <div class="flex items-center justify-between border-b border-[#2D2E4A]/30 pb-3 px-2">
+              <div class="flex items-center gap-4 filter-buttons-container">
+                <button onclick="setDashboardFilter('all', this)" class="filter-btn text-xs font-bold text-[#8B5CF6] hover:text-[#A855F7] transition-colors border-b-2 border-[#8B5CF6] pb-3 -mb-3">Tüm Lobiler</button>
+                <button onclick="setDashboardFilter('valorant', this)" class="filter-btn text-xs font-bold text-[#849495] hover:text-[#e2e2e8] transition-colors pb-3 -mb-3">Valorant</button>
+                <button onclick="setDashboardFilter('cs2', this)" class="filter-btn text-xs font-bold text-[#849495] hover:text-[#e2e2e8] transition-colors pb-3 -mb-3">CS2</button>
+                <button onclick="setDashboardFilter('lol', this)" class="filter-btn text-xs font-bold text-[#849495] hover:text-[#e2e2e8] transition-colors pb-3 -mb-3">LoL</button>
+                <button onclick="setDashboardFilter('gta5', this)" class="filter-btn text-xs font-bold text-[#849495] hover:text-[#e2e2e8] transition-colors pb-3 -mb-3">GTA 5</button>
+              </div>
+              <button class="flex items-center gap-1 text-[#849495] hover:text-[#8B5CF6] transition-colors" onclick="renderDashboardFeed()">
+                <span class="material-symbols-outlined text-[16px]">refresh</span>
+                <span class=" text-[10px] font-bold uppercase tracking-widest">Yenile</span>
+              </button>
+            </div>
+
+            <!-- 4. LFG Feed Container -->
+            <div id="dashboard-lfg-feed" class="flex flex-col gap-3">
+              <!-- Dynamically populated via JS -->
+              <div class="text-center py-10">
+                <span class="material-symbols-outlined text-[#849495] text-4xl animate-spin">refresh</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT SIDEBAR (300px wide) -->
+          <aside class="w-full lg:w-[320px] shrink-0 flex flex-col gap-6">
+
+            <!-- 1. Event Banner -->
+            <div class="relative w-full rounded-2xl overflow-hidden bg-[#0A0B1E] border border-[#8B5CF6]/20 shadow-[0_0_30px_rgba(139,92,246,0.1)] hover:border-[#8B5CF6]/40 transition-colors group cursor-pointer flex-shrink-0">
+              <!-- Banner Image / Gradient Background -->
+              <div class="absolute inset-0 bg-gradient-to-r from-[#1E0A4B] to-[#141530] z-0"></div>
+              <div class="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity z-0" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80'); background-size: cover; background-position: center;"></div>
+              <!-- Gradient Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060718] via-[#060718]/80 to-transparent z-0"></div>
+              
+              <div class="relative z-10 p-5 flex flex-col justify-between h-full">
+                <div class="flex justify-between items-start mb-4">
+                  <div class="inline-flex items-center gap-2 bg-[#141530]/80 border border-[#2D2E4A] px-3 py-1.5 rounded-lg">
+                    <span class="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
+                    <span class=" font-bold text-[10px] text-[#00ff88] tracking-widest uppercase">Yakında</span>
+                  </div>
+                  <span class="material-symbols-outlined text-[#8B5CF6] text-[40px] drop-shadow-[0_0_10px_rgba(139,92,246,0.5)] transform rotate-12 group-hover:rotate-0 transition-transform duration-500" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                </div>
+                <div>
+                  <h3 class=" font-black text-xl text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] tracking-tight uppercase">BÜYÜK AÇILIŞ ETKİNLİĞİ</h3>
+                  <p class=" text-[#b9cacb] mt-1 text-xs">Büyük ödüller ve turnuva heyecanı lansmanla birlikte geliyor!</p>
+                  <div class="mt-3 flex items-center gap-2 bg-[#8B5CF6]/20 border border-[#8B5CF6]/30 px-3 py-1.5 rounded-xl inline-flex shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+                    <span class="material-symbols-outlined text-[#ffaa00] text-sm">redeem</span>
+                    <span class=" font-bold text-[#e2e2e8] text-sm">SÜRPRİZ ÖDÜLLER</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Dynamic Announcements Banner -->
+            <div id="dynamic-announcements-sidebar" class="bg-[#141530]/60 backdrop-blur-xl border border-[#2D2E4A]/40 rounded-2xl p-5 shadow-lg relative overflow-hidden" style="display: none;">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#EC4899] to-[#8B5CF6]"></div>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-[#EC4899] text-xl" style="font-variation-settings: 'FILL' 1;">campaign</span>
+                <h4 class="font-black text-sm text-[#e2e2e8] uppercase tracking-wide">DUYURULAR</h4>
+              </div>
+              <div class="space-y-4" id="sidebar-announcements-list">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+            
+            <!-- Community Info Card -->
+            <div class="bg-[#141530]/60 backdrop-blur-xl border border-[#2D2E4A]/40 rounded-2xl p-5 shadow-lg relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8B5CF6] to-[#EC4899]"></div>
+              
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-[#0A0B1E] border border-[#8B5CF6]/30 flex items-center justify-center shrink-0">
+                  <img src="https://img.icons8.com/?size=100&id=aUZxT3Erwill&format=png&color=000000" alt="Logo" class="w-8 h-8 object-contain">
+                </div>
+                <div>
+                  <h4 class=" font-black text-sm text-[#e2e2e8] uppercase tracking-wide">İSTİKLAL LFG</h4>
+                  <div class="flex items-center gap-1 mt-1">
+                    <span class="material-symbols-outlined text-[#849495] text-[12px]">public</span>
+                    <span class=" text-[10px] text-[#849495]">TR, EUW</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p class=" text-xs text-[#849495] leading-relaxed mb-5">
+                İstiklal LFG topluluğumuza katılarak yeni takım arkadaşlarıyla tanış, liderlik tablosunda yarış ve kazan! Hemen bir lobiye katıl ve sohbete başla.
+              </p>
+              
+              <div class="flex items-center gap-4 mb-5 border-y border-[#2D2E4A]/30 py-3">
+                <div>
+                  <div class=" font-bold text-sm text-[#e2e2e8]" id="sidebar-stat-users">847</div>
+                  <div class=" text-[9px] text-[#849495] uppercase tracking-widest mt-0.5">Üye</div>
+                </div>
+                <div class="w-px h-8 bg-[#2D2E4A]/50"></div>
+                <div>
+                  <div class=" font-bold text-sm text-[#00ff88]" id="sidebar-stat-lobbies">3</div>
+                  <div class=" text-[9px] text-[#849495] uppercase tracking-widest mt-0.5">Aktif Lobi</div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Leaderboard Banner -->
+            <div class="relative w-full rounded-2xl overflow-hidden bg-[#0A0B1E] border border-[#2D2E4A]/40 shadow-lg group">
+              <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80'); background-size: cover; background-position: center;"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060718] to-transparent"></div>
+              
+              <div class="relative z-10 p-5">
+                <span class="material-symbols-outlined text-[#ffaa00] text-3xl mb-3" style="font-variation-settings: 'FILL' 1;">trophy</span>
+                <h4 class=" font-black text-sm text-white mb-1">LİDERLİK TABLOSU</h4>
+                <p class=" text-[11px] text-[#849495] mb-4">Rakiplerinizle yarışıp zirveye tırmanacağınız liderlik tablosu çok yakında aktif olacaktır.</p>
+                
+                <div class="flex items-center gap-3">
+                  <div class="flex items-center gap-2 bg-[#ffaa00]/10 border border-[#ffaa00]/20 px-3 py-1.5 rounded-xl text-[#ffaa00] inline-flex shadow-[0_0_15px_rgba(255,170,0,0.1)]">
+                    <span class="material-symbols-outlined text-sm">schedule</span>
+                    <span class=" font-bold text-[10px] uppercase tracking-widest">PEK YAKINDA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </aside>
+        </div>
+
+
+    <!-- Forum moved to forum.html -->
+    <div style="display:none;">
+    </div>
+
+
+
+  </div>
+
+  <!-- ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— FOOTER ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— -->
+  <footer class="relative z-10 bg-[#060718] border-t border-[#8B5CF6]/10 mt-0">
+    <!-- Main Footer Content -->
+    <div class="max-w-7xl mx-auto px-6 pt-14 pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+
+        <!-- LEFT: Branding -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#8B5CF6] text-2xl"
+              style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+            <span
+              class=" font-black text-4xl tracking-tighter bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(139,92,246,0.4)]">İSTİKLAL</span>
+          </div>
+          <p class="text-[#849495] text-xs leading-relaxed">Oyuncuları bir araya getiren yeni nesil eşleşme
+            platformu. En uygun duo'nu bul, birlikte kazan.</p>
+          <p class="text-[#849495]/60 text-[11px]">© 2026 İstiklal. All rights reserved.</p>
+          <!-- Social Icons -->
+          <div class="flex items-center gap-3 pt-1">
+            <!-- Discord -->
+            <a href="#"
+              class="group w-9 h-9 rounded-lg bg-[#1a1c20] border border-[#3a494b]/30 flex items-center justify-center hover:border-[#5865F2]/50 hover:bg-[#5865F2]/10 transition-all"
+              aria-label="Discord">
+              <svg class="w-4 h-4 text-[#849495] group-hover:text-[#5865F2] transition-colors" fill="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.372-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z" />
+              </svg>
+            </a>
+            <!-- Twitter/X -->
+            <a href="#"
+              class="group w-9 h-9 rounded-lg bg-[#1a1c20] border border-[#3a494b]/30 flex items-center justify-center hover:border-[#e2e2e8]/40 hover:bg-[#e2e2e8]/5 transition-all"
+              aria-label="Twitter">
+              <svg class="w-4 h-4 text-[#849495] group-hover:text-[#e2e2e8] transition-colors" fill="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#"
+              class="group w-9 h-9 rounded-lg bg-[#1a1c20] border border-[#3a494b]/30 flex items-center justify-center hover:border-[#E1306C]/40 hover:bg-[#E1306C]/10 transition-all"
+              aria-label="Instagram">
+              <svg class="w-4 h-4 text-[#849495] group-hover:text-[#E1306C] transition-colors" fill="currentColor"
+                viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- MIDDLE: Link Columns -->
+        <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:justify-items-center">
+          <!-- Corporate -->
+          <div>
+            <h4 class="text-[10px]  font-bold uppercase tracking-[0.2em] text-[#8B5CF6]/70 mb-4">
+              Kurumsal</h4>
+            <ul class="space-y-2.5">
+              <li><a href="javascript:void(0)" onclick="openLegalModal('hakkimizda')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Hakkımızda</a></li>
+              <li><a href="javascript:void(0)" onclick="openLegalModal('kariyer')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Kariyer</a></li>
+              <li><a href="javascript:void(0)" onclick="openLegalModal('blog')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Blog</a></li>
+            </ul>
+          </div>
+          <!-- Support -->
+          <div>
+            <h4 class="text-[10px]  font-bold uppercase tracking-[0.2em] text-[#8B5CF6]/70 mb-4">
+              Destek</h4>
+            <ul class="space-y-2.5">
+              <li><a href="javascript:void(0)" onclick="openFAQModal()"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors cursor-pointer">SSS</a></li>
+              <li><a href="javascript:void(0)" onclick="openSupportModal()"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors cursor-pointer">İletişim</a></li>
+              <li><a href="javascript:void(0)" onclick="openRulesModal()"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors cursor-pointer">Topluluk
+                  Kuralları</a></li>
+            </ul>
+          </div>
+          <!-- Legal -->
+          <div class="col-span-2 sm:col-span-1">
+            <h4 class="text-[10px]  font-bold uppercase tracking-[0.2em] text-[#8B5CF6]/70 mb-4">
+              Hukuki</h4>
+            <ul class="space-y-2.5">
+              <li><a href="javascript:void(0)" onclick="openLegalModal('gizlilik')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Gizlilik Politikası</a></li>
+              <li><a href="javascript:void(0)" onclick="openLegalModal('kosullar')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Kullanım Koşulları</a></li>
+              <li><a href="javascript:void(0)" onclick="openLegalModal('cerez')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">Çerez Politikası</a></li>
+              <li><a href="javascript:void(0)" onclick="openLegalModal('kvkk')"
+                  class="text-[#b9cacb] hover:text-[#8B5CF6] text-sm transition-colors">KVKK Aydınlatma Metni</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!-- Bottom Legal Bar -->
+    <div class="border-t border-[#2D2E4A]/20">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-[#849495]/50 text-[10px] text-center sm:text-left">
+          İstiklal, bağımsız bir platformdur ve Riot Games, Valve, Mojang veya diğer oyun yayıncılarıyla
+          bağlantılı değildir.
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="javascript:void(0)" onclick="openLegalModal('gizlilik')"
+            class="text-[#849495]/50 hover:text-[#8B5CF6] text-[10px] transition-colors">Gizlilik</a>
+          <span class="text-[#2D2E4A]">|</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kosullar')"
+            class="text-[#849495]/50 hover:text-[#8B5CF6] text-[10px] transition-colors">Koşullar</a>
+          <span class="text-[#2D2E4A]">|</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('kvkk')"
+            class="text-[#849495]/50 hover:text-[#8B5CF6] text-[10px] transition-colors">KVKK</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BottomNavBar -->
+  <nav
+    class="nexus-bottom-nav fixed bottom-0 w-full z-50 rounded-t-2xl bg-[#0A0B1E]/80 backdrop-blur-xl shadow-[0_-8px_32px_rgba(139,92,246,0.08)] flex justify-around items-center h-20 px-4 pb-safe border-t border-[#8B5CF6]/20">
+    <!-- Active Panel Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#8B5CF6] drop-shadow-[0_0_10px_rgba(139,92,246,0.6)] bg-[#8B5CF6]/10 rounded-xl px-4 py-1 transition-all active:scale-90 duration-150"
+      href="./code.html">
+      <span class="material-symbols-outlined" data-icon="dashboard"
+        style="font-variation-settings: 'FILL' 1;">dashboard</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">PANEL</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-[3px] rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] shadow-[0_0_8px_rgba(139,92,246,0.8)]"></span>
+    </a>
+    <!-- Match Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_e_le_melerim/code.html">
+      <span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">EŞLEŞME</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+    <!-- Community Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="javascript:void(0)" data-action="clips">
+      <span class="material-symbols-outlined">forum</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">TOPLULUK</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+    <!-- Competition Tab -->
+    <a class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      href="../duo_finder_yar_ma_ekran/code.html">
+      <span class="material-symbols-outlined" data-icon="emoji_events">emoji_events</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">ARENA</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </a>
+
+    <!-- More Tab -->
+    <button
+      class="relative flex flex-col items-center justify-center text-[#e2e2e8]/40 hover:text-[#8B5CF6] transition-all active:scale-90 duration-150 group"
+      id="bottom-nav-more-btn">
+      <span class="material-symbols-outlined">apps</span>
+      <span class=" font-semibold text-[10px] uppercase tracking-[0.1rem]">DAHA</span>
+      <span
+        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-6 h-[3px] rounded-full bg-[#8B5CF6]/50 transition-all duration-300"></span>
+    </button>
+  </nav>
+
+  <!-- Bottom Nav More Popup -->
+  <div id="bottom-nav-more-popup">
+    <button class="bnm-item" data-action="daily-missions">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">military_tech</span>
+      Günlük Görevler
+    </button>
+    <button class="bnm-item" data-action="achievements">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">workspace_premium</span>
+      Başarımlar
+    </button>
+    <button class="bnm-item" data-action="friends">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">diversity_3</span>
+      Arkadaşlar
+    </button>
+    <button class="bnm-item" data-action="guides">
+      <span class="material-symbols-outlined">school</span>
+      Rehberler
+    </button>
+    <button class="bnm-item" onclick="openSettingsModal()">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">settings</span>
+      Ayarlar
+    </button>
+    <button class="bnm-item" onclick="openSupportModal()">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">support_agent</span>
+      Destek
+    </button>
+  </div>
+
+
+  <!-- Legal Modal -->
+  <div id="legal-modal" class="fixed inset-0 z-[100] hidden transition-opacity duration-300">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-[10px]" id="legal-modal-backdrop"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <div
+        class="bg-[#141530]/80 backdrop-blur-xl border border-[#8B5CF6]/30 rounded-3xl shadow-[0_8px_32px_rgba(139,92,246,0.1)] w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden relative"
+        style="box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);">
+        <!-- Header -->
+        <div class="px-6 py-4 border-b border-[#2D2E4A]/30 flex items-center justify-between bg-[#0A0B1E]/50">
+          <h3 id="legal-modal-title"
+            class=" font-bold text-lg text-[#8B5CF6] uppercase tracking-wider drop-shadow-[0_0_8px_rgba(139,92,246,0.4)]">
+            Yasal Metin</h3>
+          <button id="legal-modal-close"
+            class="material-symbols-outlined text-[#849495] hover:text-[#ffb4ab] transition-colors active:scale-90">close</button>
+        </div>
+        <!-- Body -->
+        <div
+          class="p-6 overflow-y-auto hide-scrollbar text-sm text-[#b9cacb] leading-relaxed space-y-4 ">
+          <div id="legal-modal-content">
+            <!-- Text will be injected here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connection Modal (Radar Scanning) -->
+  <div id="connect-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="text-center space-y-6">
+        <!-- Radar Animation -->
+        <div class="relative w-32 h-32 mx-auto">
+          <div class="absolute inset-0 rounded-full border-2 border-[#8B5CF6]/20"></div>
+          <div class="absolute inset-4 rounded-full border border-[#8B5CF6]/15"></div>
+          <div class="absolute inset-8 rounded-full border border-[#8B5CF6]/10"></div>
+          <!-- Radar sweep -->
+          <div class="absolute inset-0 rounded-full overflow-hidden">
+            <div class="w-full h-full"
+              style="background: conic-gradient(from 0deg, transparent 0deg, rgba(139, 92, 246,0.25) 60deg, transparent 120deg); animation: radarSweep 2s linear infinite;">
+            </div>
+          </div>
+          <!-- Center dot -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-4 h-4 rounded-full bg-[#8B5CF6] shadow-[0_0_16px_rgba(139, 92, 246,0.8)] animate-pulse"></div>
+          </div>
+          <!-- Ping dots -->
+          <div class="absolute top-5 right-6 w-2 h-2 rounded-full bg-[#00ff88] shadow-[0_0_8px_#00ff88]"
+            style="animation: pingDot 1.5s ease-in-out infinite;"></div>
+          <div class="absolute bottom-8 left-5 w-1.5 h-1.5 rounded-full bg-[#ffaa00] shadow-[0_0_8px_#ffaa00]"
+            style="animation: pingDot 2s ease-in-out 0.5s infinite;"></div>
+        </div>
+        <div>
+          <p id="connect-status" class=" font-bold text-xl text-[#e2e2e8]"
+            style="text-shadow: 0 0 12px rgba(139, 92, 246,0.5);">Oyuncu Taranıyor...</p>
+          <p class="text-[#849495] text-xs mt-1  uppercase tracking-widest">Duo Aranıyor...
+          </p>
+        </div>
+        <div class="w-48 h-1 mx-auto rounded-full bg-[#333539] overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] rounded-full"
+            style="animation: loadBar 2.5s ease forwards;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Duo Request Toast -->
+  <div id="duo-toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[110] hidden">
+    <div
+      class="flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#00e676]/15 border border-[#00e676]/40 backdrop-blur-xl shadow-[0_0_30px_rgba(0,230,118,0.3)]"
+      style="animation: toastSlideIn 0.4s ease forwards;">
+      <span class="material-symbols-outlined text-[#00e676] text-2xl"
+        style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+      <span class="text-[#e2e2e8] font-semibold text-sm">Duo İsteği başarıyla gönderildi! 🚀</span>
+    </div>
+  </div>
+
+  <!-- Logout Toast -->
+  <div id="logout-toast">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-[#ff4444] text-2xl"
+        style="font-variation-settings: 'FILL' 1; filter: drop-shadow(0 0 8px rgba(255,68,68,0.5));">logout</span>
+      <span class=" font-bold text-sm text-[#e2e2e8] tracking-wide">Çıkış Yapılıyor...</span>
+    </div>
+  </div>
+
+  <style>
+    @keyframes loadBar {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes radarSweep {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pingDot {
+
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+    }
+
+    @keyframes toastSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes toastSlideOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+
+
+      // --- 2. Notification Dropdown --- (handled by notifications.js)
+
+      // --- 3. Connect & Play --- (handled by smart-match.js)
+
+      // --- 4. Legal Modals ---
+      var legalModal = document.getElementById('legal-modal');
+      var legalTitle = document.getElementById('legal-modal-title');
+      var legalContent = document.getElementById('legal-modal-content');
+      var legalCloseBtn = document.getElementById('legal-modal-close');
+      var legalBackdrop = document.getElementById('legal-modal-backdrop');
+
+      var contentTexts = {
+        gizlilik: {
+          title: 'Gizlilik Politikası',
+          content: '<p><strong>İstiklal Gizlilik Politikası</strong></p><p class="mt-2">Son güncellenme: 14 Eylül 2026</p><p class="mt-4">İstiklal olarak kişisel verilerinize son derece önem veriyoruz. Sistemimizde toplanan veriler yalnızca oyuncu eşleştirmelerini daha isabetli gerçekleştirmek ve size daha iyi bir deneyim sunmak amacıyla kullanılmaktadır.</p><p class="mt-4">Oyun içi istatistikleriniz (K/D, rank vb.) ve oynama süreleriniz herkese açık olarak profilinizde sergilenmekte olup, mesajlaşma verileriniz uçtan uca şifreleme ile korunmaktadır. Üçüncü taraflarla reklam amacıyla asla veri paylaşımı yapmıyoruz.</p>'
+        },
+        kosullar: {
+          title: 'Kullanım Koşulları',
+          content: '<p><strong>İstiklal Genel Kullanım Koşulları</strong></p><p class="mt-4">İstiklal hizmetlerine erişerek aşağıdaki kuralları kabul etmiş sayılırsınız:</p><ul class="list-disc pl-5 mt-4 space-y-2"><li>Platform üzerinde diğer kullanıcılara karşı saygılı ve adil olmak.</li><li>Hile, üçüncü parti yazılım veya manipülatif bot kullanımının kalıcı yasaklanma sebebi olduğunu bilmek.</li><li>Toksik davranışlar ve hakaret içerikli mesajların sistem tarafından otomatik olarak filtrelendiğini kabul etmek.</li></ul><p class="mt-4">Platform yönetimi kural ihlallerinde önceden haber vermeksizin hesapları kapatma hakkını saklı tutar.</p>'
+        },
+        cerez: {
+          title: 'Çerez Politikası',
+          content: '<p><strong>Çerez (Cookie) Kullanımı</strong></p><p class="mt-4">Platformumuzun temel işlevlerini sağlamak (örneğin sisteme giriş yapmış olarak kalmanız) ve güvenliği sağlamak için zaruri çerezler (essential cookies) kullanılmaktadır.</p><p class="mt-4">Sitemizde reklam çerezleri veya üçüncü taraf izleme çerezleri bulundurmamaktayız. Tarayıcı ayarlarınızdan dilediğiniz zaman bu çerezleri silebilirsiniz, ancak bu durum platformun bazı işlevlerinin doğru çalışmamasına sebep olabilir.</p>'
+        },
+        kvkk: {
+          title: 'KVKK Aydınlatma Metni',
+          content: '<p><strong>6698 Sayılı Kişisel Verilerin Korunması Kanunu Çerçevesinde Aydınlatma Metni</strong></p><p class="mt-4">Veri Sorumlusu sıfatıyla İstiklal A.Ş., toplanan ad, e-posta, oyun içi kullanıcı adı ve lokasyon gibi bilgilerinizi KVKK\'nın 5. ve 6. maddelerinde belirtilen kişisel veri işleme şartlarına uygun olarak işlemektedir.</p><p class="mt-4">Amacımız sözleşme gereği tarafınıza hizmet sunabilmek ve adil bir eşleşme ekosistemi kurabilmektir. Sahip olduğunuz haklar kapsamında kişisel verilerinizin kullanımına dair detaylı talep ve itirazlarınızı "destek@duofinder.com" adresine yazılı olarak iletebilirsiniz.</p>'
+        },
+        hakkimizda: {
+          title: 'Hakkımızda',
+          content: '<p><strong>İstiklal Vizyonu</strong></p><p class="mt-4">Oyuncuları bir araya getiren yeni nesil eşleşme platformuyuz. Amacımız, oyun dünyasında yalnızlık çeken veya rekabetçi ekibini arayan herkesi doğru algoritmalarla en uygun takım arkadaşıyla buluşturmaktır.</p>'
+        },
+        kariyer: {
+          title: 'Kariyer',
+          content: '<p><strong>Takımımıza Katılın</strong></p><p class="mt-4">Teknolojiyi ve oyun dünyasını birleştiren dinamik ekibimizde her zaman yeni yeteneklere yer var. Geliştirici, tasarımcı veya oyun analisti olarak bizimle çalışmak isterseniz güncel ilanlarımızı takip edin.</p>'
+        },
+        blog: {
+          title: 'Blog',
+          content: '<p><strong>İstiklal Blog</strong></p><p class="mt-4">Oyun güncellemeleri, meta taktikleri, platform istatistikleri ve oyuncu röportajları hakkında en son yazılarımızı burada bulabileceksiniz. İçeriklerimiz çok yakında yayında!</p>'
+        }
+      };
+
+      window.openLegalModal = function (policyId) {
+        if (contentTexts[policyId]) {
+          legalTitle.textContent = contentTexts[policyId].title;
+          legalContent.innerHTML = contentTexts[policyId].content;
+          legalModal.classList.remove('hidden');
+        }
+      };
+
+      function closeLegalModal() {
+        legalModal.classList.add('hidden');
+      }
+
+      legalCloseBtn.addEventListener('click', closeLegalModal);
+      legalBackdrop.addEventListener('click', closeLegalModal);
+
+      // clearNotifications — handled by notifications.js
+
+      // --- 5. Sidebar Toggle ---
+      var sidebarOpenBtn = document.getElementById('sidebar-open-btn');
+      var sidebar = document.getElementById('sidebar');
+      var sidebarOverlay = document.getElementById('sidebar-overlay');
+      var sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+      function openSidebar() {
+        if (sidebar && sidebarOverlay) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+          sidebarOverlay.classList.remove('hidden');
+        }
+      }
+      function closeSidebar() {
+        if (sidebar && sidebarOverlay) {
+          sidebar.classList.add('-translate-x-full');
+          sidebar.classList.remove('translate-x-0');
+          sidebarOverlay.classList.add('hidden');
+        }
+      }
+      if (sidebarOpenBtn) sidebarOpenBtn.addEventListener('click', openSidebar);
+      if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+      if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // --- 6. Logout (Global Handler) ---
+      function performLogout() {
+        // Show toast
+        var toast = document.getElementById('logout-toast');
+        if (toast) toast.classList.add('show');
+        // Clear session and redirect after brief feedback
+        setTimeout(function () {
+          localStorage.removeItem('loggedInUser');
+          window.location.href = '../duo_finder_dashboard_yeni/code.html';
+        }, 200);
+      }
+      // Wire up all logout buttons
+      var headerLogout = document.getElementById('header-logout-btn');
+      var sidebarLogout = document.getElementById('sidebar-logout-btn');
+      if (headerLogout) headerLogout.addEventListener('click', performLogout);
+      if (sidebarLogout) sidebarLogout.addEventListener('click', performLogout);
+    })();
+
+    // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+    // DYNAMIC DASHBOARD — Live Data Simulation
+    // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+    (function () {
+
+      // ¦¦ Helper: flash animation on element ¦¦
+      function flashElement(el) {
+        el.classList.remove('num-flash');
+        void el.offsetWidth; // force reflow
+        el.classList.add('num-flash');
+      }
+
+      // ¦¦ Helper: format number with commas ¦¦
+      function fmtNum(n) {
+        return n.toLocaleString('tr-TR');
+      }
+
+      // ¦¦ Helper: format large numbers (K / M) ¦¦
+      function fmtLarge(n, suffix) {
+        if (suffix === 'M') return (n / 1000000).toFixed(1) + 'M';
+        if (suffix === 'K') return Math.round(n / 1000) + 'K';
+        return fmtNum(n);
+      }
+
+
+
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      // 2) SOL PANEL — Canlı akış sayıları her 3-5 sn güncelle
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      var streamCounts = document.querySelectorAll('.live-stream-count');
+
+      function updateLiveStreamCounts() {
+        var lobbies = [];
+        try {
+          lobbies = JSON.parse(localStorage.getItem('nexus_lobbies')) || [];
+        } catch (e) { }
+
+        var counts = {
+          valorant: 0,
+          cs2: 0,
+          lol: 0,
+          fortnite: 0
+        };
+
+        var now = Date.now();
+        lobbies.forEach(function (l) {
+          if (now - l.createdAt < 30 * 60 * 1000) { // Check expiry (30 mins)
+            if (counts[l.game] !== undefined) counts[l.game]++;
+          }
+        });
+
+        if (streamCounts[0]) streamCounts[0].textContent = counts.valorant;
+        if (streamCounts[1]) streamCounts[1].textContent = counts.cs2 + ' Lobi';
+        if (streamCounts[2]) streamCounts[2].textContent = counts.lol;
+        if (streamCounts[3]) streamCounts[3].textContent = counts.fortnite;
+      }
+
+      updateLiveStreamCounts();
+      setInterval(updateLiveStreamCounts, 3000);
+
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      // 5) YEREL SAAT — saniye saniye akan saat
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      var clockEl = document.getElementById('live-clock');
+      function updateClock() {
+        if (!clockEl) return;
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2, '0');
+        var m = String(now.getMinutes()).padStart(2, '0');
+        var s = String(now.getSeconds()).padStart(2, '0');
+        clockEl.textContent = h + ':' + m + ':' + s;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      // 6) LIVE MATCHES — 10 sn'de bir fade-in/out güncelleme
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      // Live matches removed — no fake match data
+      var liveMatchesList = document.getElementById('live-matches-list');
+      if (liveMatchesList) {
+        liveMatchesList.innerHTML = '<div class="text-[11px] text-[#849495]/50 font-[\'Poppins\'] text-center py-3">Henüz aktif eşleşme yok</div>';
+      }
+
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      // 7) TREND RADAR — yavaşça güncellenen popüler oyun
+      // ————————————————————————————————————————————————————————————————————————————————————————————————————————————————— 
+      var trendContent = document.getElementById('trend-radar-content');
+      var trendGames = [
+        { name: 'VALORANT', density: 0, icon: 'https://img.icons8.com/?size=100&id=aUZxT3Erwill&format=png&color=000000' },
+        { name: 'LEAGUE OF LEGENDS', density: 0, icon: 'https://www.rw-designer.com/icon-image/21516-64x64x32.png' },
+        { name: 'CS2', density: 0, icon: 'https://img.icons8.com/?size=100&id=jzahITKncvRL&format=png&color=000000' },
+        { name: 'FORTNITE', density: 0, icon: 'https://img.icons8.com/?size=100&id=68099&format=png&color=000000' }
+      ];
+
+      // Trend radar — shows real density only, no random simulation.
+      // When real lobby data is connected, densities will update from backend.
+      if (trendContent) {
+        // Show initial state
+        var initPick = trendGames[0];
+        trendContent.innerHTML = '<div class="w-7 h-7 rounded-full bg-[#0A0B1E] border border-[#ff4655]/50 p-0.5 flex items-center justify-center flex-shrink-0"><img class="w-full h-full" style="object-fit:cover;border-radius:50%;" src="' + initPick.icon + '" alt="' + initPick.name + '"></div><div><p class="text-[12px] font-[\'Poppins\'] font-bold text-[#e2e2e8]">' + initPick.name + '</p><p class="text-[10px] font-[\'Poppins\'] text-[#849495]">0% Yoğunluk</p></div>';
+      }
+
+    })();
+  </script>
+  <script src="../../js/modules/notifications.js"></script>
+  <script src="../../js/core/duo-state.js"></script>
+  <script src="../../js/modals/support-modal.js"></script>
+  <script src="../../js/modals/settings-modal.js"></script>
+  <script src="../../js/modals/feedback-modal.js"></script>
+  <script src="../../js/modules/detail-polish.js"></script>
+  <!-- Removed old smart-match.js -->  <script src="../../js/modules/theme-switcher.js"></script>
+  <script src="../../js/modules/i18n.js"></script>
+  <script src="../../js/core/nexus-ai-core.js"></script>
+  <script src="../../js/core/nexus-ai.js"></script>
+
+  <!-- Duo-Radar Ticker & Daily Meta Card -->
+  <script>
+    (function () {
+      // â•â•â• DUO-RADAR TICKER â•â•â•
+      var tickerMessages = {
+        tr: [
+          '🚀 İstiklal — Oyuncuları bir araya getiren yeni nesil eşleşme platformu!',
+          '💻 Lobi oluştur, duo\'nu bul ve birlikte kazan!',
+          '🎮 Valorant, LoL, CS2 ve Fortnite için duo eşleşme sistemi aktif!',
+          '🧠 Nexus AI destekli akıllı eşleşme teknolojisi ile en uygun duo\'nu keşfet!',
+          '🏆 Haftalık yarışmalara katıl, ödüller kazan!',
+          '🎙️ Duo\'nla sesli iletişim kur, Discord entegrasyonu yakında!'
+        ],
+        en: [
+          '🚀 İstiklal — Next-gen matching platform bringing gamers together!',
+          '💻 Create a lobby, find your duo, and win together!',
+          '🎮 Duo matching system active for Valorant, LoL, CS2 and Fortnite!',
+          '🧠 Discover your best duo with Nexus AI-powered smart matching!',
+          '🏆 Join weekly competitions and win rewards!',
+          '🎙️ Set up voice comms with your duo, Discord integration coming soon!'
+        ]
+      };
+
+      function getCurrentLang() {
+        if (typeof window.getLang === 'function') return window.getLang();
+        return localStorage.getItem('preferred_lang') || 'tr';
+      }
+      function buildTickerContent() {
+        var lang = getCurrentLang();
+        var msgs = [];
+        var customTickers = [];
+        try { customTickers = JSON.parse(localStorage.getItem('platform_tickers')) || []; } catch(e){}
+        if (customTickers.length > 0) {
+          msgs = customTickers.map(function(t) { return t.text; });
+        } else {
+          msgs = tickerMessages[lang] || tickerMessages.tr;
+        }
+        var html = '';
+        for (var copy = 0; copy < 2; copy++) {
+          for (var i = 0; i < msgs.length; i++) {
+            html += '<span class="ticker-item"><span class="ticker-dot"></span>' + msgs[i] + '</span>';
+          }
+        }
+        var track = document.getElementById('ticker-track');
+        if (track) track.innerHTML = html;
+      }
+      buildTickerContent();
+      // Rebuild on language change
+      window.addEventListener('storage', function (e) {
+        if (e.key === 'preferred_lang') buildTickerContent();
+      });
+      // Also rebuild when i18n switches (custom event)
+      document.addEventListener('i18nUpdate', buildTickerContent);
+
+      // â•â•â• NEXUS AI DAILY META CARD â•â•â•
+      var metaTips = {
+        tr: [
+          '<strong>Nexus İpucu:</strong> Profilini tamamla ve oyun hesaplarını bağla — eşleşme kaliten artar!',
+          '<strong>Nexus İpucu:</strong> Lobi oluştururken mikrofon tercihini belirt, daha uyumlu duo\'lar bul!',
+          '<strong>Nexus İpucu:</strong> Ranked modunda oynamadan önce profilindeki rank bilgini güncelle!',
+          '<strong>Nexus İpucu:</strong> Duo\'nla iletişim çok önemli — Discord ID\'ni profiline ekle!',
+          '<strong>Nexus İpucu:</strong> Birden fazla oyun ekleyerek daha geniş bir eşleşme havuzuna gir!',
+          '<strong>Nexus İpucu:</strong> Haftalık yarışmalara katılmayı unutma, ödüller seni bekliyor!',
+          '<strong>Nexus İpucu:</strong> Steam ve Riot hesaplarını bağla, istatistiklerin otomatik güncellensin!',
+          '<strong>Nexus İpucu:</strong> Arkadaşlarını İstiklal\'a davet et, birlikte daha güçlüsünüz!'
+        ],
+        en: [
+          '<strong>Nexus Tip:</strong> Complete your profile and link game accounts — your match quality increases!',
+          '<strong>Nexus Tip:</strong> Specify your mic preference when creating a lobby for better duo matches!',
+          '<strong>Nexus Tip:</strong> Update your rank info on your profile before playing ranked mode!',
+          '<strong>Nexus Tip:</strong> Communication is key — add your Discord ID to your profile!',
+          '<strong>Nexus Tip:</strong> Add multiple games to enter a wider matching pool!',
+          '<strong>Nexus Tip:</strong> Don\'t forget to join weekly competitions, rewards are waiting!',
+          '<strong>Nexus Tip:</strong> Link your Steam and Riot accounts for auto-updated stats!',
+          '<strong>Nexus Tip:</strong> Invite your friends to İstiklal, you\'re stronger together!'
+        ]
+      };
+
+      var metaCard = document.getElementById('daily-meta-card');
+      var metaText = document.getElementById('meta-card-text');
+      var metaLabel = document.getElementById('meta-card-label');
+      var metaCloseBtn = document.getElementById('meta-close-btn');
+      var dismissKey = 'nexus_meta_dismissed_' + new Date().toDateString();
+
+      function showMetaCard() {
+        if (localStorage.getItem(dismissKey)) return;
+        var lang = getCurrentLang();
+        var tips = metaTips[lang] || metaTips.tr;
+        // Pick a daily-consistent random tip
+        var dayIndex = new Date().getDate() % tips.length;
+        if (metaText) metaText.innerHTML = tips[dayIndex];
+        if (metaLabel) metaLabel.textContent = lang === 'en' ? 'NEXUS TIP' : 'NEXUS TAKTİK';
+        setTimeout(function () {
+          if (metaCard) metaCard.classList.add('visible');
+        }, 2000);
+        // Auto-dismiss after 12 seconds
+        setTimeout(function () {
+          if (metaCard && !metaCard.classList.contains('dismissed')) {
+            metaCard.classList.remove('visible');
+            metaCard.classList.add('dismissed');
+          }
+        }, 14000);
+      }
+
+      if (metaCloseBtn) {
+        metaCloseBtn.addEventListener('click', function () {
+          metaCard.classList.remove('visible');
+          metaCard.classList.add('dismissed');
+          localStorage.setItem(dismissKey, '1');
+        });
+      }
+      showMetaCard();
+      document.addEventListener('languageChanged', function () {
+        if (metaCard && metaCard.classList.contains('visible')) {
+          var lang = getCurrentLang();
+          var tips = metaTips[lang] || metaTips.tr;
+          var dayIndex = new Date().getDate() % tips.length;
+          if (metaText) metaText.innerHTML = tips[dayIndex];
+          if (metaLabel) metaLabel.textContent = lang === 'en' ? 'NEXUS TIP' : 'NEXUS TAKTİK';
+        }
+      });
+    })();
+  </script>
+
+  <!-- Drawer & Profile Dropdown Logic -->
+  <script>
+    (function () {
+      // === DRAWER ===
+      var drawer = document.getElementById('nav-drawer');
+      var overlay = document.getElementById('nav-drawer-overlay');
+      var openBtn = document.getElementById('mobile-menu-btn');
+      var closeBtn = document.getElementById('drawer-close-btn');
+
+      function openDrawer() {
+        if (drawer) drawer.classList.add('open');
+        if (overlay) overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        if (drawer) drawer.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      window.closeDrawer = closeDrawer; // expose globally for onclick handlers
+      if (openBtn) openBtn.addEventListener('click', openDrawer);
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if (overlay) overlay.addEventListener('click', closeDrawer);
+
+      // Drawer theme toggle proxy
+      var drawerTheme = document.getElementById('drawer-theme-toggle');
+      if (drawerTheme) {
+        drawerTheme.addEventListener('click', function () {
+          var headerToggle = document.getElementById('theme-toggle-row');
+          if (headerToggle) headerToggle.click();
+        });
+      }
+
+      // Drawer logout
+      var drawerLogout = document.getElementById('drawer-logout-btn');
+      if (drawerLogout) {
+        drawerLogout.addEventListener('click', function () {
+          closeDrawer();
+          if (typeof performLogout === 'function') {
+            performLogout();
+          } else {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '../duo_finder_dashboard_yeni/code.html';
+          }
+        });
+      }
+
+      // Header logout button
+      var headerLogout = document.getElementById('header-logout-btn');
+      if (headerLogout) {
+        headerLogout.addEventListener('click', function (e) {
+          e.preventDefault();
+          // Create and show Toast
+          var toast = document.createElement('div');
+          toast.id = 'logout-toast';
+          toast.className = 'show';
+          toast.innerHTML = '<div class="flex items-center gap-3"><span class="material-symbols-outlined text-[#ff4444] text-3xl">logout</span><div><h4 class="font-[\'Outfit\'] font-bold text-[#e2e2e8]">Çıkış Yapılıyor...</h4><p class="text-xs text-[#849495] mt-1">Oturumunuz kapatılıyor, lütfen bekleyin.</p></div></div>';
+          document.body.appendChild(toast);
+
+          // Redirect after short delay
+          setTimeout(function () {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = '../duo_finder_dashboard_yeni/code.html';
+          }, 800);
+        });
+      }
+    })();
+  </script>
+
+  <!-- Scroll Animations -->
+  <script>
+    (function () {
+      function checkReveal() {
+        var reveals = document.querySelectorAll('.reveal-on-scroll');
+        var windowHeight = window.innerHeight;
+        reveals.forEach(function (reveal) {
+          var elementTop = reveal.getBoundingClientRect().top;
+          // Trigger when element is within viewport (or close to it)
+          if (elementTop < windowHeight - 50) {
+            reveal.classList.remove('opacity-0', 'translate-y-10');
+            reveal.classList.add('opacity-100', 'translate-y-0');
+          }
+        });
+      }
+      window.addEventListener('scroll', checkReveal);
+      window.addEventListener('resize', checkReveal);
+      // Trigger once on load
+      setTimeout(checkReveal, 200);
+    })();
+  </script>
+
+  <!-- â•â•â•â•â•â• GUEST AUTH MODAL â•â•â•â•â•â• -->
+  <div id="guest-auth-modal-overlay">
+    <div id="guest-auth-modal">
+      <div class="gam-icon">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+      </div>
+      <div class="gam-title" id="gam-title">Giriş Gerekli</div>
+      <div class="gam-desc" id="gam-desc">Bu özelliği kullanabilmek için hesap oluşturmanız veya giriş yapmanız
+        gerekiyor.</div>
+      <div class="gam-btns">
+        <a href="../kay_t_ol_register/code.html" class="gam-btn-register">
+          <span class="material-symbols-outlined" style="font-size:18px;">person_add</span>
+          <span id="gam-register-label">Kayıt Ol</span>
+        </a>
+        <a href="../giri_yap_login/code.html" class="gam-btn-login">
+          <span class="material-symbols-outlined" style="font-size:18px;">login</span>
+          <span id="gam-login-label">Giriş Yap</span>
+        </a>
+      </div>
+      <button class="gam-close" id="gam-close-btn">Kapat</button>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â• GUEST MODE LOGIC â•â•â•â•â•â• -->
+  <script>
+    (function () {
+      if (!window.DF_GUEST_MODE) return;
+
+      // ¦¦¦ Show guest banner ¦¦¦
+      var banner = document.getElementById('guest-banner');
+      if (banner) banner.style.display = 'block';
+
+      // ¦¦¦ Header: hide profile/logout/notifs, show auth buttons ¦¦¦
+      var profileLink = document.getElementById('header-profile-link');
+      var logoutBtn = document.getElementById('header-logout-btn');
+      var notifWrapper = document.getElementById('notif-wrapper');
+      var guestHdrBtns = document.getElementById('guest-header-btns');
+      var searchInput = document.getElementById('header-search-input');
+
+      if (profileLink) profileLink.style.display = 'none';
+      if (logoutBtn) logoutBtn.style.display = 'none';
+      if (notifWrapper) notifWrapper.style.display = 'none';
+      if (guestHdrBtns) guestHdrBtns.style.display = 'flex';
+      if (searchInput) {
+        searchInput.disabled = true;
+        searchInput.style.opacity = '0.4';
+        searchInput.style.cursor = 'not-allowed';
+        searchInput.closest('.header-search').style.opacity = '0.5';
+        searchInput.closest('.header-search').style.cursor = 'not-allowed';
+      }
+
+      // ¦¦¦ Drawer: hide logout, show guest user ¦¦¦
+      var drawerLogout = document.getElementById('drawer-logout-btn');
+      if (drawerLogout) drawerLogout.style.display = 'none';
+      // Update drawer user card to show "Misafir"
+      var drawerUserName = document.querySelector('#nav-drawer .profile-name-disp');
+      var drawerUserRole = document.querySelector('#nav-drawer .profile-role-disp');
+      if (drawerUserName) drawerUserName.textContent = 'Misafir';
+      if (drawerUserRole) drawerUserRole.textContent = 'Giriş yapılmadı';
+
+      // ¦¦¦ Modal System ¦¦¦
+      var modalOverlay = document.getElementById('guest-auth-modal-overlay');
+      var closeBtn = document.getElementById('gam-close-btn');
+
+      function showGuestModal() {
+        if (modalOverlay) modalOverlay.classList.add('open');
+      }
+      function hideGuestModal() {
+        if (modalOverlay) modalOverlay.classList.remove('open');
+      }
+      window.showGuestAuthModal = showGuestModal;
+
+      if (closeBtn) closeBtn.addEventListener('click', hideGuestModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function (e) {
+          if (e.target === modalOverlay) hideGuestModal();
+        });
+      }
+
+      // ¦¦¦ Intercept nav links ¦¦¦
+      var navLinks = document.querySelectorAll('.nav-link-left');
+      navLinks.forEach(function (link) {
+        // Allow Support button (keep accessible)
+        var textEl = link.querySelector('[data-i18n]');
+        if (textEl) {
+          var key = textEl.getAttribute('data-i18n');
+          if (key === 'nav_support') return; // keep support accessible
+        }
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showGuestModal();
+        });
+        // For <a> tags, remove href
+        if (link.tagName === 'A') {
+          link.removeAttribute('href');
+          link.style.cursor = 'pointer';
+        }
+      });
+
+      // ¦¦¦ Intercept drawer nav items (except theme/lang) ¦¦¦
+      var drawerItems = document.querySelectorAll('#nav-drawer .drawer-item');
+      drawerItems.forEach(function (item) {
+        var icon = item.querySelector('.material-symbols-outlined');
+        if (!icon) return;
+        var iconText = icon.textContent.trim();
+        // Keep theme/lang accessible, block the rest
+        if (iconText === 'dark_mode' || iconText === 'translate') return;
+        // Keep support accessible
+        if (iconText === 'support_agent') return;
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof closeDrawer === 'function') closeDrawer();
+          setTimeout(showGuestModal, 300);
+        });
+        if (item.tagName === 'A') {
+          item.removeAttribute('href');
+          item.style.cursor = 'pointer';
+        }
+      });
+
+      // ¦¦¦ Intercept header account nav buttons (Settings, Rules, FAQ, Report, Feedback) ¦¦¦
+      var accountBtns = document.querySelectorAll('nav.hidden.xl\\:flex button');
+      accountBtns.forEach(function (btn) {
+        var key = btn.getAttribute('data-i18n');
+        // Allow FAQ (SSS) and Rules
+        if (key === 'nav_faq' || key === 'nav_rules') return;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showGuestModal();
+        });
+      });
+
+      // ¦¦¦ Guest interception on SmartMatch ¦¦¦
+      setTimeout(function () {
+        // Smart match button intercept
+        var smartMatchBtns = document.querySelectorAll('[onclick*="smartMatch"], [onclick*="SmartMatch"], .smart-match-btn');
+        smartMatchBtns.forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            if (window.DF_GUEST_MODE) {
+              e.preventDefault();
+              e.stopPropagation();
+              showGuestModal();
+            }
+          });
+        });
+      }, 500);
+
+      // ¦¦¦ i18n support for guest elements ¦¦¦
+      function updateGuestI18n() {
+        var lang = (localStorage.getItem('preferred_lang') || 'tr');
+        var texts = {
+          tr: {
+            banner: '✨ İstiklal\'ı keşfediyorsunuz! Lobiler, eşleşmeler ve tüm özelliklere erişmek için <strong>Kayıt Ol</strong> veya <strong>Giriş Yap</strong>.',
+            modalTitle: 'Giriş Gerekli',
+            modalDesc: 'Bu özelliği kullanabilmek için hesap oluşturmanız veya giriş yapmanız gerekiyor.',
+            register: 'Kayıt Ol',
+            login: 'Giriş Yap',
+            close: 'Kapat'
+          },
+          en: {
+            banner: '✨ You\'re exploring İstiklal! <strong>Sign Up</strong> or <strong>Log In</strong> to access lobbies, matches, and all features.',
+            modalTitle: 'Login Required',
+            modalDesc: 'You need to create an account or log in to use this feature.',
+            register: 'Sign Up',
+            login: 'Log In',
+            close: 'Close'
+          }
+        };
+        var t = texts[lang] || texts.tr;
+        var bannerText = document.getElementById('guest-banner-text');
+        var gamTitle = document.getElementById('gam-title');
+        var gamDesc = document.getElementById('gam-desc');
+        var gamRegLabel = document.getElementById('gam-register-label');
+        var gamLogLabel = document.getElementById('gam-login-label');
+        var gamCloseBtn = document.getElementById('gam-close-btn');
+        var hdrBtns = document.getElementById('guest-header-btns');
+
+        if (bannerText) bannerText.innerHTML = t.banner;
+        if (gamTitle) gamTitle.textContent = t.modalTitle;
+        if (gamDesc) gamDesc.textContent = t.modalDesc;
+        if (gamRegLabel) gamRegLabel.textContent = t.register;
+        if (gamLogLabel) gamLogLabel.textContent = t.login;
+        if (gamCloseBtn) gamCloseBtn.textContent = t.close;
+        if (hdrBtns) {
+          var links = hdrBtns.querySelectorAll('a');
+          if (links[0]) links[0].textContent = t.register;
+          if (links[1]) links[1].textContent = t.login;
+        }
+        // Banner buttons
+        var bannerBtns = document.querySelectorAll('#guest-banner .guest-banner-btns a');
+        if (bannerBtns[0]) bannerBtns[0].textContent = t.register;
+        if (bannerBtns[1]) bannerBtns[1].textContent = t.login;
+      }
+      updateGuestI18n();
+      document.addEventListener('languageChanged', updateGuestI18n);
+
+    })();
+  </script>
+
+  <script src="../../js/modules/profile-navigation.js"></script>
+  <script src="../../js/modals/community-modals.js"></script>
+  <script src="../../js/modules/header-enhancements.js"></script>
+  <script src="../../js/modules/profile-sync.js"></script>
+  <script src="../../js/modals/report-modal.js"></script>
+  <script src="../../js/modules/mobile-nav.js"></script>
+
+
+  <!-- â•â•â•â•â•â• MEGA MENU & INTERACTION SYSTEM â•â•â•â•â•â• -->
+  <script>
+    (function () {
+      // === MEGA MENU HOVER/CLICK TOGGLE ===
+      var megaWraps = document.querySelectorAll('.mega-trigger-wrap');
+      var activeWrap = null;
+      var hoverTimeout = null;
+
+      function openMega(wrap) {
+        if (activeWrap && activeWrap !== wrap) closeMega(activeWrap);
+        var panel = wrap.querySelector('.mega-dropdown');
+        var trigger = wrap.querySelector('.mega-trigger');
+        if (panel) panel.classList.add('visible');
+        if (trigger) trigger.classList.add('active');
+        activeWrap = wrap;
+      }
+
+      function closeMega(wrap) {
+        if (!wrap) return;
+        var panel = wrap.querySelector('.mega-dropdown');
+        var trigger = wrap.querySelector('.mega-trigger');
+        if (panel) panel.classList.remove('visible');
+        if (trigger) trigger.classList.remove('active');
+        if (activeWrap === wrap) activeWrap = null;
+      }
+
+      function closeAllMega() {
+        megaWraps.forEach(function (w) { closeMega(w); });
+      }
+
+      megaWraps.forEach(function (wrap) {
+        // Click toggle
+        var trigger = wrap.querySelector('.mega-trigger');
+        if (trigger) {
+          trigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (activeWrap === wrap) { closeMega(wrap); } else { openMega(wrap); }
+          });
+        }
+        // Hover
+        wrap.addEventListener('mouseenter', function () {
+          clearTimeout(hoverTimeout);
+          openMega(wrap);
+        });
+        wrap.addEventListener('mouseleave', function () {
+          hoverTimeout = setTimeout(function () { closeMega(wrap); }, 200);
+        });
+      });
+
+      // Close on outside click
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.mega-trigger-wrap')) closeAllMega();
+      });
+
+      // === MEGA ITEM ACTION HANDLERS ===
+      var actionMap = {
+        'lobby': function () { document.querySelector('.lobby-tab')?.click(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+
+
+        'player-search': function () { var s = document.getElementById('header-search-input'); if (s) { s.focus(); s.scrollIntoView({ behavior: 'smooth' }); } },
+        'leaderboard': function () { showComingSoon('Sıralama Tablosu'); },
+        'duo-challenge': function () { showComingSoon('Duo Meydan Okuma'); },
+        'stats': function () { window.location.href = '../oyuncu_profili/code.html'; },
+        'meta': function () { showComingSoon('Meta Trendler'); },
+        'clips': function () { window.location.href = './klipler.html'; },
+
+        'polls': function () { showComingSoon('Anketler & Oylama'); },
+        'friends': function () { showComingSoon('Arkadaşlar'); },
+        'messages': function () { showComingSoon('Mesajlar'); },
+        'discord': function () { showComingSoon('Discord Sunucusu'); },
+        'daily-missions': function () { showComingSoon('Günlük Görevler'); },
+        'achievements': function () { showComingSoon('Başarımlar'); },
+        'season-pass': function () { showComingSoon('Sezon Passu'); },
+        'level': function () { showComingSoon('XP & Seviye'); },
+        'weekly-reward': function () { showComingSoon('Haftalık Ödül'); },
+        'forum-scroll': function () { window.location.href = './forum.html'; },
+        'forum-new-topic': function () { window.location.href = './forum.html'; },
+        'support': function () { if (typeof openSupportModal === 'function') openSupportModal(); },
+        'faq': function () { if (typeof openFAQModal === 'function') openFAQModal(); },
+        'rules': function () { if (typeof openRulesModal === 'function') openRulesModal(); },
+        'report': function () { if (typeof openReportModal === 'function') openReportModal(); },
+        'feedback': function () { if (typeof openFeedbackModal === 'function') openFeedbackModal(); }
+      };
+
+      // Coming Soon Toast
+      function showComingSoon(featureName) {
+        var existing = document.getElementById('coming-soon-toast');
+        if (existing) existing.remove();
+        var toast = document.createElement('div');
+        toast.id = 'coming-soon-toast';
+        toast.style.cssText = 'position:fixed;top:100px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:9999;background:rgba(14,15,36,0.97);backdrop-filter:blur(24px);border:1px solid rgba(139,92,246,0.2);border-radius:16px;padding:14px 24px;box-shadow:0 12px 40px rgba(0,0,0,0.5),0 0 20px rgba(139,92,246,0.08);display:flex;align-items:center;gap:12px;opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);';
+        toast.innerHTML = '<span class="material-symbols-outlined" style="color:#ffaa00;font-size:22px;font-variation-settings:\'FILL\' 1;">construction</span><div><div style="font-family:Outfit;font-size:13px;font-weight:700;color:#e2e2e8;">' + featureName + '</div><div style="font-family:Poppins;font-size:10px;color:#849495;">Bu özellik çok yakında aktif olacak!</div></div><span style="font-family:Outfit;font-size:9px;font-weight:800;background:rgba(255,170,0,0.1);color:#ffaa00;border:1px solid rgba(255,170,0,0.2);padding:2px 8px;border-radius:6px;">YAKINDA</span>';
+        document.body.appendChild(toast);
+        requestAnimationFrame(function () {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateX(-50%) translateY(0)';
+        });
+        setTimeout(function () {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(-50%) translateY(-20px)';
+          setTimeout(function () { if (toast.parentNode) toast.remove(); }, 350);
+        }, 2800);
+      }
+      window.showComingSoon = showComingSoon;
+
+      // Wire up all data-action elements
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest('[data-action]');
+        if (!el) return;
+        var action = el.getAttribute('data-action');
+        if (!action) return;
+
+        // Guest mode check - some actions allowed, rest blocked
+        var freeActions = ['support', 'faq', 'rules', 'lobby', 'forum-scroll', 'forum-new-topic'];
+        if (window.DF_GUEST_MODE && freeActions.indexOf(action) === -1) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeAllMega();
+          if (typeof window.showGuestAuthModal === 'function') window.showGuestAuthModal();
+          return;
+        }
+
+        closeAllMega();
+        var handler = actionMap[action];
+        if (handler) handler();
+      });
+
+      // === DRAWER ACCORDION TOGGLE ===
+      document.querySelectorAll('.drawer-accordion-header').forEach(function (header) {
+        header.addEventListener('click', function () {
+          var key = header.getAttribute('data-accordion');
+          var body = document.querySelector('[data-accordion-body="' + key + '"]');
+          var isOpen = header.classList.contains('open');
+          // Close all others
+          document.querySelectorAll('.drawer-accordion-header').forEach(function (h) { h.classList.remove('open'); });
+          document.querySelectorAll('.drawer-accordion-body').forEach(function (b) { b.classList.remove('open'); });
+          if (!isOpen && body) {
+            header.classList.add('open');
+            body.classList.add('open');
+          }
+        });
+      });
+
+      // === BOTTOM NAV MORE POPUP ===
+      var moreBtn = document.getElementById('bottom-nav-more-btn');
+      var morePopup = document.getElementById('bottom-nav-more-popup');
+      if (moreBtn && morePopup) {
+        moreBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          morePopup.classList.toggle('visible');
+        });
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#bottom-nav-more-popup') && !e.target.closest('#bottom-nav-more-btn')) {
+            morePopup.classList.remove('visible');
+          }
+        });
+      }
+
+      // === ADJUST SPACING FOR SUB-HEADER ===
+      // Sub-header adds 44px, ticker was at top:80px -> now at 124px
+      var ticker = document.getElementById('duo-radar-ticker');
+      if (ticker && window.innerWidth >= 1024) {
+        ticker.style.top = '124px';
+      }
+      window.addEventListener('resize', function () {
+        if (ticker) ticker.style.top = window.innerWidth >= 1024 ? '124px' : '80px';
+      });
+
+      // Adjust main content top padding
+      var mainContent = document.querySelector('.pt-\\[136px\\]');
+      if (mainContent && window.innerWidth >= 1024) {
+        mainContent.style.paddingTop = '180px';
+      }
+      window.addEventListener('resize', function () {
+        if (mainContent) mainContent.style.paddingTop = window.innerWidth >= 1024 ? '180px' : '136px';
+      });
+
+    })();
+  </script>
+
+  <script>
+    // â•â• One-time localStorage cleanup (removes stale cached data) â•â•
+    (function () {
+      var CLEANUP_FLAG = 'nexus_cleanup_v1_done';
+      if (localStorage.getItem(CLEANUP_FLAG)) return; // already cleaned
+      var keysToRemove = ['nexus_lfg_lobbies', 'globalNotifications', 'duo_requests_incoming', 'nexus_lobbies'];
+      for (var i = 0; i < keysToRemove.length; i++) {
+        localStorage.removeItem(keysToRemove[i]);
+      }
+      localStorage.setItem(CLEANUP_FLAG, '1');
+      console.log('[Nexus Cleanup] Eski cache verileri temizlendi:', keysToRemove.join(', '));
+    })();
+  </script>  <script>
+    // â• â•  DASHBOARD LFG FEED LOGIC â• â• 
+    window.currentDashboardFilter = 'all';
+    
+    function setDashboardFilter(game, btnEl) {
+      window.currentDashboardFilter = game;
+      // Reset all buttons
+      var container = btnEl.closest('.filter-buttons-container');
+      if(container) {
+        var btns = container.querySelectorAll('.filter-btn');
+        btns.forEach(function(b) {
+          b.classList.remove('text-[#8B5CF6]', 'border-b-2', 'border-[#8B5CF6]');
+          b.classList.add('text-[#849495]');
+        });
+      }
+      // Set active
+      btnEl.classList.remove('text-[#849495]');
+      btnEl.classList.add('text-[#8B5CF6]', 'border-b-2', 'border-[#8B5CF6]');
+      
+      renderDashboardFeed();
+    }
+
+    function renderDashboardFeed() {
+      var feedContainer = document.getElementById('dashboard-lfg-feed');
+      var statLobbies = document.getElementById('sidebar-stat-lobbies');
+      var statUsers = document.getElementById('sidebar-stat-users');
+      if (!feedContainer) return;
+      
+      var lobbies = JSON.parse(localStorage.getItem('nexus_lfg_lobbies') || '[]');
+      var allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      // Update sidebar stats
+      if (statLobbies) statLobbies.textContent = lobbies.length;
+      if (statUsers) statUsers.textContent = allUsers.length;
+      
+      if (lobbies.length === 0) {
+        feedContainer.innerHTML = '<div class="bg-[#141530]/60 backdrop-blur-xl border border-[#2D2E4A]/40 rounded-2xl p-8 text-center"><span class="material-symbols-outlined text-[#849495] text-4xl mb-3">search_off</span><h4 class="font-[\'Outfit\'] font-bold text-sm text-[#e2e2e8] mb-1">Henüz Lobi Yok</h4><p class="font-[\'Space_Grotesk\'] text-xs text-[#849495]">İlk lobiyi oluşturan sen ol!</p></div>';
+        return;
+      }
+      
+      // Filter lobbies by game
+      if (window.currentDashboardFilter !== 'all') {
+        lobbies = lobbies.filter(function(l) { return l.game === window.currentDashboardFilter; });
+      }
+
+      // Sort newest first
+      lobbies.sort(function(a, b) { return b.createdAt - a.createdAt; });
+      
+      var html = '';
+      var maxDisplay = 10; // Show up to 10 latest lobbies
+      var currentUser = localStorage.getItem('loggedInUser') ? (JSON.parse(localStorage.getItem('users')) || []).find(function(u){return u.email === localStorage.getItem('loggedInUser')}) : null;
+      var currentUsername = currentUser ? (currentUser.username || currentUser.email.split('@')[0]) : null;
+
+      for (var i = 0; i < Math.min(lobbies.length, maxDisplay); i++) {
+        var l = lobbies[i];
+        var hostName = l.players && l.players.length > 0 ? l.players[0] : 'Oyuncu';
+        var isFull = l.players && l.players.length >= (l.maxSlots || 5);
+        var isJoined = currentUsername && l.players && l.players.indexOf(currentUsername) >= 0;
+        
+        var gameColors = { 'valorant': '#ff4655', 'cs2': '#de9b35', 'lol': '#c89b3c', 'fortnite': '#00b4ff', 'minecraft': '#5da83a', 'gta5': '#52b043', 'pubg': '#f2a900', 'apex': '#b02f26', 'r6': '#1c9be8', 'other': '#a78bfa' };
+        var gc = gameColors[l.game] || gameColors.other;
+        
+        // Time ago
+        var createdAt = l.createdAt || Date.now();
+        var diffSecs = Math.floor((Date.now() - createdAt) / 1000);
+        var timeStr = diffSecs < 60 ? 'Az önce' : (Math.floor(diffSecs/60) < 60 ? Math.floor(diffSecs/60) + ' dk önce' : Math.floor(diffSecs/3600) + ' saat önce');
+
+        html += '<div class="bg-[#141530]/80 backdrop-blur-xl border border-[#2D2E4A]/50 hover:border-[#8B5CF6]/30 transition-all rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 sm:items-center">';
+        
+        // Avatar + User Info
+        html += '  <div class="flex items-center gap-4 flex-1">';
+        html += '    <div class="relative">';
+        html += '      <div class="w-12 h-12 rounded-xl bg-[#0A0B1E] border-2 border-[#8B5CF6]/40 flex items-center justify-center overflow-hidden">';
+        html += '        <span class="font-[\'Outfit\'] font-black text-lg text-[#8B5CF6]">' + hostName.charAt(0).toUpperCase() + '</span>';
+        html += '      </div>';
+        html += '      <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#00ff88] rounded-full border-2 border-[#141530]"></div>';
+        html += '    </div>';
+        html += '    <div class="flex-1">';
+        html += '      <div class="flex items-center gap-2">';
+        html += '        <h4 class="font-[\'Outfit\'] font-bold text-sm text-[#e2e2e8] hover:text-[#8B5CF6] cursor-pointer transition-colors">' + hostName + '</h4>';
+        html += '        <span class="font-[\'Space_Grotesk\'] text-[9px] text-[#849495] flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">schedule</span>' + timeStr + '</span>';
+        html += '      </div>';
+        html += '      <p class="font-[\'Space_Grotesk\'] text-[13px] text-[#b9cacb] mt-1 pr-2">' + (l.desc || 'Yeni Lobi') + '</p>';
+        html += '      <div class="flex flex-wrap items-center gap-2 mt-2">';
+        html += '        <span class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest" style="background:'+gc+'20;color:'+gc+';border:1px solid '+gc+'30">' + l.game + '</span>';
+        if (l.rank && l.rank !== 'any') {
+          html += '        <span class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest bg-[#2D2E4A] text-[#849495] border border-[#3a494b]/50">' + l.rank + '</span>';
+        }
+        if (l.mic === 'required') {
+          html += '        <span class="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest bg-[#ff4444]/10 text-[#ff4444] border border-[#ff4444]/20 flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">mic</span> Mic Z.</span>';
+        }
+        html += '      </div>';
+        html += '    </div>';
+        html += '  </div>';
+
+        // Right side (Slots + Button)
+        html += '  <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 shrink-0 sm:w-32 sm:border-l sm:border-[#2D2E4A]/50 pl-0 sm:pl-4 mt-2 sm:mt-0">';
+        html += '    <div class="flex items-center gap-2">';
+        html += '      <span class="material-symbols-outlined text-[#849495] text-[16px]">group</span>';
+        html += '      <span class="font-[\'Syne\'] font-bold text-sm ' + (isFull ? 'text-[#ff4444]' : 'text-[#00ff88]') + '">' + (l.players ? l.players.length : 1) + '/' + (l.maxSlots || 5) + '</span>';
+        html += '    </div>';
+        
+        if (isJoined) {
+           html += '    <button class="w-full sm:w-auto px-5 py-2 rounded-xl bg-[#2D2E4A] border border-[#3a494b] font-[\'Outfit\'] font-bold text-xs text-[#849495] cursor-default">Katıldın</button>';
+        } else if (isFull) {
+           html += '    <button class="w-full sm:w-auto px-5 py-2 rounded-xl bg-[#ff4444]/10 border border-[#ff4444]/20 font-[\'Outfit\'] font-bold text-xs text-[#ff4444] cursor-not-allowed">Dolu</button>';
+        } else {
+           html += '    <button onclick="window.location.href=\'../lobi_sayfasi/code.html\'" class="w-full sm:w-auto px-6 py-2 rounded-xl bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] font-[\'Outfit\'] font-bold text-xs text-white shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)] transition-all transform hover:-translate-y-0.5">Katıl</button>';
+        }
+        html += '  </div>';
+        html += '</div>';
+      }
+      
+      feedContainer.innerHTML = html;
+    }
+    
+    function loadSidebarAnnouncements() {
+      var sidebarContainer = document.getElementById('dynamic-announcements-sidebar');
+      var listContainer = document.getElementById('sidebar-announcements-list');
+      if (!sidebarContainer || !listContainer) return;
+      var announcements = [];
+      try { announcements = JSON.parse(localStorage.getItem('platform_announcements')) || []; } catch (e) { }
+      if (announcements.length === 0) {
+        sidebarContainer.style.display = 'none';
+        return;
+      }
+      sidebarContainer.style.display = 'block';
+      listContainer.innerHTML = '';
+      var count = Math.min(announcements.length, 3);
+      for (var i = 0; i < count; i++) {
+        var a = announcements[i];
+        var borderColors = {
+          info: '#8B5CF6',
+          update: '#00ff88',
+          event: '#ffaa00',
+          warning: '#ff4444',
+          maintenance: '#ff4444'
+        };
+        var borderCol = borderColors[a.type] || '#8B5CF6';
+        var div = document.createElement('div');
+        div.className = 'p-3 rounded-xl bg-[#0A0B1E]/40 border border-[#2D2E4A]/30 space-y-1.5';
+        div.style.borderLeft = '3px solid ' + borderCol;
+        div.innerHTML = '<div class="flex items-center gap-2">'
+          + '<span style="font-size:12px;">' + a.icon + '</span>'
+          + '<span class="font-[\'Outfit\'] font-bold text-xs text-[#e2e2e8]">' + a.title + '</span>'
+          + '</div>'
+          + '<p class="font-[\'Poppins\'] text-[11px] text-[#849495] leading-relaxed">' + a.body + '</p>'
+          + '<div class="font-[\'Outfit\'] text-[9px] text-[#849495]/60">' + a.dateStr + '</div>';
+        listContainer.appendChild(div);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      renderDashboardFeed();
+      loadSidebarAnnouncements();
+    });
+  </script>
+
+  <!-- Leaderboard Timer Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const getNextSunday = () => {
+        const d = new Date();
+        const diff = (7 - d.getDay()) % 7;
+        d.setDate(d.getDate() + (diff === 0 ? 7 : diff));
+        d.setHours(23, 59, 59, 0);
+        return d;
+      };
+      
+      let countDownDate = getNextSunday().getTime();
+
+      const updateLeaderboardTimer = () => {
+        const now = new Date().getTime();
+        let distance = countDownDate - now;
+
+        if (distance < 0) {
+          countDownDate = getNextSunday().getTime();
+          distance = countDownDate - now;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const elDays = document.getElementById('lb-days');
+        const elHours = document.getElementById('lb-hours');
+        const elMins = document.getElementById('lb-mins');
+        const elSecs = document.getElementById('lb-secs');
+
+        if (elDays) elDays.innerText = String(days).padStart(2, '0');
+        if (elHours) elHours.innerText = String(hours).padStart(2, '0');
+        if (elMins) elMins.innerText = String(minutes).padStart(2, '0');
+        if (elSecs) elSecs.innerText = String(seconds).padStart(2, '0');
+      };
+
+      // updateLeaderboardTimer();
+      // setInterval(updateLeaderboardTimer, 1000);
+    });
+  </script>
+</body>
+
+</html>
+
+
